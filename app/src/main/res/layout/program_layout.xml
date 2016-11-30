@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F9F9"
+    android:orientation="vertical"
+    android:weightSum="5">
+
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:src="@drawable/heart"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="5dp"
+        android:layout_height="120dp" />
+
+    <TextView
+        android:id="@+id/t2"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:textColor="#A8ADB0"
+        android:text="TextView"
+        android:layout_below="@+id/t1"
+        android:layout_centerHorizontal="true"
+        android:textStyle="normal|italic" />
+
+    <TextView
+        android:id="@+id/t1"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:text="TextView"
+        android:textColor="#000203"
+
+        android:layout_below="@+id/image1"
+        android:layout_centerHorizontal="true"
+        tools:textSize="18sp"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="#BF5C5C"
+        android:text="TextView"
+        android:textStyle="normal|bold"
+        android:layout_below="@+id/t2"
+        android:layout_alignRight="@+id/t2"
+        android:layout_alignEnd="@+id/t2"
+        android:layout_marginRight="26dp"
+        android:layout_marginEnd="26dp" />
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/price1"
+        android:textSize="15dp"
+        android:textColor="#BF5C5C"
+        android:text="TextView"
+        android:layout_alignBottom="@+id/price"
+        android:layout_toRightOf="@+id/t2"
+        android:layout_toEndOf="@+id/t2" />
+
+    <RatingBar
+        android:id="@+id/rating"
+        style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
+        android:layout_height="20dp"
+        android:numStars="5"
+        android:stepSize="0.1"
+        android:rating="5"
+        android:clickable="true"
+        android:contextClickable="true"
+        android:layout_width="80dp"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/price"
+        android:layout_alignRight="@+id/t1"
+        android:layout_alignEnd="@+id/t1" />
+
+</RelativeLayout>

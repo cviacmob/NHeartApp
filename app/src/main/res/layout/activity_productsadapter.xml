@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_productsadapter"
     android:layout_width="match_parent"
@@ -10,14 +11,36 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".activities.ProductlistActivity">
 
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/textView2"
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@mipmap/fseven"
+        android:id="@+id/imageView"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tex1"
+        android:layout_weight="1"
+        android:background="#10BCE3"
+        android:textColor="#FFFFFF"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp" />
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp" />
+
+
+    <!--android:gravity="center_vertical"-->
+
+        <!--android:textAppearance="@style/TextAppearance.AppCompat.Body1"-->
+        <!--android:layout_below="@+id/img1"-->
+        <!--android:layout_alignLeft="@+id/tex2"-->
+        <!--android:layout_alignStart="@+id/tex2"-->
+        <!--android:layout_marginTop="19dp" />-->
 </RelativeLayout>

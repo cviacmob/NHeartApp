@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F9F9">
+
+    <ImageView
+        android:layout_width="wrap_content"
+
+        app:srcCompat="@mipmap/feight"
+        android:id="@+id/ima1"
+        android:layout_weight="1"
+        android:layout_marginTop="26dp"
+
+        android:paddingTop="5dp"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tex1"
+        android:layout_weight="1"
+        android:background="#10BCE3"
+        android:textColor="#FFFFFF"
+
+        android:gravity="center_vertical"
+
+        android:layout_marginTop="29dp"
+        android:layout_below="@+id/ima1"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        app:srcCompat="@drawable/off"
+        android:id="@+id/ima4"
+        android:layout_marginRight="11dp"
+        android:layout_marginEnd="11dp"
+        android:layout_alignTop="@+id/ima1"
+        android:layout_alignRight="@+id/ima1"
+        android:layout_alignEnd="@+id/ima1" />
+
+</RelativeLayout>
