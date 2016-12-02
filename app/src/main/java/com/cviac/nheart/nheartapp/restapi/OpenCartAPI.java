@@ -13,10 +13,10 @@ import retrofit.http.Query;
 
 public interface OpenCartAPI {
 
-    @GET("/opencart/index.php?route=api/category")
+    @GET("http://nheart.cviac.com/index.php?route=api/category")
     Call<CategoriesResponse> getCategories();
 
-    @GET("/opencart/index.php?route=api/category/getproducts")
+    @GET("http://nheart.cviac.com/index.php?route=api/category/getproducts")
     Call<CategoryProductsResponse> getProducts(@Query("categoryid") String categoryid);
 
 

@@ -1,3 +1,4 @@
+/*
 package com.cviac.nheart.nheartapp.activities;
 
 
@@ -6,7 +7,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,13 +32,14 @@ public class Fullscreen extends Activity {
 
         //GridCatogry gd=new GridCatogry();
         // gd.actionmethod();
-        Intent inte = getIntent();
+      */
+/*  Intent inte = getIntent();
         ServiceInfo pinfo = (ServiceInfo) inte.getSerializableExtra("pinfo");
         iv1 = (ImageView) findViewById(R.id.i1);
         tv1 = (TextView) findViewById(R.id.t1);
         tv2 = (TextView) findViewById(R.id.t2);
         b2=(Button)findViewById(R.id.button);
-        text1 = (TextView) findViewById(R.id.t3);
+        text1 = (TextView) findViewById(R.id.old);
         tv3 = (TextView) findViewById(R.id.t4);
         tv4 = (TextView) findViewById(R.id.badge_notification_2);
         tv3.setPaintFlags(tv3.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -58,9 +59,13 @@ public class Fullscreen extends Activity {
 
                count++;
                 tv4 .setText(String.valueOf(count));
-            }});
+            }});*//*
+
     }
-     /*   b1.setOnClickListener(new View.OnClickListener() {
+     *//*
+
+*/
+/*   b1.setOnClickListener(new View.OnClickListener() {
 
             @Override
 
@@ -71,7 +76,10 @@ public class Fullscreen extends Activity {
                 finish();
 
             }
-        });*/
+        });*//*
+*/
+/*
+
 
 
     public void actionmethod() {
@@ -85,26 +93,44 @@ public class Fullscreen extends Activity {
             // actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3B5CD1")));
 
             View customView = getLayoutInflater().inflate(R.layout.activity_fr, null);
-           /*
+           *//*
+
+*/
+/*
             Picasso.with(mContext).load(R.drawable.cart).resize(110, 110).transform(new CircleTransform())
-                    .into(customimage);     */
+                    .into(customimage);     *//*
+*/
+/*
+
 
 // Set the on click listener for the title
 
             Buttoncart = (Button) findViewById(R.id.carttbutton);
-       /*     Picasso.with(getApplicationContext())
+       *//*
+
+*/
+/*     Picasso.with(getApplicationContext())
                     .load(R.drawable.cart)
                     .resize(80, 80)
                     .centerInside()
-                    .into(imageButtoncart);*/
+                    .into(imageButtoncart);*//*
+*/
+/*
 
-          /*  imageButtoncart.setOnClickListener(new View.OnClickListener() {
+
+          *//*
+
+*/
+/*  imageButtoncart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     finish();
                 }
             });
+*//*
 */
+/*
+
 
 // Apply the custom view
             actionBar.setCustomView(customView);
@@ -115,3 +141,4 @@ public class Fullscreen extends Activity {
 
 
 
+*/

@@ -1,7 +1,7 @@
 package com.cviac.nheart.nheartapp.adapters;
 
 import android.content.Context;
-import android.net.Uri;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +14,6 @@ import com.cviac.nheart.nheartapp.datamodel.Product;
 import com.squareup.picasso.Picasso;
 
 
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.List;
 
 public class Productsadapter extends BaseAdapter {
@@ -47,7 +43,9 @@ public class Productsadapter extends BaseAdapter {
     }
     public static class ViewHolder {
         public TextView tv;
-        public ImageView imgView;
+        public ImageView imgView,iv2;
+
+       public TextView price1,price;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -62,7 +60,16 @@ public class Productsadapter extends BaseAdapter {
             holder=new Productsadapter.ViewHolder();
             vw = convertView;
             holder.tv=(TextView)vw.findViewById(R.id.tex1);
-            holder.imgView = (ImageView) vw.findViewById(R.id.imageView);
+
+            holder.iv2 = (ImageView) vw.findViewById(R.id.imageView3);
+
+
+            holder.price = (TextView) vw.findViewById(R.id.new1);
+            holder.price.setText("₹ 25");
+            holder.price1 = (TextView) vw.findViewById(R.id.old);
+            holder.price1.setPaintFlags(holder.price1.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.price1.setText("₹ 45");
+
             vw.setTag(holder);
         }
         else {

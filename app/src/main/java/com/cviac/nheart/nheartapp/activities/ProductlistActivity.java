@@ -3,6 +3,7 @@ package com.cviac.nheart.nheartapp.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import com.cviac.nheart.nheartapp.R;
@@ -29,7 +30,7 @@ public class ProductlistActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_productlist);
+        setContentView(R.layout.grid_layout);
         Intent i= getIntent();
         Category catobj = (Category) i.getSerializableExtra("categoryobj");
 
@@ -39,13 +40,13 @@ public class ProductlistActivity extends AppCompatActivity {
 //        Category ct = new Category();
 //        ct.setName("Flowers");
 //        categoryList.add(ct);
-        ListView vw = (ListView) findViewById(R.id.listview);
+        GridView vw = (GridView) findViewById(R.id.gridView1);
         adapter = new Productsadapter(this, productList);
         vw.setAdapter(adapter);
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.133")
+                .baseUrl("http://nheart.cviac.com/index.php?route=api/category/getproducts&categoryid")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

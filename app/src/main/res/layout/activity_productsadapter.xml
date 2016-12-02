@@ -11,6 +11,62 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".activities.ProductlistActivity">
 
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tex1"
+        android:layout_weight="1"
+
+        android:textColor="#080200"
+        android:layout_marginTop="13dp"
+        android:layout_marginLeft="19dp"
+        android:layout_marginStart="19dp"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/new1"
+        android:textColor="#080200"
+
+        android:textSize="12sp"
+        android:textStyle="normal|bold"
+        android:textIsSelectable="false"
+        android:layout_alignTop="@+id/old"
+        android:layout_toRightOf="@+id/t2"
+        android:layout_toEndOf="@+id/t2" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:srcCompat="@drawable/fav"
+        android:id="@+id/imageView3"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tex1"
+        android:layout_toEndOf="@+id/tex1" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/old"
+        android:textColor="?android:attr/textColorHint"
+        android:capitalize="sentences"
+        tools:textSize="12sp"
+        android:textSize="12sp"
+        android:layout_marginTop="15dp"
+        android:textStyle="normal|bold"
+        android:layout_below="@+id/tex1"
+        android:layout_toRightOf="@+id/new1"
+        android:layout_toEndOf="@+id/new1"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp" />
+
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -19,21 +75,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tex1"
-        android:layout_weight="1"
-        android:background="#10BCE3"
-        android:textColor="#FFFFFF"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp" />
 
 
     <!--android:gravity="center_vertical"-->

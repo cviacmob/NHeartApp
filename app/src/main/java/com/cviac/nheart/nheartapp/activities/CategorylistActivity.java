@@ -38,12 +38,13 @@ public class CategorylistActivity extends AppCompatActivity {
 //        ct.setName("Flowers");
 //        categoryList.add(ct);
         ListView vw = (ListView) findViewById(R.id.listview);
+        vw.setDivider(null);
         adapter = new CategoryAdapter(this, categoryList);
         vw.setAdapter(adapter);
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.133")
+                .baseUrl("http://nheart.cviac.com/index.php?route=api/category")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
