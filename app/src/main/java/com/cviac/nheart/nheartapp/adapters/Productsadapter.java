@@ -61,7 +61,7 @@ public class Productsadapter extends BaseAdapter {
             vw = convertView;
             holder.tv=(TextView)vw.findViewById(R.id.tex1);
 
-            holder.iv2 = (ImageView) vw.findViewById(R.id.imageView3);
+            holder.imgView = (ImageView) vw.findViewById(R.id.imageView);
 
 
             holder.price = (TextView) vw.findViewById(R.id.new1);
@@ -79,7 +79,7 @@ public class Productsadapter extends BaseAdapter {
         String url = ct.getThumb();
         url = url.replace("localhost","192.168.1.133");
         try {
-            Picasso.with(vw.getContext()).load(url).resize(100,100).into( holder.imgView);
+            Picasso.with(vw.getContext()).load(url).resize(500,500).into( holder.imgView);
 //            holder.imgView.setImageURI(Uri.parse(url));
         } catch (Exception e) {
             e.printStackTrace();
