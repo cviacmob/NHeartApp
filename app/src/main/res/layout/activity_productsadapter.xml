@@ -5,7 +5,8 @@
     android:id="@+id/activity_productsadapter"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+
+    android:background="#FDFEFE"
     tools:context=".activities.ProductlistActivity">
 
     <TextView
@@ -15,11 +16,12 @@
         android:id="@+id/tex1"
         android:layout_weight="1"
         android:maxLines="2"
-        android:textStyle="bold"
+        android:fontFamily="cursive"
         android:textColor="#080200"
         android:layout_below="@+id/imageView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:paddingLeft="5dp"/>
 
 
     <TextView
@@ -27,6 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/new1"
+        android:paddingLeft="20dp"
         android:textColor="#080200"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -35,23 +38,15 @@
         android:layout_toRightOf="@+id/t2"
         android:layout_toEndOf="@+id/t2" />
 
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        app:srcCompat="@drawable/fav"
-        android:id="@+id/imageView3"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/tex1"
-        android:layout_toEndOf="@+id/tex1" />
-
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/old"
+        android:paddingLeft="20dp"
         android:textColor="?android:attr/textColorHint"
-        android:textSize="15sp"
-        android:layout_marginTop="5dp"
+        android:textSize="18sp"
+
         android:textStyle="normal"
         android:layout_below="@+id/tex1"
         android:layout_toRightOf="@+id/new1"
@@ -67,6 +62,34 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        app:srcCompat="@drawable/fav"
+        android:id="@+id/fav"
+
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="24dp"
+        android:layout_marginEnd="24dp" />
+
+    <RatingBar
+        android:id="@+id/rating"
+        style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
+        android:layout_height="20dp"
+        android:numStars="5"
+        android:stepSize="1"
+        android:rating="2.5"
+        android:layout_centerHorizontal="true"
+
+        android:layout_width="80dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/old"
+
+
+        />
 
 
     <!--android:gravity="center_vertical"-->

@@ -1,8 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#D0D3D4"
+    android:paddingTop="1dp"
+
+
 
 
     >
@@ -10,41 +15,18 @@
 
     <GridView
         android:id="@+id/gridView1"
-        android:layout_marginTop="45dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:numColumns="2"
-        android:paddingBottom="2dp"
-       android:paddingTop="2dp"
-
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:horizontalSpacing="1dp"
-        android:verticalSpacing="1dp" >
+        android:numColumns="2"
+        android:paddingBottom="4dp"
+        android:paddingTop="2dp"
+        android:verticalSpacing="1dp"
+        android:layout_alignParentTop="true">
 
     </GridView>
 
-    <SearchView
-        android:layout_width="230dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/catogry"
-        android:layout_toEndOf="@+id/catogry"
-        android:id="@+id/search" />
 
-    <Button
-        android:text="Select Category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/catogry"
-        style="@style/Widget.AppCompat.Button"
-        tools:clickable="true"
-        android:textStyle="bold|italic"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

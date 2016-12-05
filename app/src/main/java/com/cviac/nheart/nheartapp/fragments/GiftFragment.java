@@ -49,7 +49,7 @@ public class GiftFragment extends Fragment implements View.OnClickListener{
   //private  ListView gv;
     private  GridView gv;
     View cv;
-    Button b;
+    ImageButton b;
     Context thiscontext;
     List<Product> prodlist;
     Productsadapter adapter;
@@ -61,14 +61,14 @@ public class GiftFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View cv=inflater.inflate(R.layout.grid_layout,container,false);
         thiscontext = container.getContext();
-        b = (Button) cv.findViewById(R.id.catogry);
-        b.setOnClickListener(new View.OnClickListener() {
+        //b = (ImageButton) cv.findViewById(R.id.ima1);
+       /* b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(thiscontext,CategorylistActivity.class);
                 startActivity(i);
             }
-        });
+        });*/
 
 
         prodlist = new ArrayList<Product>();
@@ -76,7 +76,7 @@ public class GiftFragment extends Fragment implements View.OnClickListener{
         gv=(GridView) cv.findViewById(R.id.gridView1);
             adapter = new Productsadapter(getActivity(), prodlist);
             gv.setAdapter(adapter);
-        Button b=(Button)cv.findViewById((R.id.catogry));
+       // ImageButton b=(ImageButton)cv.findViewById((R.id.catogry));
 
 
 //        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

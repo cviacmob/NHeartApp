@@ -2,6 +2,7 @@ package com.cviac.nheart.nheartapp.activities;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
@@ -76,7 +77,11 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        final int[] ICONS = new int[]{
+
+
+
+
+        /*final int[] ICONS = new int[]{
                 R.drawable.chaticon,
                 R.drawable.hugicon,
                 R.drawable.colistner,
@@ -89,14 +94,53 @@ public class MainActivity extends AppCompatActivity {
                 "colistner",
                 "skezoicon",
                 "hugicon"
-        };
+        };*/
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-        tabLayout.getTabAt(0).setIcon(R.drawable.chaticon);
+/*        tabLayout.getTabAt(0).setIcon(R.drawable.chaticon);
         tabLayout.getTabAt(1).setIcon( R.drawable.giftsicon);
-        tabLayout.getTabAt(2).setIcon( R.drawable.colistner);
-        tabLayout.getTabAt(3).setIcon(R.drawable.skezoicon);
-        tabLayout.getTabAt(4).setIcon( R.drawable.hugicon);
+        tabLayout.getTabAt(2).setIcon( R.drawable.colistner);*/
+       // tabLayout.getTabAt(3).setIcon(R.drawable.skezoicon);
+        //tabLayout.getTabAt(4).setIcon( R.drawable.hugicon);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
+
+        TabLayout.Tab tab = tabLayout.getTabAt(0);
+        tab.setTag("Mirror");
+        tab.setIcon(R.mipmap.ic_message_text_white_24dp);
+        tab = tabLayout.getTabAt(1);
+        tab.setTag("Lovewrap");
+        tab.setIcon(R.mipmap.ic_gift_black_24dp);
+        tab = tabLayout.getTabAt(2);
+        tab.setTag("Co Listen");
+        tab.setIcon(R.mipmap.ic_music_circle_black_24dp);
+        tab = tabLayout.getTabAt(3);
+        tab.setTag("Skezo");
+        tab.setIcon(R.mipmap.ic_computer_black_24dp);
+        tab = tabLayout.getTabAt(4);
+        tab.setTag("Hug");
+        tab.setIcon(R.mipmap.ic_favorite_border_black_24dp);
+
+        setTitle("Mirror");
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                setTitle(tab.getTag().toString());
+                setTabIcon((TabLayout.Tab) tab,true);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                setTabIcon((TabLayout.Tab) tab,false);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
        // tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
        // tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
@@ -112,6 +156,37 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void setTabIcon(TabLayout.Tab tab, boolean isSelected) {
+        String tabTitle = tab.getTag().toString();
+        switch (tabTitle) {
+
+            case "Mirror":
+                int ic = (isSelected ) ?  R.mipmap.ic_message_text_white_24dp :  R.mipmap.ic_message_text_black_24dp;
+                tab.setIcon(ic);
+                break;
+
+            case "Lovewrap":
+                int ic1 = (isSelected ) ?  R.mipmap.ic_gift_white_24dp :  R.mipmap.ic_gift_black_24dp;
+                tab.setIcon(ic1);
+                break;
+
+            case "Co Listen":
+                int ic2 = (isSelected ) ?  R.mipmap.ic_music_circle_white_24dp :  R.mipmap.ic_music_circle_black_24dp;
+                tab.setIcon(ic2);
+                break;
+
+            case "Skezo":
+                int ic3 = (isSelected ) ?  R.mipmap.ic_computer_white_24dp:  R.mipmap.ic_computer_black_24dp;
+                tab.setIcon(ic3);
+                break;
+
+            case "Hug":
+                int ic4 = (isSelected ) ?  R.mipmap.ic_favorite_border_white_24dp :  R.mipmap.ic_favorite_border_black_24dp;
+                tab.setIcon(ic4);
+                break;
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -122,19 +197,41 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.action_settings:
+            Intent i=new Intent(MainActivity.this,CategorylistActivity.class);
+            startActivity(i);
+        break;
+        // action with ID action_settings was selected
+        case R.id.action_refresh:
+
+        break;
+            case R.id.action_cart:
+
+                break;
+
+
+            default:
+        break;
+    }
+
+    return true;
+
+
+
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        //int id = item.getItemId();
 
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        //if (id == R.id.action_settings) {
+            //return true;
         }
 
-        return super.onOptionsItemSelected(item);
-    }
+        //return super.onOptionsItemSelected(item);
+
 
     /**
      * A placeholder fragment containing a simple view.
@@ -222,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
 
-            switch (position) {
+           /* switch (position) {
                 case 0:
                     return "Mirror";
 
@@ -234,7 +331,7 @@ public class MainActivity extends AppCompatActivity {
                     return "Skezo";
                 case 4:
                     return "Hug";
-            }
+            }*/
             return null;
         }
     }
