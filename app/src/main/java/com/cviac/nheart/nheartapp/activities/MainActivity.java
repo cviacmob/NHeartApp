@@ -219,15 +219,14 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_settings:
                 Intent i = new Intent(MainActivity.this, CategorylistActivity.class);
                 startActivityForResult(i, 1000);
-
                 break;
             // action with ID action_settings was selected
             case R.id.action_refresh:
 
                 break;
-            case R.id.action_cart:
+           case R.id.action_cart:
 
-                break;
+               break;
 
 
             default:
