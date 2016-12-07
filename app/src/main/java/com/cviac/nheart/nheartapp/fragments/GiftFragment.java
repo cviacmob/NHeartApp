@@ -85,30 +85,59 @@ public class GiftFragment extends Fragment implements View.OnClickListener{
 //        });
 
 
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://nheart.cviac.com/index.php?route=api/category/getproducts&categoryid")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
 
-            OpenCartAPI api = retrofit.create(OpenCartAPI.class);
+//            Retrofit retrofit = new Retrofit.Builder()
+//                    .baseUrl("http://nheart.cviac.com/index.php?route=api/category/getproducts&categoryid")
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .build();
+//
+//            OpenCartAPI api = retrofit.create(OpenCartAPI.class);
+//
+//            final Call<CategoryProductsResponse> call = api.getProducts("61");
+//            call.enqueue(new Callback<CategoryProductsResponse>() {
+//                    @Override
+//                    public void onResponse(Response<CategoryProductsResponse> response, Retrofit retrofit) {
+//                        CategoryProductsResponse rsp = response.body();
+//                            prodlist.addAll(rsp.getProducts());
+//                            // adapter.notifyDataSetChanged();
+//                            adapter.notifyDataSetInvalidated();
+//
+//                    }
+//                    @Override
+//                    public void onFailure(Throwable t) {
+//                            prodlist = null;
+//                    }
+//            });
 
-            final Call<CategoryProductsResponse> call = api.getProducts("61");
-            call.enqueue(new Callback<CategoryProductsResponse>() {
-                    @Override
-                    public void onResponse(Response<CategoryProductsResponse> response, Retrofit retrofit) {
-                        CategoryProductsResponse rsp = response.body();
-                            prodlist.addAll(rsp.getProducts());
-                            // adapter.notifyDataSetChanged();
-                            adapter.notifyDataSetInvalidated();
-
-                    }
-                    @Override
-                    public void onFailure(Throwable t) {
-                            prodlist = null;
-                    }
-            });
-
+        refresh("61");
         return cv;
+    }
+
+    public void refresh(String catId) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://nheart.cviac.com/index.php?route=api/category/getproducts&categoryid")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        OpenCartAPI api = retrofit.create(OpenCartAPI.class);
+
+        final Call<CategoryProductsResponse> call = api.getProducts(catId);
+        call.enqueue(new Callback<CategoryProductsResponse>() {
+            @Override
+            public void onResponse(Response<CategoryProductsResponse> response, Retrofit retrofit) {
+                CategoryProductsResponse rsp = response.body();
+                prodlist.clear();
+                prodlist.addAll(rsp.getProducts());
+                // adapter.notifyDataSetChanged();
+                adapter.notifyDataSetInvalidated();
+
+            }
+            @Override
+            public void onFailure(Throwable t) {
+                prodlist = null;
+            }
+        });
+
     }
 
 

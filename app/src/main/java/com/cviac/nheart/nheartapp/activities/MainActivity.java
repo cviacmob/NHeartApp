@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Create the adapter that will return a fragment for each of the three
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 /*        tabLayout.getTabAt(0).setIcon(R.drawable.chaticon);
         tabLayout.getTabAt(1).setIcon( R.drawable.giftsicon);
         tabLayout.getTabAt(2).setIcon( R.drawable.colistner);*/
-       // tabLayout.getTabAt(3).setIcon(R.drawable.skezoicon);
+        // tabLayout.getTabAt(3).setIcon(R.drawable.skezoicon);
         //tabLayout.getTabAt(4).setIcon( R.drawable.hugicon);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -128,12 +128,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 setTitle(tab.getTag().toString());
-                setTabIcon((TabLayout.Tab) tab,true);
+                setTabIcon((TabLayout.Tab) tab, true);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                setTabIcon((TabLayout.Tab) tab,false);
+                setTabIcon((TabLayout.Tab) tab, false);
             }
 
             @Override
@@ -142,8 +142,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-       // tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-       // tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
+        // tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        // tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -161,27 +161,27 @@ public class MainActivity extends AppCompatActivity {
         switch (tabTitle) {
 
             case "Mirror":
-                int ic = (isSelected ) ?  R.mipmap.ic_message_text_white_24dp :  R.mipmap.ic_message_text_black_24dp;
+                int ic = (isSelected) ? R.mipmap.ic_message_text_white_24dp : R.mipmap.ic_message_text_black_24dp;
                 tab.setIcon(ic);
                 break;
 
             case "Lovewrap":
-                int ic1 = (isSelected ) ?  R.mipmap.ic_gift_white_24dp :  R.mipmap.ic_gift_black_24dp;
+                int ic1 = (isSelected) ? R.mipmap.ic_gift_white_24dp : R.mipmap.ic_gift_black_24dp;
                 tab.setIcon(ic1);
                 break;
 
             case "Co Listen":
-                int ic2 = (isSelected ) ?  R.mipmap.ic_music_circle_white_24dp :  R.mipmap.ic_music_circle_black_24dp;
+                int ic2 = (isSelected) ? R.mipmap.ic_music_circle_white_24dp : R.mipmap.ic_music_circle_black_24dp;
                 tab.setIcon(ic2);
                 break;
 
             case "Skezo":
-                int ic3 = (isSelected ) ?  R.mipmap.ic_computer_white_24dp:  R.mipmap.ic_computer_black_24dp;
+                int ic3 = (isSelected) ? R.mipmap.ic_computer_white_24dp : R.mipmap.ic_computer_black_24dp;
                 tab.setIcon(ic3);
                 break;
 
             case "Hug":
-                int ic4 = (isSelected ) ?  R.mipmap.ic_favorite_border_white_24dp :  R.mipmap.ic_favorite_border_black_24dp;
+                int ic4 = (isSelected) ? R.mipmap.ic_favorite_border_white_24dp : R.mipmap.ic_favorite_border_black_24dp;
                 tab.setIcon(ic4);
                 break;
         }
@@ -200,12 +200,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == 1000) {
             String catId = data.getStringExtra("categoryid");
-            GiftFragment giftFrag;
-
-
-            giftFrag.getView().invalidate();
-
-
+            GiftFragment gfrag = (GiftFragment) getSupportFragmentManager().getFragments().get(1);
+            gfrag.refresh(catId);
 
 
         }
@@ -215,25 +211,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.action_settings:
-            Intent i=new Intent(MainActivity.this,CategorylistActivity.class);
-            startActivityForResult(i,1000);
-        break;
-        // action with ID action_settings was selected
-        case R.id.action_refresh:
-
-        break;
-            case R.id.action_cart:
-
+            case R.id.action_settings:
+                Intent i = new Intent(MainActivity.this, CategorylistActivity.class);
+                startActivityForResult(i, 1000);
                 break;
+            // action with ID action_settings was selected
+//            case R.id.action_refresh:
+//
+//                break;
+//            case R.id.action_cart:
+//
+//                break;
 
 
             default:
-        break;
-    }
+                break;
+        }
 
-    return true;
-
+        return true;
 
 
         // Handle action bar item clicks here. The action bar will
@@ -244,10 +239,10 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         //if (id == R.id.action_settings) {
-            //return true;
-        }
+        //return true;
+    }
 
-        //return super.onOptionsItemSelected(item);
+    //return super.onOptionsItemSelected(item);
 
 
     /**
@@ -258,13 +253,12 @@ public class MainActivity extends AppCompatActivity {
          * The fragment argument representing the section number for this
          * fragment.
          */
-     //   private final List<String> mFragmentTitleList = new ArrayList<>();
+        //   private final List<String> mFragmentTitleList = new ArrayList<>();
         private static final String ARG_SECTION_NUMBER = "section_number";
         private Context context;
 
         public PlaceholderFragment() {
         }
-
 
 
 //
@@ -303,21 +297,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
-
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-           // return PlaceholderFragment.newInstance(position + 1);
+            // return PlaceholderFragment.newInstance(position + 1);
 
-            switch (position +1) {
+            switch (position + 1) {
                 case 1:
                     return new ChatFragment();
-
                 case 2:
                     Fragment frag = new GiftFragment();
-
                     return new GiftFragment();
                 case 3:
                     return new MusicFragment();
