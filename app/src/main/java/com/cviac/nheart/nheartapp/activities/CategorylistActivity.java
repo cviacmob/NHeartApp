@@ -69,9 +69,10 @@ public class CategorylistActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 Category cta = categoryList.get(pos);
-                Intent i=new Intent(CategorylistActivity.this, ProductlistActivity.class);
-                i.putExtra("categoryobj",cta);
-                startActivity(i);
+                Intent i=new Intent();
+                i.putExtra("categoryid",cta.getCategory_id());
+                setResult(1000,i);
+                finish();
             }
         });
     }

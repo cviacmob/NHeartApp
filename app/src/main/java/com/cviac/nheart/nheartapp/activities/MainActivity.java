@@ -196,11 +196,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1000) {
+            String catId = data.getStringExtra("categoryid");
+            GiftFragment giftFrag;
+
+
+            giftFrag.getView().invalidate();
+
+
+
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.action_settings:
             Intent i=new Intent(MainActivity.this,CategorylistActivity.class);
-            startActivity(i);
+            startActivityForResult(i,1000);
         break;
         // action with ID action_settings was selected
         case R.id.action_refresh:
@@ -299,6 +316,8 @@ public class MainActivity extends AppCompatActivity {
                     return new ChatFragment();
 
                 case 2:
+                    Fragment frag = new GiftFragment();
+
                     return new GiftFragment();
                 case 3:
                     return new MusicFragment();
