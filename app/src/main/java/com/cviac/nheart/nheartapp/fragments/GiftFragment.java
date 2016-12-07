@@ -22,6 +22,7 @@ package com.cviac.nheart.nheartapp.fragments;
 
         import com.cviac.nheart.nheartapp.activities.CategorylistActivity;
         import com.cviac.nheart.nheartapp.activities.MainActivity;
+        import com.cviac.nheart.nheartapp.activities.ProductdetailsActivity;
         import com.cviac.nheart.nheartapp.activities.ProductlistActivity;
         import com.cviac.nheart.nheartapp.adapters.CategoryAdapter;
         import com.cviac.nheart.nheartapp.adapters.CatogryAdapter;
@@ -45,7 +46,7 @@ package com.cviac.nheart.nheartapp.fragments;
         import retrofit.Response;
         import retrofit.Retrofit;
 
-public class GiftFragment extends Fragment implements View.OnClickListener{
+public class GiftFragment extends Fragment{
   //private  ListView gv;
     private  GridView gv;
     View cv;
@@ -132,27 +133,25 @@ public class GiftFragment extends Fragment implements View.OnClickListener{
                 adapter.notifyDataSetInvalidated();
 
             }
+
             @Override
             public void onFailure(Throwable t) {
                 prodlist = null;
             }
         });
 
-    }
 
-
-    @Override
-    public void onClick(View view) {
-       final Context context;
-        context=cv.getContext();
-        b.setOnClickListener(new View.OnClickListener()
-        {
+        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v)
-            {
-
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                Product pr = prodlist.get(pos);
+                Intent i = new Intent(thiscontext, ProductdetailsActivity.class);
+                i.putExtra("productobj", pr);
+                startActivity(i);
             }
         });
+
+
+
     }
 }

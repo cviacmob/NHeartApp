@@ -1,14 +1,17 @@
 package com.cviac.nheart.nheartapp.adapters;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.datamodel.Category;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -43,6 +46,8 @@ public class CategoryAdapter extends BaseAdapter {
     }
     public static class ViewHolder {
         public TextView tv;
+        ImageView iv;
+        ImageView right;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -57,7 +62,12 @@ public class CategoryAdapter extends BaseAdapter {
             holder=new ViewHolder();
             vw = convertView;
             holder.tv=(TextView)vw.findViewById(R.id.textView);
+            holder.iv=(ImageView)vw.findViewById(R.id.catimg);
+            holder.right=(ImageView)vw.findViewById(R.id.right);
             vw.setTag(holder);
+
+            String url="http://nheart.cviac.com//image//cache//catalog//ring22-500x500.jpg";
+            Picasso.with(vw.getContext()).load(url).resize(50,50).into( holder.iv);
         }
         else {
             holder = (ViewHolder) vw.getTag();

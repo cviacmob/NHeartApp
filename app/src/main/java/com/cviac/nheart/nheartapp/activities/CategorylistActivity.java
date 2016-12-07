@@ -3,6 +3,7 @@ package com.cviac.nheart.nheartapp.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -31,12 +32,13 @@ public class CategorylistActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categorylist);
-        setTitle("Categories");
+        setTitle("Select Categories");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         categoryList = new ArrayList<Category>();
-//        Category ct = new Category();
-//        ct.setName("Flowers");
-//        categoryList.add(ct);
+// Category ct = new Category();
+// ct.setName("Flowers");
+// categoryList.add(ct);
         ListView vw = (ListView) findViewById(R.id.listview);
         vw.setDivider(null);
         adapter = new CategoryAdapter(this, categoryList);
@@ -56,7 +58,7 @@ public class CategorylistActivity extends AppCompatActivity {
             public void onResponse(Response<CategoriesResponse> response, Retrofit retrofit) {
                 CategoriesResponse rsp = response.body();
                 categoryList.addAll(rsp.getCategories());
-               // adapter.notifyDataSetChanged();
+// adapter.notifyDataSetChanged();
                 adapter.notifyDataSetInvalidated();
 
             }
@@ -75,6 +77,11 @@ public class CategorylistActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
+        return true;
     }
 
 

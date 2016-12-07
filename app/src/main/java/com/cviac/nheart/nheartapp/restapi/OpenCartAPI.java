@@ -2,6 +2,7 @@ package com.cviac.nheart.nheartapp.restapi;
 
 import com.cviac.nheart.nheartapp.datamodel.CategoriesResponse;
 import com.cviac.nheart.nheartapp.datamodel.CategoryProductsResponse;
+import com.cviac.nheart.nheartapp.datamodel.Productdetailresponse;
 
 import retrofit.Call;
 import retrofit.http.GET;
@@ -19,6 +20,9 @@ public interface OpenCartAPI {
     @GET("http://nheart.cviac.com/index.php?route=api/category/getproducts")
     Call<CategoryProductsResponse> getProducts(@Query("categoryid") String categoryid);
 
+
+    @GET("http://nheart.cviac.com/index.php?route=api/category/getproductdetails")
+    Call<Productdetailresponse> getProductdetails(@Query("productid") String categoryid);
 
 
 }

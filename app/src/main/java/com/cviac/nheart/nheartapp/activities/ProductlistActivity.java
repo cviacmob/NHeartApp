@@ -3,6 +3,8 @@ package com.cviac.nheart.nheartapp.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 
@@ -68,7 +70,15 @@ public class ProductlistActivity extends AppCompatActivity {
                 productList = null;
             }
         });
-
+        vw.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                Product pr = productList.get(pos);
+                Intent i=new Intent(ProductlistActivity.this, ProductdetailsActivity.class);
+                i.putExtra("productobj",  pr);
+                startActivity(i);
+            }
+        });
 
     }
 

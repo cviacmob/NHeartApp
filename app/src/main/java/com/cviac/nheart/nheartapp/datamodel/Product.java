@@ -1,10 +1,12 @@
 package com.cviac.nheart.nheartapp.datamodel;
 
+import java.io.Serializable;
+
 /**
  * Created by admin1 on 11/24/2016.
  */
 
-public class Product {
+public class Product implements Serializable{
     private String product_id;
     private String name;
     private String description;
