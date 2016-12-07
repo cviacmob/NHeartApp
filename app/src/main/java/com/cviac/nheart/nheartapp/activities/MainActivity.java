@@ -200,10 +200,15 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == 1000) {
             String catId = data.getStringExtra("categoryid");
-            GiftFragment gfrag = (GiftFragment) getSupportFragmentManager().getFragments().get(1);
-            gfrag.refresh(catId);
+
+            if (catId != null)
+
+            {
+                GiftFragment gfrag = (GiftFragment) getSupportFragmentManager().getFragments().get(1);
+                gfrag.refresh(catId);
 
 
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -216,12 +221,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(i, 1000);
                 break;
             // action with ID action_settings was selected
-//            case R.id.action_refresh:
-//
-//                break;
-//            case R.id.action_cart:
-//
-//                break;
+            case R.id.action_refresh:
+
+                break;
+           case R.id.action_cart:
+
+               break;
 
 
             default:
