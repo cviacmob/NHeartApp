@@ -16,8 +16,8 @@
         android:id="@+id/tex1"
         android:layout_weight="1"
         android:maxLines="2"
-        android:fontFamily="cursive"
         android:textColor="#080200"
+
         android:layout_below="@+id/imageView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -63,18 +63,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <ImageView
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        app:srcCompat="@drawable/fav"
-        android:id="@+id/fav"
-
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="24dp"
-        android:layout_marginEnd="24dp" />
-
     <RatingBar
         android:id="@+id/rating"
         style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
@@ -90,6 +78,16 @@
 
 
         />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        app:srcCompat="@drawable/fav"
+        android:id="@+id/fav"
+        android:paddingRight="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
     <!--android:gravity="center_vertical"-->

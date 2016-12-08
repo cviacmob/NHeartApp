@@ -7,7 +7,9 @@ package com.cviac.nheart.nheartapp.fragments;
         import android.os.Bundle;
         import android.support.annotation.Nullable;
         import android.support.v4.app.Fragment;
+        import android.util.Log;
         import android.view.LayoutInflater;
+        import android.view.MotionEvent;
         import android.view.View;
 
         import android.view.ViewGroup;
@@ -45,6 +47,9 @@ package com.cviac.nheart.nheartapp.fragments;
         import retrofit.GsonConverterFactory;
         import retrofit.Response;
         import retrofit.Retrofit;
+
+        import static android.R.attr.x;
+        import static android.content.ContentValues.TAG;
 
 public class GiftFragment extends Fragment{
   //private  ListView gv;
@@ -84,7 +89,6 @@ public class GiftFragment extends Fragment{
 //            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 //            }
 //        });
-
 
 
 //            Retrofit retrofit = new Retrofit.Builder()

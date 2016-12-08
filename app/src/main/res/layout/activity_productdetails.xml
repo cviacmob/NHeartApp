@@ -11,26 +11,29 @@
 
     <Button
         android:text="buy"
-        android:layout_width="150dp"
+        android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:id="@+id/button3"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
         android:background="?attr/colorPrimary"
         android:layout_alignParentBottom="true"
+        android:paddingLeft="5dp"
         android:layout_toRightOf="@+id/button2" />
 
     <Button
         android:text="add to cart"
-        android:layout_width="200dp"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:id="@+id/button2"
         android:background="?attr/colorPrimary"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
+        android:paddingRight="5dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:contextClickable="true" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -38,23 +41,13 @@
         android:id="@+id/scrollview"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="11dp"
+        android:layout_above="@+id/button3">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <TextView
-                android:text="name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/name"
-                android:maxLines="1"
-                android:textColor="#080200"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                android:layout_below="@+id/image" />
 
 
             <ImageView
@@ -64,31 +57,47 @@
                 android:id="@+id/image"
                 android:layout_centerHorizontal="true" />
 
+            <TextView
+                android:text="name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/name"
+                android:maxLines="1"
+                android:textColor="#080200"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:layout_below="@+id/image"
+                android:layout_centerHorizontal="true" />
+
             <RatingBar
-                android:layout_width="80dp"
-                android:layout_height="20dp"
+                android:layout_width="170dp"
+                android:layout_height="30dp"
                 android:numStars="5"
+
+                android:isIndicator="true"
                 android:stepSize="0.1"
-                style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+                android:max="3"
+                style="@android:style/Widget.Holo.Light.RatingBar.Indicator"
                 android:backgroundTint="@android:color/holo_orange_light"
 
                 android:id="@+id/ratingBar2"
+                android:clickable="true"
+                android:rating="3"
+
                 android:layout_below="@+id/new1"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:clickable="true"
-                tools:clickable="true" />
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:text="desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/descr"
+                android:layout_marginBottom="10dp"
                 android:layout_below="@+id/ratingBar2"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="12dp"
-                android:layout_marginStart="12dp"
-                android:id="@+id/descr" />
+                android:layout_alignParentBottom="true"
+                android:layout_alignLeft="@+id/new1"
+                android:layout_alignStart="@+id/new1" />
 
             <TextView
                 android:text="oldprice"
@@ -100,8 +109,13 @@
                 android:textStyle="normal"
                 android:capitalize="sentences"
                 android:paddingLeft="10dp"
+
+                android:layout_marginLeft="13dp"
+                android:layout_marginStart="13dp"
+                android:layout_alignBaseline="@+id/new1"
+                android:layout_alignBottom="@+id/new1"
                 android:layout_toRightOf="@+id/new1"
-                android:layout_below="@+id/name" />
+                android:layout_toEndOf="@+id/new1" />
 
             <TextView
                 android:text="price"
@@ -112,10 +126,10 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textIsSelectable="false"
-                android:layout_alignBaseline="@+id/old"
-                android:layout_alignBottom="@+id/old"
-                android:layout_toLeftOf="@+id/image"
-                android:layout_toStartOf="@+id/image" />
+
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/name" />
 
         </RelativeLayout>
     </ScrollView>

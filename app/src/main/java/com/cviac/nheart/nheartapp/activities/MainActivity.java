@@ -5,11 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 
@@ -23,6 +27,7 @@ import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -60,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     Toolbar toolbar;
-
+    ActionBar ab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,16 +74,31 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        final AppBarLayout appBarLayout = (AppBarLayout)findViewById(R.id.appbar);
+        appBarLayout.setExpanded(false, true);
+
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+       mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
 
+        toolbar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
 
+                      ab.show();
+                }
+                return false;
+            }
+        });
 
 
         /*final int[] ICONS = new int[]{
@@ -199,15 +219,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == 1000) {
-            String catId = data.getStringExtra("categoryid");
+            if(data !=null) {
+                String catId = data.getStringExtra("categoryid");
 
-            if (catId != null)
+                if (catId != null)
 
-            {
-                GiftFragment gfrag = (GiftFragment) getSupportFragmentManager().getFragments().get(1);
-                gfrag.refresh(catId);
+                {
+                    GiftFragment gfrag = (GiftFragment) getSupportFragmentManager().getFragments().get(1);
+                    gfrag.refresh(catId);
 
 
+                }
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -216,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case R.id.action_category:
                 Intent i = new Intent(MainActivity.this, CategorylistActivity.class);
                 startActivityForResult(i, 1000);
                 break;
@@ -246,6 +268,7 @@ public class MainActivity extends AppCompatActivity {
         //if (id == R.id.action_settings) {
         //return true;
     }
+
 
     //return super.onOptionsItemSelected(item);
 
