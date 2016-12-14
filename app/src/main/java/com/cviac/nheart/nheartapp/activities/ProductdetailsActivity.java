@@ -43,11 +43,13 @@ public class ProductdetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_productdetails);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         Intent i = getIntent();
         Product probj = (Product) i.getSerializableExtra("productobj");
 
-        //setTitle(probj.getName());
+        setTitle(" ");
 
 
         tv = (TextView) findViewById(R.id.name);
@@ -113,6 +115,8 @@ public class ProductdetailsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        onBackPressed();
         switch (item.getItemId()) {
             case R.id.action_cart:
 
@@ -132,4 +136,9 @@ public class ProductdetailsActivity extends AppCompatActivity {
 
         return true;
     }
+
+
+
+
+
 }
