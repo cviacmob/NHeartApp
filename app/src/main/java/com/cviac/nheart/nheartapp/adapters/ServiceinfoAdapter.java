@@ -59,7 +59,7 @@ public class ServiceinfoAdapter extends BaseAdapter {
             ins = new View(mContext);
             ins = inflater.inflate(layoutid, null);
             holder = new ViewHolder();
-            holder.tv = (TextView) ins.findViewById(R.id.t1);
+            holder.tv = (TextView) ins.findViewById(R.id.name);
             holder.tv2 = (TextView) ins.findViewById(R.id.t2);
             holder.price = (TextView) ins.findViewById(R.id.price);
             holder.price1 = (TextView) ins.findViewById(R.id.price1);

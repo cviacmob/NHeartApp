@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/new1"
         android:paddingLeft="20dp"
-        android:textColor="#080200"
+        android:textColor="#D30875"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textIsSelectable="false"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/old"
         android:paddingLeft="20dp"
-        android:textColor="?android:attr/textColorHint"
+        android:textColor="#D30875"
         android:textSize="18sp"
 
         android:textStyle="normal"
@@ -92,9 +92,9 @@
 
     <!--android:gravity="center_vertical"-->
 
-        <!--android:textAppearance="@style/TextAppearance.AppCompat.Body1"-->
-        <!--android:layout_below="@+id/img1"-->
-        <!--android:layout_alignLeft="@+id/tex2"-->
-        <!--android:layout_alignStart="@+id/tex2"-->
-        <!--android:layout_marginTop="19dp" />-->
+    <!--android:textAppearance="@style/TextAppearance.AppCompat.Body1"-->
+    <!--android:layout_below="@+id/img1"-->
+    <!--android:layout_alignLeft="@+id/tex2"-->
+    <!--android:layout_alignStart="@+id/tex2"-->
+    <!--android:layout_marginTop="19dp" />-->
 </RelativeLayout>

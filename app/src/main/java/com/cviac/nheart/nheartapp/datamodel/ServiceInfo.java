@@ -53,6 +53,8 @@ public class ServiceInfo implements Serializable {
 
 
 
+
+
     public int getImgID() {
         return imgID;
     }

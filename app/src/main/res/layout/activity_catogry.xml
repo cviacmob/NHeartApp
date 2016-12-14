@@ -5,44 +5,104 @@
     android:layout_height="match_parent"
     android:background="#F7F9F9">
 
-    <ImageView
-        android:layout_width="wrap_content"
 
-        app:srcCompat="@mipmap/feight"
-        android:id="@+id/ima1"
-        android:layout_weight="1"
-        android:layout_marginTop="26dp"
-
-        android:paddingTop="5dp"
-        android:layout_height="120dp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollview"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
-    <TextView
-        android:text="TextView"
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+        android:text="Rs.230"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tex1"
-        android:layout_weight="1"
-        android:background="#10BCE3"
-        android:textColor="#FFFFFF"
+        android:layout_alignBottom="@+id/ima1"
+        android:layout_alignRight="@+id/delete"
+        android:layout_alignEnd="@+id/delete"
+        android:id="@+id/price" />
 
-        android:gravity="center_vertical"
+        <TextView
+            android:text="2"
+            android:id="@+id/items"
+            android:layout_width="20dp"
+            android:layout_below="@+id/delete"
 
-        android:layout_marginTop="29dp"
-        android:layout_below="@+id/ima1"
-        android:layout_centerHorizontal="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:layout_height="20dp"
+            android:layout_toEndOf="@+id/remove"
+            android:layout_toRightOf="@+id/remove" />
 
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="25dp"
-        app:srcCompat="@drawable/off"
-        android:id="@+id/ima4"
-        android:layout_marginRight="11dp"
-        android:layout_marginEnd="11dp"
-        android:layout_alignTop="@+id/ima1"
-        android:layout_alignRight="@+id/ima1"
-        android:layout_alignEnd="@+id/ima1" />
+        <ImageView
+
+            app:srcCompat="@mipmap/feight"
+            android:id="@+id/ima1"
+            android:layout_weight="1"
+
+            android:paddingTop="2dp"
+            android:layout_height="130dp"
+
+            android:layout_width="110dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name"
+            android:layout_weight="1"
+            android:background="#10BCE3"
+            android:textColor="#FFFFFF"
+
+            android:gravity="center_vertical"
+
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:layout_toRightOf="@+id/ima1"
+            android:layout_marginTop="@dimen/appbar_padding_top"
+            android:layout_toEndOf="@+id/ima1"
+            android:layout_alignTop="@+id/ima1" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_remove_circle_outline_black_18dp"
+            android:id="@+id/remove"
+
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/ima1"
+            android:layout_toEndOf="@+id/ima1" />
+
+        <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_add_circle_outline_black_18dp"
+        android:id="@+id/add"
+
+            android:layout_toEndOf="@+id/items"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/items" />
+
+        <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_clear_black_18dp"
+            android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/delete"
+            android:layout_alignTop="@+id/ima1"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+</ScrollView>
+
 
 </RelativeLayout>

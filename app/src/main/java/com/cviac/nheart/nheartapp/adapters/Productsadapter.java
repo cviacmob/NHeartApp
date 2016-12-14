@@ -45,7 +45,7 @@ public class Productsadapter extends BaseAdapter {
         public TextView tv;
         public ImageView imgView,iv2;
 
-       public TextView price1,price;
+        public TextView price1,price;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

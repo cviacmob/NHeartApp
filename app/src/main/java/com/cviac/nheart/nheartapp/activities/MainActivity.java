@@ -88,17 +88,6 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
 
-        toolbar.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()){
-                    case MotionEvent.ACTION_DOWN:
-
-                      ab.show();
-                }
-                return false;
-            }
-        });
 
 
         /*final int[] ICONS = new int[]{
@@ -247,6 +236,8 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
            case R.id.action_cart:
+               Intent h = new Intent(MainActivity.this, AddtocartActivity.class);
+               startActivity(h);
 
                break;
 
