@@ -3,7 +3,7 @@
     package="com.cviac.nheart.nheartapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"
@@ -60,6 +60,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.MusicActivity" />
         <activity android:name=".activities.ProductlistActivity" />
         <activity android:name=".activities.AddtocartActivity"></activity>
     </application>

@@ -329,6 +329,7 @@ public class MainActivity extends AppCompatActivity {
                     Fragment frag = new GiftFragment();
                     return new GiftFragment();
                 case 3:
+                    Fragment frag1=new MusicFragment();
                     return new MusicFragment();
                 case 4:
                     return new SkezoFragment();

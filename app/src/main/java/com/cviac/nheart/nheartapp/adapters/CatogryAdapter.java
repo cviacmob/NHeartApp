@@ -87,6 +87,8 @@ public class CatogryAdapter extends BaseAdapter {
 //
 //                }
 //            });
+            holder.price = (TextView) ins.findViewById(R.id.price);
+            holder.price.setText("₹ 25");
             ImageButton txtplus  = (ImageButton) ins.findViewById(R.id.add);
             txtplus.setOnClickListener(new View.OnClickListener() {
                 @Override
