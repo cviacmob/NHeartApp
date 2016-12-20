@@ -4,46 +4,60 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Window;
+import android.view.WindowManager;
 
+import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 
 
 public class Splashscreen extends Activity {
 
-    /** Duration of wait **/
-    private final int SPLASH_DISPLAY_LENGTH = 3000;
+    public static String str_reg_test;
+    // Splash screen timer
+    private static int SPLASH_TIME_OUT = 3000;
 
-    /** Called when the activity is first created. */
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
 
-        /* New Handler to start the Menu-Activity
-         * and close this Splash-Screen after some seconds.*/
-        new Handler().postDelayed(new Runnable(){
+        str_reg_test = Prefs.getString("isregistered", null);
+
+
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            finish();
+            return;
+        }
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
+                /*
+                 * if user reg test is true on oncreate then redirect the user
+				 * to home page
+				 */
 
-
-               /* final String MyPREFERENCES = "MyPrefs" ;
-                SharedPreferences prefs = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
-                String isRegistered = prefs.getString("isRegistered", "false");*/
-              /*  if (isRegistered.equals("false")) {*/
-                Intent mainIntent = new Intent(Splashscreen.this,Registration.class);
-                Splashscreen.this.startActivity(mainIntent);
-                Splashscreen.this.finish();
+                if (str_reg_test != null
+                        && !str_reg_test.toString().trim().equals("")) {
+                    Intent send = new Intent(getApplicationContext(),
+                            MainActivity.class);
+                    startActivity(send);
+                    finish();
+                }
+				/*
+				 * if user reg test is false on oncreate then redirect the
+				 * user to Registration page
+				 */
+                else {
+                    Intent send = new Intent(getApplicationContext(),
+                            Registration.class);
+                    startActivity(send);
+                    finish();
+                }
             }
-            //else {
-                    /*Intent mainIntent = new Intent(Splashscreen.this,Registration
-                            .class);
-                    Splashscreen.this.startActivity(mainIntent);
-                    Splashscreen.this.finish();
-                }*/
-
-
-            //}
-        }, SPLASH_DISPLAY_LENGTH);
+        }, SPLASH_TIME_OUT);
     }
 }

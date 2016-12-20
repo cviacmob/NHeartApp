@@ -87,9 +87,9 @@ public class ProductdetailsActivity extends AppCompatActivity {
                 Productdetailresponse rsp = response.body();
                 prdetail = rsp.getProduct().get(0);
                 String detail = prdetail.getDescription();
-                CharSequence squence = Html.fromHtml(detail);
-                SpannableStringBuilder strbuilder = new SpannableStringBuilder(squence);
-                tv2.setText(strbuilder);
+//                CharSequence squence = Html.fromHtml(detail);
+//                SpannableStringBuilder strbuilder = new SpannableStringBuilder(squence);
+                tv2.setText(detail);
                 tv.setText(prdetail.getName());
 //                text1.setText(prdetail.getPrice());
 //                text2.setText(prdetail.getDiscounts());
@@ -122,7 +122,8 @@ public class ProductdetailsActivity extends AppCompatActivity {
         onBackPressed();
         switch (item.getItemId()) {
             case R.id.action_cart:
-
+                Intent h = new Intent(ProductdetailsActivity.this, CartItemListActivity.class);
+                startActivity(h);
 
                 break;
         }

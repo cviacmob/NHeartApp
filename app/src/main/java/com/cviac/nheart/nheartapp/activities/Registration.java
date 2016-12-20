@@ -5,18 +5,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Registration extends Activity {
+public class Registration extends AppCompatActivity {
 
     protected static final Context context = null;
     private EditText email, phone, name;
@@ -28,13 +30,15 @@ public class Registration extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        name = (EditText) findViewById(R.id.name);
+        setTitle("Register");
 
-        email = (EditText) findViewById(R.id.mail);
+        name = (EditText) findViewById(R.id.namebox);
 
-        phone = (EditText) findViewById(R.id.phone);
+        email = (EditText) findViewById(R.id.mailbox);
+
+        phone = (EditText) findViewById(R.id.phonebox);
         //iw=(ImageView) findViewById(R.id.imageView3);
-        submit = (Button) findViewById(R.id.register);
+        submit = (Button) findViewById(R.id.Registerbutton);
         value = email.getText().toString();
 
         submit.setOnClickListener(new OnClickListener() {
@@ -43,6 +47,9 @@ public class Registration extends Activity {
             public void onClick(View v) {
 
                 String nam1e = name.getText().toString();
+                String emi = email.getText().toString();
+                String mbno=phone.getText().toString();
+
                 boolean error = false;
                 if (nam1e.length() == 0) {
                     name.setError("name not entered");
@@ -50,19 +57,24 @@ public class Registration extends Activity {
                     error = true;
                 }
 
-                if (isValidEmail(email.getText().toString()) == false) {
-                    email.setError("Enter valid email");
-                    email.requestFocus();
-                    error = true;
-                }
 
                 if (phone.length() != 10) {
                     phone.setError("invalid mobile number");
                     phone.requestFocus();
                     error = true;
                 }
+                if (isValidEmail(emi) == false) {
+                    email.setError("Enter valid email");
+                    email.requestFocus();
+                    error = true;
+                }
 
                 if (error == false) {
+
+                    Prefs.edit();
+                    Prefs.putString("Name",nam1e);
+                    Prefs.putString("Email",emi);
+                    Prefs.putString("Phone",mbno);
 
                     Intent btn = new Intent(Registration.this,
                             Otpverification.class);

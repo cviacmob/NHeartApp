@@ -1,15 +1,12 @@
 package com.cviac.nheart.nheartapp.fragments;
 
-        import android.app.ActionBar;
         import android.content.Context;
 
         import android.content.Intent;
         import android.os.Bundle;
         import android.support.annotation.Nullable;
         import android.support.v4.app.Fragment;
-        import android.util.Log;
         import android.view.LayoutInflater;
-        import android.view.MotionEvent;
         import android.view.View;
 
         import android.view.ViewGroup;
@@ -22,21 +19,11 @@ package com.cviac.nheart.nheartapp.fragments;
         //import com.squareup.picasso.Picasso;
         import android.widget.AdapterView;
 
-        import com.cviac.nheart.nheartapp.activities.CategorylistActivity;
-        import com.cviac.nheart.nheartapp.activities.MainActivity;
         import com.cviac.nheart.nheartapp.activities.ProductdetailsActivity;
-        import com.cviac.nheart.nheartapp.activities.ProductlistActivity;
-        import com.cviac.nheart.nheartapp.adapters.CategoryAdapter;
-        import com.cviac.nheart.nheartapp.adapters.CatogryAdapter;
 
         import com.cviac.nheart.nheartapp.adapters.Productsadapter;
-        import com.cviac.nheart.nheartapp.datamodel.CategoriesResponse;
-        import com.cviac.nheart.nheartapp.datamodel.Category;
         import com.cviac.nheart.nheartapp.datamodel.CategoryProductsResponse;
-        import com.cviac.nheart.nheartapp.datamodel.CatogryInfo;
-        import com.cviac.nheart.nheartapp.datamodel.Gift;
         import com.cviac.nheart.nheartapp.datamodel.Product;
-        import com.cviac.nheart.nheartapp.datamodel.ServiceInfo;
         import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
 
         import java.util.ArrayList;
@@ -47,9 +34,6 @@ package com.cviac.nheart.nheartapp.fragments;
         import retrofit.GsonConverterFactory;
         import retrofit.Response;
         import retrofit.Retrofit;
-
-        import static android.R.attr.x;
-        import static android.content.ContentValues.TAG;
 
 public class GiftFragment extends Fragment{
   //private  ListView gv;

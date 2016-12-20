@@ -70,7 +70,7 @@ public class Fullscreen extends Activity {
             @Override
 
             public void onClick(View v) {
-                Intent mainIntent = new Intent(Invite.this, MenuActivity
+                Intent mainIntent = new Intent(InvitationReceived.this, MenuActivity
                         .class);
                 startActivity(mainIntent);
                 finish();

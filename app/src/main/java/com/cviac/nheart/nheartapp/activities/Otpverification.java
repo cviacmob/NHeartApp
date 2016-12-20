@@ -2,29 +2,18 @@ package com.cviac.nheart.nheartapp.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
+import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 
-public class Otpverification extends Activity {
+public class Otpverification extends AppCompatActivity {
 
     Button b;
     EditText pin;
@@ -33,6 +22,9 @@ public class Otpverification extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
+
+        setTitle("Otp Verification");
+
         b = (Button) findViewById(R.id.verifybutton);
         pin = (EditText) findViewById(R.id.editText1);
         b.setOnClickListener(new View.OnClickListener() {
@@ -55,13 +47,15 @@ public class Otpverification extends Activity {
                     if (pass.equals("123")) {
                         //Toast.makeText(Otpverification.this, "Welcome", Toast.LENGTH_LONG).show();
 
-                        final String MyPREFERENCES = "MyPrefs" ;
-                        SharedPreferences prefs = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putString("isRegistered", "true");
-                        editor.commit();
+//                        final String MyPREFERENCES = "MyPrefs" ;
+//                        SharedPreferences prefs = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
+//                        SharedPreferences.Editor editor = prefs.edit();
+//                        editor.putString("isRegistered", "true");
+//                        editor.commit();
 
-                        Intent mainIntent = new Intent(Otpverification.this,MainActivity.class);
+                        Prefs.putString("isregistered", "true");
+
+                        Intent mainIntent = new Intent(Otpverification.this,SendToInvite.class);
                         startActivity(mainIntent);
                         finish();
                     } else {

@@ -7,7 +7,7 @@ import java.util.List;
  * Created by admin1 on 12/9/2016.
  */
 
-public class Addcartinfo {
+public class CartItemInfo {
     private int imgID;
 
     private String name;
@@ -15,7 +15,7 @@ public class Addcartinfo {
     private String price;
     private String quantity;
 
-    List<Addcartinfo> sublist;
+    List<CartItemInfo> sublist;
     public boolean selected;
 //
 //    public String getDesc() {
@@ -53,13 +53,13 @@ public class Addcartinfo {
         this.price = price;
     }
 
-    public Addcartinfo(int imgID, String name, String price, String quantity) {
+    public CartItemInfo(int imgID, String name, String price, String quantity) {
         this.imgID = imgID;
         this.name = name;
 //        this.Desc=Desc;
         this.price=price;
         this.quantity=quantity;
-        sublist =new ArrayList<Addcartinfo>();
+        sublist =new ArrayList<CartItemInfo>();
     }
 
 
@@ -82,12 +82,12 @@ public class Addcartinfo {
         this.name = name;
     }
 
-    public void add(Addcartinfo sinfo)
+    public void add(CartItemInfo sinfo)
     {
         sublist.add(sinfo);
     }
 
-    public List<Addcartinfo> getSublist()
+    public List<CartItemInfo> getSublist()
     {
         return sublist;
     }
