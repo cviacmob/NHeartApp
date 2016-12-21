@@ -8,12 +8,16 @@ import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
+import com.cviac.nheart.nheartapp.datamodel.AddToCartResponse;
+import com.cviac.nheart.nheartapp.datamodel.LoginResponse;
 import com.cviac.nheart.nheartapp.datamodel.Product;
 import com.cviac.nheart.nheartapp.datamodel.ProductDetail;
 import com.cviac.nheart.nheartapp.datamodel.Productdetailresponse;
@@ -58,6 +62,14 @@ public class ProductdetailsActivity extends AppCompatActivity {
         //text1=(TextView) findViewById(R.id.price);
         // text2=(TextView) findViewById(R.id.old);
         Button addtocartbutton = (Button) findViewById(R.id.button2);
+        addtocartbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addToCart(prdetail.getProduct_id(),"1");
+            }
+        });
+
+
         Button buybutton = (Button) findViewById(R.id.button3);
 
         text1 = (TextView) findViewById(R.id.new1);
@@ -141,7 +153,29 @@ public class ProductdetailsActivity extends AppCompatActivity {
         return true;
     }
 
+    private void addToCart(String prodId, String quantity) {
+        String token = Prefs.getString("token",null);
+        if (token != null ) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://nheart.cviac.com/index.php?route=api/cart/add")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
 
+            OpenCartAPI api = retrofit.create(OpenCartAPI.class);
+
+            final Call<AddToCartResponse> call = api.addToCart(token,prodId, quantity);
+            call.enqueue(new Callback<AddToCartResponse>() {
+                @Override
+                public void onResponse(Response<AddToCartResponse> response, Retrofit retrofit) {
+                    AddToCartResponse rsp = response.body();
+                }
+                @Override
+                public void onFailure(Throwable t) {
+                    t.printStackTrace();
+                }
+            });
+        }
+    }
 
 
 

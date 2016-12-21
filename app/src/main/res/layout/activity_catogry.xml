@@ -21,7 +21,7 @@
 
         <TextView
         android:text="pric"
-        android:layout_width="30dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/ima1"
         android:layout_alignRight="@+id/delete"

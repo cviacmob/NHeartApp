@@ -67,6 +67,7 @@ public class CartItemAdapter extends BaseAdapter {
             holder.tv = (TextView) ins.findViewById(R.id.name);
             holder.iv = (ImageView) ins.findViewById(R.id.ima1);
             final TextView tv2 = (TextView)ins.findViewById(R.id.items);
+            holder.tv2 = tv2;
             holder.price = (TextView) ins.findViewById(R.id.price);
             ImageButton txtplus  = (ImageButton) ins.findViewById(R.id.add);
             txtplus.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +100,7 @@ public class CartItemAdapter extends BaseAdapter {
         }
         holder.price.setText(sinfo.getPrice());
         holder.tv.setText(sinfo.getName());
+        holder.tv2.setText(sinfo.getQuantity());
        // holder.iv.setImageResource(sinfo.g);
 
 

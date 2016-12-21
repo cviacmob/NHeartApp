@@ -22,7 +22,10 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
+import com.cviac.nheart.nheartapp.datamodel.CategoriesResponse;
+import com.cviac.nheart.nheartapp.datamodel.LoginResponse;
 import com.cviac.nheart.nheartapp.fragments.ChatFragment;
 
 
@@ -30,6 +33,13 @@ import com.cviac.nheart.nheartapp.fragments.GiftFragment;
 import com.cviac.nheart.nheartapp.fragments.HugFragment;
 import com.cviac.nheart.nheartapp.fragments.MusicFragment;
 import com.cviac.nheart.nheartapp.fragments.SkezoFragment;
+import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
+
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.GsonConverterFactory;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -146,6 +156,8 @@ public class MainActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
+
+        getSetToken();
 
     }
 
@@ -346,6 +358,33 @@ public class MainActivity extends AppCompatActivity {
                     return "Hug";
             }*/
             return null;
+        }
+    }
+
+    private void getSetToken() {
+        String token = Prefs.getString("token",null);
+        if (token == null ) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://nheart.cviac.com/index.php?route=api/login")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            OpenCartAPI api = retrofit.create(OpenCartAPI.class);
+
+            String apiKey = "um5xn7zaF0RfeAzhN5vG3xsqeeFjupkgOjvtqSubhcR68yw1yg5l1nu4z0EIaYx2HLqRwlvkLGCnFL8EIG0T61L3AtD1v5HNCTPYKdksMXZrCGWGdFX1p5z8KKGQz7lBQzczWxopiQcsUXKr6B7vNasiWEpZ5pNWTjhZgMMOUILMKmnj335u67xLaO334LRmgDiEA6IDyR4Hmilqp3xjce2SvPJeRDwPuINSmSFLFxJO8qUSiF6xObvNhqZZAkey";
+            final Call<LoginResponse> call = api.login(apiKey);
+            call.enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Response<LoginResponse> response, Retrofit retrofit) {
+                    int code = response.code();
+                    LoginResponse rsp = response.body();
+                    Prefs.putString("token", rsp.getToken());
+                }
+                @Override
+                public void onFailure(Throwable t) {
+                    t.printStackTrace();
+                }
+            });
         }
     }
 }
