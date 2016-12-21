@@ -1,17 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    <TableRow>
+
         <ImageView
             android:id="@+id/img"
-            android:layout_width="100dp"
-            android:layout_height="100dp"/>
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@mipmap/musicimg"/>
 
         <TextView
-            android:id="@+id/txt"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="50dp"
+            android:text="jjj"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toRightOf="@+id/img"
+            android:layout_toEndOf="@+id/img" />
 
-    </TableRow>
-</TableLayout>
+    <TextView
+        android:text="04:32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/title"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="19dp"
+        android:layout_marginEnd="19dp"
+        android:id="@+id/texduration" />
+
+
+</RelativeLayout>

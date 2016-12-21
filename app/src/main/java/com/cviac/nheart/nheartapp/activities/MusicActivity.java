@@ -31,7 +31,7 @@ public class MusicActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
-        lv=(ListView)findViewById(R.id.lvPlaylist);
+        lv=(ListView)findViewById(R.id.list1);
 
       cb=(CheckBox)findViewById(R.id.checkBox1);
         //b=(Button)findViewById(R.id.add);
@@ -39,7 +39,7 @@ public class MusicActivity extends AppCompatActivity {
 
         items=new String[ mysongs.size() ];
         for(int i=0;i<mysongs.size();i++){
-            toast(mysongs.get(i).getName().toString());
+            //toast(mysongs.get(i).getName().toString());
             items[i]=mysongs.get(i).getName().toString().replace(".mp3"," ").replace(".wav"," ");
         }
 
@@ -77,7 +77,7 @@ public class MusicActivity extends AppCompatActivity {
     }
         public void toast(String text)
     {
-        Toast.makeText(getApplicationContext(),text,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),text,Toast.LENGTH_SHORT).show();
     }
 
 
