@@ -10,7 +10,7 @@
             android:background="@mipmap/musicimg"/>
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/titlehead"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="jjj"
@@ -23,7 +23,7 @@
         android:text="04:32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/title"
+
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="19dp"

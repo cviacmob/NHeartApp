@@ -17,6 +17,12 @@ public class Songs implements Serializable {
 
 
     private int event_img;
+
+
+
+    private String title_bottom;
+
+
     private String event_title;
 
     private String event_album;
@@ -25,7 +31,13 @@ public class Songs implements Serializable {
 
     private String event_id;
 
+    public String getTitle_bottom() {
+        return title_bottom;
+    }
 
+    public void setTitle_bottom(String title_bottom) {
+        this.title_bottom = title_bottom;
+    }
 
     public int getEvent_img() {
         return event_img;

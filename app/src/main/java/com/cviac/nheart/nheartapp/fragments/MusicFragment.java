@@ -3,8 +3,10 @@ package com.cviac.nheart.nheartapp.fragments;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
+import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 
 import com.cviac.nheart.nheartapp.activities.Player;
@@ -35,10 +37,11 @@ public class MusicFragment extends Fragment {
     private ImageButton btnPlay;
     static MediaPlayer mp;
     private AudioManager audioManager = null;
-    TextView title;
+    TextView title,bduration;
     private ListView lv1;
     List<Songs> emps;
     ListView lv;
+    //private double finalTime = 0;
     String text;
     Context thiscontext;
     String newString;
@@ -54,7 +57,8 @@ public class MusicFragment extends Fragment {
         btnPlay = (ImageButton) view.findViewById(R.id.btnimg);
         lv=(ListView)view.findViewById(list1);
         mp = new MediaPlayer();
-
+         title=(TextView) view.findViewById(R.id.playtitle);
+        bduration=(TextView) view.findViewById(R.id.texdura);
         audioManager = (AudioManager)getActivity().getSystemService(Context.AUDIO_SERVICE);
 
 
@@ -67,11 +71,11 @@ public class MusicFragment extends Fragment {
                 CustomList(getActivity(), items, imageId);
         lv.setAdapter(adapter);
 
-        StringBuilder strBuilder = new StringBuilder();
+        /*StringBuilder strBuilder = new StringBuilder();
         for (int i = 0; i < items.length; i++) {
             strBuilder.append(items);
         }
-        newString= strBuilder.toString();
+        newString= strBuilder.toString();*/
 
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -80,19 +84,59 @@ public class MusicFragment extends Fragment {
 
                 //playSong(position);
 
-                String SelectedItem = (String) lv.getItemAtPosition(position);
+                mp.start();
 
+                long finalTime = mp.getDuration();
+
+
+                //bduration.setText(""+utils.milliSecondsToTimer(totalDuration));
+
+                bduration.setText(String.format("%d min, %d sec",
+                        TimeUnit.MILLISECONDS.toMinutes((long) finalTime),
+                        TimeUnit.MILLISECONDS.toSeconds((long) finalTime) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long)
+                                        finalTime)))
+                );
+
+                String SelectedItem =lv.getItemAtPosition(position).toString();
+
+                Prefs.edit();
+                Prefs.putString("titl",SelectedItem);
                 //title.setText(position);
 
             }
         });
 
-
-
+        String tit=Prefs.getString("titl"," ");
+        title.setText(String.valueOf(tit));
         return view;
+    }
 
 
 
+    public String milliSecondsToTimer(long milliseconds){
+        String finalTimerString = "";
+        String secondsString = "";
+
+        // Convert total duration into time
+        int hours = (int)( milliseconds / (1000*60*60));
+        int minutes = (int)(milliseconds % (1000*60*60)) / (1000*60);
+        int seconds = (int) ((milliseconds % (1000*60*60)) % (1000*60) / 1000);
+        // Add hours if there
+        if(hours > 0){
+            finalTimerString = hours + ":";
+        }
+
+        // Prepending 0 to seconds if it is one digit
+        if(seconds < 10){
+            secondsString = "0" + seconds;
+        }else{
+            secondsString = "" + seconds;}
+
+        finalTimerString = finalTimerString + minutes + ":" + secondsString;
+
+        // return timer string
+        return finalTimerString;
     }
 
 
