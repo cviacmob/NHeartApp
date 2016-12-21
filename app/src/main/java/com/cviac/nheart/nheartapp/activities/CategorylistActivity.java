@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.adapters.CategoryAdapter;
 import com.cviac.nheart.nheartapp.datamodel.CategoriesResponse;
@@ -83,6 +84,8 @@ public class CategorylistActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+
+
 
 
 

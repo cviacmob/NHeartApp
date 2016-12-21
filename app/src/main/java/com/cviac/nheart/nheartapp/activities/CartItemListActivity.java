@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.adapters.CartItemAdapter;
 import com.cviac.nheart.nheartapp.datamodel.CartItemInfo;
@@ -80,7 +81,8 @@ public class CartItemListActivity extends AppCompatActivity {
 
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);
 
-        Call<GetCartItemsResponse> call = api.getCartItems();
+        String token = Prefs.getString("token",null);
+        Call<GetCartItemsResponse> call = api.getCartItems(token);
         call.enqueue(new Callback<GetCartItemsResponse>() {
 
             public void onResponse(Response<GetCartItemsResponse> response, Retrofit retrofit) {
@@ -88,7 +90,8 @@ public class CartItemListActivity extends AppCompatActivity {
                 cartProducts.addAll(rsp.getProds());
                 adapter.notifyDataSetInvalidated();
                 cartTotals = rsp.getTotals();
-                total.setText(cartTotals.get(1).getText());
+
+                total.setText(cartTotals.get(cartTotals.size()-1).getText());
 
             }
 
