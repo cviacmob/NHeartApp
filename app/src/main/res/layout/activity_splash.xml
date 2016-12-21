@@ -50,7 +50,7 @@
             android:layout_height="50dp"
             android:background="@drawable/heart8"
             android:layout_marginBottom="51dp"
-            android:id="@+id/imageView3"
+            android:id="@+id/songimg"
             android:layout_alignParentBottom="true"
             android:layout_alignLeft="@+id/imageView7"
             android:layout_alignStart="@+id/imageView7" />

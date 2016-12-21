@@ -11,22 +11,32 @@ import com.cviac.nheart.nheartapp.R;
 
 import com.cviac.nheart.nheartapp.activities.Player;
 import com.cviac.nheart.nheartapp.activities.ProductdetailsActivity;
+import com.cviac.nheart.nheartapp.adapters.MusicInfoAdapter;
+import com.cviac.nheart.nheartapp.datamodel.MusicInfo;
 import com.cviac.nheart.nheartapp.datamodel.Product;
 import com.cviac.nheart.nheartapp.datamodel.Songs;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.AudioManager;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,102 +46,86 @@ import static com.cviac.nheart.nheartapp.R.id.list1;
 public class MusicFragment extends Fragment {
     private ImageButton btnPlay;
     static MediaPlayer mp;
-    private AudioManager audioManager = null;
-    TextView title,bduration;
-    private ListView lv1;
-    List<Songs> emps;
-    ListView lv;
-    //private double finalTime = 0;
-    String text;
-    Context thiscontext;
-    String newString;
-    String[] items;
-    Integer[] imageId = {
-            R.mipmap.musicimg};
-
-    final ArrayList<File> mysongs=findsongs(Environment.getExternalStorageDirectory());
+    private TextView title, artist, bduration;
+    private ListView lv;
+    private String[] items;
+    private Integer[] imageId = {R.mipmap.musicimg};
+    private ArrayList<File> mysongs;
+    private List<MusicInfo> songlist;
+    private ImageView songimg;
 
     @Override
-    public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.activity_music, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_music, container, false);
         btnPlay = (ImageButton) view.findViewById(R.id.btnimg);
-        lv=(ListView)view.findViewById(list1);
+        lv = (ListView) view.findViewById(list1);
         mp = new MediaPlayer();
-         title=(TextView) view.findViewById(R.id.playtitle);
-        bduration=(TextView) view.findViewById(R.id.texdura);
-        audioManager = (AudioManager)getActivity().getSystemService(Context.AUDIO_SERVICE);
+        title = (TextView) view.findViewById(R.id.playtitle);
+        artist = (TextView) view.findViewById(R.id.artist);
+        bduration = (TextView) view.findViewById(R.id.texdura);
+        songimg = (ImageView) view.findViewById(R.id.songimg);
 
+        songlist = listOfSongs(getActivity());
 
-        items=new String[ mysongs.size() ];
-        for(int i=0;i<mysongs.size();i++){
-           // toast(mysongs.get(i).getName().toString());
-            items[i]=mysongs.get(i).getName().toString().replace(".mp3"," ").replace(".wav"," ");
-        }
-        CustomList adapter = new
-                CustomList(getActivity(), items, imageId);
+        MusicInfoAdapter adapter = new MusicInfoAdapter(getActivity(), songlist);
         lv.setAdapter(adapter);
-
-        /*StringBuilder strBuilder = new StringBuilder();
-        for (int i = 0; i < items.length; i++) {
-            strBuilder.append(items);
-        }
-        newString= strBuilder.toString();*/
 
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                //playSong(position);
+                MusicInfo info = songlist.get(position);
+                title.setText(info.getTitle());
+                artist.setText(info.getSingers());
+                bduration.setText(info.getDuration());
 
-                mp.start();
+                MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+                mmr.setDataSource(info.getImgUrl());
+                byte[] imgbytes = mmr.getEmbeddedPicture();
+                if (imgbytes != null) {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(imgbytes, 0, imgbytes.length);
+                    songimg.setImageBitmap(bitmap);
+                }
+                else {
+                    songimg.setImageResource(R.mipmap.musicimg);
+                }
 
-                long finalTime = mp.getDuration();
-
-
-                //bduration.setText(""+utils.milliSecondsToTimer(totalDuration));
-
-                bduration.setText(String.format("%d min, %d sec",
-                        TimeUnit.MILLISECONDS.toMinutes((long) finalTime),
-                        TimeUnit.MILLISECONDS.toSeconds((long) finalTime) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long)
-                                        finalTime)))
-                );
-
-                String SelectedItem =lv.getItemAtPosition(position).toString();
-
-                Prefs.edit();
-                Prefs.putString("titl",SelectedItem);
-                //title.setText(position);
 
             }
         });
-
-        String tit=Prefs.getString("titl"," ");
-        title.setText(String.valueOf(tit));
+        if (songlist.size() > 0) {
+            title.setText(songlist.get(0).getTitle());
+            artist.setText(songlist.get(0).getSingers());
+            bduration.setText(songlist.get(0).getDuration());
+        } else {
+            title.setText("");
+            artist.setText("");
+            bduration.setText("");
+        }
         return view;
     }
 
 
-
-    public String milliSecondsToTimer(long milliseconds){
+    public String milliSecondsToTimer(long milliseconds) {
         String finalTimerString = "";
         String secondsString = "";
 
         // Convert total duration into time
-        int hours = (int)( milliseconds / (1000*60*60));
-        int minutes = (int)(milliseconds % (1000*60*60)) / (1000*60);
-        int seconds = (int) ((milliseconds % (1000*60*60)) % (1000*60) / 1000);
+        int hours = (int) (milliseconds / (1000 * 60 * 60));
+        int minutes = (int) (milliseconds % (1000 * 60 * 60)) / (1000 * 60);
+        int seconds = (int) ((milliseconds % (1000 * 60 * 60)) % (1000 * 60) / 1000);
         // Add hours if there
-        if(hours > 0){
+        if (hours > 0) {
             finalTimerString = hours + ":";
         }
 
         // Prepending 0 to seconds if it is one digit
-        if(seconds < 10){
+        if (seconds < 10) {
             secondsString = "0" + seconds;
-        }else{
-            secondsString = "" + seconds;}
+        } else {
+            secondsString = "" + seconds;
+        }
 
         finalTimerString = finalTimerString + minutes + ":" + secondsString;
 
@@ -140,35 +134,52 @@ public class MusicFragment extends Fragment {
     }
 
 
-
-
-
-    public String toast(String text)
-    {
+    public String toast(String text) {
         //Toast.makeText(getActivity().getApplication(),text,Toast.LENGTH_SHORT).show();
         return text;
     }
 
 
+    public static ArrayList<MusicInfo> listOfSongs(Context context) {
+        Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        // Filter only mp3s, only those marked by the MediaStore to be music and longer than 1 minute
+        String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
+        // +" AND " + MediaStore.Audio.Media.MIME_TYPE + "= 'audio/mpeg'"
+        // `+ " AND " + MediaStore.Audio.Media.DURATION + " > 60000";
 
 
+        String sortOrder = MediaStore.Audio.AudioColumns.TITLE
+                + " COLLATE LOCALIZED ASC";
+        Cursor c = context.getContentResolver().query(uri, null, selection, null, sortOrder);
+        ArrayList<MusicInfo> listOfSongs = new ArrayList<MusicInfo>();
+        try {
+            c.moveToFirst();
+            while (c.moveToNext()) {
+                MusicInfo songData = new MusicInfo();
 
-
-
-
-    public ArrayList<File> findsongs(File root) {
-        ArrayList<File> al = new ArrayList<File>();
-        File[] files = root.listFiles();
-        for (File singleFile : files) {
-            if (singleFile.isDirectory() && !singleFile.isHidden()) {
-                al.addAll(findsongs(singleFile));
-            } else {
-                if (singleFile.getName().endsWith(".mp3") || singleFile.getName().endsWith(".wav")) {
-                    al.add(singleFile);
-                }
+                String title = c.getString(c.getColumnIndex(MediaStore.Audio.Media.TITLE));
+                String artist = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ARTIST));
+                String album = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ALBUM));
+                long duration = c.getLong(c.getColumnIndex(MediaStore.Audio.Media.DURATION));
+                String data = c.getString(c.getColumnIndex(MediaStore.Audio.Media.DATA));
+                long albumId = c.getLong(c.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
+                String composer = c.getString(c.getColumnIndex(MediaStore.Audio.Media.COMPOSER));
+                songData.setTitle(title);
+                songData.setImgUrl(data);
+                //songData.setAlbum(album);
+                songData.setSingers(artist);
+                songData.setDuration(duration + "");
+                //songData.setPath(data);
+                //songData.setAlbumId(albumId);
+                //songData.setComposer(composer);
+                listOfSongs.add(songData);
             }
+            c.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return al;
+        return listOfSongs;
     }
 
 }

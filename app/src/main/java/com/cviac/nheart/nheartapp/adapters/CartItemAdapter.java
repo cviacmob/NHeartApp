@@ -98,7 +98,7 @@ public class CartItemAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) ins.getTag();
         }
-        holder.price.setText(sinfo.getPrice());
+        holder.price.setText(sinfo.getTotal());
         holder.tv.setText(sinfo.getName());
         holder.tv2.setText(sinfo.getQuantity());
        // holder.iv.setImageResource(sinfo.g);
