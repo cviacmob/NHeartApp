@@ -15,6 +15,7 @@ import com.cviac.nheart.nheartapp.adapters.MusicInfoAdapter;
 import com.cviac.nheart.nheartapp.datamodel.MusicInfo;
 import com.cviac.nheart.nheartapp.datamodel.Product;
 import com.cviac.nheart.nheartapp.datamodel.Songs;
+import com.squareup.picasso.Picasso;
 
 import android.content.Context;
 import android.content.Intent;
@@ -81,16 +82,11 @@ public class MusicFragment extends Fragment {
                 title.setText(info.getTitle());
                 artist.setText(info.getSingers());
                 bduration.setText(info.getDuration());
-
-                MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-                mmr.setDataSource(info.getImgUrl());
-                byte[] imgbytes = mmr.getEmbeddedPicture();
-                if (imgbytes != null) {
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(imgbytes, 0, imgbytes.length);
-                    songimg.setImageBitmap(bitmap);
+                if (info.getImgUrl() != null && info.getImgUrl().length() > 0) {
+                    Picasso.with(getContext()).load(Uri.parse("file://" + info.getImgUrl())).resize(50, 50).into(songimg);
                 }
                 else {
-                    songimg.setImageResource(R.mipmap.musicimg);
+                    Picasso.with(getContext()).load(R.mipmap.musicimg).resize(50, 50).into(songimg);
                 }
 
 
@@ -100,6 +96,7 @@ public class MusicFragment extends Fragment {
             title.setText(songlist.get(0).getTitle());
             artist.setText(songlist.get(0).getSingers());
             bduration.setText(songlist.get(0).getDuration());
+            Picasso.with(getContext()).load(Uri.parse("file://" + songlist.get(0).getImgUrl())).resize(50, 50).into(songimg);
         } else {
             title.setText("");
             artist.setText("");
@@ -142,7 +139,9 @@ public class MusicFragment extends Fragment {
     }
 
 
-    public static ArrayList<MusicInfo> listOfSongs(Context context) {
+
+
+    public ArrayList<MusicInfo> listOfSongs(Context context) {
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         // Filter only mp3s, only those marked by the MediaStore to be music and longer than 1 minute
         String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
@@ -163,20 +162,18 @@ public class MusicFragment extends Fragment {
                 String artist = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ARTIST));
                 String album = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ALBUM));
                 long duration = c.getLong(c.getColumnIndex(MediaStore.Audio.Media.DURATION));
-                long duration1 = c.getLong(c.getColumnIndex(MediaStore.Audio.Media.DURATION));
-                String data = c.getString(c.getColumnIndex(MediaStore.Audio.Media.DATA));
                 long albumId = c.getLong(c.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
+                String data = getAlbumArt(albumId);
                 String composer = c.getString(c.getColumnIndex(MediaStore.Audio.Media.COMPOSER));
                 long minutes = (duration / 1000)  / 60;
-               long seconds = (duration1 / 1000) % 60;
+                long seconds = (duration / 1000) % 60;
                 songData.setTitle(title);
                 songData.setImgUrl(data);
-                //songData.setAlbum(album);
+                songData.setAlbumName(album);
                 songData.setSingers(artist);
                 songData.setDuration(minutes+":"+seconds);
-                //songData.setPath(data);
-                //songData.setAlbumId(albumId);
-                //songData.setComposer(composer);
+                songData.setAlbumId(albumId);
+                songData.setComposer(composer);
                 listOfSongs.add(songData);
             }
             c.close();
@@ -185,6 +182,21 @@ public class MusicFragment extends Fragment {
             e.printStackTrace();
         }
         return listOfSongs;
+    }
+
+    private String getAlbumArt(long albumId) {
+        String path = "";
+        Cursor cursor = getActivity().managedQuery(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
+                new String[] {MediaStore.Audio.Albums._ID, MediaStore.Audio.Albums.ALBUM_ART},
+                MediaStore.Audio.Albums._ID+ "=?",
+                new String[] {String.valueOf(albumId)},
+                null);
+
+        if (cursor.moveToFirst()) {
+            path = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART));
+            // do whatever you need to do
+        }
+        return path;
     }
 
 }

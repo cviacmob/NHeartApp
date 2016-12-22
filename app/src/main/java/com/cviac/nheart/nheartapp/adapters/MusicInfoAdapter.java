@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,38 +83,7 @@ public class MusicInfoAdapter extends BaseAdapter {
         holder.artist.setText(ct.getSingers());
         holder.title.setText(ct.getTitle());
         holder.duration.setText(ct.getDuration());
-        new LoadImageAsyncTask().execute(holder);
-        //Picasso.with(vw.getContext()).load(ct.getImgUrl()).resize(50, 50).into(holder.img);
-
-
+        Picasso.with(vw.getContext()).load(Uri.parse("file://" + ct.getImgUrl())).resize(50, 50).into(holder.img);
         return vw;
     }
-
-    private class LoadImageAsyncTask extends AsyncTask<ViewHolder, Void, ViewHolder> {
-        ViewHolder holder;
-        Bitmap bitmap;
-        @Override
-        protected ViewHolder doInBackground(ViewHolder... params) {
-            holder = params[0];
-            MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-            mmr.setDataSource(holder.imgUrl);
-            byte[] imgbytes = mmr.getEmbeddedPicture();
-            if (imgbytes != null) {
-                bitmap = BitmapFactory.decodeByteArray(imgbytes, 0, imgbytes.length);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(ViewHolder viewHolder) {
-            if (bitmap != null) {
-                holder.img.setImageBitmap(bitmap);
-            }
-            else {
-                holder.img.setImageResource(R.mipmap.musicimg);
-            }
-        }
-    }
-
-
 }

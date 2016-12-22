@@ -14,6 +14,12 @@ public class MusicInfo {
 
     private String duration;
 
+    private long albumId;
+
+    private String albumName;
+
+    private String composer;
+
     public MusicInfo() {
     }
 
@@ -47,5 +53,29 @@ public class MusicInfo {
 
     public void setDuration(String duration) {
         this.duration = duration;
+    }
+
+    public long getAlbumId() {
+        return albumId;
+    }
+
+    public void setAlbumId(long albumId) {
+        this.albumId = albumId;
+    }
+
+    public String getAlbumName() {
+        return albumName;
+    }
+
+    public void setAlbumName(String albumName) {
+        this.albumName = albumName;
+    }
+
+    public String getComposer() {
+        return composer;
+    }
+
+    public void setComposer(String composer) {
+        this.composer = composer;
     }
 }
