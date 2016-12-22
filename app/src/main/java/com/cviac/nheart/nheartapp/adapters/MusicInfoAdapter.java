@@ -52,6 +52,7 @@ public class MusicInfoAdapter extends BaseAdapter {
     public static class ViewHolder {
         TextView title;
         ImageView img;
+        TextView artist;
         TextView duration;
         String imgUrl;
 
@@ -69,6 +70,7 @@ public class MusicInfoAdapter extends BaseAdapter {
             holder = new ViewHolder();
             vw = convertView;
             holder.title = (TextView) vw.findViewById(R.id.titlehead);
+            holder.artist = (TextView) vw.findViewById(R.id.artist);
             holder.duration = (TextView) vw.findViewById(R.id.texduration);
             holder.img = (ImageView) vw.findViewById(R.id.img);
             vw.setTag(holder);
@@ -77,6 +79,7 @@ public class MusicInfoAdapter extends BaseAdapter {
             holder = (ViewHolder) vw.getTag();
         }
         holder.imgUrl = ct.getImgUrl();
+        holder.artist.setText(ct.getSingers());
         holder.title.setText(ct.getTitle());
         holder.duration.setText(ct.getDuration());
         new LoadImageAsyncTask().execute(holder);

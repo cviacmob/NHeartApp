@@ -54,6 +54,8 @@ public class MusicFragment extends Fragment {
     private List<MusicInfo> songlist;
     private ImageView songimg;
 
+
+     static long duration2;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_music, container, false);
@@ -63,7 +65,7 @@ public class MusicFragment extends Fragment {
         title = (TextView) view.findViewById(R.id.playtitle);
         artist = (TextView) view.findViewById(R.id.artist);
         bduration = (TextView) view.findViewById(R.id.texdura);
-        songimg = (ImageView) view.findViewById(R.id.songimg);
+        songimg = (ImageView) view.findViewById(R.id.musicimg);
 
         songlist = listOfSongs(getActivity());
 
@@ -161,14 +163,17 @@ public class MusicFragment extends Fragment {
                 String artist = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ARTIST));
                 String album = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ALBUM));
                 long duration = c.getLong(c.getColumnIndex(MediaStore.Audio.Media.DURATION));
+                long duration1 = c.getLong(c.getColumnIndex(MediaStore.Audio.Media.DURATION));
                 String data = c.getString(c.getColumnIndex(MediaStore.Audio.Media.DATA));
                 long albumId = c.getLong(c.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
                 String composer = c.getString(c.getColumnIndex(MediaStore.Audio.Media.COMPOSER));
+                long minutes = (duration / 1000)  / 60;
+               long seconds = (duration1 / 1000) % 60;
                 songData.setTitle(title);
                 songData.setImgUrl(data);
                 //songData.setAlbum(album);
                 songData.setSingers(artist);
-                songData.setDuration(duration + "");
+                songData.setDuration(minutes+":"+seconds);
                 //songData.setPath(data);
                 //songData.setAlbumId(albumId);
                 //songData.setComposer(composer);
