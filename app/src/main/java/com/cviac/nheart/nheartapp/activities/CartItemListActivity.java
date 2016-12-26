@@ -25,7 +25,10 @@ import com.cviac.nheart.nheartapp.datamodel.Category;
 import com.cviac.nheart.nheartapp.datamodel.GetCartItemsResponse;
 import com.cviac.nheart.nheartapp.datamodel.Product;
 import com.cviac.nheart.nheartapp.datamodel.ProductCartInfo;
+import com.cviac.nheart.nheartapp.datamodel.ProductDetail;
+import com.cviac.nheart.nheartapp.datamodel.Productdetailresponse;
 import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,28 +66,50 @@ public class CartItemListActivity extends AppCompatActivity{
 
         total = (TextView)  findViewById(R.id.totalamout);
         adapter = new CartItemAdapter(this, R.layout.activity_catogry,cartProducts);
-        lv = (ListView) findViewById(R.id.list);
+        lv = (ListView) findViewById(R.id.cartlist);
         lv.setAdapter(adapter);
-
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                // Product pr = productList.get(pos);
-                Intent i=new Intent(CartItemListActivity.this, ProductdetailsActivity.class);
-                //i.putExtra("productobj",  pr);
-                startActivity(i);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ProductCartInfo pinfo = cartProducts.get(i);
+                getProduct(pinfo.getProduct_id());
             }
         });
+    }
 
+    private void getProduct(String productId) {
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://nheart.cviac.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        OpenCartAPI api = retrofit.create(OpenCartAPI.class);
+
+        Call<Productdetailresponse> call = api.getProductdetails(productId);
+        call.enqueue(new Callback<Productdetailresponse>() {
+
+            public void onResponse(Response<Productdetailresponse> response, Retrofit retrofit) {
+                Productdetailresponse rsp = response.body();
+                ProductDetail prdet = rsp.getProduct().get(0);
+                Intent i=new Intent(CartItemListActivity.this, ProductdetailsActivity.class);
+                i.putExtra("productobj",  prdet);
+                startActivity(i);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                t.printStackTrace();
+            }
+        });
 
     }
 
     private void loadCartItems() {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.133")
+                .baseUrl("http://nheart.cviac.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

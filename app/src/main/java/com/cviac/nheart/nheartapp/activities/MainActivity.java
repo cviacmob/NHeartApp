@@ -3,6 +3,8 @@ package com.cviac.nheart.nheartapp.activities;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.datamodel.CategoriesResponse;
+import com.cviac.nheart.nheartapp.datamodel.GetCartItemsResponse;
 import com.cviac.nheart.nheartapp.datamodel.LoginResponse;
 import com.cviac.nheart.nheartapp.fragments.ChatFragment;
 
@@ -34,6 +37,7 @@ import com.cviac.nheart.nheartapp.fragments.HugFragment;
 import com.cviac.nheart.nheartapp.fragments.MusicFragment;
 import com.cviac.nheart.nheartapp.fragments.SkezoFragment;
 import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
+import com.cviac.nheart.nheartapp.utilities.BadgeDrawable;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -53,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
     static TabLayout tabLayout;
+    private LayerDrawable mcartMenuIcon;
+    private int mCartCount = 0;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -60,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     Toolbar toolbar;
     ActionBar ab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        final AppBarLayout appBarLayout = (AppBarLayout)findViewById(R.id.appbar);
+        final AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         appBarLayout.setExpanded(false, true);
 
 
@@ -78,33 +85,11 @@ public class MainActivity extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-       mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-
-
-
-        /*final int[] ICONS = new int[]{
-                R.drawable.chaticon,
-                R.drawable.hugicon,
-                R.drawable.colistner,
-                R.drawable.skezoicon,
-                R.drawable.hugicon
-        };
-        final String[] resource = new String[]{
-                "chat",
-                "hugicon",
-                "colistner",
-                "skezoicon",
-                "hugicon"
-        };*/
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-/*        tabLayout.getTabAt(0).setIcon(R.drawable.chaticon);
-        tabLayout.getTabAt(1).setIcon( R.drawable.giftsicon);
-        tabLayout.getTabAt(2).setIcon( R.drawable.colistner);*/
-        // tabLayout.getTabAt(3).setIcon(R.drawable.skezoicon);
-        //tabLayout.getTabAt(4).setIcon( R.drawable.hugicon);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
@@ -146,19 +131,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        // tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        // tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
         getSetToken();
 
     }
@@ -199,14 +171,36 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        mcartMenuIcon = (LayerDrawable) menu.findItem(R.id.action_cart).getIcon();
+        setBadgeCount(this, mcartMenuIcon, "");
+        getAndSetCartCount();
         return true;
+    }
+
+
+
+    public static void setBadgeCount(Context context, LayerDrawable icon, String count) {
+
+        BadgeDrawable badge;
+
+        // Reuse drawable if possible
+        Drawable reuse = icon.findDrawableByLayerId(R.id.ic_cart_badge);
+        if (reuse != null && reuse instanceof BadgeDrawable) {
+            badge = (BadgeDrawable) reuse;
+        } else {
+            badge = new BadgeDrawable(context);
+        }
+
+        badge.setCount(count);
+        icon.mutate();
+        icon.setDrawableByLayerId(R.id.ic_cart_badge, badge);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == 1000) {
-            if(data !=null) {
+            if (data != null) {
                 String catId = data.getStringExtra("categoryid");
 
                 if (catId != null)
@@ -233,11 +227,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_refresh:
 
                 break;
-           case R.id.action_cart:
-               Intent h = new Intent(MainActivity.this, CartItemListActivity.class);
-               startActivity(h);
+            case R.id.action_cart:
+                Intent h = new Intent(MainActivity.this, CartItemListActivity.class);
+                startActivity(h);
 
-               break;
+                break;
 
 
             default:
@@ -327,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
                     Fragment frag = new GiftFragment();
                     return new GiftFragment();
                 case 3:
-                    Fragment frag1=new MusicFragment();
+                    Fragment frag1 = new MusicFragment();
                     return new MusicFragment();
                 case 4:
                     return new SkezoFragment();
@@ -364,8 +358,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getSetToken() {
-        String token = Prefs.getString("token",null);
-        if (token == null ) {
+        String token = Prefs.getString("token", null);
+        if (token == null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("http://nheart.cviac.com/index.php?route=api/login")
                     .addConverterFactory(GsonConverterFactory.create())
@@ -382,11 +376,39 @@ public class MainActivity extends AppCompatActivity {
                     LoginResponse rsp = response.body();
                     Prefs.putString("token", rsp.getToken());
                 }
+
                 @Override
                 public void onFailure(Throwable t) {
                     t.printStackTrace();
                 }
             });
         }
+    }
+
+    private void getAndSetCartCount() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://nheart.cviac.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        OpenCartAPI api = retrofit.create(OpenCartAPI.class);
+
+        String token = Prefs.getString("token", null);
+        Call<GetCartItemsResponse> call = api.getCartItems(token);
+        call.enqueue(new Callback<GetCartItemsResponse>() {
+
+            public void onResponse(Response<GetCartItemsResponse> response, Retrofit retrofit) {
+                GetCartItemsResponse rsp = response.body();
+                if (rsp != null) {
+                    mCartCount = rsp.getProds().size();
+                    setBadgeCount(MainActivity.this, mcartMenuIcon, mCartCount+"");
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 }
