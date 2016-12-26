@@ -1,8 +1,11 @@
 package com.cviac.nheart.nheartapp.activities;
 
+
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
@@ -34,10 +37,10 @@ public class ProductdetailsActivity extends AppCompatActivity {
 
 
     private TextView tv, tv2, text1, text2, tv3, tv4;
-    private Button b, b2, Buttoncart;
+    private Button b, b2, Buttoncart,cart;
     private ImageView iv1;
     private RatingBar rating;
-
+    ActionBar actionBar;
     static int count = 0;
 
     ProductDetail prdetail = null;
@@ -61,7 +64,7 @@ public class ProductdetailsActivity extends AppCompatActivity {
         tv2 = (TextView) findViewById(R.id.descr);
         //text1=(TextView) findViewById(R.id.price);
         // text2=(TextView) findViewById(R.id.old);
-        Button addtocartbutton = (Button) findViewById(R.id.button2);
+        Button addtocartbutton = (Button) findViewById(R.id.addtocart);
         addtocartbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +73,7 @@ public class ProductdetailsActivity extends AppCompatActivity {
         });
 
 
-        Button buybutton = (Button) findViewById(R.id.button3);
+        Button buybutton = (Button) findViewById(R.id.buy);
 
         text1 = (TextView) findViewById(R.id.new1);
         text1.setText("₹ 25");
@@ -86,7 +89,7 @@ public class ProductdetailsActivity extends AppCompatActivity {
         //  rating=(RatingBar) findViewById(R.id.ratingBar2);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://nheart.cviac.com/index.php?route=api/category/getproducts&categoryid")
+                .baseUrl("http://192.168.1.133")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -157,7 +160,7 @@ public class ProductdetailsActivity extends AppCompatActivity {
         String token = Prefs.getString("token",null);
         if (token != null ) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://nheart.cviac.com/index.php?route=api/cart/add")
+                    .baseUrl("http://192.168.1.133")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
@@ -175,8 +178,28 @@ public class ProductdetailsActivity extends AppCompatActivity {
                 }
             });
         }
+        actionmethod();
     }
 
+    public void actionmethod() {
+        actionBar =  getSupportActionBar();
+        if (actionBar != null) {
+// Disable the default and enable the custom
+            actionBar.setDisplayShowHomeEnabled(false);
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setDisplayShowCustomEnabled(true);
+            //actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3B5CD1")));
+            View customView = getLayoutInflater().inflate(R.layout.actionbartitle, null);
+            tv=(TextView) customView.findViewById(R.id.count);
+//            tv1 =(TextView ) customView.findViewById(R.id.title);
+//
+            cart=(Button)customView.findViewById(R.id.cartbutoon);
+//            tv1.setText("Cart Items");
+            actionBar.setCustomView(customView);
 
+
+        }
+
+    }
 
 }

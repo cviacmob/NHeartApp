@@ -8,28 +8,19 @@
 
 
     <TextView
-        android:id="@+id/badge_notification_2"
+        android:id="@+id/count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/item_count"
 
-        android:textSize="14sp"
         android:textStyle="bold"
-        android:layout_marginRight="31dp"
-        android:layout_marginEnd="31dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:text="0" />
+        android:layout_alignParentLeft="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="0"
+        android:layout_marginTop="6dp"
+       />
 
-    <Button
-        android:text=""
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/cartwhite"
-        android:id="@+id/carttbutton"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/badge_notification_2"
-        android:layout_toStartOf="@+id/badge_notification_2" />
+
 </RelativeLayout>
 

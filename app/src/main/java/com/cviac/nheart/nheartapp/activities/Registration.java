@@ -78,6 +78,7 @@ public class Registration extends AppCompatActivity {
 
                     Intent btn = new Intent(Registration.this,
                             Otpverification.class);
+
                     startActivity(btn);
                     finish();
                 }

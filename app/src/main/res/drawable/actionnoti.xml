@@ -3,15 +3,15 @@
     android:shape="ring"
     android:useLevel="false"
     android:thickness="1dp"
-    android:innerRadius="5dp"
+    android:innerRadius="8dp"
     >
 
     <solid
         android:color="#000"
         />
     <stroke
-        android:width="10dip"
-        android:color="#FFF" />
+        android:width="13dip"
+        android:color="#1F5" />
 
     <padding
         android:top="2dp"

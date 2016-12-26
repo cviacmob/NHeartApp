@@ -123,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
         tab.setIcon(R.mipmap.ic_computer_black_24dp);
         tab = tabLayout.getTabAt(4);
         tab.setTag("Hug");
+
+
         tab.setIcon(R.mipmap.ic_favorite_border_black_24dp);
 
         setTitle("Mirror");

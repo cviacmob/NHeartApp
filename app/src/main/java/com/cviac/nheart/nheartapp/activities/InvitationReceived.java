@@ -39,7 +39,7 @@ public class InvitationReceived extends AppCompatActivity {
             @Override
 
             public void onClick(View v) {
-                Intent mainIntent = new Intent(InvitationReceived.this, MainActivity
+                Intent mainIntent = new Intent(InvitationReceived.this, SendToInvite
                         .class);
                 startActivity(mainIntent);
                 finish();

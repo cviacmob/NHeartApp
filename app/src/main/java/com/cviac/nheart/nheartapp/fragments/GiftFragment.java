@@ -104,7 +104,7 @@ public class GiftFragment extends Fragment{
 
     public void refresh(String catId) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://nheart.cviac.com/index.php?route=api/category/getproducts&categoryid")
+                .baseUrl("http://192.168.1.133")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

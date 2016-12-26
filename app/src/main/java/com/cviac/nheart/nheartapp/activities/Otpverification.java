@@ -17,6 +17,7 @@ public class Otpverification extends AppCompatActivity {
 
     Button b;
     EditText pin;
+    String str;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -16,7 +16,7 @@
         android:text="BUY"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:id="@+id/button2"
+        android:id="@+id/buy"
         android:background="#d40573"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
@@ -33,7 +33,7 @@
         android:id="@+id/scrollview"
         android:layout_alignParentTop="true"
         android:layout_marginTop="11dp"
-        android:layout_above="@+id/button3">
+        android:layout_above="@+id/addtocart">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -129,7 +129,7 @@
         android:text="ADD to Cart"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:id="@+id/button3"
+        android:id="@+id/addtocart"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
         android:background="#D30875"

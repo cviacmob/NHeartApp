@@ -76,7 +76,11 @@
         <activity
             android:name=".activities.MusicActivity" />
         <activity android:name=".activities.ProductlistActivity" />
-        <activity android:name=".activities.CartItemListActivity"></activity>
+        <activity
+            android:label="Cart Items"
+            android:name=".activities.CartItemListActivity">
+
+        </activity>
     </application>
 
 </manifest>

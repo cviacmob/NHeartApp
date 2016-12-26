@@ -20,28 +20,28 @@ import retrofit.http.Query;
 
 public interface OpenCartAPI {
 
-    @GET("http://nheart.cviac.com/index.php?route=api/category")
+    @GET("/opencart/index.php?route=api/category")
     Call<CategoriesResponse> getCategories();
 
-    @GET("http://nheart.cviac.com/index.php?route=api/category/getproducts")
+    @GET("/opencart/index.php?route=api/category/getproducts")
     Call<CategoryProductsResponse> getProducts(@Query("categoryid") String categoryid);
 
 
-    @GET("http://nheart.cviac.com/index.php?route=api/category/getproductdetails")
+    @GET("/opencart/index.php?route=api/category/getproductdetails")
     Call<Productdetailresponse> getProductdetails(@Query("productid") String categoryid);
 
     @FormUrlEncoded
-    @POST("http://nheart.cviac.com/index.php?route=api/login")
+    @POST("/opencart/index.php?route=api/login")
     Call<LoginResponse> login(@Field("key") String apikey);
 
     @FormUrlEncoded
-    @POST("http://nheart.cviac.com/index.php?route=api/cart/add")
+    @POST("/opencart/index.php?route=api/cart/add")
     Call<AddToCartResponse> addToCart(@Query("token") String token,
                                       @Field("product_id") String prodid,
                                       @Field("quantity") String quantity
                                   );
 
-    @GET("http://nheart.cviac.com/index.php?route=api/cart/products")
+    @GET("/opencart/index.php?route=api/cart/products")
     Call<GetCartItemsResponse> getCartItems(@Query("token") String token);
 
 
