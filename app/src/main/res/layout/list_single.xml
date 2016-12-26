@@ -1,34 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:padding="5dp">
 
-        <ImageView
-            android:id="@+id/img"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@mipmap/musicimg"/>
+    <TextView
+        android:id="@+id/titlehead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="title"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:layout_toRightOf="@+id/img" />
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="jjj"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_toRightOf="@+id/img"
-            android:layout_toEndOf="@+id/img" />
+    <TextView
+        android:text="singer1,singer2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/artist"
+        android:padding="2dp"
+        android:maxLines="1"
+        android:textSize="15dp"
+        android:textStyle="italic"
+        android:textColor="#686464"
+        android:layout_below="@+id/titlehead"
+        android:layout_toRightOf="@+id/img"
+        />
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:padding="2dp"
+        android:background="@mipmap/musicimg"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:text="04:32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/title"
+        android:textColor="#000000"
+        android:padding="5dp"
+        android:maxLines="1"
+        android:layout_marginRight="14dp"
+        android:layout_marginEnd="14dp"
+        android:id="@+id/texduration"
+        android:layout_alignBottom="@+id/artist"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="19dp"
-        android:layout_marginEnd="19dp"
-        android:id="@+id/texduration" />
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>
