@@ -55,17 +55,11 @@ public class MusicFragment extends Fragment {
     static public MediaPlayer mp;
     private TextView title, artist, bduration;
     private ListView lv;
-    private String[] items;
-    private Integer[] imageId = {R.mipmap.musicimg};
-    private ArrayList<File> mysongs;
     private List<MusicInfo> songlist;
     private ImageView songimg;
     private int musicCounter = 0;
-    private double timeElapsed = 0, finalTime = 0;
-    boolean isPressed;
-    static long duration2;
-    Thread updateseekbar;
-    SeekBar sb;
+    private Thread updateseekbar;
+    private SeekBar sb;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -86,7 +80,7 @@ public class MusicFragment extends Fragment {
         songlist = listOfSongs(getActivity());
 
 
-        MusicInfoAdapter adapter = new MusicInfoAdapter(getActivity(), songlist);
+        final MusicInfoAdapter adapter = new MusicInfoAdapter(getActivity(), songlist);
         lv.setAdapter(adapter);
 
         sb = (SeekBar) view.findViewById(R.id.seekBar3);
@@ -96,15 +90,12 @@ public class MusicFragment extends Fragment {
                 int totalduration = mp.getDuration();
                 int currentposition = 0;
                 sb.setMax(totalduration);
-
-                timeElapsed = mp.getCurrentPosition();
-
                 while (currentposition < totalduration) {
                     try {
-                        sleep(100);
+                        sleep(1000);
                         currentposition = mp.getCurrentPosition();
                         sb.setProgress(currentposition);
-                    } catch (InterruptedException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -113,76 +104,49 @@ public class MusicFragment extends Fragment {
 
         };
 
-
-
-
-
-
-
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-
+                songlist.get(musicCounter).setPlaying(false);
                 musicCounter = position;
                 Uri u = Uri.parse(songlist.get(position).toString());
                 MusicInfo info = songlist.get(position);
                 title.setText(info.getTitle());
                 artist.setText(info.getSingers());
                 bduration.setText(info.getDuration());
-
-
-
-
                 if (info.getImgUrl() != null && info.getImgUrl().length() > 0) {
                     Picasso.with(getContext()).load(Uri.parse("file://" + info.getImgUrl())).resize(50, 50).into(songimg);
                 } else {
                     Picasso.with(getContext()).load(R.mipmap.musicimg).resize(50, 50).into(songimg);
                 }
-
                 mp.reset();
                 try {
                     mp.setDataSource(info.getPath());
                     mp.prepare();
                     mp.start();
-
+                    info.setPlaying(true);
+                    adapter.notifyDataSetChanged();
                     sb.setMax(mp.getDuration());
                     btnPlay.setBackgroundResource(R.drawable.pause);
-
-
                     try
                     {
-
                        updateseekbar.start();
                     }
                     catch(Exception e)
                     {
                         return;
                     }
-
-/*
-if(updateseekbar.currentThread().isAlive())
-{
-    updateseekbar.start();
-}else
-{
-
-}
-*/
-
                     sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                         @Override
                         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
                         }
 
                         @Override
                         public void onStartTrackingTouch(SeekBar seekBar) {
-
                         }
 
                         @Override
                         public void onStopTrackingTouch(SeekBar seekBar) {
-
                         }
                     });
 
@@ -190,6 +154,7 @@ if(updateseekbar.currentThread().isAlive())
                     mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                         @Override
                         public void onCompletion(MediaPlayer mparg) {
+                            songlist.get(musicCounter).setPlaying(false);
                             musicCounter++;
                             MusicInfo info = null;
                             if (musicCounter == songlist.size()) {
@@ -203,6 +168,8 @@ if(updateseekbar.currentThread().isAlive())
                                 mp.setDataSource(info.getPath());
                                 mp.prepare();
                                 mp.start();
+                                songlist.get(musicCounter).setPlaying(true);
+                                adapter.notifyDataSetChanged();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -215,33 +182,29 @@ if(updateseekbar.currentThread().isAlive())
                 }
 
             }
-
-
         });
 
 
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 if (mp.isPlaying()) {
                     v.setBackgroundResource(R.drawable.play);
                     mp.pause();
                     sb.setMax(mp.getDuration());
+                    songlist.get(musicCounter).setPlaying(false);
+                    adapter.notifyDataSetChanged();
 
-                } else
-
+                } else {
                     mp.start();
-
+                }
                 if (mp.isPlaying()) {
                     sb.setMax(mp.getDuration());
                     v.setBackgroundResource(R.drawable.pause);
+                    songlist.get(musicCounter).setPlaying(true);
+                    adapter.notifyDataSetChanged();
                 }
-
-
             }
-
         });
 
 
@@ -257,40 +220,6 @@ if(updateseekbar.currentThread().isAlive())
         }
         return view;
     }
-
-
-    public String milliSecondsToTimer(long milliseconds) {
-        String finalTimerString = "";
-        String secondsString = "";
-
-        // Convert total duration into time
-        int hours = (int) (milliseconds / (1000 * 60 * 60));
-        int minutes = (int) (milliseconds % (1000 * 60 * 60)) / (1000 * 60);
-        int seconds = (int) ((milliseconds % (1000 * 60 * 60)) % (1000 * 60) / 1000);
-        // Add hours if there
-        if (hours > 0) {
-            finalTimerString = hours + ":";
-        }
-
-        // Prepending 0 to seconds if it is one digit
-        if (seconds < 10) {
-            secondsString = "0" + seconds;
-        } else {
-            secondsString = "" + seconds;
-        }
-
-        finalTimerString = finalTimerString + minutes + ":" + secondsString;
-
-        // return timer string
-        return finalTimerString;
-    }
-
-
-    public String toast(String text) {
-        //Toast.makeText(getActivity().getApplication(),text,Toast.LENGTH_SHORT).show();
-        return text;
-    }
-
 
     public ArrayList<MusicInfo> listOfSongs(Context context) {
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
@@ -383,6 +312,4 @@ if(updateseekbar.currentThread().isAlive())
         }
         return path;
     }
-
-
 }
