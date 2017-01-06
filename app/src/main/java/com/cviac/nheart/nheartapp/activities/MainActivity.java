@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.media.MediaPlayer;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -76,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        final AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        /*final AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         appBarLayout.setExpanded(false, true);
-
+*/
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -105,14 +106,15 @@ public class MainActivity extends AppCompatActivity {
         tab.setIcon(R.mipmap.ic_music_circle_black_24dp);
         tab = tabLayout.getTabAt(3);
         tab.setTag("Skezo");
-        tab.setIcon(R.mipmap.ic_computer_black_24dp);
+        tab.setIcon(R.mipmap.ic_people_black_24dp);
         tab = tabLayout.getTabAt(4);
         tab.setTag("Hug");
 
 
-        tab.setIcon(R.mipmap.ic_favorite_border_black_24dp);
-
+        tab.setIcon(R.mipmap.ic_sentiment_satisfied_black_24dp);
         setTitle("Mirror");
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -155,12 +157,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case "Skezo":
-                int ic3 = (isSelected) ? R.mipmap.ic_computer_white_24dp : R.mipmap.ic_computer_black_24dp;
+                int ic3 = (isSelected) ? R.mipmap.ic_people_white_24dp : R.mipmap.ic_people_black_24dp;
                 tab.setIcon(ic3);
                 break;
 
             case "Hug":
-                int ic4 = (isSelected) ? R.mipmap.ic_favorite_border_white_24dp : R.mipmap.ic_favorite_border_black_24dp;
+                int ic4 = (isSelected) ? R.mipmap.ic_sentiment_very_satisfied_white_24dp : R.mipmap.ic_sentiment_satisfied_black_24dp;
                 tab.setIcon(ic4);
                 break;
         }
@@ -324,8 +326,10 @@ public class MainActivity extends AppCompatActivity {
                     Fragment frag1 = new MusicFragment();
                     return new MusicFragment();
                 case 4:
+                    Fragment frag2 = new SkezoFragment();
                     return new SkezoFragment();
                 case 5:
+                    Fragment frag3 = new HugFragment();
                     return new HugFragment();
             }
             return null;
@@ -410,5 +414,15 @@ public class MainActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MediaPlayer mp = MusicFragment.mp;
+        if (mp != null) {
+            mp.stop();
+            mp.release();
+        }
     }
 }

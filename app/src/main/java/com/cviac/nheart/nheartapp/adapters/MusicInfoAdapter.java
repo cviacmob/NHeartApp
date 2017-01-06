@@ -3,6 +3,7 @@ package com.cviac.nheart.nheartapp.adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -19,10 +20,6 @@ import com.cviac.nheart.nheartapp.datamodel.MusicInfo;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-/**
- * Created by Cviac on 21/12/2016.
- */
 
 public class MusicInfoAdapter extends BaseAdapter {
 
@@ -71,6 +68,7 @@ public class MusicInfoAdapter extends BaseAdapter {
             holder = new ViewHolder();
             vw = convertView;
             holder.title = (TextView) vw.findViewById(R.id.titlehead);
+
             holder.artist = (TextView) vw.findViewById(R.id.artist);
             holder.duration = (TextView) vw.findViewById(R.id.texduration);
             holder.img = (ImageView) vw.findViewById(R.id.img);

@@ -6,12 +6,16 @@
     android:id="@+id/relative1"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/list1"
+        android:choiceMode="singleChoice"
+        android:background="?android:activatedBackgroundIndicator"
         android:divider="?attr/colorPrimary"
         android:dividerHeight="0.1dp"
         android:footerDividersEnabled="true"
@@ -25,12 +29,15 @@
 
 
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="16dp"
-        android:layout_alignBaseline="@id/list1"
 
+
+
+        android:layout_alignBaseline="@id/list1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_height="70dp">
@@ -48,11 +55,10 @@
 
         <ImageButton
             android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@mipmap/play"
-
+            android:layout_height="wrap_content"
+            android:background="@drawable/play"
             android:id="@+id/btnimg"
-
+            android:clickable="true"
             android:layout_marginRight="13dp"
             android:layout_marginEnd="13dp"
             android:layout_alignParentBottom="true"
@@ -78,11 +84,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="100"
-            android:progress="1"
+            android:progress="0"
             android:maxHeight="1dip"
             android:thumb="?attr/colorPrimary"
             android:id="@+id/seekBar3"
             android:padding="3dp"
+            android:focusable="false"
+            android:clickable="false"
+
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="1dp"
@@ -102,32 +111,37 @@
             android:text="Title 01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scrollHorizontally="true"
 
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:fadingEdge="horizontal"
             android:padding="2dp"
             android:maxLines="1"
-            android:maxLength="23"
             android:textColor="#000000"
             android:textStyle="bold"
             android:textSize="20dp"
-
-
             android:id="@+id/playtitle"
             android:layout_below="@+id/seekBar3"
             android:layout_toRightOf="@+id/musicimg"
-            android:layout_toEndOf="@+id/musicimg" />
+            android:layout_toLeftOf="@+id/btnimg"
+             />
 
         <TextView
             android:text="singer1,singer2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/artist"
-            android:maxLength="20"
+            android:ellipsize="end"
             android:textColor="#fa4b4848"
             android:textStyle="italic"
+            android:maxLines="1"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/musicimg"
-            android:layout_toEndOf="@+id/musicimg" />
-
+            android:layout_toLeftOf="@+id/texdura"
+             />
+    </RelativeLayout>
 
     </RelativeLayout>
 

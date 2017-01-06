@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ListView
+        android:id="@+id/list_hug"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="?attr/colorPrimary"
+        android:dividerHeight="0.3dp"
+        android:footerDividersEnabled="true"
+        android:paddingTop="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="80dp"
+        android:layout_marginBottom="60dp"/>
+
+</RelativeLayout>

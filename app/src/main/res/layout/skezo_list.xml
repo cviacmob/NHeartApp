@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp">
+
+    <TextView
+        android:text="hai........welcome to our page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/description"
+        android:padding="2dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="15dp"
+        android:textStyle="italic"
+        android:textColor="#686464"
+        android:layout_below="@+id/title_skezo"
+        android:layout_toRightOf="@+id/imgcircle"
+        android:layout_toLeftOf="@+id/date"
+        />
+
+    <ImageView
+        android:id="@+id/imgcircle"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="2dp"
+        android:background="@mipmap/musicimg"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/title_skezo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="title"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/imgcircle"
+        android:layout_toEndOf="@+id/imgcircle" />
+
+    <TextView
+        android:text="2days ago"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:padding="5dp"
+        android:maxLines="1"
+        android:layout_marginRight="13dp"
+        android:layout_marginEnd="13dp"
+        android:id="@+id/date"
+        android:layout_alignBaseline="@+id/description"
+        android:layout_alignBottom="@+id/description"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+    <!-- <ImageButton
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+
+         android:background="@drawable/ic_more_vert_black_18dp"
+
+         android:onClick="showPopup"
+         android:layout_alignParentTop="true"
+         android:layout_alignParentRight="true"
+         android:layout_alignParentEnd="true" />-->
+
+
+</RelativeLayout>

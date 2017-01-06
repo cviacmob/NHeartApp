@@ -45,6 +45,8 @@ public class GiftFragment extends Fragment{
     Productsadapter adapter;
 
 
+    
+
 
     @Nullable
     @Override
@@ -138,6 +140,9 @@ public class GiftFragment extends Fragment{
                 startActivity(i);
             }
         });
+
+
+
 
 
 

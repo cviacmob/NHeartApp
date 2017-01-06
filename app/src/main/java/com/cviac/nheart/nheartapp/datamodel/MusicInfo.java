@@ -20,6 +20,8 @@ public class MusicInfo {
 
     private String composer;
 
+    private String path;
+
     public MusicInfo() {
     }
 
@@ -77,5 +79,13 @@ public class MusicInfo {
 
     public void setComposer(String composer) {
         this.composer = composer;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }
