@@ -71,8 +71,8 @@ public class ProductdetailsActivity extends AppCompatActivity {
         tv = (TextView) findViewById(R.id.name);
         iv1 = (ImageView) findViewById(R.id.image);
         tv2 = (TextView) findViewById(R.id.descr);
-        //text1=(TextView) findViewById(R.id.price);
-        // text2=(TextView) findViewById(R.id.old);
+        text1=(TextView) findViewById(R.id.new1);
+         text2=(TextView) findViewById(R.id.discount);
         Button addtocartbutton = (Button) findViewById(R.id.addtocart);
         addtocartbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,12 +84,10 @@ public class ProductdetailsActivity extends AppCompatActivity {
 
         Button buybutton = (Button) findViewById(R.id.buy);
 
-        text1 = (TextView) findViewById(R.id.new1);
-      //  text1.setText("₹ 25");
-        text2 = (TextView) findViewById(R.id.old);
+
 
         text2.setPaintFlags(text2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        text2.setText("₹ 45");
+       // text2.setText("₹ 45");
 
 //        text1.setText("₹ 25");
 //
@@ -116,7 +114,7 @@ public class ProductdetailsActivity extends AppCompatActivity {
                 tv2.setText(detail);
                 tv.setText(prdetail.getName());
                 text1.setText(prdetail.getPrice());
-//                text2.setText(prdetail.getDiscounts());
+                text2.setText(prdetail.getSpecial());
 
 
                 String url = prdetail.getThumb();

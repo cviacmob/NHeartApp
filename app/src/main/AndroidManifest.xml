@@ -4,12 +4,11 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <application
-        android:name=".NheartApp"
         android:allowBackup="true"
         android:icon="@drawable/icon"
-        android:label="@string/app_name"
+
+        android:name=".NheartApp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.CategorylistActivity">
@@ -34,27 +33,38 @@
             android:name=".activities.Splashscreen"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+            -->
+
         </activity>
-        <activity android:name=".activities.Registration" />
-        android:label="Registration"
-        android:theme="@style/AppTheme.AppBarOverlay" />
-        <activity android:name=".activities.Otpverification" />
-        android:label="Verification"
-        android:theme="@style/AppTheme.AppBarOverlay" />
-        <activity android:name=".activities.SendToInvite" />
-        android:label="Invitation"
-        android:theme="@style/AppTheme.AppBarOverlay" />
-        <activity android:name=".activities.InvitationReceived" />
-        android:label="Registration"
-        android:theme="@style/AppTheme.AppBarOverlay" />
+        <activity
+            android:name=".activities.Registration">
+            android:label="Registration"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+    </activity>
+        <activity
+
+            android:name=".activities.Otpverification"/>
+            android:label="Verification"
+            android:theme="@style/AppTheme.AppBarOverlay" />
+        <activity
+            android:name=".activities.SendToInvite"/>
+            android:label="Invitation"
+            android:theme="@style/AppTheme.AppBarOverlay" />
+        <activity
+            android:name=".activities.InvitationReceived"/>
+            android:label="Registration"
+            android:theme="@style/AppTheme.AppBarOverlay" />
         <activity
             android:name=".activities.MainActivity"
-            android:label="@string/app_name"
+
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -62,18 +72,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.MusicActivity" />
+
+
+        <activity
+            android:name=".activities.Chat_Skezo"
+            android:label="Skezo"
+         />
         <activity android:name=".activities.ProductlistActivity" />
         <activity
-            android:name=".activities.CartItemListActivity"
-            android:label="Cart Items" />
-        <activity android:name=".activities.ContinueActivity" />
-        <activity android:name=".adapters.ContinueGridAdapter" />
-        <activity android:name=".activities.EmptyCartListActivity" />
-        <activity android:name=".activities.ChangeAddressActivity" />
-        <activity android:name=".activities.AddNewAddressActivity" />
-        <activity android:name=".adapters.AddressAdapter"></activity>
+            android:label="Cart Items"
+            android:name=".activities.CartItemListActivity">
+
+        </activity>
     </application>
 
 </manifest>

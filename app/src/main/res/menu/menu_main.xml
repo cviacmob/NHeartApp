@@ -26,6 +26,12 @@
         app:showAsAction="always"
         android:orderInCategory="0"/>
 
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/cart"
+        app:showAsAction="never"
+        android:title=""></item>
+
 
 
 </menu>

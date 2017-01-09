@@ -3,6 +3,7 @@ package com.cviac.nheart.nheartapp.adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cviac.nheart.nheartapp.R;
@@ -20,9 +22,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-/**
- * Created by Cviac on 21/12/2016.
- */
+import es.claucookie.miniequalizerlibrary.EqualizerView;
 
 public class MusicInfoAdapter extends BaseAdapter {
 
@@ -56,6 +56,7 @@ public class MusicInfoAdapter extends BaseAdapter {
         TextView artist;
         TextView duration;
         String imgUrl;
+        EqualizerView playanimate;
 
     }
 
@@ -71,9 +72,11 @@ public class MusicInfoAdapter extends BaseAdapter {
             holder = new ViewHolder();
             vw = convertView;
             holder.title = (TextView) vw.findViewById(R.id.titlehead);
+
             holder.artist = (TextView) vw.findViewById(R.id.artist);
             holder.duration = (TextView) vw.findViewById(R.id.texduration);
             holder.img = (ImageView) vw.findViewById(R.id.img);
+            holder.playanimate = (EqualizerView) vw.findViewById(R.id.equalizer_view);
             vw.setTag(holder);
 
         } else {
@@ -83,7 +86,23 @@ public class MusicInfoAdapter extends BaseAdapter {
         holder.artist.setText(ct.getSingers());
         holder.title.setText(ct.getTitle());
         holder.duration.setText(ct.getDuration());
-        Picasso.with(vw.getContext()).load(Uri.parse("file://" + ct.getImgUrl())).resize(50, 50).into(holder.img);
+        if (!ct.isPlaying()) {
+            if (holder.playanimate.isAnimating()) {
+                holder.playanimate.stopBars();
+            }
+            holder.img.setVisibility(View.VISIBLE);
+            Picasso.with(vw.getContext()).load(Uri.parse("file://" + ct.getImgUrl())).resize(50, 50).into(holder.img);
+            holder.playanimate.setVisibility(View.INVISIBLE);
+        }
+        else {
+            if (!holder.playanimate.isAnimating()) {
+                holder.playanimate.animateBars();
+            }
+            holder.playanimate.setVisibility(View.VISIBLE);
+            holder.img.setVisibility(View.INVISIBLE);
+        }
         return vw;
     }
+
+
 }

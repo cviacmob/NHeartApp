@@ -30,4 +30,5 @@
         android:layout_alignRight="@+id/count"
         android:layout_alignEnd="@+id/count"
         android:layout_marginTop="15dp" />
+
 </RelativeLayout>

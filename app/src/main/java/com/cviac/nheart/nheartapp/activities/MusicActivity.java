@@ -1,6 +1,7 @@
 package com.cviac.nheart.nheartapp.activities;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ public class MusicActivity extends AppCompatActivity {
     ListView lv;
     CheckBox cb;
     String[] items;
+    MediaPlayer mp;
     //Button b;
 
     @Override
@@ -53,8 +55,7 @@ public class MusicActivity extends AppCompatActivity {
 
 
 
-
-                startActivity(new Intent(getApplicationContext(),Player.class).putExtra("pos",position).putExtra("songlist",mysongs));
+                //startActivity(new Intent(getApplicationContext(),Player.class).putExtra("pos",position).putExtra("songlist",mysongs));
             }
 
 

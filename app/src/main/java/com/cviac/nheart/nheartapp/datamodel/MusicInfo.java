@@ -20,6 +20,10 @@ public class MusicInfo {
 
     private String composer;
 
+    private String path;
+
+    private boolean isPlaying = false;
+
     public MusicInfo() {
     }
 
@@ -77,5 +81,21 @@ public class MusicInfo {
 
     public void setComposer(String composer) {
         this.composer = composer;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public boolean isPlaying() {
+        return isPlaying;
+    }
+
+    public void setPlaying(boolean playing) {
+        isPlaying = playing;
     }
 }

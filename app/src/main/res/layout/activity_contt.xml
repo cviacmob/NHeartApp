@@ -16,6 +16,17 @@
         android:layout_marginRight="36dp"
         android:layout_marginEnd="36dp" />
 
+    <TextView
+        android:text="Enter Mobile Number to Send Invitation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000203"
+        android:id="@+id/textView9"
+        android:layout_marginTop="166dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/getin"
+        android:layout_toStartOf="@+id/getin" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,15 +38,4 @@
         android:maxLength="10"
         android:layout_below="@+id/textView9"
         android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:text="Enter Mobile Number to Send Invitation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#000203"
-        android:id="@+id/textView9"
-        android:layout_marginTop="166dp"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/getin"
-        android:layout_toStartOf="@+id/getin" />
 </RelativeLayout>

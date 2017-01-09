@@ -9,10 +9,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="1"
+        android:ellipsize="end"
         android:text="title"
         android:textSize="20dp"
         android:textColor="#000000"
-        android:layout_toRightOf="@+id/img" />
+        android:layout_toRightOf="@+id/img"
+        android:layout_toLeftOf="@+id/texduration"/>
 
     <TextView
         android:text="singer1,singer2"
@@ -21,17 +23,33 @@
         android:id="@+id/artist"
         android:padding="2dp"
         android:maxLines="1"
+        android:ellipsize="end"
         android:textSize="15dp"
         android:textStyle="italic"
         android:textColor="#686464"
         android:layout_below="@+id/titlehead"
         android:layout_toRightOf="@+id/img"
+        android:layout_toLeftOf="@+id/texduration"
         />
+
+    <es.claucookie.miniequalizerlibrary.EqualizerView
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/equalizer_view"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        custom:foregroundColor="@color/colorPrimary"
+        android:padding="2dp"
+        android:background="@mipmap/musicimg"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"
+        custom:animDuration="3500"/>
 
     <ImageView
         android:id="@+id/img"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:padding="2dp"
         android:background="@mipmap/musicimg"
         android:layout_alignParentTop="true"
@@ -51,6 +69,18 @@
         android:layout_alignBottom="@+id/artist"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+
+   <!-- <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/ic_more_vert_black_18dp"
+
+        android:onClick="showPopup"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />-->
 
 
 </RelativeLayout>

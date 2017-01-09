@@ -92,24 +92,24 @@ public class Player extends AppCompatActivity implements View.OnClickListener {
         mp=MediaPlayer.create(getApplicationContext(),u);
         mp.start();
         sb.setMax(mp.getDuration());
-        updateseekbar.start();
-        sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+    updateseekbar.start();
+    sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
-            }
+        }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
 
-            }
+        }
 
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                mp.seekTo(seekBar.getProgress());
-            }
-        });
-    }
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            mp.seekTo(seekBar.getProgress());
+        }
+    });
+}
 
     @Override
     public void onClick(View v) {

@@ -39,7 +39,7 @@ public class Registration extends AppCompatActivity {
         phone = (EditText) findViewById(R.id.phonebox);
         //iw=(ImageView) findViewById(R.id.imageView3);
         submit = (Button) findViewById(R.id.Registerbutton);
-        value = email.getText().toString();
+       value = email.getText().toString();
 
         submit.setOnClickListener(new OnClickListener() {
 
