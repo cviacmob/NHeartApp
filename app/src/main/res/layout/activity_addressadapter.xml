@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_addressadapter"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.cviac.nheart.nheartapp.adapters.AddressAdapter">
+
+    <TextView
+        android:text="fname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:id="@+id/fname"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp" />
+
+    <TextView
+        android:text="shipping"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/shippingno"
+        android:layout_below="@+id/fname"
+        android:layout_alignLeft="@+id/fname"
+        android:layout_alignStart="@+id/fname" />
+
+    <TextView
+        android:text="city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/acity"
+        android:layout_below="@+id/shippingno"
+        android:layout_alignLeft="@+id/shippingno"
+        android:layout_alignStart="@+id/shippingno" />
+
+
+    <TextView
+        android:text="state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/astae"
+        android:layout_below="@+id/acity"
+        android:layout_alignLeft="@+id/acity"
+        android:layout_alignStart="@+id/acity" />
+
+    <TextView
+        android:text="pincode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/apincode"
+        android:paddingLeft="10dp"
+        android:layout_alignBaseline="@+id/astae"
+        android:layout_alignBottom="@+id/astae"
+        android:layout_toRightOf="@+id/astae"
+        android:layout_toEndOf="@+id/fname" />
+
+    <TextView
+        android:text="mobile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/amobileno"
+        android:layout_below="@+id/astae"
+        android:layout_alignLeft="@+id/astae"
+        android:layout_alignStart="@+id/astae" />
+
+    <TextView
+     android:text="district"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:id="@+id/district"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/shippingno"
+        android:layout_toRightOf="@+id/acity"
+        android:layout_toEndOf="@+id/amobileno" />
+
+    <TextView
+        android:text="landmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/alandmark"
+        android:layout_below="@+id/amobileno"
+        android:layout_alignLeft="@+id/amobileno"
+        android:layout_alignStart="@+id/amobileno" />
+
+    <TextView
+        android:text="altermobile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/almobileno"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/apincode"
+        android:layout_toRightOf="@+id/amobileno"
+        android:layout_toEndOf="@+id/alandmark" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/ic_delete"
+        android:layout_alignTop="@+id/fname"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="19dp"
+        android:layout_marginEnd="19dp"
+        android:id="@+id/dletebutton" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/ic_menu_edit"
+        android:id="@+id/edit"
+        android:layout_below="@+id/dletebutton"
+        android:layout_alignLeft="@+id/dletebutton"
+        android:layout_alignStart="@+id/dletebutton" />
+
+
+</RelativeLayout>

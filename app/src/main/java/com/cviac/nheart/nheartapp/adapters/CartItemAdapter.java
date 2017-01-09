@@ -103,7 +103,6 @@ public class CartItemAdapter extends BaseAdapter {
         holder.tv2.setText(sinfo.getQuantity());
        // holder.iv.setImageResource(sinfo.g);
 
-
         return ins;
     }
 }

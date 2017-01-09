@@ -38,11 +38,12 @@ android:textSize="@dimen/activity_horizontal_margin"
 
     <Button
         android:text="Continue"
-        android:layout_width="400dp"
-        android:layout_height="36dp"
-        android:id="@+id/button5"
-
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Continue"
         android:background="#DC4187"
+        android:textColor="#FDFEFE"
+        android:textStyle="bold"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_marginRight="10dp"
@@ -62,8 +63,8 @@ android:textSize="@dimen/activity_horizontal_margin"
         android:textStyle="bold"
         android:textSize="@dimen/activity_horizontal_margin"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/button5"
-        android:layout_alignEnd="@+id/button5" />
+        android:layout_alignRight="@+id/Continue"
+        android:layout_alignEnd="@+id/Continue" />
 
 
 </RelativeLayout>

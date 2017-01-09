@@ -11,9 +11,19 @@ public class Product implements Serializable{
     private String name;
     private String description;
     private String thumb;
+    private String price;
+    private String special;
     private String rating;
     private String href;
 
+
+    public String getSpecial() {
+        return special;
+    }
+
+    public void setSpecial(String special) {
+        this.special = special;
+    }
 
     public String getProduct_id() {
         return product_id;
@@ -52,6 +62,14 @@ public class Product implements Serializable{
     }
     public void setHref(String href){
         this.href=href;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
 }

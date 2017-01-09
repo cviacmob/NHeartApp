@@ -28,11 +28,11 @@ public class Otpverification extends AppCompatActivity {
 
         b = (Button) findViewById(R.id.verifybutton);
         pin = (EditText) findViewById(R.id.editText1);
-        b.setOnClickListener(new View.OnClickListener() {
+            b.setOnClickListener(new View.OnClickListener() {
 
-            @Override
+                @Override
 
-            public void onClick(View v) {
+                public void onClick(View v) {
 
                 String aaa = pin.getText().toString();
                 boolean error = false;

@@ -48,7 +48,7 @@ public class ProductlistActivity extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http:192.168.1.133")
+                .baseUrl("http://localhost/opencart/index.php?route=api/category/getproducts")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

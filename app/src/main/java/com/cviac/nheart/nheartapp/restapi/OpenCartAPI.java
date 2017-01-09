@@ -28,7 +28,8 @@ public interface OpenCartAPI {
 
 
     @GET("/index.php?route=api/category/getproductdetails")
-    Call<Productdetailresponse> getProductdetails(@Query("productid") String categoryid);
+    Call<Productdetailresponse>
+     getProductdetails(@Query("productid") String categoryid);
 
     @FormUrlEncoded
     @POST("/index.php?route=api/login")
@@ -43,6 +44,5 @@ public interface OpenCartAPI {
 
     @GET("/index.php?route=api/cart/products")
     Call<GetCartItemsResponse> getCartItems(@Query("token") String token);
-
 
 }

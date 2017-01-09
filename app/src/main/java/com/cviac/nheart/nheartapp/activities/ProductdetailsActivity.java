@@ -85,7 +85,7 @@ public class ProductdetailsActivity extends AppCompatActivity {
         Button buybutton = (Button) findViewById(R.id.buy);
 
         text1 = (TextView) findViewById(R.id.new1);
-        text1.setText("₹ 25");
+      //  text1.setText("₹ 25");
         text2 = (TextView) findViewById(R.id.old);
 
         text2.setPaintFlags(text2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -115,7 +115,7 @@ public class ProductdetailsActivity extends AppCompatActivity {
 //                SpannableStringBuilder strbuilder = new SpannableStringBuilder(squence);
                 tv2.setText(detail);
                 tv.setText(prdetail.getName());
-//                text1.setText(prdetail.getPrice());
+                text1.setText(prdetail.getPrice());
 //                text2.setText(prdetail.getDiscounts());
 
 
