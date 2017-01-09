@@ -102,6 +102,7 @@ public class GiftFragment extends Fragment{
 
         refresh("61");
         return cv;
+
     }
 
     public void refresh(String catId) {

@@ -69,23 +69,23 @@ public class HugFragment extends Fragment {
 
         huglist=new ArrayList<>();
 
-        HugInfo hi2=new HugInfo("R.mipmap.musicimg","thank you","04:05","Doctor");
+        HugInfo hi2=new HugInfo(R.mipmap.docter,"thank you","04:05","Doctor");
         huglist.add(hi2);
 
-        HugInfo hi=new HugInfo("R.mipmap.settings","hello","a moment ago","Advisor");
+        HugInfo hi=new HugInfo(R.mipmap.doctor22,"hello","a moment ago","Advisor");
         huglist.add(hi);
 
 
-        HugInfo hi1=new HugInfo("R.mipmap.sai","how are you","16:25","Counsellor");
+        HugInfo hi1=new HugInfo(R.mipmap.sai,"how are you","16:25","Counsellor");
         huglist.add(hi1);
 
 
 
 
-        HugInfo hii=new HugInfo("R.mipmap.musicimg","have a nice day","3days ago","Other");
+        HugInfo hii=new HugInfo(R.mipmap.coun,"have a nice day","3days ago","Other");
         huglist.add(hii);
 
-        HugInfo hi3=new HugInfo("R.mipmap.musicimg","bye bye...","22/06/2016","Relative");
+        HugInfo hi3=new HugInfo(R.mipmap.docter,"bye bye...","22/06/2016","Relative");
         huglist.add(hi3);
 
 

@@ -14,6 +14,25 @@ public class Product implements Serializable{
     private String rating;
     private String href;
 
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getSpecial() {
+        return special;
+    }
+
+    public void setSpecial(String special) {
+        this.special = special;
+    }
+
+    private String price;
+    private String special;
+
 
     public String getProduct_id() {
         return product_id;

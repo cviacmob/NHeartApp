@@ -1,5 +1,6 @@
 package com.cviac.nheart.nheartapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -8,10 +9,12 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.cviac.nheart.nheartapp.R;
 
+import com.cviac.nheart.nheartapp.activities.Chat_Skezo;
 import com.cviac.nheart.nheartapp.adapters.SkezoInfoAdapter;
 import com.cviac.nheart.nheartapp.datamodel.MusicInfo;
 import com.cviac.nheart.nheartapp.datamodel.SkezoInfo;
@@ -23,14 +26,14 @@ import java.util.List;
 public class SkezoFragment extends Fragment {
     private List<SkezoInfo> skezolist;
     public ListView lv2;
-    FloatingActionButton fab;
+    ImageButton fab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_skezo, container, false);
 
         lv2 = (ListView) view.findViewById(R.id.list_skezo);
-        fab=(FloatingActionButton)view.findViewById(R.id.fab);
+        fab=(ImageButton)view.findViewById(R.id.fab);
         values();
 
 
@@ -42,16 +45,20 @@ public class SkezoFragment extends Fragment {
 
 
         lv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+            public void onItemClick(AdapterView<?> arg0, View arg1, int pos1, long pos2) {
+                SkezoInfo emp = skezolist.get(pos1);
+        Intent i = new Intent(getActivity().getApplicationContext(), Chat_Skezo.class);
 
-
-
-
-
-
-            }
+                startActivity(i);
+               }
         });
+
+
+
+
+
 
 
                 return view;
@@ -72,21 +79,21 @@ public class SkezoFragment extends Fragment {
 
 
 
-        SkezoInfo si=new SkezoInfo("R.mipmap.settings","hello","a moment ago","Geetu");
+        SkezoInfo si=new SkezoInfo(R.mipmap.sai,"hello","a moment ago","Geetu");
         skezolist.add(si);
 
 
-        SkezoInfo si1=new SkezoInfo("R.mipmap.sai","how are you","16:25","Seetu");
+        SkezoInfo si1=new SkezoInfo(R.mipmap.girlone,"how are you","16:25","Seetu");
         skezolist.add(si1);
 
 
-        SkezoInfo si2=new SkezoInfo("R.mipmap.musicimg","thank you","04:05","Frie");
+        SkezoInfo si2=new SkezoInfo(R.mipmap.girlthree,"thank you","04:05","Frie");
         skezolist.add(si2);
 
-        SkezoInfo sii=new SkezoInfo("R.mipmap.musicimg","have a nice day","3days ago","Crie");
+        SkezoInfo sii=new SkezoInfo(R.mipmap.girltwo,"have a nice day","3days ago","Crie");
         skezolist.add(sii);
 
-        SkezoInfo si3=new SkezoInfo("R.mipmap.musicimg","bye bye...","22/06/2016","Prie");
+        SkezoInfo si3=new SkezoInfo(R.mipmap.girlone,"bye bye...","22/06/2016","Prie");
         skezolist.add(si3);
 
 

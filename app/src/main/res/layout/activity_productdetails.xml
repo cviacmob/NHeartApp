@@ -81,7 +81,7 @@
                 android:text="oldprice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/old"
+                android:id="@+id/discount"
                 android:textColor="#D30875"
                 android:textSize="15sp"
                 android:textStyle="normal"

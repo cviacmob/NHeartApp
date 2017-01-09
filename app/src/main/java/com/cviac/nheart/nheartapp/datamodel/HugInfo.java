@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class HugInfo {
 
-    private String imgUrl;
+    private int imgUrl;
 
     private String description;
 
@@ -18,7 +18,7 @@ public class HugInfo {
 
 
 
-    public HugInfo(String imgUrl, String description, String date, String title) {
+    public HugInfo(int imgUrl, String description, String date, String title) {
         this.imgUrl = imgUrl;
         this.description = description;
         this.date = date;
@@ -35,11 +35,11 @@ public class HugInfo {
         this.title = title;
     }
 
-    public String getImgUrl() {
+    public int getImgUrl() {
         return imgUrl;
     }
 
-    public void setImgUrl(String imgUrl) {
+    public void setImgUrl(int imgUrl) {
         this.imgUrl = imgUrl;
     }
 

@@ -65,10 +65,10 @@ public class Productsadapter extends BaseAdapter {
 
 
             holder.price = (TextView) vw.findViewById(R.id.new1);
-            holder.price.setText("₹ 25");
+           // holder.price.setText("₹ 25");
             holder.price1 = (TextView) vw.findViewById(R.id.old);
             holder.price1.setPaintFlags(holder.price1.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
-            holder.price1.setText("₹ 45");
+          //  holder.price1.setText("₹ 45");
 
             vw.setTag(holder);
         }
@@ -76,6 +76,8 @@ public class Productsadapter extends BaseAdapter {
             holder = (Productsadapter.ViewHolder) vw.getTag();
         }
         holder.tv.setText(ct.getName());
+        holder.price.setText(ct.getPrice());
+        holder.price1.setText(ct.getSpecial());
         String url = ct.getThumb();
         url = url.replace("localhost","192.168.1.133");
         try {

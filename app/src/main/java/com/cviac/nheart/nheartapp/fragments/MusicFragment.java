@@ -92,7 +92,7 @@ public class MusicFragment extends Fragment {
                 sb.setMax(totalduration);
                 while (currentposition < totalduration) {
                     try {
-                        sleep(1000);
+                        sleep(200);
                         currentposition = mp.getCurrentPosition();
                         sb.setProgress(currentposition);
                     } catch (Exception e) {

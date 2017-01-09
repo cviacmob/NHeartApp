@@ -1,14 +1,15 @@
 package com.cviac.nheart.nheartapp.datamodel;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by user on 1/3/2017.
  */
 
-public class SkezoInfo {
+public class SkezoInfo implements Serializable{
 
-    private String imgUrl;
+    private int imgUrl;
 
     private String description;
 
@@ -18,7 +19,7 @@ public class SkezoInfo {
 
 
 
-    public SkezoInfo(String imgUrl, String description, String date, String title) {
+    public SkezoInfo(int imgUrl, String description, String date, String title) {
         this.imgUrl = imgUrl;
         this.description = description;
         this.date = date;
@@ -35,11 +36,11 @@ public class SkezoInfo {
         this.title = title;
     }
 
-    public String getImgUrl() {
+    public int getImgUrl() {
         return imgUrl;
     }
 
-    public void setImgUrl(String imgUrl) {
+    public void setImgUrl(int imgUrl) {
         this.imgUrl = imgUrl;
     }
 

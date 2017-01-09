@@ -6,10 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="5dp"
+
     tools:context="com.cviac.nheart.nheartapp.activities.Registration">
     <android.support.design.widget.TextInputLayout
         android:id="@+id/name"
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -21,8 +23,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"
-            android:background="@drawable/edittext_bg"
-            android:inputType="text" />
+            android:textColorHint="?attr/colorPrimary"
+            android:textColor="#000000"
+            android:inputType="text"
+            android:textAllCaps="false" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -36,9 +40,12 @@
             android:id="@+id/phonebox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edittext_bg"
+
             android:hint="Mobile Number"
-            android:inputType="number" />
+            android:textColorHint="?attr/colorPrimary"
+            android:textColor="#000000"
+            android:inputType="number"
+            style="@style/Widget.AppCompat.AutoCompleteTextView" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -53,7 +60,9 @@
             android:layout_width="369dp"
             android:layout_height="wrap_content"
             android:hint="E-Mail ID"
-            android:background="@drawable/edittext_bg"
+            android:textColorHint="?attr/colorPrimary"
+            android:textColor="#000000"
+
             android:inputType="textEmailAddress" />
     </android.support.design.widget.TextInputLayout>
 
@@ -67,7 +76,8 @@
 
         android:padding="5dp"
         android:text="Register"
-        android:textColor="#000000"
+        android:textColor="#D7017E"
         android:layout_below="@+id/mail"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        style="@android:style/Widget.Button.Small" />
 </RelativeLayout>

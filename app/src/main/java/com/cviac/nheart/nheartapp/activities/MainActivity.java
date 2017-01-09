@@ -106,12 +106,12 @@ public class MainActivity extends AppCompatActivity {
         tab.setIcon(R.mipmap.ic_music_circle_black_24dp);
         tab = tabLayout.getTabAt(3);
         tab.setTag("Skezo");
-        tab.setIcon(R.mipmap.ic_people_black_24dp);
+        tab.setIcon(R.mipmap.robo_black);
         tab = tabLayout.getTabAt(4);
         tab.setTag("Hug");
 
 
-        tab.setIcon(R.mipmap.ic_sentiment_satisfied_black_24dp);
+        tab.setIcon(R.mipmap.ic_people_black_24dp);
         setTitle("Mirror");
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
@@ -157,12 +157,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case "Skezo":
-                int ic3 = (isSelected) ? R.mipmap.ic_people_white_24dp : R.mipmap.ic_people_black_24dp;
+                int ic3 = (isSelected) ? R.mipmap.robo_white : R.mipmap.robo_black;
                 tab.setIcon(ic3);
                 break;
 
             case "Hug":
-                int ic4 = (isSelected) ? R.mipmap.ic_sentiment_very_satisfied_white_24dp : R.mipmap.ic_sentiment_satisfied_black_24dp;
+                int ic4 = (isSelected) ? R.mipmap.ic_people_white_24dp : R.mipmap.ic_people_black_24dp;
                 tab.setIcon(ic4);
                 break;
         }
