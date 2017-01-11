@@ -24,14 +24,18 @@
         android:id="@+id/action_cart"
         android:icon="@drawable/ic_menu_cart"
         app:showAsAction="always"
+        android:title=""
         android:orderInCategory="0"/>
 
-    <item
-        android:id="@+id/search"
-        android:icon="@drawable/cart"
-        app:showAsAction="never"
-        android:title=""></item>
 
+
+
+    <item
+        android:id="@+id/action_call"
+        android:icon="@drawable/ic_call"
+        app:showAsAction="always"
+        android:title=""
+        android:orderInCategory="0"/>
 
 
 </menu>

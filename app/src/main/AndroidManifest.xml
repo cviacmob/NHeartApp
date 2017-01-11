@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cviac.nheart.nheartapp">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"
@@ -76,14 +78,16 @@
 
         <activity
             android:name=".activities.Chat_Skezo"
-            android:label="Skezo"
-         />
+            android:label="Skezo"/>
+        <activity
+            android:name=".activities.Chat_hug"/>
         <activity android:name=".activities.ProductlistActivity" />
         <activity
             android:label="Cart Items"
             android:name=".activities.CartItemListActivity">
 
         </activity>
+
     </application>
 
 </manifest>

@@ -7,6 +7,7 @@ package com.cviac.nheart.nheartapp.fragments;
         import android.support.annotation.Nullable;
         import android.support.v4.app.Fragment;
         import android.view.LayoutInflater;
+        import android.view.Menu;
         import android.view.View;
 
         import android.view.ViewGroup;
@@ -147,5 +148,16 @@ public class GiftFragment extends Fragment{
 
 
 
+    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+       menu.findItem(R.id.action_call).setVisible(false);
+        super.onPrepareOptionsMenu(menu);
     }
 }

@@ -1,80 +1,57 @@
 package com.cviac.nheart.nheartapp.activities;
 
 import android.Manifest;
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
-import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.adapters.CircleTransform;
 import com.cviac.nheart.nheartapp.datamodel.ChatMsg;
-import com.squareup.okhttp.OkHttpClient;
+import com.cviac.nheart.nheartapp.datamodel.HugInfo;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
-
-public class Chat_Skezo extends AppCompatActivity implements View.OnClickListener {
+public class Chat_hug extends AppCompatActivity implements View.OnClickListener {
 
 
     android.support.v7.app.ActionBar actionBar;
 
 
-    ImageView customimageback, customimage, imgvwtick, cuscall;
-
-
+    private List<HugInfo> huglist;
+    ImageView customimageback, customimage, imgvwtick;
+    HugInfo hug;
+    HugInfo hugInfo;
     RelativeLayout rp;
     TextView txt, msgview, presenceText;
     ImageButton sendbutton;
     ListView lv;
+    boolean isCallEnabled=false;
+    String callnum="";
 
     ProgressDialog progressDialog;
     private static final int MY_PERMISSION_CALL_PHONE = 10;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,14 +64,24 @@ public class Chat_Skezo extends AppCompatActivity implements View.OnClickListene
         lv.setDivider(null);
         lv.setDividerHeight(10);
         actionmethod();
-        //chats = new ArrayList<ChatMessage>();
 
+        //chats = new ArrayList<ChatMessage>();
 
         final String MyPREFERENCES = "MyPrefs";
         SharedPreferences prefs = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
 
 
         Intent i = getIntent();
+     hug=(HugInfo)i.getSerializableExtra("mob");
+        //callnum=hug.getMob();
+        String ss=hug.getMob();
+
+        //String sn = (String) i.getSerializableExtra("mob");
+        //Bundle b = i.getExtras();
+        //if(b!=null) {
+           // String j = (String) b.get("mob");
+
+        //}
 
         sendbutton.setOnClickListener(new View.OnClickListener() {
 
@@ -116,11 +103,6 @@ public class Chat_Skezo extends AppCompatActivity implements View.OnClickListene
     }
 
 
-    @Override
-    public void onClick(View v) {
-
-    }
-
     public void actionmethod() {
 
         actionBar = getSupportActionBar();
@@ -133,7 +115,7 @@ public class Chat_Skezo extends AppCompatActivity implements View.OnClickListene
 
             View customView = getLayoutInflater().inflate(R.layout.actionbar_hug, null);
             customimage = (ImageView) customView.findViewById(R.id.imageViewcustom1);
-
+            //cuscall = (ImageView)findViewById(R.id.ivcall);
 
             presenceText = (TextView) customView.findViewById(R.id.textView51);
 
@@ -148,7 +130,7 @@ public class Chat_Skezo extends AppCompatActivity implements View.OnClickListene
 
             TextView customTitle = (TextView) customView.findViewById(R.id.actionbarTitle1);
 
-            customTitle.setText("Skezo");
+            customTitle.setText("Hug");
             actionBar.setCustomView(customView);
         }
 
@@ -156,9 +138,53 @@ public class Chat_Skezo extends AppCompatActivity implements View.OnClickListene
     }
 
 
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        onBackPressed();
-        return true;
+        switch (item.getItemId()) {
+            case R.id.progress1:
+                final ImageButton cuscall = (ImageButton) findViewById(R.id.progress1);
+                onClick(cuscall);
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+
+        Intent callintent = new Intent(Intent.ACTION_CALL);
+        callintent.setData(Uri.parse("tel:" + hug.getMob()));
+        if (ActivityCompat.checkSelfPermission(Chat_hug.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(Chat_hug.this, new String[]{Manifest.permission.CALL_PHONE}, MY_PERMISSION_CALL_PHONE);
+            return;
+        }
+        startActivity(callintent);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case MY_PERMISSION_CALL_PHONE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent callintent = new Intent(Intent.ACTION_CALL);
+                    callintent.setData(Uri.parse("tel:" + hug.getMob()));
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    startActivity(callintent);
+                }
+            }
+        }
     }
 }

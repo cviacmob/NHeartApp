@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+
+    android:id="@+id/textchat">
+
+    <!--  ListRow Left sied Thumbnail image -->
+    <TextView
+        android:id="@+id/textchatmsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#040404"
+        android:typeface="sans"
+        android:textSize="15dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    <ImageView
+        android:id="@+id/list_image"
+        android:layout_width="15dip"
+        android:layout_height="15dip"
+        android:layout_below="@+id/textchatmsg"
+
+        android:layout_weight="0.00"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textchatmsg"
+        android:textSize="10dip"
+        android:textColor="#818182"
+        android:textStyle="bold"
+        android:paddingRight="0dp"
+        android:layout_weight="0.00"
+
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/list_image"
+        android:layout_toStartOf="@+id/list_image" />
+
+
+</RelativeLayout>
