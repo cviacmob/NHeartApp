@@ -7,15 +7,7 @@
     android:orientation="horizontal"
     >
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/backarrow"
-        android:id="@+id/imageViewback1"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="14dp" />
+
 
 
 
@@ -24,19 +16,13 @@
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/ic_launcher"
         android:id="@+id/imageViewcustom1"
-        android:layout_alignBottom="@+id/imageViewback1"
-        android:layout_toRightOf="@+id/imageViewback1"
-        android:layout_toEndOf="@+id/imageViewback1" />
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="11dp"
-        android:layout_marginStart="11dp"
-        android:layout_alignBottom="@+id/imageViewcustom1"
-        android:layout_toRightOf="@+id/imageViewcustom1"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:id="@+id/relativeLayout">
+
+        />
+
+
 
         <TextView
             android:text="TextView"
@@ -46,9 +32,9 @@
             android:textColor="#FFFFFF"
             android:textSize="12.5dp"
             android:paddingRight="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_toRightOf="@+id/imageViewcustom1"
+            android:layout_below="@+id/actionbarTitle1"
+           />
 
         <TextView
             android:text="TextView"
@@ -57,11 +43,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/actionbarTitle1"
             android:textColor="#FFFFFF"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_toRightOf="@+id/imageViewcustom1"
+             />
 
-    </RelativeLayout>
+
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -73,6 +58,5 @@
         android:layout_alignTop="@+id/imageViewcustom"
         android:layout_toRightOf="@+id/imageViewcustom"
         android:layout_toEndOf="@+id/relativeLayout" />
-
 
 </RelativeLayout>

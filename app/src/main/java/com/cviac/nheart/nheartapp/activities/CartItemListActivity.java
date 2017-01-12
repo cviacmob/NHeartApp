@@ -5,6 +5,7 @@ package com.cviac.nheart.nheartapp.activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -209,13 +210,22 @@ public class CartItemListActivity extends AppCompatActivity{
         onBackPressed();
         return true;
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
 
+        menu.findItem(R.id.action_call).setVisible(false);
+
+        return true;
+    }
     public void actionmethod() {
             actionBar =  getSupportActionBar();
         if (actionBar != null) {
 // Disable the default and enable the custom
             actionBar.setDisplayShowHomeEnabled(false);
             actionBar.setDisplayShowTitleEnabled(true);
+
             actionBar.setDisplayShowCustomEnabled(true);
             //actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3B5CD1")));
             View customView = getLayoutInflater().inflate(R.layout.activity_fr, null);

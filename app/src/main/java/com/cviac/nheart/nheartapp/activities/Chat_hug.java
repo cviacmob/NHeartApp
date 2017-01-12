@@ -28,6 +28,7 @@ import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.adapters.CircleTransform;
 import com.cviac.nheart.nheartapp.datamodel.ChatMsg;
 import com.cviac.nheart.nheartapp.datamodel.HugInfo;
+import com.cviac.nheart.nheartapp.fragments.HugFragment;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
@@ -58,7 +59,7 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_hug);
 
-        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         sendbutton = (ImageButton) findViewById(R.id.sendbutton1);
         lv = (ListView) findViewById(R.id.listViewHug);
         lv.setDivider(null);
@@ -115,6 +116,7 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
 
             View customView = getLayoutInflater().inflate(R.layout.actionbar_hug, null);
             customimage = (ImageView) customView.findViewById(R.id.imageViewcustom1);
+            //customimageback = (ImageView) customView.findViewById(R.id.imageViewback1);
             //cuscall = (ImageView)findViewById(R.id.ivcall);
 
             presenceText = (TextView) customView.findViewById(R.id.textView51);
@@ -129,14 +131,24 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
                     .centerCrop().memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(customimage);
 
             TextView customTitle = (TextView) customView.findViewById(R.id.actionbarTitle1);
+          /*  customimageback.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+
+                        Intent i = new Intent(Chat_hug.this, MainActivity.class);
+                        startActivity(i);
+
+                    finish();
+                }
+            });*/
             customTitle.setText("Hug");
             actionBar.setCustomView(customView);
         }
 
 
-    }
 
+    }
 
 
 
@@ -148,6 +160,7 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
         switch (item.getItemId()) {
             case R.id.progress1:
                 final ImageButton cuscall = (ImageButton) findViewById(R.id.progress1);

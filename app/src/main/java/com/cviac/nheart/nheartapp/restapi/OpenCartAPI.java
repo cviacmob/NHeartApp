@@ -6,6 +6,7 @@ import com.cviac.nheart.nheartapp.datamodel.CategoryProductsResponse;
 import com.cviac.nheart.nheartapp.datamodel.GetCartItemsResponse;
 import com.cviac.nheart.nheartapp.datamodel.LoginResponse;
 import com.cviac.nheart.nheartapp.datamodel.Productdetailresponse;
+import com.cviac.nheart.nheartapp.datamodel.ReginfoResponse;
 
 import retrofit.Call;
 import retrofit.http.Field;
@@ -14,11 +15,18 @@ import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Query;
 
-/**
- * Created by admin1 on 11/24/2016.
- */
 
 public interface OpenCartAPI {
+
+    @FormUrlEncoded
+    @POST("/index.php?route=api/account/register")
+    Call<ReginfoResponse> register(@Field("firstname") String firstname,
+                                   @Field("lastname") String lastname,
+                                   @Field("email")String email,
+                                   @Field("telephone") String telephone,
+                                   @Field("password") String password,
+                                   @Field("confirm") String confirm);
+
 
     @GET("/index.php?route=api/category")
     Call<CategoriesResponse> getCategories();

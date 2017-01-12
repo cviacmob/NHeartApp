@@ -1,5 +1,6 @@
 package com.cviac.nheart.nheartapp.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -32,6 +33,15 @@ public class HugFragment extends Fragment{
     private List<HugInfo> huglist;
     public ListView lv2;
     FloatingActionButton fab;
+/*
+    private void setProgressDialog() {
+        progressDialog = new ProgressDialog(FireChatActivity.this, R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }*/
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
