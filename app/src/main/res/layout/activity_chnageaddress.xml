@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_chnageaddress"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.cviac.nheart.nheartapp.activities.ChangeAddressActivity">
+
+    <TextView
+        android:text="ConfirmYour Shipping Address"
+        android:layout_width="wrap_content"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/confirmaddress" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/addnew"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/listaddress"
+        android:layout_above="@+id/canc"
+        android:layout_alignRight="@+id/proceed"
+        android:layout_alignEnd="@+id/proceed" />
+
+    <Button
+        android:text="Cancel"
+        android:layout_width="130dp"
+        android:layout_height="35dp"
+        android:background="#ffffff"
+        android:id="@+id/canc"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/proceed"
+        android:layout_toStartOf="@+id/proceed"
+        android:layout_marginRight="28dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="28dp" />
+
+    <Button
+        android:text="Proceed to pay"
+        android:layout_width="180dp"
+        android:layout_height="35dp"
+        android:id="@+id/proceed"
+        android:background="#DC4187"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"
+        android:textColor="#FDFEFE"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/addnew"
+        android:layout_alignEnd="@+id/addnew" />
+.
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+       android:background="@drawable/giftsicon"
+        android:id="@+id/profilepic"
+        android:layout_below="@+id/addnew"
+        android:layout_alignLeft="@+id/confirmaddress"
+        android:layout_alignStart="@+id/confirmaddress" />
+
+    <TextView
+        android:text="Mobile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/emailid"
+        android:layout_alignLeft="@+id/emailid"
+        android:layout_alignStart="@+id/emailid"
+        android:id="@+id/rmobile"
+        android:textStyle="bold"
+        android:paddingLeft="10dp"/>
+
+    <TextView
+        android:text="Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rname"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/profilepic"
+        android:layout_toRightOf="@+id/profilepic"
+        android:layout_toEndOf="@+id/profilepic"
+        android:paddingLeft="10dp"/>
+
+    <TextView
+        android:text="Emai Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/emailid"
+        android:paddingLeft="10dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/rname"
+        android:layout_toRightOf="@+id/profilepic"
+        android:layout_toEndOf="@+id/profilepic" />
+
+    <Button
+        android:text="+ ADD NEW"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:paddingTop="2dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/addnew"
+        android:textStyle="bold"
+      android:textColor="#ffffff"
+        android:background="#DC4187"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>

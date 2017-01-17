@@ -46,6 +46,8 @@ import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
 
+import static com.cviac.nheart.nheartapp.activities.ProductdetailsActivity.count;
+
 public class MainActivity extends AppCompatActivity {
 
     /**
@@ -230,9 +232,14 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
             case R.id.action_cart:
-                Intent h = new Intent(MainActivity.this, CartItemListActivity.class);
-                startActivity(h);
-
+//                if(mCartCount==0) {
+//                    Intent h = new Intent(MainActivity.this, EmptyCartListActivity.class);
+//                    startActivity(h);
+//                }
+//                if(mCartCount!=0){
+                    Intent h = new Intent(MainActivity.this, CartItemListActivity.class);
+                    startActivity(h);
+//                }
                 break;
 
 

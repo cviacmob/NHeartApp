@@ -2,19 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cviac.nheart.nheartapp">
 
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"
-        android:theme="@style/AppTheme"
+
         android:name=".NheartApp"
         android:supportsRtl="true"
-       >
+        android:theme="@style/AppTheme">
         <activity android:name=".activities.CategorylistActivity">
 
             <!--
@@ -38,24 +34,20 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
 
-            <!--
+
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
-            -->
+
 
         </activity>
         <activity
             android:name=".activities.Registration">
             android:label="Registration"
             android:theme="@style/AppTheme.AppBarOverlay">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
     </activity>
         <activity
 
@@ -84,16 +76,26 @@
 
         <activity
             android:name=".activities.Chat_Skezo"
-            android:label="Skezo"/>
+            android:label="Skezo"
+         />
         <activity
-            android:name=".activities.Chat_hug"/>
+            android:name=".activities.ContinueActivity"
+            android:label=""
+            />
+        <activity
+            android:name=".activities.ChangeAddressActivity"
+            android:label=""
+            />
+        <activity
+            android:name=".activities.AddNewAddressActivity"
+            android:label=""
+            />
         <activity android:name=".activities.ProductlistActivity" />
         <activity
             android:label="Cart Items"
             android:name=".activities.CartItemListActivity">
 
         </activity>
-
     </application>
 
 </manifest>

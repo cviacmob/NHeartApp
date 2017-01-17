@@ -13,14 +13,9 @@ public class Product implements Serializable{
     private String thumb;
     private String rating;
     private String href;
+    private String price;
+    private String special;
 
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
 
     public String getSpecial() {
         return special;
@@ -29,10 +24,6 @@ public class Product implements Serializable{
     public void setSpecial(String special) {
         this.special = special;
     }
-
-    private String price;
-    private String special;
-
 
     public String getProduct_id() {
         return product_id;
@@ -71,6 +62,14 @@ public class Product implements Serializable{
     }
     public void setHref(String href){
         this.href=href;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
 }

@@ -3,13 +3,8 @@ package com.cviac.nheart.nheartapp.activities;
 
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.LayerDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,20 +15,15 @@ import android.widget.TextView;
 import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.adapters.CartItemAdapter;
-import com.cviac.nheart.nheartapp.datamodel.CartItemInfo;
 import com.cviac.nheart.nheartapp.datamodel.CartTotalInfo;
-import com.cviac.nheart.nheartapp.datamodel.Category;
 import com.cviac.nheart.nheartapp.datamodel.GetCartItemsResponse;
-import com.cviac.nheart.nheartapp.datamodel.Product;
 import com.cviac.nheart.nheartapp.datamodel.ProductCartInfo;
 import com.cviac.nheart.nheartapp.datamodel.ProductDetail;
 import com.cviac.nheart.nheartapp.datamodel.Productdetailresponse;
 import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -41,24 +31,22 @@ import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-import static android.support.v7.appcompat.R.styleable.View;
-
 public class CartItemListActivity extends AppCompatActivity{
 
     ListView lv;
-    CartItemInfo root;
     List<ProductCartInfo> cartProducts;
     CartItemAdapter adapter;
     List<CartTotalInfo> cartTotals;
-    TextView total,tv,tv1;
+    TextView total,tv;
     String s;
+
     android.support.v7.app.ActionBar actionBar;
-    static Button notifCount;
-    static int mNotifCount = 0;
+     Button cartcontinue;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addtocart);
-       // setTitle("Cart Items");
+        // setTitle("Cart Items");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         cartProducts = new ArrayList<>();
@@ -69,7 +57,16 @@ public class CartItemListActivity extends AppCompatActivity{
         adapter = new CartItemAdapter(this, R.layout.activity_catogry,cartProducts);
         lv = (ListView) findViewById(R.id.cartlist);
         lv.setAdapter(adapter);
+        cartcontinue=(Button)findViewById(R.id.Continue);
+        cartcontinue.setOnClickListener(new android.view.View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+
+                Intent mainIntent = new Intent(CartItemListActivity.this,ContinueActivity.class);
+                startActivity(mainIntent);
+            }
+        });
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -123,7 +120,7 @@ public class CartItemListActivity extends AppCompatActivity{
             public void onResponse(Response<GetCartItemsResponse> response, Retrofit retrofit) {
                 GetCartItemsResponse rsp = response.body();
                 cartProducts.addAll(rsp.getProds());
-               s= String.valueOf(rsp.getProds().size());
+                s= String.valueOf(rsp.getProds().size());
                 tv.setText(s);
                 adapter.notifyDataSetInvalidated();
                 cartTotals = rsp.getTotals();
@@ -181,66 +178,29 @@ public class CartItemListActivity extends AppCompatActivity{
 //        ServiceInfo ch12 = new ServiceInfo(R.mipmap.fsix, "LOTUS", "ByCviac", "₹ 15", "₹ 25");
 //        root.add(ch12);
 
-
-//        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//                //  CartItemInfo pinfo = root.getSublist().get(i);
-//                Intent intent = new Intent(CartItemListActivity.this,ProductdetailsActivity.class);
-//                //intent.putExtra("pinfo", pinfo);
-//                startActivity(intent);
-////
-//            }
-//        });
-
     }
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//
-//        View count = menu.findItem(R.id.badge).getActionView();
-//        notifCount = (Button) count.findViewById(R.id.notif_count);
-//        notifCount.setText(String.valueOf(mNotifCount));
-//        return super.onCreateOptionsMenu(menu);
-//    }
 
     public boolean onOptionsItemSelected(MenuItem item) {
         onBackPressed();
         return true;
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        menu.findItem(R.id.action_call).setVisible(false);
-
-        return true;
-    }
     public void actionmethod() {
-            actionBar =  getSupportActionBar();
+        actionBar =  getSupportActionBar();
         if (actionBar != null) {
 // Disable the default and enable the custom
             actionBar.setDisplayShowHomeEnabled(false);
             actionBar.setDisplayShowTitleEnabled(true);
-
             actionBar.setDisplayShowCustomEnabled(true);
             //actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3B5CD1")));
             View customView = getLayoutInflater().inflate(R.layout.activity_fr, null);
             tv=(TextView) customView.findViewById(R.id.count);
-//            tv1 =(TextView ) customView.findViewById(R.id.title);
-
-           tv.setText(s);
-//            tv1.setText("Cart Items");
+            tv.setText(s);
             actionBar.setCustomView(customView);
 
+
+        }
 
     }
 
 }
-
-}
-
-

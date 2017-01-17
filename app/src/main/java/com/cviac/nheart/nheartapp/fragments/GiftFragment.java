@@ -124,6 +124,11 @@ public class GiftFragment extends Fragment{
                 // adapter.notifyDataSetChanged();
                 adapter.notifyDataSetInvalidated();
 
+
+
+
+
+
             }
 
             @Override
