@@ -36,6 +36,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -311,5 +312,20 @@ public class MusicFragment extends Fragment {
             // do whatever you need to do
         }
         return path;
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_category).setVisible(false);
+        menu.findItem(R.id.action_cart).setVisible(false);
+        menu.findItem(R.id.action_call).setVisible(false);
+        super.onPrepareOptionsMenu(menu);
     }
 }

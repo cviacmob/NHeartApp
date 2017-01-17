@@ -135,10 +135,13 @@ public class ProductdetailsActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         mcartMenuIcon = (LayerDrawable) menu.findItem(R.id.action_cart).getIcon();
+        menu.findItem(R.id.action_call).setVisible(false);
         setBadgeCount(this, mcartMenuIcon, "");
         getAndSetCartCount();
         return true;
     }
+
+
 
     public static void setBadgeCount(Context context, LayerDrawable icon, String count) {
 

@@ -325,6 +325,7 @@ public class MainActivity extends AppCompatActivity {
 
             switch (position + 1) {
                 case 1:
+                    Fragment fragg = new ChatFragment();
                     return new ChatFragment();
                 case 2:
                     Fragment frag = new GiftFragment();
