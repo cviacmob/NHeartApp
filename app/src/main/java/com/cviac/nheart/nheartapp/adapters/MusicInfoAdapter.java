@@ -69,6 +69,7 @@ public class MusicInfoAdapter extends BaseAdapter {
         if (convertView == null) {
             inflter = LayoutInflater.from(ctx);
             convertView = inflter.inflate(R.layout.list_single, null);
+
             holder = new ViewHolder();
             vw = convertView;
             holder.title = (TextView) vw.findViewById(R.id.titlehead);

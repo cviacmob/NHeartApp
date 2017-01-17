@@ -19,6 +19,7 @@ import com.cviac.nheart.nheartapp.datamodel.Product;
 import com.cviac.nheart.nheartapp.datamodel.Songs;
 import com.squareup.picasso.Picasso;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -28,6 +29,7 @@ import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -62,11 +64,25 @@ public class MusicFragment extends Fragment {
     private Thread updateseekbar;
     private SeekBar sb;
 
+    private ProgressDialog progressDialog=null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.activity_music, container, false);
         //btnPlay = (ImageButton) view.findViewById(R.id.btnimg);
+
+
         lv = (ListView) view.findViewById(list1);
+        progressDialog=new ProgressDialog(getContext(),R.style.AppTheme_AppBarOverlay);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Loading");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        if (progressDialog!=null){
+            progressDialog.dismiss();
+        }
 
         mp = new MediaPlayer();
         btnPlay = (ImageButton) view.findViewById(R.id.btnimg);
@@ -221,6 +237,8 @@ public class MusicFragment extends Fragment {
         }
         return view;
     }
+
+
 
     public ArrayList<MusicInfo> listOfSongs(Context context) {
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;

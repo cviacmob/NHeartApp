@@ -61,7 +61,9 @@ import retrofit.Retrofit;
 public class Chat_Skezo extends AppCompatActivity implements View.OnClickListener {
 
 
+
     android.support.v7.app.ActionBar actionBar;
+
 
 
     ImageView customimageback, customimage, imgvwtick, cuscall;
@@ -75,14 +77,25 @@ public class Chat_Skezo extends AppCompatActivity implements View.OnClickListene
     ProgressDialog progressDialog;
     private static final int MY_PERMISSION_CALL_PHONE = 10;
 
+/*
+
+    private String getNormalizedConverseId(String myid, String receverid) {
+        if (myid.compareTo(receverid) > 0) {
+            return myid + "_" + receverid;
+        }
+        return receverid + "_" + myid;
+    }
+*/
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_hug);
 
-        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        sendbutton = (ImageButton) findViewById(R.id.sendbutton1);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        sendbutton =(ImageButton)findViewById(R.id.sendbutton1);
         lv = (ListView) findViewById(R.id.listViewHug);
         lv.setDivider(null);
         lv.setDividerHeight(10);
@@ -90,6 +103,7 @@ public class Chat_Skezo extends AppCompatActivity implements View.OnClickListene
         //chats = new ArrayList<ChatMessage>();
 
 
+        getSupportActionBar().show();
         final String MyPREFERENCES = "MyPrefs";
         SharedPreferences prefs = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
 
@@ -113,7 +127,14 @@ public class Chat_Skezo extends AppCompatActivity implements View.OnClickListene
         });
 
 
+
     }
+
+
+
+
+
+
 
 
     @Override
@@ -148,12 +169,17 @@ public class Chat_Skezo extends AppCompatActivity implements View.OnClickListene
 
             TextView customTitle = (TextView) customView.findViewById(R.id.actionbarTitle1);
 
-            customTitle.setText("Skezo");
+            customTitle.setText("Hug");
             actionBar.setCustomView(customView);
         }
 
 
     }
+
+
+
+
+
 
 
     @Override

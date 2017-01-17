@@ -49,10 +49,10 @@ public class SkezoFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int pos1, long pos2) {
                 SkezoInfo emp = skezolist.get(pos1);
-        Intent i = new Intent(getActivity().getApplicationContext(), Chat_Skezo.class);
+                Intent i = new Intent(getActivity().getApplicationContext(), Chat_Skezo.class);
 
                 startActivity(i);
-               }
+            }
         });
 
 
@@ -61,7 +61,7 @@ public class SkezoFragment extends Fragment {
 
 
 
-                return view;
+        return view;
 
 
 
@@ -109,7 +109,6 @@ public class SkezoFragment extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.action_category).setVisible(false);
         menu.findItem(R.id.action_cart).setVisible(false);
-        menu.findItem(R.id.action_call).setVisible(false);
         super.onPrepareOptionsMenu(menu);
     }
 

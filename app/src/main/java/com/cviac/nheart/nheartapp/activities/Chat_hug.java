@@ -59,7 +59,7 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_hug);
 
-         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         sendbutton = (ImageButton) findViewById(R.id.sendbutton1);
         lv = (ListView) findViewById(R.id.listViewHug);
         lv.setDivider(null);
@@ -73,14 +73,14 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
 
 
         Intent i = getIntent();
-     hug=(HugInfo)i.getSerializableExtra("mob");
+        hug=(HugInfo)i.getSerializableExtra("mob");
         //callnum=hug.getMob();
         String ss=hug.getMob();
 
         //String sn = (String) i.getSerializableExtra("mob");
         //Bundle b = i.getExtras();
         //if(b!=null) {
-           // String j = (String) b.get("mob");
+        // String j = (String) b.get("mob");
 
         //}
 
@@ -116,7 +116,6 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
 
             View customView = getLayoutInflater().inflate(R.layout.actionbar_hug, null);
             customimage = (ImageView) customView.findViewById(R.id.imageViewcustom1);
-           // ImageButton ivcall=(ImageButton)customView.findViewById(R.id.ivcall1);
             //customimageback = (ImageView) customView.findViewById(R.id.imageViewback1);
             //cuscall = (ImageView)findViewById(R.id.ivcall);
 
@@ -164,7 +163,7 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
         onBackPressed();
         switch (item.getItemId()) {
             case R.id.progress1:
-                ImageView cuscall = (ImageView) findViewById(R.id.ivc);
+                 ImageButton cuscall = (ImageButton) findViewById(R.id.progress1);
                 onClick(cuscall);
                 return true;
 
