@@ -116,6 +116,7 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
 
             View customView = getLayoutInflater().inflate(R.layout.actionbar_hug, null);
             customimage = (ImageView) customView.findViewById(R.id.imageViewcustom1);
+           // ImageButton ivcall=(ImageButton)customView.findViewById(R.id.ivcall1);
             //customimageback = (ImageView) customView.findViewById(R.id.imageViewback1);
             //cuscall = (ImageView)findViewById(R.id.ivcall);
 
@@ -163,7 +164,7 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
         onBackPressed();
         switch (item.getItemId()) {
             case R.id.progress1:
-                final ImageButton cuscall = (ImageButton) findViewById(R.id.progress1);
+                ImageView cuscall = (ImageView) findViewById(R.id.ivc);
                 onClick(cuscall);
                 return true;
 
