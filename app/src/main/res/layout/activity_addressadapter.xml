@@ -57,7 +57,7 @@
         android:layout_alignBaseline="@+id/astae"
         android:layout_alignBottom="@+id/astae"
         android:layout_toRightOf="@+id/astae"
-        android:layout_toEndOf="@+id/fname" />
+        android:layout_toEndOf="@+id/astae" />
 
     <TextView
         android:text="mobile"
@@ -76,7 +76,7 @@
         android:paddingLeft="10dp"
         android:layout_below="@+id/shippingno"
         android:layout_toRightOf="@+id/acity"
-        android:layout_toEndOf="@+id/amobileno" />
+        android:layout_toEndOf="@+id/acity" />
 
     <TextView
         android:text="landmark"
@@ -95,12 +95,12 @@
         android:paddingLeft="10dp"
         android:layout_below="@+id/apincode"
         android:layout_toRightOf="@+id/amobileno"
-        android:layout_toEndOf="@+id/alandmark" />
+        android:layout_toEndOf="@+id/amobileno" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:drawable/ic_delete"
+        android:background="@drawable/ic_close_grey600_24dp"
         android:layout_alignTop="@+id/fname"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -108,14 +108,14 @@
         android:layout_marginEnd="19dp"
         android:id="@+id/dletebutton" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/ic_menu_edit"
-        android:id="@+id/edit"
-        android:layout_below="@+id/dletebutton"
-        android:layout_alignLeft="@+id/dletebutton"
-        android:layout_alignStart="@+id/dletebutton" />
+    <!--<ImageButton-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@android:drawable/ic_menu_edit"-->
+        <!--android:id="@+id/edit"-->
+        <!--android:layout_below="@+id/dletebutton"-->
+        <!--android:layout_alignLeft="@+id/dletebutton"-->
+        <!--android:layout_alignStart="@+id/dletebutton" />-->
 
 
 </RelativeLayout>

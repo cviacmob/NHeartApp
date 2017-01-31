@@ -93,6 +93,7 @@ public class CartItemAdapter extends BaseAdapter {
                     }
                 }
             });
+            ImageButton dele=(ImageButton)ins.findViewById(R.id.delete);
 
             ins.setTag(holder);
         } else {

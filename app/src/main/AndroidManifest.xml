@@ -2,14 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cviac.nheart.nheartapp">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
+    <!--<uses-permission android:name="edu.bloomu.huskies.tsc71523.skatelogger.MAPS_RECEIVE"/>-->
+    <!--<uses-permission android:name="com.google.android.providers.gsf.permisson.READ_GSERVICES"/>-->
+
+
+
     <application
+        android:name=".NheartApp"
         android:allowBackup="true"
         android:icon="@drawable/icon"
-
-        android:name=".NheartApp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.CategorylistActivity">
@@ -34,71 +42,68 @@
             android:name=".activities.Splashscreen"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-
-       <!-- <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>-->
-
-
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
-        <activity
-            android:name=".activities.Registration">
+        <activity android:name=".activities.Registration">
             android:label="Registration"
             android:theme="@style/AppTheme.AppBarOverlay">
-
-    </activity>
-        <activity
-
-            android:name=".activities.Otpverification"/>
-            android:label="Verification"
-            android:theme="@style/AppTheme.AppBarOverlay" />
-        <activity
-            android:name=".activities.SendToInvite"/>
-            android:label="Invitation"
-            android:theme="@style/AppTheme.AppBarOverlay" />
-        <activity
-            android:name=".activities.InvitationReceived"/>
-            android:label="Registration"
-            android:theme="@style/AppTheme.AppBarOverlay" />
+        </activity>
+        <activity android:name=".activities.Otpverification" />
+        android:label="Verification"
+        android:theme="@style/AppTheme.AppBarOverlay" />
+        <activity android:name=".activities.SendToInvite" />
+        android:label="Invitation"
+        android:theme="@style/AppTheme.AppBarOverlay" />
+        <activity android:name=".activities.InvitationReceived" />
+        android:label="Registration"
+        android:theme="@style/AppTheme.AppBarOverlay" />
         <activity
             android:name=".activities.MainActivity"
-
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+
+
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".activities.Chat_hug"/>
-
-        <activity
-            android:name=".activities.Chat_Skezo"
-
-         />
+        <activity android:name=".activities.Chat_hug" />
+        <activity android:name=".activities.Chat_Skezo" />
         <activity
             android:name=".activities.ContinueActivity"
-            android:label=""
-            />
+            android:label="" />
+        <activity android:name=".activities.EmptyCartListActivity" />
         <activity
             android:name=".activities.ChangeAddressActivity"
-            android:label=""
-            />
+            android:label="" />
         <activity
             android:name=".activities.AddNewAddressActivity"
-            android:label=""
-            />
+            android:label="" />
         <activity android:name=".activities.ProductlistActivity" />
+        <activity android:name=".activities.AndroidGPSTrackingActivity" />
         <activity
-            android:label="Cart Items"
-            android:name=".activities.CartItemListActivity">
+            android:name=".activities.CartItemListActivity"
+            android:label="Cart Items"></activity>
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCIAnxOUUAOXG80YnmHgF5BS0-4ht6KIIA" />
 
-        </activity>
+        <activity
+            android:name=".activities.MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
     </application>
 
 </manifest>
