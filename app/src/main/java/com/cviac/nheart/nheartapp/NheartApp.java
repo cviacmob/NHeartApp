@@ -1,9 +1,12 @@
 package com.cviac.nheart.nheartapp;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.ContextWrapper;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
-public class NheartApp extends Application {
+public class NheartApp extends MultiDexApplication {
 
     private boolean networkstatus=true;
 
@@ -13,6 +16,12 @@ public class NheartApp extends Application {
 
     public void setNetworkstatus(boolean networkstatus) {
         this.networkstatus = networkstatus;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     @Override

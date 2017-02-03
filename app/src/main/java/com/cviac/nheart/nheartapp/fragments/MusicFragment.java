@@ -235,7 +235,13 @@ public class MusicFragment extends Fragment {
             artist.setText("");
             bduration.setText("");
         }
+
+
+
+
+
         return view;
+
     }
 
 

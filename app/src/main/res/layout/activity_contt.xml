@@ -2,40 +2,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F3F4">
+   android:background="#ffffff">
+
+
+    <!--<TextView
+        android:text="Enter Mobile Number to Send Invitation"
+        android:paddingLeft="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:id="@+id/textView9"
+
+      android:layout_above="@+id/numbe" />-->
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:id="@+id/numbe"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <EditText
+            android:id="@+id/num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="10"
+            android:hint="Enter MobileNumber to Invite" />
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:text=" INVITE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
         android:id="@+id/getin"
-        android:layout_below="@+id/num"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="36dp"
-        android:layout_marginEnd="36dp" />
-
-    <TextView
-        android:text="Enter Mobile Number to Send Invitation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#000203"
-        android:id="@+id/textView9"
-        android:layout_marginTop="166dp"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/getin"
-        android:layout_toStartOf="@+id/getin" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:textColor="#000203"
-        android:id="@+id/num"
-        android:layout_marginTop="39dp"
-        android:maxLength="10"
-        android:layout_below="@+id/textView9"
-        android:layout_centerHorizontal="true" />
+        android:background="@drawable/roundbutton"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/numbe"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp" />
 </RelativeLayout>

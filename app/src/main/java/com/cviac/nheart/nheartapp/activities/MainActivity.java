@@ -1,14 +1,17 @@
 package com.cviac.nheart.nheartapp.activities;
 
+import android.Manifest;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.media.MediaPlayer;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -24,10 +27,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
-import com.cviac.nheart.nheartapp.datamodel.CategoriesResponse;
 import com.cviac.nheart.nheartapp.datamodel.GetCartItemsResponse;
 import com.cviac.nheart.nheartapp.datamodel.LoginResponse;
 import com.cviac.nheart.nheartapp.fragments.ChatFragment;
@@ -40,13 +43,15 @@ import com.cviac.nheart.nheartapp.fragments.SkezoFragment;
 import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
 import com.cviac.nheart.nheartapp.utilities.BadgeDrawable;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
-
-import static com.cviac.nheart.nheartapp.activities.ProductdetailsActivity.count;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -75,8 +80,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        checkPermissions();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
 
 
         /*final AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
@@ -171,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -231,18 +240,27 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_refresh:
 
                 break;
+
             case R.id.action_cart:
-//                if(mCartCount==0) {
-//                    Intent h = new Intent(MainActivity.this, EmptyCartListActivity.class);
-//                    startActivity(h);
-//                }
-//                if(mCartCount!=0){
+                if(mCartCount==0) {
+                    Intent h = new Intent(MainActivity.this, EmptyCartListActivity.class);
+                    startActivity(h);
+                }
+                if(mCartCount!=0){
                     Intent h = new Intent(MainActivity.this, CartItemListActivity.class);
                     startActivity(h);
-//                }
+                }
                 break;
+            case R.id.location:
 
+                Intent v = new Intent(MainActivity.this, MapsActivity.class);
+                startActivity(v);
+                break;
+            case R.id.loc:
 
+                Intent n = new Intent(MainActivity.this, MapsActivity.class);
+                startActivity(n);
+                break;
             default:
                 break;
         }
@@ -432,5 +450,44 @@ public class MainActivity extends AppCompatActivity {
             mp.stop();
             mp.release();
         }
+    }
+    String[] permissions = new String[]{
+            Manifest.permission.WRITE_SETTINGS,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+//            Manifest.permission.WRITE_EXTERNAL_STORAGE
+
+    };
+
+    public  boolean checkPermissions() {
+        int result=1;
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        for (String p : permissions) {
+            result = ContextCompat.checkSelfPermission(MainActivity.this, p);
+            if (result != PackageManager.PERMISSION_GRANTED ) {
+                listPermissionsNeeded.add(p);
+            }
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(MainActivity.this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), 100);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if (requestCode == 100) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // do something
+                Toast.makeText(MainActivity.this,"Permission granted now you can read the storage",Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                Toast.makeText(MainActivity.this, "The app was not allowed to write to your storage. Hence, it cannot function properly. Please consider granting it this permission", Toast.LENGTH_LONG).show();
+            }
+            return;
+        }
+
     }
 }

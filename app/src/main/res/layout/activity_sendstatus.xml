@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:paddingTop="150dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="Your invitation has sent successfully.You Will be notified if \n                                      Accepted/Rejected "
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+
+        android:textSize="13dp"
+        android:id="@+id/status"
+        android:autoText="true"
+        android:freezesText="false"
+        android:maxLines="2" />
+
+    <Button
+        android:text="OK"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/roundbutton"
+        android:textColor="#FFFFFF"
+        android:id="@+id/ok"
+        style="@android:style/Widget.Button"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/status"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

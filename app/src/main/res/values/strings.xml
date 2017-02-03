@@ -4,4 +4,7 @@
     <string name="progress">calling</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="ssss">9894250016</string>
+    <string name="invitationstatus">Your invitation has sent successfully. You Will be notified if \n Accepted/Rejected </string>
+    <string name="title_activity_maps">Map</string>
+
 </resources>

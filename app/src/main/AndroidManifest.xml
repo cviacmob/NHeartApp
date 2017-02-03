@@ -2,14 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cviac.nheart.nheartapp">
 
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
+
     <application
+        android:name=".NheartApp"
         android:allowBackup="true"
         android:icon="@drawable/icon"
-
-        android:name=".NheartApp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.CategorylistActivity">
@@ -34,71 +38,66 @@
             android:name=".activities.Splashscreen"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-
-
-       <!-- <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>-->
-
-
-        </activity>
-        <activity
-            android:name=".activities.Registration">
-            android:label="Registration"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-    </activity>
-        <activity
-
-            android:name=".activities.Otpverification"/>
-            android:label="Verification"
-            android:theme="@style/AppTheme.AppBarOverlay" />
-        <activity
-            android:name=".activities.SendToInvite"/>
-            android:label="Invitation"
-            android:theme="@style/AppTheme.AppBarOverlay" />
-        <activity
-            android:name=".activities.InvitationReceived"/>
-            android:label="Registration"
-            android:theme="@style/AppTheme.AppBarOverlay" />
-        <activity
-            android:name=".activities.MainActivity"
-
-            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!--
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+            -->
+
         </activity>
+        <activity android:name=".activities.Registration">
+            android:label="Registration"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
+        </activity>
+        <activity android:name=".activities.Otpverification" />
+        android:label="Verification"
+        android:theme="@style/AppTheme.AppBarOverlay" />
+        <activity android:name=".activities.SendToInvite" />
+        android:label="Invitation"
+        android:theme="@style/AppTheme.AppBarOverlay" />
+        <activity android:name=".activities.InvitationReceived" />
+        android:label="Registration"
+        android:theme="@style/AppTheme.AppBarOverlay" />
         <activity
-            android:name=".activities.Chat_hug"/>
+            android:name=".activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
 
-        <activity
-            android:name=".activities.Chat_Skezo"
-
-         />
+        </activity>
+        <activity android:name=".activities.Chat_hug" />
+        <activity android:name=".activities.Chat_Skezo" />
         <activity
             android:name=".activities.ContinueActivity"
-            android:label=""
-            />
+            android:label="" />
         <activity
             android:name=".activities.ChangeAddressActivity"
-            android:label=""
-            />
+            android:label="" />
         <activity
             android:name=".activities.AddNewAddressActivity"
-            android:label=""
-            />
+            android:label="" />
         <activity android:name=".activities.ProductlistActivity" />
         <activity
-            android:label="Cart Items"
-            android:name=".activities.CartItemListActivity">
+            android:name=".activities.CartItemListActivity"
+            android:label="Cart Items"></activity>
+        <activity android:name=".activities.SkezoChatActivity"></activity>
+        <activity android:name=".activities.SendInvitationStatus"></activity>
 
-        </activity>
+
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCIAnxOUUAOXG80YnmHgF5BS0-4ht6KIIA" />
+
+        <activity
+            android:name=".activities.MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
     </application>
 
 </manifest>

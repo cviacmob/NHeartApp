@@ -5,6 +5,7 @@
     android:id="@+id/activity_registration"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:padding="5dp"
 
     tools:context="com.cviac.nheart.nheartapp.activities.Registration">
@@ -20,9 +21,9 @@
             android:id="@+id/namebox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"
             android:textColorHint="?attr/colorPrimary"
             android:textColor="#000000"
+            android:hint="Enter Name"
             android:inputType="text"
             android:textAllCaps="false" />
     </android.support.design.widget.TextInputLayout>
@@ -106,8 +107,9 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:padding="5dp"
+        android:background="@drawable/roundbutton"
         android:text="Register"
-        android:textColor="#D7017E"
+        android:textColor="#FFFFFF"
         android:layout_below="@+id/conf"
         android:layout_centerHorizontal="true"
         style="@android:style/Widget.Button.Small" />

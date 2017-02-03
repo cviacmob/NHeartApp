@@ -56,6 +56,7 @@ public class Otpverification extends AppCompatActivity {
 
                         Prefs.putString("isregistered", "true");
 
+
                         Intent mainIntent = new Intent(Otpverification.this,SendToInvite.class);
                         startActivity(mainIntent);
                         finish();

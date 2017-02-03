@@ -119,5 +119,10 @@
             android:textColor="#fa4b4848"
             android:textStyle="italic" />
     </RelativeLayout>
-
+    <ProgressBar
+        android:id="@+id/ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>
