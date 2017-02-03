@@ -1,4 +1,4 @@
-package com.cviac.nheart.nheartapp.fragments;
+package com.cviac.nheart.nheartapp.adapters;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;

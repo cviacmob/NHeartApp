@@ -48,14 +48,14 @@ public class ContinueActivity extends AppCompatActivity {
     @InjectView(R.id.paylist)
     NonScrollableListview nonScrollListView;
 
-    String[] web = {
-            "Credit Card",
-            "Debit Card",
-            "Net Banking",
-            "Emi",
-            "Gift Voucher",
-            "Cash on Delivery",
-    } ;
+//    String[] web = {
+//            "Credit Card",
+//            "Debit Card",
+//            "Net Banking",
+//            "Emi",
+//            "Gift Voucher",
+//            "Cash on Delivery",
+//    } ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,9 +73,9 @@ public class ContinueActivity extends AppCompatActivity {
         nonScrollListView.setAdapter(adapter);
 
         rb=(RadioButton)findViewById(R.id.credit);
-        rb1=(RadioButton)findViewById(R.id.netbank);
+        rb1=(RadioButton)findViewById(R.id.paytm);
         rb2=(RadioButton)findViewById(R.id.debit);
-        rb3=(RadioButton)findViewById(R.id.emi);
+        rb3=(RadioButton)findViewById(R.id.cash);
         total=(TextView)findViewById(R.id.amount);
         b=(Button)findViewById(R.id.pay);
         b1=(Button) findViewById(R.id.change);

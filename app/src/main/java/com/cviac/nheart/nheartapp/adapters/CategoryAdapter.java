@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cviac.nheart.nheartapp.R;
+import com.cviac.nheart.nheartapp.activities.ProductdetailsActivity;
 import com.cviac.nheart.nheartapp.datamodel.Category;
 import com.squareup.picasso.Picasso;
 
@@ -66,13 +67,21 @@ public class CategoryAdapter extends BaseAdapter {
             holder.right=(ImageView)vw.findViewById(R.id.right);
             vw.setTag(holder);
 
-            String url="http://nheart.cviac.com//image//cache//catalog//ring22-500x500.jpg";
-            Picasso.with(vw.getContext()).load(url).resize(50,50).into( holder.iv);
+//            String url="http://nheart.cviac.com//image//cache//catalog//ring22-500x500.jpg";
+//            Picasso.with(vw.getContext()).load(url).resize(50,50).into( holder.iv);
         }
         else {
             holder = (ViewHolder) vw.getTag();
         }
         holder.tv.setText(ct.getName());
+        String url = ct.getImage();
+        url = url.replace("localhost","192.168.1.133");
+        try {
+            Picasso.with(vw.getContext()).load(url).resize(50,50).into( holder.iv);
+//            holder.imgView.setImageURI(Uri.parse(url));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return vw;
     }
 }
