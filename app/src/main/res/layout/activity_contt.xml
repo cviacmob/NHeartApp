@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   android:background="#ffffff">
+    android:background="@drawable/wallll">
 
 
     <!--<TextView
@@ -14,32 +15,64 @@
         android:id="@+id/textView9"
 
       android:layout_above="@+id/numbe" />-->
+    <RelativeLayout
 
-    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:id="@+id/numbe"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/login_title"
+        android:layout_marginBottom="140dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="140dp"
+        android:background="@drawable/rounded_corner"
+        android:divider="?attr/colorPrimary"
+        android:dividerHeight="0.1dp"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        >
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/numbe"
+            android:layout_below="@+id/imageView6"
+
+            >
+
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:srcCompat="@drawable/msg_love"
+            android:id="@+id/imageView6"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:text=" INVITE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/getin"
+            android:background="@drawable/roundbutton"
+            android:textColor="#ffffff"
+
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="24dp" />
 
         <EditText
             android:id="@+id/num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp"
             android:inputType="number"
             android:maxLength="10"
-            android:hint="Enter MobileNumber to Invite" />
-    </android.support.design.widget.TextInputLayout>
 
-    <Button
-        android:text=" INVITE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/getin"
-        android:background="@drawable/roundbutton"
-        android:textColor="#ffffff"
-        android:layout_below="@+id/numbe"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp" />
+            android:hint="Enter MobileNumber to Invite"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
 </RelativeLayout>

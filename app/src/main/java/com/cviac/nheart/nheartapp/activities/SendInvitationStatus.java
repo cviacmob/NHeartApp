@@ -10,6 +10,7 @@ import android.text.style.BackgroundColorSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +39,12 @@ public class SendInvitationStatus extends AppCompatActivity {
         setContentView(R.layout.activity_sendstatus);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        tv=(TextView)findViewById(R.id.status);
+      /*  tv=(TextView)findViewById(R.id.status);*/
+        ImageView im=(ImageView)findViewById(R.id.imgmm);
+        TextView tm=(TextView)findViewById(R.id.text1);
+        TextView tm2=(TextView)findViewById(R.id.text2);
+        TextView tm3=(TextView)findViewById(R.id.text3);
+
        /* String  text = "Test";
         Spannable spanText = Spannable.Factory.getInstance().newSpannable(text);
         spanText.setSpan(new BackgroundColorSpan(0xFFFFFF00), 14, 19, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -84,7 +90,7 @@ public class SendInvitationStatus extends AppCompatActivity {
                 else
                     Toast.makeText(SendInvitationStatus.this,
                             "Your invitation is Pending  " + rsp.getCode(), Toast.LENGTH_LONG).show();
-                }
+            }
 
             @Override
             public void onFailure(Throwable t) {

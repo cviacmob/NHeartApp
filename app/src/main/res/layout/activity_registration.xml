@@ -5,112 +5,131 @@
     android:id="@+id/activity_registration"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@drawable/wallll"
     android:padding="5dp"
-
     tools:context="com.cviac.nheart.nheartapp.activities.Registration">
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:padding="5dp">
 
-        <EditText
-            android:id="@+id/namebox"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/login_title"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/rounded_corner"
+        android:divider="?attr/colorPrimary"
+        android:dividerHeight="0.1dp"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/namebox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:hint="Enter Name"
+                android:inputType="text"
+                android:textAllCaps="false"
+                android:textColor="#000000"
+                android:textColorHint="?attr/colorPrimary" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="?attr/colorPrimary"
-            android:textColor="#000000"
-            android:hint="Enter Name"
-            android:inputType="text"
-            android:textAllCaps="false" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_below="@+id/name"
+            android:padding="5dp">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/name"
-        android:padding="5dp">
+            <EditText
+                android:id="@+id/phonebox"
+                style="@style/Widget.AppCompat.AutoCompleteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mobile Number"
+                android:inputType="number"
+                android:textColor="#000000"
+                android:textColorHint="?attr/colorPrimary" />
 
-        <EditText
-            android:id="@+id/phonebox"
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/mail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Mobile Number"
-            android:textColorHint="?attr/colorPrimary"
-            android:textColor="#000000"
-            android:inputType="number"
-            style="@style/Widget.AppCompat.AutoCompleteTextView" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_below="@+id/phone"
+            android:padding="5dp">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/mail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/phone"
-        android:padding="5dp">
+            <EditText
+                android:id="@+id/mailbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="E-Mail ID"
+                android:inputType="textEmailAddress"
+                android:textColor="#000000"
+                android:textColorHint="?attr/colorPrimary" />
 
-        <EditText
-            android:id="@+id/mailbox"
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="E-Mail ID"
-            android:textColorHint="?attr/colorPrimary"
-            android:textColor="#000000"
+            android:layout_below="@+id/mail"
+            android:padding="5dp">
 
-            android:inputType="textEmailAddress" />
-    </android.support.design.widget.TextInputLayout>
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="password"
+                android:textColorHint="?attr/colorPrimary"
+                android:textColor="#000000"
+                android:inputType="textPassword" />
+
+        </android.support.design.widget.TextInputLayout>
 
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/pass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/mail"
-        android:padding="5dp">
-
-        <EditText
-            android:id="@+id/password"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/conf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="password"
-            android:textColorHint="?attr/colorPrimary"
-            android:textColor="#000000"
-            android:inputType="textPassword" />
+            android:layout_below="@+id/pass"
+            android:padding="5dp">
 
-    </android.support.design.widget.TextInputLayout>
+            <EditText
+                android:id="@+id/confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="confirm password"
+                android:textColorHint="?attr/colorPrimary"
+                android:textColor="#000000"
+                android:inputType="textPassword" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/Registerbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/roundbutton"
+            android:paddingBottom="10dp"
+            android:padding="5dp"
+            android:text="Register"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
 
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/conf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/pass"
-        android:padding="5dp">
-
-    <EditText
-        android:id="@+id/confirm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="confirm password"
-        android:textColorHint="?attr/colorPrimary"
-        android:textColor="#000000"
-        android:inputType="textPassword" />
-    </android.support.design.widget.TextInputLayout>
-
-    <Button
-        android:id="@+id/Registerbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:padding="5dp"
-        android:background="@drawable/roundbutton"
-        android:text="Register"
-        android:textColor="#FFFFFF"
-        android:layout_below="@+id/conf"
-        android:layout_centerHorizontal="true"
-        style="@android:style/Widget.Button.Small" />
 </RelativeLayout>

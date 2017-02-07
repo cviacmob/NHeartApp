@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,25 +28,29 @@ import retrofit.Retrofit;
 public class InvitationReceived extends AppCompatActivity {
 
     Button accept, reject;
-    TextView name, email, mobile;
+    TextView name, email, mobile,textvv;
     String mob;
+    ImageButton callbtn;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite);
         setTitle("Received Invitation ");
         accept = (Button) findViewById(R.id.accept);
-        name = (TextView) findViewById(R.id.name);
-        email = (TextView) findViewById(R.id.email);
-        mobile = (TextView) findViewById(R.id.mobile);
+        name = (TextView) findViewById(R.id.name1);
+        //email = (TextView) findViewById(R.id.email1);
+        mobile = (TextView) findViewById(R.id.mob2);
+        textvv = (TextView) findViewById(R.id.text11);
+        callbtn=(ImageButton)findViewById(R.id.call_button);
         Intent i = getIntent();
         Invitation invite = (Invitation) i.getSerializableExtra("invite");
-       email.setText(invite.getEmail_id());
-        final String em=email.getText().toString();
+        // email.setText(invite.getEmail_id());
+        //final String em=email.getText().toString();
         mobile.setText(invite.getMobile());
         mob=mobile.getText().toString();
         name.setText(invite.getName());
         final String nm=name.getText().toString();
+        Prefs.putString("mobile1",mob);
         final String my_mobile= Prefs.getString("Phone","");
 
 
@@ -56,9 +61,10 @@ public class InvitationReceived extends AppCompatActivity {
             public void onClick(View v) {
                 updateInvite(mob,my_mobile,"accepted");
 
+
             }
         });
-        reject = (Button) findViewById(R.id.cancel);
+        reject = (Button) findViewById(R.id.reject);
 
         reject.setOnClickListener(new View.OnClickListener() {
 
@@ -68,6 +74,11 @@ public class InvitationReceived extends AppCompatActivity {
                 updateInvite(mob,my_mobile,"rejected");
             }
         });
+
+
+
+
+
     }
 
     public void updateInvite(String mobile, String to_mobile, final String status) {
@@ -101,6 +112,7 @@ public class InvitationReceived extends AppCompatActivity {
                     }
                     else {
                         Prefs.putString("from_mobile",mob);
+                        //Prefs.putString("from_mobile",mob);
                         Prefs.putString("unpaired","unpaired");
                         Intent mainIntent = new Intent(InvitationReceived.this, SendToInvite
                                 .class);
@@ -120,7 +132,7 @@ public class InvitationReceived extends AppCompatActivity {
             @Override
             public void onFailure(Throwable t) {
                 Toast.makeText(InvitationReceived.this,
-                        "Pair failed" , Toast.LENGTH_LONG).show();
+                        "Pair Request failed" , Toast.LENGTH_LONG).show();
 
 
             }

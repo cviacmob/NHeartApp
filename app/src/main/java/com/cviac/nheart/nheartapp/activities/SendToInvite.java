@@ -23,17 +23,17 @@ import retrofit.Retrofit;
 
 public class SendToInvite extends AppCompatActivity {
     Button b;
-  EditText ed;
+    EditText ed;
     String str,fromname,frommobile,tomobile,fromemail;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contt);
-      ed=(EditText)findViewById(R.id.num);
-      setTitle("Invite");
+        ed=(EditText)findViewById(R.id.num);
+        setTitle("Invite");
         //str= Prefs.getString("Phone","");
         fromname=Prefs.getString("Name","");
-         fromemail=  Prefs.getString("Email","");
+        fromemail=  Prefs.getString("Email","");
         frommobile =Prefs.getString("Phone","");
         b = (Button) findViewById(R.id.getin);
         //tomobile=ed.getText().toString();
@@ -43,16 +43,16 @@ public class SendToInvite extends AppCompatActivity {
             @Override
 
             public void onClick(View v) {
-               tomobile=ed.getText().toString();
+                tomobile=ed.getText().toString();
                 Prefs.putString("Phone2",tomobile);
 
                 if(tomobile.equals(frommobile)){
                     Toast.makeText(SendToInvite.this,"send valid number",Toast.LENGTH_LONG).show();
                 }
-                 else{
+                else{
                     invitation(fromname,fromemail,frommobile,tomobile);
                 }
-               // finish();
+                // finish();
 
             }
         });
