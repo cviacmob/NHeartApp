@@ -2,12 +2,19 @@ package com.cviac.nheart.nheartapp.activities;
 
 import android.Manifest;
 import android.app.ActionBar;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.media.MediaPlayer;
+import android.os.IBinder;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -20,6 +27,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,6 +50,8 @@ import com.cviac.nheart.nheartapp.fragments.MusicFragment;
 import com.cviac.nheart.nheartapp.fragments.SkezoFragment;
 import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
 import com.cviac.nheart.nheartapp.utilities.BadgeDrawable;
+import com.cviac.nheart.nheartapp.xmpp.LocalBinder;
+import com.cviac.nheart.nheartapp.xmpp.XMPPService;
 
 
 import java.util.ArrayList;
@@ -53,8 +63,10 @@ import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class MainActivity extends AppCompatActivity {
+import static com.cviac.nheart.nheartapp.activities.Registration.context;
 
+public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -67,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
     static TabLayout tabLayout;
     private LayerDrawable mcartMenuIcon;
     private int mCartCount = 0;
+    private XMPPService mService;
+    CoordinatorLayout coordinatorLayout;
+    private BroadcastReceiver xmppConnReciver;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -74,6 +89,27 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     Toolbar toolbar;
     ActionBar ab;
+    private boolean mBounded;
+
+
+    private final ServiceConnection mConnection = new ServiceConnection() {
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public void onServiceConnected(final ComponentName name,
+                                       final IBinder service) {
+            mService = ((LocalBinder<XMPPService>) service).getService();
+            mBounded = true;
+            Log.d(TAG, "onServiceConnected");
+        }
+
+        @Override
+        public void onServiceDisconnected(final ComponentName name) {
+            mService = null;
+            mBounded = false;
+            Log.d(TAG, "onServiceDisconnected");
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_layout);
         TabLayout.Tab tab = tabLayout.getTabAt(0);
         tab.setTag("Mirror");
         tab.setIcon(R.mipmap.ic_message_text_white_24dp);
@@ -144,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         getSetToken();
+        doBindService();
 
     }
 
@@ -450,6 +487,7 @@ public class MainActivity extends AppCompatActivity {
             mp.stop();
             mp.release();
         }
+        doUnbindService();
     }
     String[] permissions = new String[]{
             Manifest.permission.WRITE_SETTINGS,
@@ -489,5 +527,34 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+    }
+    private void doBindService() {
+    xmppConnReciver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String status = intent.getStringExtra("status");
+            Snackbar snackbar = Snackbar
+                    .make(coordinatorLayout, "Chat Server:  " + status , Snackbar.LENGTH_LONG);
+            snackbar.show();
+        }
+    };
+
+    bindService(new Intent(this, XMPPService.class), mConnection,
+    Context.BIND_AUTO_CREATE);
+    registerReceiver(xmppConnReciver, new IntentFilter("XMPPConnection"));
+}
+
+
+
+    void doUnbindService() {
+        if (mConnection != null) {
+            unbindService(mConnection);
+            unregisterReceiver(xmppConnReciver);
+        }
+
+    }
+
+    public XMPPService getmService() {
+        return mService;
     }
 }

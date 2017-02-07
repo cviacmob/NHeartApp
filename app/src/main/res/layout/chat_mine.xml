@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="3dp"
+    android:weightSum="1">
+
+    <me.himanshusoni.chatmessageview.ChatMessageView
+        android:id="@+id/chatMessageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cmv_arrowGravity="start"
+        app:cmv_arrowMargin="3dp"
+        app:cmv_arrowPosition="right"
+        app:cmv_backgroundColor="#D8FCE0"
+        app:cmv_backgroundColorPressed="#FFBABABA"
+
+        app:cmv_contentPadding="10dp"
+        app:cmv_cornerRadius="3dp"
+        app:cmv_showArrow="true"
+        android:layout_weight="0.03">
+
+
+        <ImageView
+            android:id="@+id/list_image"
+            android:layout_width="15dip"
+            android:layout_height="15dip"
+            android:layout_below="@+id/textchatmsg"
+
+            android:layout_weight="0.00"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textchatmsg"
+            android:textSize="10dip"
+            android:textColor="#818182"
+            android:textStyle="bold"
+            android:paddingRight="0dp"
+            android:layout_weight="0.00"
+
+            android:layout_toLeftOf="@+id/list_image"
+            android:layout_alignBottom="@+id/list_image"
+            android:layout_alignLeft="@+id/list_image"
+            android:layout_alignStart="@+id/list_image"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:id="@+id/textchatmsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#040404"
+            android:typeface="sans"
+            android:textSize="15dip"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </me.himanshusoni.chatmessageview.ChatMessageView>
+
+</LinearLayout>

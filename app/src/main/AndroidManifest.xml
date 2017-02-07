@@ -98,6 +98,26 @@
         <activity
             android:name=".activities.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
+
+
+        <service android:name="com.cviac.nheart.nheartapp.services.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service android:name=".services.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="nheart.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
     </application>
 
 </manifest>
