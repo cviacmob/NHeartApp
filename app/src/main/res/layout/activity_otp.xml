@@ -10,17 +10,38 @@
     >
 
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/editText11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2">
+
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter Otp Here"
+            android:paddingTop="30dp"
+            android:inputType="textPassword"
+            android:layout_marginTop="52dp"
+            android:layout_below="@+id/textView2"
+
+           />
+
+    </android.support.design.widget.TextInputLayout>
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="108dp"
         android:text="Please enter your OTP below"
-        android:layout_below="@+id/textView1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:textColor="#fff"
-        android:textStyle="bold"/>
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/verifybutton"
@@ -28,27 +49,33 @@
         android:layout_height="wrap_content"
         android:text="Verify"
         android:background="@drawable/roundbutton"
-        android:layout_marginTop="56dp"
         android:textColor="#fff"
         android:textStyle="bold"
-        android:layout_below="@+id/editText1"
-        android:layout_centerHorizontal="true"
-        style="@android:style/Widget.Button.Inset" />
+        style="@android:style/Widget.Button.Inset"
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="match_parent"
+        android:layout_marginTop="37dp"
+        android:layout_below="@+id/editText11"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_alignEnd="@+id/textView2"
+        android:layout_marginRight="40dp"
+        android:layout_marginEnd="40dp" />
+
+    <Button
+        android:id="@+id/resend"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter Otp Here"
-        android:textColorHint="#fff"
-        android:inputType="textPassword"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="30dp">
+        android:text="Resend"
+        android:background="@drawable/roundbutton"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        style="@android:style/Widget.Button.Inset"
 
-        <requestFocus />
-    </EditText>
+        android:layout_alignBaseline="@+id/verifybutton"
+        android:layout_alignBottom="@+id/verifybutton"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp" />
+
 
 </RelativeLayout>

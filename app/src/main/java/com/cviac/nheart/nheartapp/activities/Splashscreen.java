@@ -98,12 +98,13 @@ public class Splashscreen extends Activity {
 
                              if (invits !=null && invits.size() > 0) {
                                  Intent logn = new Intent(Splashscreen.this, InvitationReceived.class);
+                                 logn.putExtra("invite", invits.get(0));
                                  startActivity(logn);
                                  finish();
                              }
                              else {
                                  Intent logn = new Intent(Splashscreen.this, SendToInvite.class);
-                                 logn.putExtra("invite", invits.get(0));
+
                                  startActivity(logn);
                                  finish();
                              }

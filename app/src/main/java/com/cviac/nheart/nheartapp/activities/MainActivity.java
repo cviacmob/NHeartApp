@@ -458,7 +458,7 @@ public class MainActivity extends AppCompatActivity {
 
     };
 
-    public  boolean checkPermissions() {
+    public  boolean  checkPermissions() {
         int result=1;
         List<String> listPermissionsNeeded = new ArrayList<>();
         for (String p : permissions) {

@@ -54,7 +54,7 @@
 
 
         <TextView
-            android:text="You are Invited By"
+            android:text="You are invited by"
             android:textStyle="bold"
             android:paddingTop="20dp"
 

@@ -42,7 +42,7 @@
 
 
         <TextView
-            android:text="Your invitation has sent successfully"
+            android:text="Your Invitation has sent successfully"
             android:textStyle="bold"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
@@ -87,7 +87,7 @@
             android:layout_marginBottom="17dp" />
 
         <TextView
-            android:text=" You Will be notified Once"
+            android:text=" You will be notified Once"
             android:textStyle="bold"
             android:padding="5dp"
             android:layout_width="wrap_content"

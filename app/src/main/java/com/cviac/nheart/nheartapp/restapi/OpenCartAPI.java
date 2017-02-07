@@ -33,6 +33,12 @@ public interface OpenCartAPI {
                                    @Field("password") String password,
                                    @Field("confirm") String confirm);
 
+    @POST("/N-Heart/invite.php/verifyotp")
+    Call<VerifyOTPResponse> verifyOTP(@Body OTPInfo info);
+
+    @POST("/N-Heart/invite.php/insertotp")
+    Call<VerifyOTPResponse> resendOTP(@Body OTPInfo mob);
+
 
     @GET("/index.php?route=api/category")
     Call<CategoriesResponse> getCategories();

@@ -55,9 +55,9 @@ public class Registration extends AppCompatActivity {
         phone = (EditText) findViewById(R.id.phonebox);
         phone.setInputType(InputType.TYPE_CLASS_PHONE);
 
-        password = (EditText) findViewById(R.id.password);
+       // password = (EditText) findViewById(R.id.password);
 
-        confirm = (EditText) findViewById(R.id.confirm);
+        //confirm = (EditText) findViewById(R.id.confirm);
 
 
         //iw=(ImageView) findViewById(R.id.imageView3);
@@ -67,11 +67,6 @@ public class Registration extends AppCompatActivity {
         value = email.getText().toString();
 
         String toMobile =  Prefs.getString("to_mobile","");
-        if (toMobile != null && toMobile.length() > 0) {
-            checkInvitation(toMobile,1);
-
-        }
-
         submit.setOnClickListener(new OnClickListener()
         {
 
@@ -81,8 +76,8 @@ public class Registration extends AppCompatActivity {
                 String nam1e = name.getText().toString();
                 String emi = email.getText().toString();
                 String mbno=phone.getText().toString();
-                String pass = password.getText().toString();
-                String conf=confirm.getText().toString();
+                String pass ="12345";
+                String conf="12345";
 
 
                 boolean error = false;
@@ -157,9 +152,11 @@ public class Registration extends AppCompatActivity {
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
+
+
     }
 
-    public void register(String firstname, String lastname, String email1, final String mob, String pswd, String cpswd) {
+    public void register(final String firstname, String lastname,final String email1, final String mob, String pswd, String cpswd) {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://nheart.cviac.com")
@@ -172,7 +169,15 @@ public class Registration extends AppCompatActivity {
             public void onResponse(Response<ReginfoResponse> response, Retrofit retrofit) {
                 ReginfoResponse rsp = response.body();
                 if (rsp.getCode() == 0) {
-                    checkInvitation(mob,0);
+                    Prefs.putString("mobile",mob);
+                    Prefs.putString("email",email1);
+                    Prefs.putString("name",firstname);
+                    Prefs.putInt("customerid",rsp.getCustomer_id());
+
+
+                    Intent logn = new Intent(Registration.this, Otpverification.class);
+                    startActivity(logn);
+                    finish();
 
                     //Prefs.putString("Customer_ID",rsp.getCustomer().getCustomer_id());
 
@@ -194,63 +199,6 @@ public class Registration extends AppCompatActivity {
         });
     }
 
-    private void checkInvitation (String mob, final int flag) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://nheart.cviac.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        OpenCartAPI api = retrofit.create(OpenCartAPI.class);
 
-        Call<List<Invitation>> call= api.getInvitation(mob);
-
-        call.enqueue(new Callback<List<Invitation>>() {
-            @Override
-            public void onResponse(Response<List<Invitation>> response, Retrofit retrofit) {
-                List<Invitation> invits= response.body();
-
-                if(invits.size()>0) {
-
-                    if (flag == 1) {
-                        String status = invits.get(0).getStatus();
-                        if (status.equalsIgnoreCase("paired")) {
-                            Prefs.putString("pairstatus", "paired");
-                            Intent logn = new Intent(Registration.this, MainActivity.class);
-                            startActivity(logn);
-                            finish();
-
-                        }
-                        else if (status.equalsIgnoreCase("rejected")) {
-                            Prefs.putString("pairstatus", "rejected");
-                            Intent logn = new Intent(Registration.this, SendToInvite.class);
-                            startActivity(logn);
-                            finish();
-                        }
-                        else {
-                            Toast.makeText(Registration.this,
-                                "Your Invitation is Pending ", Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-                    else {
-                        Intent logn = new Intent(Registration.this, InvitationReceived.class);
-                        logn.putExtra("invite", invits.get(0));
-                        startActivity(logn);
-                        finish();
-                    }
-                }
-                else{
-                    Intent logn = new Intent(Registration.this, SendToInvite.class);
-                    startActivity(logn);
-                    finish();
-                }
-            }
-            @Override
-            public void onFailure(Throwable t) {
-                Toast.makeText(Registration.this,
-                        "Registration Failed: "+t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-            }
-        }
-        );
-    }
 
 }
