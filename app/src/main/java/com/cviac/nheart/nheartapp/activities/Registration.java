@@ -57,8 +57,8 @@ public class Registration extends AppCompatActivity {
 
         password = (EditText) findViewById(R.id.password);
 
-
         confirm = (EditText) findViewById(R.id.confirm);
+
 
         //iw=(ImageView) findViewById(R.id.imageView3);
         submit = (Button) findViewById(R.id.Registerbutton);
