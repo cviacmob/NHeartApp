@@ -1,5 +1,6 @@
 package com.cviac.nheart.nheartapp.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,9 @@ import retrofit.Retrofit;
 
 
 public class SendToInvite extends AppCompatActivity {
+
+    ProgressDialog progressDialog = null;
+
     Button b;
     EditText ed;
     String str,fromname,frommobile,tomobile,fromemail;
@@ -59,6 +63,14 @@ public class SendToInvite extends AppCompatActivity {
 
     }
     public void invitation(String name, String email, String mobile, final String to_mobile) {
+
+        progressDialog = new ProgressDialog(SendToInvite.this,
+                R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://nheart.cviac.com")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -69,6 +81,10 @@ public class SendToInvite extends AppCompatActivity {
             @Override
             public void onResponse(Response<PairStatus> response, Retrofit retrofit) {
                 PairStatus rsp = response.body();
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
+
                 if (rsp.getCode() == 0) {
 
                     //String resh=Prefs.getString("unpaired","");

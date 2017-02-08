@@ -1,6 +1,7 @@
 package com.cviac.nheart.nheartapp.activities;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,9 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class Otpverification extends AppCompatActivity {
+
+    ProgressDialog progressDialog = null;
+
     int counter=0;
     Button b, resend;
     EditText pin;
@@ -85,6 +89,13 @@ public class Otpverification extends AppCompatActivity {
 
     public void otpVerify(final String mob, String pin) {
 
+        progressDialog = new ProgressDialog(Otpverification.this,
+                R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Registering...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://nheart.cviac.com")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -98,15 +109,22 @@ public class Otpverification extends AppCompatActivity {
             @Override
             public void onResponse(Response<VerifyOTPResponse> response, Retrofit retrofit) {
                 VerifyOTPResponse rsp = response.body();
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
+
                 if (rsp.getCode() == 0) {
                     Prefs.putString("isregistered", "true");
                     int inviteId = Prefs.getInt("inviteId", -1);
                     String invited = Prefs.getString("to_mobile", "");
                     String mobile = Prefs.getString("mobile", "");
                     if (invited.isEmpty()) {
+
+
                         //not invited
                         getInvitation(mobile);
                     } else {
+
                         //already invited
                         checkInvitation(inviteId);
                     }

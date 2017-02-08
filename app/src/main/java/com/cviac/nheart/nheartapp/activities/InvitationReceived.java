@@ -1,6 +1,7 @@
 package com.cviac.nheart.nheartapp.activities;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,9 @@ import retrofit.Retrofit;
 
 
 public class InvitationReceived extends AppCompatActivity {
+
+    ProgressDialog progressDialog = null;
+
 
     Button accept, reject;
     TextView name, email, mobile,textvv;
@@ -83,6 +87,14 @@ public class InvitationReceived extends AppCompatActivity {
 
     public void updateInvite(String mobile, String to_mobile, final String status) {
 
+
+        progressDialog = new ProgressDialog(InvitationReceived.this,
+                R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://nheart.cviac.com")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -101,6 +113,11 @@ public class InvitationReceived extends AppCompatActivity {
             @Override
             public void onResponse(Response<PairStatus> response, Retrofit retrofit) {
                 PairStatus rsp = response.body();
+
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
+
                 if(rsp.getCode()==0){
                     if(status=="accepted"){
                         Prefs.putString("from_mobile",mob);

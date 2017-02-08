@@ -2,6 +2,7 @@ package com.cviac.nheart.nheartapp.activities;
 
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,10 +34,13 @@ import retrofit.Retrofit;
 
 public class Registration extends AppCompatActivity {
 
+    ProgressDialog progressDialog = null;
+
     protected static final Context context = null;
-    private EditText email, phone, name,password,confirm;
-    private Button submit;
+     EditText email, phone, name,password,confirm;
+    Button submit;
     String value;
+    String nam1e,emi,mbno,pass,conf;
     ImageView iw;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,23 +77,27 @@ public class Registration extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String nam1e = name.getText().toString();
-                String emi = email.getText().toString();
-                String mbno=phone.getText().toString();
-                String pass ="12345";
-                String conf="12345";
+                nam1e = name.getText().toString();
+                emi = email.getText().toString();
+                mbno=phone.getText().toString();
+
+
+                 pass ="12345";
+                 conf="12345";
+
 
 
                 boolean error = false;
                 if (nam1e.length() == 0) {
-                    name.setError("name not entered");
+                    name.setError("Name not entered");
                     name.requestFocus();
                     error = true;
                 }
 
 
-                if (phone.length() != 10) {
-                    phone.setError("invalid mobile number");
+                if (mbno.length()!= 10)  {
+
+                    phone.setError("Invalid mobile number");
                     phone.requestFocus();
                     error = true;
                 }
@@ -107,19 +115,9 @@ public class Registration extends AppCompatActivity {
                     Prefs.putString("Phone",mbno);
                     Prefs.putString("isregistered", "true");
 
-
-                    /*Intent btn = new Intent(Registration.this,
-                            Otpverification.class);
-
-                    startActivity(btn);
-                    finish();*/
                 }
 
-                if(!pass.equals(conf)){
-                    password.setError("Password does not match");
-                    confirm.requestFocus();
-                    return;
-                }
+
 
                 NheartApp nh=(NheartApp)Registration.this.getApplication();
 
@@ -158,6 +156,16 @@ public class Registration extends AppCompatActivity {
 
     public void register(final String firstname, String lastname,final String email1, final String mob, String pswd, String cpswd) {
 
+
+        progressDialog = new ProgressDialog(Registration.this,
+                R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Registering...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://nheart.cviac.com")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -168,6 +176,9 @@ public class Registration extends AppCompatActivity {
             @Override
             public void onResponse(Response<ReginfoResponse> response, Retrofit retrofit) {
                 ReginfoResponse rsp = response.body();
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
                 if (rsp.getCode() == 0) {
                     Prefs.putString("mobile",mob);
                     Prefs.putString("email",email1);
