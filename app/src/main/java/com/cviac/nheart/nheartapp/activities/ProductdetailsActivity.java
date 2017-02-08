@@ -109,11 +109,10 @@ public class ProductdetailsActivity extends AppCompatActivity {
                 Productdetailresponse rsp = response.body();
                 prdetail = rsp.getProduct().get(0);
                 String detail = prdetail.getDescription();
-               // String detail = prdetail.getDescription();
                 tv2.setText(Html.fromHtml(Html.fromHtml(detail).toString()));
 //                CharSequence squence = Html.fromHtml(detail);
 //                SpannableStringBuilder strbuilder = new SpannableStringBuilder(squence);
-                //tv2.setText(detail);
+              //  tv2.setText(detail);
                 tv.setText(prdetail.getName());
                 text1.setText(prdetail.getPrice());
                 text2.setText(prdetail.getSpecial());

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.datamodel.CartItemInfo;
 import com.cviac.nheart.nheartapp.datamodel.ProductCartInfo;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +104,14 @@ public class CartItemAdapter extends BaseAdapter {
         holder.tv.setText(sinfo.getName());
         holder.tv2.setText(sinfo.getQuantity());
        // holder.iv.setImageResource(sinfo.g);
-
+        String url = sinfo.getImage();
+        url = url.replace("localhost","192.168.1.133");
+        try {
+            Picasso.with(ins.getContext()).load(url).resize(70,75).into( holder.iv);
+//            holder.imgView.setImageURI(Uri.parse(url));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return ins;
     }
 }
