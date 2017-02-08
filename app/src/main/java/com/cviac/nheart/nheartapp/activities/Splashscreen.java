@@ -134,7 +134,7 @@ public class Splashscreen extends Activity {
                          @Override
                          public void onResponse(Response<PairStatus> response, Retrofit retrofit) {
                              PairStatus pairstatus = response.body();
-                               if (pairstatus.getStatus().equalsIgnoreCase("paired")) {
+                               if (pairstatus.getStatus().equalsIgnoreCase("paired") && pairstatus!=null) {
                                  Intent logn = new Intent(Splashscreen.this, MainActivity.class);
                                  startActivity(logn);
                                  finish();

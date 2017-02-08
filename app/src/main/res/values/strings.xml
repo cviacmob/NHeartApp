@@ -6,6 +6,6 @@
     <string name="ssss">9894250016</string>
     <string name="invitationstatus">Your invitation has sent successfully. You Will be notified if \n Accepted/Rejected </string>
     <string name="title_activity_maps">Map</string>
-    <string name="server">ec2-52-33-98-83.us-west-2.compute.amazonaws.com</string>
+    <string name="server">ec2-35-162-147-104.us-west-2.compute.amazonaws.com</string>
 
 </resources>
