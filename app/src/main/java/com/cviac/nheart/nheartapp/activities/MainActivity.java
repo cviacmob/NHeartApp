@@ -92,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
     ActionBar ab;
     private boolean mBounded;
 
+    private ChatFragment chatFrag;
+
 
     private final ServiceConnection mConnection = new ServiceConnection() {
 
@@ -381,19 +383,19 @@ public class MainActivity extends AppCompatActivity {
 
             switch (position + 1) {
                 case 1:
-                    Fragment fragg = new ChatFragment();
-                    return new ChatFragment();
+                    chatFrag = new ChatFragment();
+                    return chatFrag;
                 case 2:
-                    Fragment frag = new GiftFragment();
+                   // Fragment frag = new GiftFragment();
                     return new GiftFragment();
                 case 3:
-                    Fragment frag1 = new MusicFragment();
+                    //Fragment frag1 = new MusicFragment();
                     return new MusicFragment();
                 case 4:
-                    Fragment frag2 = new SkezoFragment();
+                    //Fragment frag2 = new SkezoFragment();
                     return new SkezoFragment();
                 case 5:
-                    Fragment frag3 = new HugFragment();
+                    //Fragment frag3 = new HugFragment();
                     return new HugFragment();
             }
             return null;
@@ -534,9 +536,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String status = intent.getStringExtra("status");
-            Snackbar snackbar = Snackbar
-                    .make(coordinatorLayout, "Chat Server:  " + status , Snackbar.LENGTH_LONG);
-            snackbar.show();
+            if (status != null) {
+                Snackbar snackbar = Snackbar
+                        .make(coordinatorLayout, "Chat Server:  " + status, Snackbar.LENGTH_LONG);
+                snackbar.show();
+            }
         }
     };
 

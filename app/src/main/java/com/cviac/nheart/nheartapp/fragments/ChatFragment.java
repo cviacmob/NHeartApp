@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.cviac.nheart.nheartapp.NheartApp;
 import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.adapters.ConvMessageAdapter;
@@ -37,13 +38,11 @@ public class ChatFragment extends Fragment {
     private EditText edittxt;
     private String geteditmgs;
     String converseId, msgid;
-    private ConvMessage conv;
-    private TextView customTitle,customduration;
-    private ImageView customimage,customimageback;
+    private TextView customTitle, customduration;
+    private ImageView customimage, customimageback;
     private List<ConvMessage> chats;
     private ConvMessageAdapter chatAdapter;
-    Context mcontext;
-    String mynum,tonum,myname;
+    String mynum, tonum, myname;
 
 
     @Nullable
@@ -54,11 +53,11 @@ public class ChatFragment extends Fragment {
         img = (ImageButton) chatsfrgs.findViewById(R.id.sendbutton);
         edittxt = (EditText) chatsfrgs.findViewById(R.id.editTextsend);
 
-
-        mynum=  Prefs.getString("mobile","");
+        mynum = Prefs.getString("mobile", "");
         myname = Prefs.getString("name", "");
-        tonum = Prefs.getString("to_mobile","");
+        tonum = Prefs.getString("to_mobile", "");
 
+        loadConvMessages();
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,19 +65,19 @@ public class ChatFragment extends Fragment {
                 if (!geteditmgs.equals("")) {
                     String converseId = getNormalizedConverseId(mynum, tonum);
                     msgid = getMsgID();
-                              ChatMessage chat = new ChatMessage(converseId, mynum, tonum, geteditmgs, msgid, true);
-                        chat.setSenderName(myname);
-                        XMPPService.sendMessage(chat);
-                        saveChatMessage(chat);
+                    ChatMessage chat = new ChatMessage(converseId, mynum, tonum, geteditmgs, msgid, true);
+                    chat.setSenderName(myname);
+                    XMPPService.sendMessage(chat);
+                    saveChatMessage(chat);
                     edittxt.getText().clear();
 
-                        ChatMsg msg = new ChatMsg();
-                        msg.setSenderid(conv.getSender());
-                        msg.setSendername(conv.getSenderName());
-                        msg.setMsg(geteditmgs);
-                        msg.setMsgid(msgid);
-                        msg.setReceiverid(conv.getReceiver());
-                       // checkAndSendPushNotfication(conv.getEmpid(), msg);
+                    ChatMsg msg = new ChatMsg();
+                    msg.setSenderid(mynum);
+                    msg.setSendername(myname);
+                    msg.setMsg(geteditmgs);
+                    msg.setMsgid(msgid);
+                    msg.setReceiverid(tonum);
+                    // checkAndSendPushNotfication(conv.getEmpid(), msg);
                 }
 
 
@@ -86,6 +85,8 @@ public class ChatFragment extends Fragment {
 
 
         });
+        NheartApp app = (NheartApp) getActivity().getApplication();
+        app.setChatFrag(this);
         return chatsfrgs;
     }
 
@@ -96,9 +97,9 @@ public class ChatFragment extends Fragment {
     }
 
     private void loadConvMessages() {
-        converseId = getNormalizedConverseId(conv.getSender(), conv.getReceiver());
-       // chats = ConvMessage.getAll(converseId);
-        chatAdapter = new ConvMessageAdapter(chats, mcontext);
+        converseId = getNormalizedConverseId(mynum, tonum);
+        chats = ConvMessage.getAll(converseId);
+        chatAdapter = new ConvMessageAdapter(chats, getActivity());
         lv.setAdapter(chatAdapter);
     }
 
@@ -118,6 +119,12 @@ public class ChatFragment extends Fragment {
         loadConvMessages();
         chatAdapter.notifyDataSetChanged();
     }
+
+    public void reload() {
+        loadConvMessages();
+        chatAdapter.notifyDataSetChanged();
+    }
+
     public void saveChatMessage(ChatMessage msg) {
         ConvMessage cmsg = new ConvMessage();
         cmsg.setMsg(msg.msg);
@@ -135,4 +142,11 @@ public class ChatFragment extends Fragment {
         chatAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        NheartApp app = (NheartApp) getActivity().getApplication();
+        app.setChatFrag(null);
+
+    }
 }

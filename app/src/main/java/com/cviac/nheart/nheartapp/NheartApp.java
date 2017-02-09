@@ -6,8 +6,10 @@ import android.content.ContextWrapper;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
 import com.cviac.nheart.nheartapp.datamodel.ConvMessage;
+import com.cviac.nheart.nheartapp.fragments.ChatFragment;
 
 public class NheartApp extends MultiDexApplication {
 
@@ -21,6 +23,8 @@ public class NheartApp extends MultiDexApplication {
         this.networkstatus = networkstatus;
     }
 
+    private ChatFragment chatFrag;
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -32,6 +36,8 @@ public class NheartApp extends MultiDexApplication {
         super.onCreate();
         Configuration.Builder configurationBuilder = new Configuration.Builder(this);
         configurationBuilder.addModelClasses(ConvMessage.class);
+        ActiveAndroid.initialize(configurationBuilder.create());
+
         new Prefs.Builder()
                 .setContext(this)
                 .setMode(ContextWrapper.MODE_PRIVATE)
@@ -40,4 +46,11 @@ public class NheartApp extends MultiDexApplication {
                 .build();
     }
 
+    public ChatFragment getChatFrag() {
+        return chatFrag;
+    }
+
+    public void setChatFrag(ChatFragment chatFrag) {
+        this.chatFrag = chatFrag;
+    }
 }

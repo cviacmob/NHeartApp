@@ -13,8 +13,10 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.cviac.nheart.nheartapp.NheartApp;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.datamodel.ConvMessage;
+import com.cviac.nheart.nheartapp.fragments.ChatFragment;
 import com.google.gson.Gson;
 
 import org.jivesoftware.smack.ConnectionConfiguration;
@@ -554,13 +556,15 @@ public class XMPPClient {
 
                 @Override
                 public void run() {
-
-                    Intent intent = new Intent();
-                    intent.setAction("XMPPConnection");
-                    intent.putExtra("Message", "Received");
-                    context.sendBroadcast(intent);
+                    NheartApp app = (NheartApp) context.getApplication();
+                    if (app != null) {
+                        ChatFragment frag = app.getChatFrag();
+                        if (frag != null) {
+                            frag.reload();
+                            return;
+                        }
+                    }
                     showMsgNotification(cmsg);
-
                 }
             });
         }

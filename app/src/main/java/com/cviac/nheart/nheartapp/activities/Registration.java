@@ -108,31 +108,13 @@ public class Registration extends AppCompatActivity {
                     error = true;
                 }
 
-                if (error == false) {
-
-                    Prefs.edit();
-                    Prefs.putString("Name",nam1e);
-                    Prefs.putString("Email",emi);
-                    Prefs.putString("Phone",mbno);
-                    Prefs.putString("isregistered", "true");
-
-                }
-
-
-
                 NheartApp nh=(NheartApp)Registration.this.getApplication();
-
                 if(nh.isNetworkstatus()){
-
                     register(nam1e,nam1e,emi,mbno,pass,conf);
                 }
-
                 else{
                     Toast.makeText(getApplicationContext(), "Please check Internet Connection", Toast.LENGTH_LONG).show();
                 }
-
-
-
             }
             });
 
@@ -164,8 +146,6 @@ public class Registration extends AppCompatActivity {
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-
-
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://nheart.cviac.com")

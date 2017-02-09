@@ -134,20 +134,25 @@ public class Splashscreen extends Activity {
                          @Override
                          public void onResponse(Response<PairStatus> response, Retrofit retrofit) {
                              PairStatus pairstatus = response.body();
-                               if (pairstatus.getStatus().equalsIgnoreCase("paired") && pairstatus!=null) {
-                                 Intent logn = new Intent(Splashscreen.this, MainActivity.class);
-                                 startActivity(logn);
-                                 finish();
-                             }
-                             else if (pairstatus.getStatus().equalsIgnoreCase("unpaired")) {
-                                 Intent logn = new Intent(Splashscreen.this, SendInvitationStatus.class);
-                                 startActivity(logn);
-                                 finish();
+
+                             if (pairstatus.getCode() == 0) {
+                                 if (pairstatus != null && pairstatus.getStatus().equalsIgnoreCase("paired")) {
+                                     Intent logn = new Intent(Splashscreen.this, MainActivity.class);
+                                     startActivity(logn);
+                                     finish();
+                                 } else if (pairstatus != null && pairstatus.getStatus().equalsIgnoreCase("unpaired")) {
+                                     Intent logn = new Intent(Splashscreen.this, SendInvitationStatus.class);
+                                     startActivity(logn);
+                                     finish();
+                                 } else {
+                                     Intent logn = new Intent(Splashscreen.this, SendToInvite.class);
+                                     startActivity(logn);
+                                     finish();
+                                 }
                              }
                              else {
-                                 Intent logn = new Intent(Splashscreen.this, SendToInvite.class);
-                                 startActivity(logn);
-                                 finish();
+                                 Toast.makeText(Splashscreen.this,
+                                         "GetInviation Failed: " + pairstatus.getCode(), Toast.LENGTH_LONG).show();
                              }
                          }
 
