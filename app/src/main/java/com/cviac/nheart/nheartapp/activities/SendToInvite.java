@@ -36,9 +36,9 @@ public class SendToInvite extends AppCompatActivity {
         ed=(EditText)findViewById(R.id.num);
         setTitle("Invite");
         //str= Prefs.getString("Phone","");
-        fromname=Prefs.getString("Name","");
-        fromemail=  Prefs.getString("Email","");
-        frommobile =Prefs.getString("Phone","");
+        fromname=Prefs.getString("name","");
+        fromemail=  Prefs.getString("email","");
+        frommobile =Prefs.getString("mobile","");
         b = (Button) findViewById(R.id.getin);
         //tomobile=ed.getText().toString();
 
@@ -93,9 +93,6 @@ public class SendToInvite extends AppCompatActivity {
                     Prefs.putString("to_mobile",to_mobile);
                     Prefs.putInt("inviteId", rsp.getId());
                     //Prefs.putString("Customer_ID",rsp.getCustomer().getCustomer_id());
-                    Toast.makeText(SendToInvite.this,
-                            "Your Invitation Sent" + rsp.getCode(), Toast.LENGTH_LONG).show();
-
                     Intent logn = new Intent(SendToInvite.this, SendInvitationStatus.class);
 
                     startActivity(logn);

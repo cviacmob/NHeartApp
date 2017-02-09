@@ -55,7 +55,7 @@ public class InvitationReceived extends AppCompatActivity {
         name.setText(invite.getName());
         final String nm=name.getText().toString();
         Prefs.putString("mobile1",mob);
-        final String my_mobile= Prefs.getString("Phone","");
+        final String my_mobile= Prefs.getString("mobile","");
 
 
         accept.setOnClickListener(new View.OnClickListener() {
