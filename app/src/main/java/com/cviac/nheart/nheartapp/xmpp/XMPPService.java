@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.IBinder;
 
+import com.cviac.nheart.nheartapp.Prefs;
+
 public class XMPPService extends Service {
     //private static final String DOMAIN1 = "cviacmob.p1.im";
     private static final String DOMAIN = "ec2-35-162-147-104.us-west-2.compute.amazonaws.com";
@@ -28,10 +30,9 @@ public class XMPPService extends Service {
         super.onCreate();
         cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        final String MyPREFERENCES = "MyPrefs";
-        SharedPreferences prefs = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
-        String userid = prefs.getString("mobile", "");
-        xmpp = XMPPClient.getInstance(XMPPService.this, DOMAIN, "9791234809", "1234");
+
+        String userid=  Prefs.getString("mobile","");
+        xmpp = XMPPClient.getInstance(XMPPService.this, DOMAIN, userid, "1234");
         xmpp.connect("onCreate");
     }
 

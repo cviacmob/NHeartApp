@@ -6,6 +6,9 @@ import android.content.ContextWrapper;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.activeandroid.Configuration;
+import com.cviac.nheart.nheartapp.datamodel.ConvMessage;
+
 public class NheartApp extends MultiDexApplication {
 
     private boolean networkstatus=true;
@@ -27,7 +30,8 @@ public class NheartApp extends MultiDexApplication {
     @Override
     public void onCreate(){
         super.onCreate();
-
+        Configuration.Builder configurationBuilder = new Configuration.Builder(this);
+        configurationBuilder.addModelClasses(ConvMessage.class);
         new Prefs.Builder()
                 .setContext(this)
                 .setMode(ContextWrapper.MODE_PRIVATE)

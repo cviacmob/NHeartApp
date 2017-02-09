@@ -121,7 +121,7 @@ public class InvitationReceived extends AppCompatActivity {
                 if(rsp.getCode()==0){
 
                     if(status=="accepted"){
-                        Prefs.putString("from_mobile",mob);
+                        Prefs.putString("to_mobile",mob);
                         Prefs.putString("paired","true");
                         Intent mainIntent = new Intent(InvitationReceived.this, MainActivity
                                 .class);

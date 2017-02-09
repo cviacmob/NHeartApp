@@ -103,6 +103,10 @@
             android:label="@string/title_activity_maps"></activity>
 
 
+        <service
+            android:name=".xmpp.XMPPService"
+            android:enabled="true" />
+
         <service android:name="com.cviac.nheart.nheartapp.services.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

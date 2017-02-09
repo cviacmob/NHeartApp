@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -539,8 +540,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    bindService(new Intent(this, XMPPService.class), mConnection,
-    Context.BIND_AUTO_CREATE);
+    bindService(new Intent(this, XMPPService.class), mConnection,Context.BIND_AUTO_CREATE);
     registerReceiver(xmppConnReciver, new IntentFilter("XMPPConnection"));
 }
 

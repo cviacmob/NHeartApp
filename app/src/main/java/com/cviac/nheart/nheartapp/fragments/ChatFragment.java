@@ -3,11 +3,11 @@ package com.cviac.nheart.nheartapp.fragments;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -16,12 +16,19 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.adapters.ConvMessageAdapter;
+import com.cviac.nheart.nheartapp.datamodel.ChatMsg;
 import com.cviac.nheart.nheartapp.datamodel.ConvMessage;
 import com.cviac.nheart.nheartapp.restapi.GetStatus;
+import com.cviac.nheart.nheartapp.xmpp.ChatMessage;
+import com.cviac.nheart.nheartapp.xmpp.XMPPService;
 
+import java.util.Date;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class ChatFragment extends Fragment {
@@ -36,8 +43,8 @@ public class ChatFragment extends Fragment {
     private List<ConvMessage> chats;
     private ConvMessageAdapter chatAdapter;
     Context mcontext;
-    ActionBar actionBar;
-    GetStatus convstatus;
+    String mynum,tonum,myname;
+
 
     @Nullable
     @Override
@@ -46,28 +53,32 @@ public class ChatFragment extends Fragment {
         lv = (ListView) chatsfrgs.findViewById(R.id.chatlist);
         img = (ImageButton) chatsfrgs.findViewById(R.id.sendbutton);
         edittxt = (EditText) chatsfrgs.findViewById(R.id.editTextsend);
+
+
+        mynum=  Prefs.getString("mobile","");
+        myname = Prefs.getString("name", "");
+        tonum = Prefs.getString("to_mobile","");
+
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 geteditmgs = edittxt.getText().toString();
-
-
                 if (!geteditmgs.equals("")) {
-                    String converseId = getNormalizedConverseId(conv.getSender(), conv.getReceiver());
+                    String converseId = getNormalizedConverseId(mynum, tonum);
                     msgid = getMsgID();
-                              /*ChatMessage chat = new ChatMessage(converseId, myempId, conv.getEmpid(), geteditmgs, msgid, true);
-                        chat.setSenderName(myempname);
+                              ChatMessage chat = new ChatMessage(converseId, mynum, tonum, geteditmgs, msgid, true);
+                        chat.setSenderName(myname);
                         XMPPService.sendMessage(chat);
-                        saveChatMessage(chat);*/
+                        saveChatMessage(chat);
                     edittxt.getText().clear();
 
-                        /*ChatMsg msg = new ChatMsg();
-                        msg.setSenderid(myempId);
-                        msg.setSendername(myempname);
+                        ChatMsg msg = new ChatMsg();
+                        msg.setSenderid(conv.getSender());
+                        msg.setSendername(conv.getSenderName());
                         msg.setMsg(geteditmgs);
                         msg.setMsgid(msgid);
-                        msg.setReceiverid(conv.getEmpid());
-                        checkAndSendPushNotfication(conv.getEmpid(), msg);*/
+                        msg.setReceiverid(conv.getReceiver());
+                       // checkAndSendPushNotfication(conv.getEmpid(), msg);
                 }
 
 
@@ -107,59 +118,21 @@ public class ChatFragment extends Fragment {
         loadConvMessages();
         chatAdapter.notifyDataSetChanged();
     }
-/*    public void actionmethod() {
-
-        actionBar = getActivity().getActionBar();
-        if (actionBar != null) {
-            // Disable the default and enable the custom
-            actionBar.setDisplayShowHomeEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayShowCustomEnabled(true);
-            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF4848")));
-
-            View customView = getLayoutInflater(getArguments()).inflate(R.layout.actionbar_title, null);
-            customTitle = (TextView) customView.findViewById(R.id.actionbarTitle);
-            customimage = (ImageView) customView.findViewById(R.id.imageViewcustom);
-            customduration = (TextView) customView.findViewById(R.id.duration);
-            //lastseen();
-            String url1 = conv.getImageurl();
-            if (url1 != null && url1.length() > 0) {
-                Picasso.with(mcontext).load(conv.getImageurl()).resize(100, 100).transform(new CircleTransform())
-                        .centerCrop().memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(customimage);
-            }
-            }
-
-            customTitle.setText(conv.getSenderName());
-            if (convstatus != null && convstatus.getStatus() != null) {
-                customduration.setText(convstatus.getStatus());
-            }
-
-
-            // Change the font family (optional)
-
-            // Set the on click listener for the title
-
-
-
-
-            // Apply the custom view
-            actionBar.setCustomView(customView);
-        }*/
-@Override
-public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setHasOptionsMenu(true);
-}
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.action_category).setVisible(false);
-        menu.findItem(R.id.action_cart).setVisible(false);
-        menu.findItem(R.id.action_call).setVisible(true);
-        menu.findItem(R.id.loc).setVisible(true);
-
-        super.onPrepareOptionsMenu(menu);
+    public void saveChatMessage(ChatMessage msg) {
+        ConvMessage cmsg = new ConvMessage();
+        cmsg.setMsg(msg.msg);
+        cmsg.setCtime(new Date());
+        cmsg.setConverseid(msg.converseid);
+        cmsg.setSenderName(msg.senderName);
+        cmsg.setReceiver(msg.receiver);
+        cmsg.setSender(msg.sender);
+        cmsg.setMsgid(msg.msgid);
+        cmsg.setMine(msg.isMine);
+        cmsg.setMine(true);
+        cmsg.setStatus(1);
+        cmsg.save();
+        chats.add(cmsg);
+        chatAdapter.notifyDataSetChanged();
     }
-
 
 }

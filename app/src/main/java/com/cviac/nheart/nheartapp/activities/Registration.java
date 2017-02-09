@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -70,7 +71,7 @@ public class Registration extends AppCompatActivity {
 
         value = email.getText().toString();
 
-        String toMobile =  Prefs.getString("to_mobile","");
+
         submit.setOnClickListener(new OnClickListener()
         {
 
@@ -185,7 +186,6 @@ public class Registration extends AppCompatActivity {
                     Prefs.putString("email",email1);
                     Prefs.putString("name",firstname);
                     Prefs.putInt("customerid",rsp.getCustomer_id());
-
 
                     Intent logn = new Intent(Registration.this, Otpverification.class);
                     startActivity(logn);
