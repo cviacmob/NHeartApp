@@ -130,14 +130,10 @@ public class Otpverification extends AppCompatActivity {
                     }
 
 
-                } else if (rsp.getCode() == 1001) {
+                } else if (rsp.getCode() == 1005) {
                     progressDialog.dismiss();
                     Toast.makeText(Otpverification.this,
-                            "Mobile number Not Valid" + rsp.getCode(), Toast.LENGTH_LONG).show();
-                } else if (rsp.getCode() == 1002) {
-                    Toast.makeText(Otpverification.this,
-
-                            "E~Mail Not Valid" + rsp.getCode(), Toast.LENGTH_LONG).show();
+                            "Mobile number / OTP  is wrong" + rsp.getCode(), Toast.LENGTH_LONG).show();
                 }
             }
 
