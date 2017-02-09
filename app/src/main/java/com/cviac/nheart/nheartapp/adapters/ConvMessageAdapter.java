@@ -3,6 +3,7 @@ package com.cviac.nheart.nheartapp.adapters;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,20 +31,20 @@ public class ConvMessageAdapter extends ArrayAdapter<ConvMessage> {
     Context mContext;
 
     public ConvMessageAdapter(List<ConvMessage> objects, Context context) {
-        super(context, R.layout.fragment_chat, objects);
+        super(context, R.layout.activity_chat, objects);
         chats = objects;
         mContext = context;
     }
 
     public static class ViewHolder {
-        public TextView msgview,txt;
+     public TextView msgview,txt;
         public ImageView statusview;
-        public RelativeLayout rLayout;
+        public  RelativeLayout rLayout;
 
     }
 
 
-    @Override
+        @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View vw = convertView;
         ViewHolder holder;

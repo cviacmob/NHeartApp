@@ -1,69 +1,67 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MergeRootFrame"
+    android:background="@drawable/chatbg" >
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/chatbg"
-        android:paddingTop="@dimen/activity_vertical_margin"
-      >
 
-        <!--List view for displaying chat messages-->
+        android:orientation="horizontal">
         <ListView
-            android:id="@+id/chatlist"
+            android:id="@+id/listViewChat"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/send_message_layout"
-            android:divider="@null" />
-        <!--To type and send the message-->
-        <LinearLayout
-            android:id="@+id/send_message_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="470dp"
+            android:transcriptMode="alwaysScroll"
+            android:stackFromBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/editTextsend">
+        </ListView>
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/send"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/sendbutton"
+            android:text="send"
+            android:stackFromBottom="true"
+            >
 
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:weightSum="1">
+        </ImageButton>
 
-            <EditText
-                android:id="@+id/editTextsend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bubble2"
-                android:ems="10"
-                android:hint="Type a message"
-                android:gravity="bottom"
-                android:textColor="#090A0A"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:inputType="textMultiLine"
-                android:isScrollContainer="true"
-                android:scrollbars="vertical"
-                android:scrollbarStyle="insideInset"
-                android:layout_toStartOf="@+id/sendbutton"
-                android:layout_toLeftOf="@+id/sendbutton"
-                android:layout_weight="1.03">
+        <EditText
+            android:id="@+id/editTextsend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bubble2"
+            android:ems="10"
+            android:hint="Type a message"
+            android:gravity="bottom"
+            android:textColor="#090A0A"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:inputType="textMultiLine"
+            android:isScrollContainer="true"
+            android:scrollbars="vertical"
+            android:scrollbarStyle="insideInset"
+            android:layout_toStartOf="@+id/sendbutton"
+            android:layout_toLeftOf="@+id/sendbutton">
 
-                <requestFocus />
-            </EditText>
+            <requestFocus />
+        </EditText>
 
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/send"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:id="@+id/sendbutton"
-                android:text="send"
-                android:stackFromBottom="true"
-                >
 
-            </ImageButton>
-        </LinearLayout>
 
     </RelativeLayout>
 
+
+</FrameLayout>
