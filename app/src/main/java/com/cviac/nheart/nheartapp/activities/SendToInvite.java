@@ -51,7 +51,7 @@ public class SendToInvite extends AppCompatActivity {
                 Prefs.putString("Phone2",tomobile);
 
                 if(tomobile.equals(frommobile)){
-                    Toast.makeText(SendToInvite.this,"send valid number",Toast.LENGTH_LONG).show();
+                    Toast.makeText(SendToInvite.this,"You cannot invite yourself",Toast.LENGTH_LONG).show();
                 }
                 else{
                     invitation(fromname,fromemail,frommobile,tomobile);
@@ -102,21 +102,21 @@ public class SendToInvite extends AppCompatActivity {
                     finish();
                 }
                 else if(rsp.getCode()==1004){
-
+                    progressDialog.dismiss();
                     Toast.makeText(SendToInvite.this,
                             "Already Paired with Someone" + rsp.getCode(), Toast.LENGTH_LONG).show();
 
                 }
 
                 else if(rsp.getCode()==1003){
-
+                    progressDialog.dismiss();
                     Toast.makeText(SendToInvite.this,
                             "Your Invitation is Pending" + rsp.getCode(), Toast.LENGTH_LONG).show();
 
                 }
 
                 else if(rsp.getCode()==1007){
-
+                    progressDialog.dismiss();
                     Toast.makeText(SendToInvite.this,
                             "Your Invitation is Rejected" + rsp.getCode(), Toast.LENGTH_LONG).show();
 
@@ -124,12 +124,14 @@ public class SendToInvite extends AppCompatActivity {
 
 
                 else {
+                    progressDialog.dismiss();
                     Toast.makeText(SendToInvite.this,
                             "SendInvitation Failed: " + rsp.getCode(), Toast.LENGTH_LONG).show();
                 }
             }
             @Override
             public void onFailure(Throwable t) {
+                progressDialog.dismiss();
                 Toast.makeText(SendToInvite.this,
                         "SendInvitation Failed: "+t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }

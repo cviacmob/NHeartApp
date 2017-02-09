@@ -95,14 +95,10 @@ public class HugFragment extends Fragment{
         huglist.add(hi);
 
 
-        HugInfo hi1=new HugInfo(R.mipmap.sai,"744","how are you","16:25","Counsellor");
+        HugInfo hi1=new HugInfo(R.mipmap.coun,"744","how are you","16:25","Counsellor");
         huglist.add(hi1);
 
-        HugInfo hii=new HugInfo(R.mipmap.coun,"744","have a nice day","3days ago","Other");
-        huglist.add(hii);
 
-        HugInfo hi3=new HugInfo(R.mipmap.docter,"744","bye bye...","22/06/2016","Relative");
-        huglist.add(hi3);
     }
 
 

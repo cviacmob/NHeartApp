@@ -1,0 +1,8 @@
+url:http://djustice-android.tumblr.com
+name:Sai
+email:rsaimeet@gmail.com
+gender:male
+botmaster:sairam prakash
+organization:cviac
+version:0.0.1
+

@@ -15,6 +15,7 @@ import android.widget.ListView;
 import com.cviac.nheart.nheartapp.R;
 
 import com.cviac.nheart.nheartapp.activities.Chat_Skezo;
+import com.cviac.nheart.nheartapp.activities.Skezo_Main;
 import com.cviac.nheart.nheartapp.adapters.SkezoInfoAdapter;
 import com.cviac.nheart.nheartapp.datamodel.MusicInfo;
 import com.cviac.nheart.nheartapp.datamodel.SkezoInfo;
@@ -49,7 +50,7 @@ public class SkezoFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int pos1, long pos2) {
                 SkezoInfo emp = skezolist.get(pos1);
-                Intent i = new Intent(getActivity().getApplicationContext(), Chat_Skezo.class);
+                Intent i = new Intent(getActivity().getApplicationContext(), Skezo_Main.class);
 
                 startActivity(i);
             }
@@ -79,22 +80,12 @@ public class SkezoFragment extends Fragment {
 
 
 
-        SkezoInfo si=new SkezoInfo(R.mipmap.sai,"hello","a moment ago","Geetu");
-        skezolist.add(si);
 
 
-        SkezoInfo si1=new SkezoInfo(R.mipmap.girlone,"how are you","16:25","Seetu");
+        SkezoInfo si1=new SkezoInfo(R.mipmap.girlone," ","a moment ago","Pret");
         skezolist.add(si1);
 
 
-        SkezoInfo si2=new SkezoInfo(R.mipmap.girlthree,"thank you","04:05","Frie");
-        skezolist.add(si2);
-
-        SkezoInfo sii=new SkezoInfo(R.mipmap.girltwo,"have a nice day","3days ago","Crie");
-        skezolist.add(sii);
-
-        SkezoInfo si3=new SkezoInfo(R.mipmap.girlone,"bye bye...","22/06/2016","Prie");
-        skezolist.add(si3);
 
 
     }
@@ -110,6 +101,8 @@ public class SkezoFragment extends Fragment {
         menu.findItem(R.id.action_category).setVisible(false);
         menu.findItem(R.id.action_cart).setVisible(false);
         menu.findItem(R.id.action_call).setVisible(false);
+        menu.findItem(R.id.location).setVisible(false);
+
         super.onPrepareOptionsMenu(menu);
     }
 

@@ -164,6 +164,7 @@ public class GiftFragment extends Fragment{
     public void onPrepareOptionsMenu(Menu menu) {
        menu.findItem(R.id.action_call).setVisible(false);
         menu.findItem(R.id.loc).setVisible(false);
+
         super.onPrepareOptionsMenu(menu);
     }
 }

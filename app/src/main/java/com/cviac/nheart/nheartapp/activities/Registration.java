@@ -160,7 +160,7 @@ public class Registration extends AppCompatActivity {
         progressDialog = new ProgressDialog(Registration.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Registering...");
+        progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
         progressDialog.show();
 
@@ -175,10 +175,11 @@ public class Registration extends AppCompatActivity {
         call.enqueue(new Callback<ReginfoResponse>() {
             @Override
             public void onResponse(Response<ReginfoResponse> response, Retrofit retrofit) {
-                ReginfoResponse rsp = response.body();
+
                 if (progressDialog != null) {
                     progressDialog.dismiss();
                 }
+                ReginfoResponse rsp = response.body();
                 if (rsp.getCode() == 0) {
                     Prefs.putString("mobile",mob);
                     Prefs.putString("email",email1);
@@ -193,17 +194,22 @@ public class Registration extends AppCompatActivity {
                     //Prefs.putString("Customer_ID",rsp.getCustomer().getCustomer_id());
 
                 } else if(rsp.getCode() == 1001){
+
+                    progressDialog.dismiss();
                     Toast.makeText(Registration.this,
                             "Mobile number Not Valid" + rsp.getCode(), Toast.LENGTH_LONG).show();
                 }
 
                 else if(rsp.getCode() == 1002){
+                    progressDialog.dismiss();
                     Toast.makeText(Registration.this,
                             "E~Mail Not Valid" + rsp.getCode(), Toast.LENGTH_LONG).show();
                 }
             }
             @Override
             public void onFailure(Throwable t) {
+
+                progressDialog.dismiss();
                 Toast.makeText(Registration.this,
                         "Registration Failed: "+t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }

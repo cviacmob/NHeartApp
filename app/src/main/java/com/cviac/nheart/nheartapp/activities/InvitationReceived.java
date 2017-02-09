@@ -119,6 +119,7 @@ public class InvitationReceived extends AppCompatActivity {
                 }
 
                 if(rsp.getCode()==0){
+
                     if(status=="accepted"){
                         Prefs.putString("from_mobile",mob);
                         Prefs.putString("paired","true");
@@ -128,6 +129,8 @@ public class InvitationReceived extends AppCompatActivity {
                         finish();
                     }
                     else {
+                        progressDialog.dismiss();
+
                         Intent mainIntent = new Intent(InvitationReceived.this, SendToInvite
                                 .class);
                         startActivity(mainIntent);
@@ -137,6 +140,7 @@ public class InvitationReceived extends AppCompatActivity {
 
                 }
                 else{
+                    progressDialog.dismiss();
                     Toast.makeText(InvitationReceived.this,
                             "Already Paired With Someone " + rsp.getCode(), Toast.LENGTH_LONG).show();
 
@@ -145,6 +149,8 @@ public class InvitationReceived extends AppCompatActivity {
 
             @Override
             public void onFailure(Throwable t) {
+                progressDialog.dismiss();
+
                 Toast.makeText(InvitationReceived.this,
                         "Pair Request failed" , Toast.LENGTH_LONG).show();
 

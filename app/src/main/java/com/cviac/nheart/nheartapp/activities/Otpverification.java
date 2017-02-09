@@ -124,23 +124,27 @@ public class Otpverification extends AppCompatActivity {
                         //not invited
                         getInvitation(mobile);
                     } else {
-
+                        progressDialog.dismiss();
                         //already invited
                         checkInvitation(inviteId);
                     }
 
 
                 } else if (rsp.getCode() == 1001) {
+                    progressDialog.dismiss();
                     Toast.makeText(Otpverification.this,
                             "Mobile number Not Valid" + rsp.getCode(), Toast.LENGTH_LONG).show();
                 } else if (rsp.getCode() == 1002) {
                     Toast.makeText(Otpverification.this,
+
                             "E~Mail Not Valid" + rsp.getCode(), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
+                progressDialog.dismiss();
+
                 Toast.makeText(Otpverification.this,
                         "Invalid OTP " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }
