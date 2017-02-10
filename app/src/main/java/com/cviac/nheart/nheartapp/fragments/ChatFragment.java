@@ -50,7 +50,7 @@ public class ChatFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View chatsfrgs = inflater.inflate(R.layout.activity_chat, container, false);
-        lv = (ListView) chatsfrgs.findViewById(R.id.chatlist);
+        lv = (ListView) chatsfrgs.findViewById(R.id.listViewChat);
         img = (ImageButton) chatsfrgs.findViewById(R.id.sendbutton);
         edittxt = (EditText) chatsfrgs.findViewById(R.id.editTextsend);
 
