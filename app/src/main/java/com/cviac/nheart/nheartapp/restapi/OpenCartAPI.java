@@ -40,6 +40,8 @@ public interface OpenCartAPI {
     Call<VerifyOTPResponse> resendOTP(@Body OTPInfo mob);
 
 
+
+
     @GET("/index.php?route=api/category")
     Call<CategoriesResponse> getCategories();
 
@@ -73,6 +75,13 @@ public interface OpenCartAPI {
                                          @Field("email")String email,
                                          @Field("mobile") String mobile,
                                          @Field("to_mobile") String to_mobile);
+
+
+    @POST("/N-Heart/invite.php/resendinvite")
+    Call<VerifyOTPResponse> verifyInvitation(@Body OTPInfo info);
+
+
+
     @GET("/N-Heart/invite.php/checkInvite/{id}")
     Call<PairStatus> checkInvitation (@Path("id")int id);
 

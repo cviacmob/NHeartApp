@@ -54,20 +54,17 @@
 
 
 
-        <activity android:name=".activities.Registration">
+        <activity android:name=".activities.Registration"
             android:label="Registration"
-            android:theme="@style/AppTheme.AppBarOverlay">
+           >
 
         </activity>
-        <activity android:name=".activities.Otpverification" />
-        android:label="Verification"
-        android:theme="@style/AppTheme.AppBarOverlay" />
-        <activity android:name=".activities.SendToInvite" />
-        android:label="Invitation"
-        android:theme="@style/AppTheme.AppBarOverlay" />
-        <activity android:name=".activities.InvitationReceived" />
-        android:label="Registration"
-        android:theme="@style/AppTheme.AppBarOverlay" />
+        <activity android:name=".activities.Otpverification"
+        android:label="Mobile Verification"/>
+        <activity android:name=".activities.SendToInvite"
+        android:label="Invitation" />
+        <activity android:name=".activities.InvitationReceived"
+        android:label="Invitation " />
         <activity
             android:name=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -90,7 +87,8 @@
             android:name=".activities.CartItemListActivity"
             android:label="Cart Items"></activity>
         <activity android:name=".activities.SkezoChatActivity"></activity>
-        <activity android:name=".activities.SendInvitationStatus"></activity>
+        <activity android:name=".activities.SendInvitationStatus"
+            android:label="Invitation " ></activity>
         <activity android:name=".activities.Skezo_Main"></activity>
 
 

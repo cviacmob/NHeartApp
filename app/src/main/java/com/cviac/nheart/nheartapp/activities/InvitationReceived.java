@@ -39,7 +39,7 @@ public class InvitationReceived extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite);
-        setTitle("Received Invitation ");
+
         accept = (Button) findViewById(R.id.accept);
         name = (TextView) findViewById(R.id.name1);
         //email = (TextView) findViewById(R.id.email1);
@@ -91,7 +91,7 @@ public class InvitationReceived extends AppCompatActivity {
         progressDialog = new ProgressDialog(InvitationReceived.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Please Wait...");
+        progressDialog.setMessage("Please Wait");
         progressDialog.setCancelable(false);
         progressDialog.show();
 

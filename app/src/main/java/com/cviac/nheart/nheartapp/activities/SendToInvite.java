@@ -25,7 +25,7 @@ import retrofit.Retrofit;
 public class SendToInvite extends AppCompatActivity {
 
     ProgressDialog progressDialog = null;
-
+    String display_mobile;
     Button b;
     EditText ed;
     String str,fromname,frommobile,tomobile,fromemail;
@@ -34,7 +34,8 @@ public class SendToInvite extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contt);
         ed=(EditText)findViewById(R.id.num);
-        setTitle("Invite");
+
+
         //str= Prefs.getString("Phone","");
         fromname=Prefs.getString("name","");
         fromemail=  Prefs.getString("email","");
@@ -47,7 +48,11 @@ public class SendToInvite extends AppCompatActivity {
             @Override
 
             public void onClick(View v) {
+
                 tomobile=ed.getText().toString();
+
+                Prefs.edit();
+                Prefs.putString("display_mob_number",tomobile);
                 Prefs.putString("Phone2",tomobile);
 
                 if(tomobile.equals(frommobile)){
@@ -67,7 +72,7 @@ public class SendToInvite extends AppCompatActivity {
         progressDialog = new ProgressDialog(SendToInvite.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Please Wait...");
+        progressDialog.setMessage("Please Wait");
         progressDialog.setCancelable(false);
         progressDialog.show();
 

@@ -42,7 +42,7 @@ public class Otpverification extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
 
-        setTitle("Otp Verification");
+
 
         b = (Button) findViewById(R.id.verifybutton);
         resend = (Button) findViewById(R.id.resend);
@@ -92,7 +92,7 @@ public class Otpverification extends AppCompatActivity {
         progressDialog = new ProgressDialog(Otpverification.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Registering...");
+        progressDialog.setMessage("Verifying");
         progressDialog.setCancelable(false);
         progressDialog.show();
 

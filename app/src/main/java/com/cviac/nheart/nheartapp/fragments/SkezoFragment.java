@@ -50,9 +50,19 @@ public class SkezoFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int pos1, long pos2) {
                 SkezoInfo emp = skezolist.get(pos1);
-                Intent i = new Intent(getActivity().getApplicationContext(), Skezo_Main.class);
 
-                startActivity(i);
+                if (pos1 == 0)
+                {
+                    Intent i = new Intent(getActivity().getApplicationContext(), Skezo_Main.class);
+                    startActivity(i);
+                }
+               else if (pos1 == 1)
+                {
+                    Intent i = new Intent(getActivity().getApplicationContext(), Chat_Skezo.class);
+                    startActivity(i);
+                }
+
+
             }
         });
 
@@ -82,8 +92,11 @@ public class SkezoFragment extends Fragment {
 
 
 
-        SkezoInfo si1=new SkezoInfo(R.mipmap.girlone," ","a moment ago","Pret");
+        SkezoInfo si1=new SkezoInfo(R.mipmap.girlone," ","a moment ago","Libo");
         skezolist.add(si1);
+
+        SkezoInfo si2=new SkezoInfo(R.mipmap.girltwo," ","a moment ago","Tibo");
+        skezolist.add(si2);
 
 
 

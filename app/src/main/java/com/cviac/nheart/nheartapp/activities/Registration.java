@@ -48,7 +48,7 @@ public class Registration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        setTitle("Register");
+
 
 
         name = (EditText) findViewById(R.id.namebox);
@@ -143,7 +143,7 @@ public class Registration extends AppCompatActivity {
         progressDialog = new ProgressDialog(Registration.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Please wait...");
+        progressDialog.setMessage("Registering");
         progressDialog.setCancelable(false);
         progressDialog.show();
 

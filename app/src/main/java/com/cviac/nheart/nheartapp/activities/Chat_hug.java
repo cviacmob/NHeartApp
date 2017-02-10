@@ -119,7 +119,7 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
             //customimageback = (ImageView) customView.findViewById(R.id.imageViewback1);
             //cuscall = (ImageView)findViewById(R.id.ivcall);
 
-            presenceText = (TextView) customView.findViewById(R.id.textView51);
+           // presenceText = (TextView) customView.findViewById(R.id.textView51);
 
            /* Picasso.with(this).load(R.drawable.ic_call).resize(120, 100).transform(new CircleTransform())
                     .into(cuscall);*/

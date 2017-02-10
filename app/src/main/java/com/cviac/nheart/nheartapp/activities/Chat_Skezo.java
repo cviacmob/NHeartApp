@@ -156,20 +156,20 @@ public class Chat_Skezo extends AppCompatActivity implements View.OnClickListene
             customimage = (ImageView) customView.findViewById(R.id.imageViewcustom1);
 
 
-            presenceText = (TextView) customView.findViewById(R.id.textView51);
+           // presenceText = (TextView) customView.findViewById(R.id.textView51);
 
            /* Picasso.with(this).load(R.drawable.ic_call).resize(120, 100).transform(new CircleTransform())
                     .into(cuscall);*/
 
 
-            Picasso.with(this).load(R.mipmap.girlone).resize(100, 100).transform(new CircleTransform())
+            Picasso.with(this).load(R.mipmap.girltwo).resize(100, 100).transform(new CircleTransform())
 
 
                     .centerCrop().memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(customimage);
 
             TextView customTitle = (TextView) customView.findViewById(R.id.actionbarTitle1);
 
-            customTitle.setText("Hug");
+            customTitle.setText("Tibo");
             actionBar.setCustomView(customView);
         }
 

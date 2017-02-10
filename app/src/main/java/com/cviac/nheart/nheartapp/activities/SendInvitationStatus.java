@@ -31,7 +31,7 @@ import retrofit.Retrofit;
  */
 
 public class SendInvitationStatus extends AppCompatActivity {
-    TextView tv;
+    TextView im,tm,tm2,tm3,tm4,tm5;
     Button ok;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +41,32 @@ public class SendInvitationStatus extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
       /*  tv=(TextView)findViewById(R.id.status);*/
         ImageView im=(ImageView)findViewById(R.id.imgmm);
-        TextView tm=(TextView)findViewById(R.id.text1);
-        TextView tm2=(TextView)findViewById(R.id.text2);
-        TextView tm3=(TextView)findViewById(R.id.text3);
+         tm=(TextView)findViewById(R.id.text1);
+         tm2=(TextView)findViewById(R.id.text2);
+         tm3=(TextView)findViewById(R.id.text3);
+         tm4=(TextView)findViewById(R.id.textnum);
+         tm5=(TextView)findViewById(R.id.textView3);
 
+        String sent_mobile=Prefs.getString("display_mob_number","");
+        tm4.setText(sent_mobile);
        /* String  text = "Test";
         Spannable spanText = Spannable.Factory.getInstance().newSpannable(text);
         spanText.setSpan(new BackgroundColorSpan(0xFFFFFF00), 14, 19, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         tv.setText(spanText);*/
+
+        tm5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+
+
+
+            }
+        });
+
+
         ok=(Button)findViewById(R.id.ok);
 
         ok.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +122,13 @@ public class SendInvitationStatus extends AppCompatActivity {
 
         });
     }
+
+
+
+
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

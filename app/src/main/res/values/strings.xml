@@ -7,5 +7,6 @@
     <string name="invitationstatus">Your invitation has sent successfully. You Will be notified if \n Accepted/Rejected </string>
     <string name="title_activity_maps">Map</string>
     <string name="server">ec2-35-162-147-104.us-west-2.compute.amazonaws.com</string>
+    <string name="resend"><b><u>resend</u></b></string>
 
 </resources>

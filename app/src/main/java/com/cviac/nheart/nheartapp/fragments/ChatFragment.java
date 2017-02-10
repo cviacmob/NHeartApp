@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -149,4 +150,22 @@ public class ChatFragment extends Fragment {
         app.setChatFrag(null);
 
     }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_category).setVisible(false);
+        menu.findItem(R.id.action_cart).setVisible(false);
+        menu.findItem(R.id.action_call).setVisible(true);
+        menu.findItem(R.id.loc).setVisible(true);
+
+        super.onPrepareOptionsMenu(menu);
+    }
+
 }

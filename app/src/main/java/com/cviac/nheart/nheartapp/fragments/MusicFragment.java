@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 
-import com.cviac.nheart.nheartapp.activities.Player;
+
 import com.cviac.nheart.nheartapp.activities.ProductdetailsActivity;
 import com.cviac.nheart.nheartapp.adapters.MusicInfoAdapter;
 import com.cviac.nheart.nheartapp.datamodel.MusicInfo;
@@ -51,7 +51,7 @@ import android.widget.Toast;
 
 import static com.cviac.nheart.nheartapp.R.id.list1;
 import static com.cviac.nheart.nheartapp.R.id.media_actions;
-import static com.cviac.nheart.nheartapp.R.id.seekBar;
+
 
 public class MusicFragment extends Fragment {
     private ImageButton btnPlay;
