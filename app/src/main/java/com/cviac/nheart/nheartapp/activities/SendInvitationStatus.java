@@ -33,14 +33,14 @@ import retrofit.Retrofit;
 public class SendInvitationStatus extends AppCompatActivity {
     TextView im,tm,tm2,tm3,tm4,tm5;
     Button ok;
-
+    int id=0;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sendstatus);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
       /*  tv=(TextView)findViewById(R.id.status);*/
-        ImageView im=(ImageView)findViewById(R.id.imgmm);
+        final ImageView im=(ImageView)findViewById(R.id.imgmm);
          tm=(TextView)findViewById(R.id.text1);
          tm2=(TextView)findViewById(R.id.text2);
          tm3=(TextView)findViewById(R.id.text3);
@@ -57,12 +57,8 @@ public class SendInvitationStatus extends AppCompatActivity {
         tm5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
-
-
-
+              int invitation_id=  Prefs.getInt("inviteId",-1);
+              resendInvitation(invitation_id);
             }
         });
 
@@ -126,7 +122,44 @@ public class SendInvitationStatus extends AppCompatActivity {
 
 
 
+    public void resendInvitation(final int id) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://nheart.cviac.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        OpenCartAPI api = retrofit.create(OpenCartAPI.class);
+        Call<PairStatus> call = api.verifyInvitation(id);
+        call.enqueue(new Callback<PairStatus>() {
+            @Override
+            public void onResponse(Response<PairStatus> response, Retrofit retrofit) {
+                PairStatus rsp = response.body();
+                if (rsp.getCode() == 0) {
 
+                    //Prefs.putInt("inviteId", -1);
+                    Toast.makeText(SendInvitationStatus.this,
+                            "Your invitation has sent sucessfully", Toast.LENGTH_LONG).show();
+
+                    /*Intent logn = new Intent(SendInvitationStatus.this, MainActivity.class);
+                    startActivity(logn);
+                    finish();*/
+            }
+                else
+                    Toast.makeText(SendInvitationStatus.this,
+                            "Your invitation could not sent " + rsp.getCode(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(SendInvitationStatus.this,
+                        " Sent Failed: " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
+
+
+
+
+
+        });
+    }
 
 
 

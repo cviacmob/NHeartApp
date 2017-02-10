@@ -78,7 +78,7 @@ public interface OpenCartAPI {
 
 
     @POST("/N-Heart/invite.php/resendinvite")
-    Call<VerifyOTPResponse> verifyInvitation(@Body OTPInfo info);
+    Call<PairStatus> verifyInvitation(@Body int id);
 
 
 

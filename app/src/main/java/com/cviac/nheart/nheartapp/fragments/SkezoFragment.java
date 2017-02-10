@@ -34,7 +34,7 @@ public class SkezoFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_skezo, container, false);
 
         lv2 = (ListView) view.findViewById(R.id.list_skezo);
-        fab=(ImageButton)view.findViewById(R.id.fab);
+        //fab=(ImageButton)view.findViewById(R.id.fab);
         values();
 
 
@@ -56,11 +56,7 @@ public class SkezoFragment extends Fragment {
                     Intent i = new Intent(getActivity().getApplicationContext(), Skezo_Main.class);
                     startActivity(i);
                 }
-               else if (pos1 == 1)
-                {
-                    Intent i = new Intent(getActivity().getApplicationContext(), Chat_Skezo.class);
-                    startActivity(i);
-                }
+
 
 
             }

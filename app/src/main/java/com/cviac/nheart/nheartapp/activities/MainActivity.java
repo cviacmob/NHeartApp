@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.IBinder;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -35,6 +36,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,6 +79,11 @@ public class MainActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+
+    private static final int MY_PERMISSION_CALL_PHONE = 10;
+    String mob= Prefs.getString("to_mobile","");
+
+
     static TabLayout tabLayout;
     private LayerDrawable mcartMenuIcon;
     private int mCartCount = 0;
@@ -281,6 +288,17 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
 
+
+            case R.id.action_call:
+
+                ImageView cuscall = (ImageView) findViewById(R.id.ivcall);
+                onClick(cuscall);
+
+
+
+                break;
+
+
             case R.id.action_cart:
                 if(mCartCount==0) {
                     Intent h = new Intent(MainActivity.this, EmptyCartListActivity.class);
@@ -318,7 +336,17 @@ public class MainActivity extends AppCompatActivity {
         //if (id == R.id.action_settings) {
         //return true;
     }
+    public void onClick(View view) {
 
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:" + mob));
+        if (ContextCompat.checkSelfPermission(this, (android.Manifest.permission.CALL_PHONE))
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.CALL_PHONE}, MY_PERMISSION_CALL_PHONE);
+            return;
+        }
+        startActivity(callIntent);
+    }
 
     //return super.onOptionsItemSelected(item);
 
@@ -529,6 +557,24 @@ public class MainActivity extends AppCompatActivity {
             }
             return;
         }
+
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case MY_PERMISSION_CALL_PHONE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent callintent = new Intent(Intent.ACTION_CALL);
+                    callintent.setData(Uri.parse("tel:" + mob));
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    startActivity(callintent);
+                }
+            }
+        }
+
+
+
 
     }
     private void doBindService() {
