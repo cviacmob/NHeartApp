@@ -51,6 +51,7 @@ public class ChatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View chatsfrgs = inflater.inflate(R.layout.activity_chat, container, false);
         lv = (ListView) chatsfrgs.findViewById(R.id.listViewChat);
+        lv.setDivider(null);
         img = (ImageButton) chatsfrgs.findViewById(R.id.sendbutton);
         edittxt = (EditText) chatsfrgs.findViewById(R.id.editTextsend);
 
@@ -168,4 +169,14 @@ public class ChatFragment extends Fragment {
         super.onPrepareOptionsMenu(menu);
     }
 
+
+    public void statuscheck(String status) {
+
+        if(status !=null && status.equalsIgnoreCase("connected")){
+            img.setBackgroundResource(R.drawable.send);
+        }else if(status !=null && status.equalsIgnoreCase("Disconnected")){
+            img.setBackgroundResource(R.drawable.send_red);
+        }
+    }
 }
+

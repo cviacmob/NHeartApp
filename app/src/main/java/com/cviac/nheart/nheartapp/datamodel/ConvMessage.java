@@ -117,6 +117,7 @@ public class ConvMessage extends Model {
         this.status = status;
     }
 
+
     public static void updateStatus(String msgId, int status) {
         new Update(ConvMessage.class)
                 .set("status = ?", status)
