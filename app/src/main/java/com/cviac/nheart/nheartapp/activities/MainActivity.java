@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     ActionBar ab;
     private boolean mBounded;
+    String status;
 
     private ChatFragment chatFrag;
 
@@ -219,7 +220,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -229,7 +229,6 @@ public class MainActivity extends AppCompatActivity {
         getAndSetCartCount();
         return true;
     }
-
 
 
     public static void setBadgeCount(Context context, LayerDrawable icon, String count) {
@@ -282,11 +281,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.action_cart:
-                if(mCartCount==0) {
+                if (mCartCount == 0) {
                     Intent h = new Intent(MainActivity.this, EmptyCartListActivity.class);
                     startActivity(h);
                 }
-                if(mCartCount!=0){
+                if (mCartCount != 0) {
                     Intent h = new Intent(MainActivity.this, CartItemListActivity.class);
                     startActivity(h);
                 }
@@ -384,9 +383,10 @@ public class MainActivity extends AppCompatActivity {
             switch (position + 1) {
                 case 1:
                     chatFrag = new ChatFragment();
+
                     return chatFrag;
                 case 2:
-                   // Fragment frag = new GiftFragment();
+                    // Fragment frag = new GiftFragment();
                     return new GiftFragment();
                 case 3:
                     //Fragment frag1 = new MusicFragment();
@@ -471,7 +471,7 @@ public class MainActivity extends AppCompatActivity {
                 GetCartItemsResponse rsp = response.body();
                 if (rsp != null) {
                     mCartCount = rsp.getProds().size();
-                    setBadgeCount(MainActivity.this, mcartMenuIcon, mCartCount+"");
+                    setBadgeCount(MainActivity.this, mcartMenuIcon, mCartCount + "");
                 }
             }
 
@@ -492,6 +492,7 @@ public class MainActivity extends AppCompatActivity {
         }
         doUnbindService();
     }
+
     String[] permissions = new String[]{
             Manifest.permission.WRITE_SETTINGS,
             Manifest.permission.READ_EXTERNAL_STORAGE
@@ -499,12 +500,12 @@ public class MainActivity extends AppCompatActivity {
 
     };
 
-    public  boolean  checkPermissions() {
-        int result=1;
+    public boolean checkPermissions() {
+        int result = 1;
         List<String> listPermissionsNeeded = new ArrayList<>();
         for (String p : permissions) {
             result = ContextCompat.checkSelfPermission(MainActivity.this, p);
-            if (result != PackageManager.PERMISSION_GRANTED ) {
+            if (result != PackageManager.PERMISSION_GRANTED) {
                 listPermissionsNeeded.add(p);
             }
         }
@@ -521,34 +522,35 @@ public class MainActivity extends AppCompatActivity {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // do something
-                Toast.makeText(MainActivity.this,"Permission granted now you can read the storage",Toast.LENGTH_LONG).show();
-            }
-            else
-            {
+                Toast.makeText(MainActivity.this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
+            } else {
                 Toast.makeText(MainActivity.this, "The app was not allowed to write to your storage. Hence, it cannot function properly. Please consider granting it this permission", Toast.LENGTH_LONG).show();
             }
             return;
         }
 
     }
+
     private void doBindService() {
-    xmppConnReciver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String status = intent.getStringExtra("status");
-            if (status != null) {
-                Snackbar snackbar = Snackbar
-                        .make(coordinatorLayout, "Chat Server:  " + status, Snackbar.LENGTH_LONG);
-                snackbar.show();
+        xmppConnReciver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                status = intent.getStringExtra("status");
+                if (status != null) {
+                    chatFrag.statuscheck(status);
+                }
+              /*  if (status != null) {
+                    Snackbar snackbar = Snackbar
+                            .make(coordinatorLayout, "Chat Server:  " + status, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }*/
+
             }
-        }
-    };
+        };
 
-    bindService(new Intent(this, XMPPService.class), mConnection,Context.BIND_AUTO_CREATE);
-    registerReceiver(xmppConnReciver, new IntentFilter("XMPPConnection"));
-}
-
-
+        bindService(new Intent(this, XMPPService.class), mConnection, Context.BIND_AUTO_CREATE);
+        registerReceiver(xmppConnReciver, new IntentFilter("XMPPConnection"));
+    }
 
     void doUnbindService() {
         if (mConnection != null) {

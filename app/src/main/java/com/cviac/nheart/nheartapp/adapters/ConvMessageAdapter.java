@@ -1,9 +1,11 @@
 package com.cviac.nheart.nheartapp.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cviac.nheart.nheartapp.R;
+import com.cviac.nheart.nheartapp.activities.ChatMessage;
 import com.cviac.nheart.nheartapp.datamodel.ConvMessage;
 
 import java.text.DateFormat;
@@ -25,26 +29,25 @@ public class ConvMessageAdapter extends ArrayAdapter<ConvMessage> {
 
     private List<ConvMessage> chats;
     public ArrayAdapter adapter;
-    private String myempId;
-    private int lastPostion = -1;
+
 
     Context mContext;
 
     public ConvMessageAdapter(List<ConvMessage> objects, Context context) {
-        super(context, R.layout.activity_chat, objects);
+        super(context, R.layout.fragment_chat, objects);
         chats = objects;
         mContext = context;
     }
 
     public static class ViewHolder {
-     public TextView msgview,txt;
+        public TextView msgview,txt;
         public ImageView statusview;
         public  RelativeLayout rLayout;
 
     }
 
 
-        @Override
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View vw = convertView;
         ViewHolder holder;
@@ -86,7 +89,7 @@ public class ConvMessageAdapter extends ArrayAdapter<ConvMessage> {
             } else if (chat.getStatus() == 3) {
                 holder.statusview.setBackgroundResource(R.drawable.done_all_colo);
             }
-           // holder.statusview.setBackgroundResource(R.drawable.done);
+            // holder.statusview.setBackgroundResource(R.drawable.done);
 
         } else {
             holder.statusview.setVisibility(View.INVISIBLE);
