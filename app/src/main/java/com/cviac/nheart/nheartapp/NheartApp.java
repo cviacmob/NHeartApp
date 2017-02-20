@@ -9,6 +9,7 @@ import android.support.multidex.MultiDexApplication;
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
 import com.cviac.nheart.nheartapp.datamodel.ConvMessage;
+import com.cviac.nheart.nheartapp.datamodel.HugInfo;
 import com.cviac.nheart.nheartapp.fragments.ChatFragment;
 
 public class NheartApp extends MultiDexApplication {
@@ -36,6 +37,7 @@ public class NheartApp extends MultiDexApplication {
         super.onCreate();
         Configuration.Builder configurationBuilder = new Configuration.Builder(this);
         configurationBuilder.addModelClasses(ConvMessage.class);
+        configurationBuilder.addModelClasses(HugInfo.class);
         ActiveAndroid.initialize(configurationBuilder.create());
 
         new Prefs.Builder()

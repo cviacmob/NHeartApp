@@ -36,7 +36,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -99,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     ActionBar ab;
     private boolean mBounded;
     String status;
-
+    private GiftFragment giftFragment;
     private ChatFragment chatFrag;
 
 
@@ -414,8 +416,9 @@ public class MainActivity extends AppCompatActivity {
 
                     return chatFrag;
                 case 2:
+                    giftFragment = new GiftFragment();
                     // Fragment frag = new GiftFragment();
-                    return new GiftFragment();
+                    return giftFragment;
                 case 3:
                     //Fragment frag1 = new MusicFragment();
                     return new MusicFragment();
@@ -581,7 +584,10 @@ public class MainActivity extends AppCompatActivity {
         xmppConnReciver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                status = intent.getStringExtra("status");
+                if(status !=null) {
+                    status = intent.getStringExtra("status");
+
+                }
                 if (status != null) {
                     chatFrag.statuscheck(status);
                 }
@@ -609,4 +615,6 @@ public class MainActivity extends AppCompatActivity {
     public XMPPService getmService() {
         return mService;
     }
+
+
 }

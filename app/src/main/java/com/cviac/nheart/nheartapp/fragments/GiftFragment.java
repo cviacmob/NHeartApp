@@ -1,9 +1,11 @@
 package com.cviac.nheart.nheartapp.fragments;
 
+        import android.app.Activity;
         import android.content.Context;
 
         import android.content.Intent;
         import android.os.Bundle;
+        import android.os.IBinder;
         import android.support.annotation.Nullable;
         import android.support.v4.app.Fragment;
         import android.view.LayoutInflater;
@@ -11,6 +13,8 @@ package com.cviac.nheart.nheartapp.fragments;
         import android.view.View;
 
         import android.view.ViewGroup;
+        import android.view.WindowManager;
+        import android.view.inputmethod.InputMethodManager;
         import android.widget.GridView;
         import android.widget.*;
 
@@ -46,7 +50,6 @@ public class GiftFragment extends Fragment{
     Productsadapter adapter;
 
 
-    
 
 
     @Nullable
@@ -54,6 +57,9 @@ public class GiftFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View cv=inflater.inflate(R.layout.grid_layout,container,false);
         thiscontext = container.getContext();
+        getActivity().getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         //b = (ImageButton) cv.findViewById(R.id.ima1);
        /* b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,10 +160,12 @@ public class GiftFragment extends Fragment{
 
 
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
     }
 
     @Override
@@ -166,5 +174,12 @@ public class GiftFragment extends Fragment{
         menu.findItem(R.id.loc).setVisible(false);
 
         super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
 }

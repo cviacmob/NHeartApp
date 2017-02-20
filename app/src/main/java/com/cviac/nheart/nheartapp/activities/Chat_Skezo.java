@@ -95,8 +95,8 @@ public class Chat_Skezo extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.activity_chat_hug);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        sendbutton =(ImageButton)findViewById(R.id.sendbutton1);
-        lv = (ListView) findViewById(R.id.listViewHug);
+        sendbutton =(ImageButton)findViewById(R.id.sendbutton);
+        lv = (ListView) findViewById(R.id.listViewChat);
         lv.setDivider(null);
         lv.setDividerHeight(10);
         actionmethod();
