@@ -29,7 +29,7 @@
         android:dividerHeight="0.1dp"
         android:elevation="4dp"
         android:orientation="vertical"
-        >
+        android:id="@+id/relativeLayout3">
 
 
         <android.support.design.widget.TextInputLayout
@@ -87,4 +87,25 @@
 
 
     </RelativeLayout>
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:srcCompat="@drawable/heart8"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/relativeLayout3"
+        android:layout_alignStart="@+id/relativeLayout3"
+        android:layout_marginTop="58dp"
+        android:id="@+id/imageView5" />
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:srcCompat="@drawable/heart8"
+        android:id="@+id/imageView7"
+        android:layout_alignTop="@+id/imageView5"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp" />
 </RelativeLayout>

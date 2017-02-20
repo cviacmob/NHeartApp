@@ -11,6 +11,9 @@ public class Invitation  implements Serializable{
 
     private String name;
     private String mobile;
+
+
+    private String to_mobile;
     private String email_id;
     private String status;
 
@@ -31,6 +34,16 @@ public class Invitation  implements Serializable{
     public String getName() {
         return name;
     }
+
+
+    public String getTo_mobile() {
+        return to_mobile;
+    }
+
+    public void setTo_mobile(String to_mobile) {
+        this.to_mobile = to_mobile;
+    }
+
 
     public void setName(String name) {
         this.name = name;

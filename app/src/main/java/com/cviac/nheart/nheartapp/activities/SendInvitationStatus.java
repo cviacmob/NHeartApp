@@ -1,6 +1,7 @@
 package com.cviac.nheart.nheartapp.activities;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -31,6 +32,12 @@ import retrofit.Retrofit;
  */
 
 public class SendInvitationStatus extends AppCompatActivity {
+
+
+    ProgressDialog progressDialog = null;
+
+
+
     TextView im,tm,tm2,tm3,tm4,tm5;
     Button ok;
     int id=0;
@@ -123,6 +130,15 @@ public class SendInvitationStatus extends AppCompatActivity {
 
 
     public void resendInvitation(final int id) {
+
+        progressDialog = new ProgressDialog(SendInvitationStatus.this,
+                R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Please Wait");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://nheart.cviac.com")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -134,6 +150,9 @@ public class SendInvitationStatus extends AppCompatActivity {
             public void onResponse(Response<PairStatus> response, Retrofit retrofit) {
                 PairStatus rsp = response.body();
                 if (rsp.getCode() == 0) {
+                    if (progressDialog != null) {
+                        progressDialog.dismiss();
+                    }
 
                     //Prefs.putInt("inviteId", -1);
                     Toast.makeText(SendInvitationStatus.this,
@@ -144,12 +163,15 @@ public class SendInvitationStatus extends AppCompatActivity {
                     finish();*/
             }
                 else
+
+                    progressDialog.dismiss();
                     Toast.makeText(SendInvitationStatus.this,
-                            "Your invitation could not sent " + rsp.getCode(), Toast.LENGTH_LONG).show();
+                            "Your invitation could not sent ", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(Throwable t) {
+                progressDialog.dismiss();
                 Toast.makeText(SendInvitationStatus.this,
                         " Sent Failed: " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }

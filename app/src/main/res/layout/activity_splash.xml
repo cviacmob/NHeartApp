@@ -5,12 +5,54 @@
     android:layout_height="match_parent">
 
 
+   <!--     <WebView
+            android:id="@+id/web"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />-->
+
+
         <ImageView
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:background="@drawable/splashheart"
-            android:id="@+id/splash"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/heart8"
+            android:id="@+id/img2"
+            android:layout_marginRight="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_alignBottom="@+id/img1"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/heart8"
+            android:id="@+id/img1"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentTop="true"/>
+
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="80dp"
+        android:src="@drawable/loading"
+
+        android:id="@+id/imageView4"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ttex6"
+        android:text="Please wait"
+        android:textColor="#ca2c2c"
+        android:textStyle="italic"
+        android:layout_above="@+id/imageView4"
+        android:layout_alignLeft="@+id/imageView4"
+        android:layout_alignStart="@+id/imageView4"
+        android:layout_marginBottom="11dp" />
+
 
 </RelativeLayout>

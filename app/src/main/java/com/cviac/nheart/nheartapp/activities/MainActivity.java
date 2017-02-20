@@ -544,22 +544,40 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        if (requestCode == 100) {
+       /* if (requestCode == 100) {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // do something
+
                 Toast.makeText(MainActivity.this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(MainActivity.this, "The app was not allowed to write to your storage. Hence, it cannot function properly. Please consider granting it this permission", Toast.LENGTH_LONG).show();
             }
             return;
-        }
+        }*/
 
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
+        switch (requestCode)
+            {
+                case 1: {
+                    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    {
+                        //Intent i=new Intent(this,Timetable.class);
+                        //startActivity(i);
+                        //reload my activity with permission granted or use the features what required the permission
+                    } else
+                    {
+                        Toast.makeText(MainActivity.this, "The app was not allowed to write to your storage. Hence, it cannot function properly. Please consider granting it this permission", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+
+
+
             case MY_PERMISSION_CALL_PHONE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Intent callintent = new Intent(Intent.ACTION_CALL);
