@@ -4,8 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.webkit.WebView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cviac.nheart.nheartapp.Prefs;
@@ -30,23 +36,70 @@ public class Splashscreen extends Activity {
     public String invited;
     public String mobile;
     public String paired;
+
+    Animation animMove,mv1,fade;
+    ImageView img,img1,img2;
+    TextView ttex1,ttex2,ttex3,ttex4,ttex5;
+
     public String invitetest;
     // Splash screen timer
-    private static int SPLASH_TIME_OUT = 2000;
+    private static int SPLASH_TIME_OUT = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+      /*  requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        //setContentView(R.layout.activity_splash);
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
+        setContentView(R.layout.activity_splash);
+/*
+        WebView web = (WebView)findViewById(R.id.web);
+
+        web.loadUrl("file:///android_asset/love.gif");
+        web.getSettings().setLoadWithOverviewMode(true);
+        web.getSettings().setUseWideViewPort(true);*/
+
+
+        img=(ImageView) findViewById(R.id.img1) ;
+        img1=(ImageView) findViewById(R.id.img2) ;
+        img2=(ImageView)findViewById(R.id.imageView4);
+
+
+
+
+
+
 
         registered = Prefs.getString("isregistered", "false");
         inviteId = Prefs.getInt("inviteId", -1);
         invited = Prefs.getString("to_mobile", "");
         mobile = Prefs.getString("mobile", "");
         paired = Prefs.getString("paired", "false");
+
+        animMove = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.rotate);
+        // Move
+
+
+        img2.startAnimation(animMove);
+
+        animMove = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.move);
+        // Move
+
+
+        img.startAnimation(animMove);
+
+        mv1 = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.move1);
+
+        img1.startAnimation(mv1);
+
+
+
+
+
+
         if (getIntent().getBooleanExtra("EXIT", false)) {
             finish();
             return;
@@ -59,12 +112,15 @@ public class Splashscreen extends Activity {
 				 * to home page
 				 */
 
+
                 if (paired.equalsIgnoreCase("true")) {
+
+
+
                     Intent logn = new Intent(Splashscreen.this, MainActivity.class);
                     startActivity(logn);
                     finish();
-                }
-                else if (registered.equalsIgnoreCase("true")) {
+                } else if (registered.equalsIgnoreCase("true")) {
                     if (invited.isEmpty()) {
                         //not invited
                         getInvitation(mobile);
@@ -82,7 +138,7 @@ public class Splashscreen extends Activity {
         }, SPLASH_TIME_OUT);
     }
 
-    private void getInvitation(String mobile) {
+    private void getInvitation(final String mobile) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://nheart.cviac.com")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -96,13 +152,38 @@ public class Splashscreen extends Activity {
                          public void onResponse(Response<List<Invitation>> response, Retrofit retrofit) {
                              List<Invitation> invits = response.body();
 
-                             if (invits !=null && invits.size() > 0) {
-                                 Intent logn = new Intent(Splashscreen.this, InvitationReceived.class);
-                                 logn.putExtra("invite", invits.get(0));
-                                 startActivity(logn);
-                                 finish();
-                             }
-                             else {
+                             if (invits != null && invits.size() > 0) {
+                                 Invitation invt = invits.get(0);
+                                 if (invt.getStatus().equalsIgnoreCase("paired")) {
+
+                                     Prefs.putString("paired", "true");
+                                     Prefs.putInt("inviteId", -1);
+
+
+                                     if (invt.getMobile().equalsIgnoreCase(mobile)) {
+                                         String ss = invt.getTo_mobile();
+                                         Prefs.putString("to_mobile", ss);
+
+                                         
+
+
+                                     } else {
+                                         String mob = invt.getMobile();
+                                         Prefs.putString("to_mobile", mob);
+
+                                     }
+
+                                     Intent logn1 = new Intent(Splashscreen.this, MainActivity.class);
+                                     startActivity(logn1);
+                                     finish();
+
+                                 } else {
+                                     Intent logn = new Intent(Splashscreen.this, InvitationReceived.class);
+                                     logn.putExtra("invite", invits.get(0));
+                                     startActivity(logn);
+                                     finish();
+                                 }
+                             } else {
                                  Intent logn = new Intent(Splashscreen.this, SendToInvite.class);
 
                                  startActivity(logn);
@@ -149,8 +230,7 @@ public class Splashscreen extends Activity {
                                      startActivity(logn);
                                      finish();
                                  }
-                             }
-                             else {
+                             } else {
                                  Toast.makeText(Splashscreen.this,
                                          "GetInviation Failed: " + pairstatus.getCode(), Toast.LENGTH_LONG).show();
                              }

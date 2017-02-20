@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.cviac.nheart.nheartapp.Prefs;
@@ -23,7 +26,8 @@ import retrofit.Retrofit;
 
 
 public class SendToInvite extends AppCompatActivity {
-
+    Animation anim;
+    ImageView img4,img5;
     ProgressDialog progressDialog = null;
     String display_mobile;
     Button b;
@@ -41,6 +45,9 @@ public class SendToInvite extends AppCompatActivity {
         fromemail=  Prefs.getString("email","");
         frommobile =Prefs.getString("mobile","");
         b = (Button) findViewById(R.id.getin);
+        img4=(ImageView)findViewById(R.id.imageView5);
+        img5=(ImageView)findViewById(R.id.imageView7);
+
         //tomobile=ed.getText().toString();
 
         b.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +66,16 @@ public class SendToInvite extends AppCompatActivity {
                     Toast.makeText(SendToInvite.this,"You cannot invite yourself",Toast.LENGTH_LONG).show();
                 }
                 else{
+
+                    anim = AnimationUtils.loadAnimation(getApplicationContext(),
+                            R.anim.move);
+                    // Move
+
+
+                    img4.startAnimation(anim);
+
+
+
                     invitation(fromname,fromemail,frommobile,tomobile);
                 }
                 // finish();
@@ -106,21 +123,21 @@ public class SendToInvite extends AppCompatActivity {
                 else if(rsp.getCode()==1004){
                     progressDialog.dismiss();
                     Toast.makeText(SendToInvite.this,
-                            "Already Paired with Someone" + rsp.getCode(), Toast.LENGTH_LONG).show();
+                            "Already Paired with Someone" , Toast.LENGTH_LONG).show();
 
                 }
 
                 else if(rsp.getCode()==1003){
                     progressDialog.dismiss();
                     Toast.makeText(SendToInvite.this,
-                            "Your Invitation is Pending" + rsp.getCode(), Toast.LENGTH_LONG).show();
+                            "Your Invitation is Pending", Toast.LENGTH_LONG).show();
 
                 }
 
                 else if(rsp.getCode()==1007){
                     progressDialog.dismiss();
                     Toast.makeText(SendToInvite.this,
-                            "Your Invitation is Rejected" + rsp.getCode(), Toast.LENGTH_LONG).show();
+                            "Your Invitation is Rejected", Toast.LENGTH_LONG).show();
 
                 }
 

@@ -167,6 +167,7 @@ public class Otpverification extends AppCompatActivity {
                                  startActivity(logn);
                                  finish();
                              } else {
+
                                  Intent logn = new Intent(Otpverification.this, SendToInvite.class);
                                  startActivity(logn);
                                  finish();
