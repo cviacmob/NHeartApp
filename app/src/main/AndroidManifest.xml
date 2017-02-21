@@ -41,7 +41,8 @@
         <activity
             android:name=".activities.Splashscreen"
             android:label="@string/app_name"
-            android:theme="@style/splash_theme">
+            android:theme="@style/splash_theme"
+            android:hardwareAccelerated="false">
 
 
             <intent-filter>

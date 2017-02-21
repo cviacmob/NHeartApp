@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +33,8 @@ public class InvitationReceived extends AppCompatActivity {
 
     ProgressDialog progressDialog = null;
 
-
+    Animation anim;
+    ImageView img5,img6;
     Button accept, reject;
     TextView name, email, mobile,textvv;
     String mob;
@@ -42,6 +46,8 @@ public class InvitationReceived extends AppCompatActivity {
 
         accept = (Button) findViewById(R.id.accept);
         name = (TextView) findViewById(R.id.name1);
+        img5=(ImageView)findViewById(R.id.imageView8);
+        img6=(ImageView)findViewById(R.id.imgmm);
         //email = (TextView) findViewById(R.id.email1);
         mobile = (TextView) findViewById(R.id.mob2);
         textvv = (TextView) findViewById(R.id.text11);
@@ -57,13 +63,32 @@ public class InvitationReceived extends AppCompatActivity {
         Prefs.putString("mobile1",mob);
         final String my_mobile= Prefs.getString("mobile","");
 
+        anim = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.blink);
+        // Move
+
+
+        img5.startAnimation(anim);
+
+
+
+
 
         accept.setOnClickListener(new View.OnClickListener() {
 
             @Override
 
             public void onClick(View v) {
+
+
+
+
                 updateInvite(mob,my_mobile,"accepted");
+
+
+
+
+
 
 
             }
@@ -76,6 +101,10 @@ public class InvitationReceived extends AppCompatActivity {
 
             public void onClick(View v) {
                 updateInvite(mob,my_mobile,"rejected");
+
+
+
+
             }
         });
 
@@ -123,6 +152,7 @@ public class InvitationReceived extends AppCompatActivity {
                     if(status=="accepted"){
                         Prefs.putString("to_mobile",mob);
                         Prefs.putString("paired","true");
+
                         Intent mainIntent = new Intent(InvitationReceived.this, MainActivity
                                 .class);
                         startActivity(mainIntent);

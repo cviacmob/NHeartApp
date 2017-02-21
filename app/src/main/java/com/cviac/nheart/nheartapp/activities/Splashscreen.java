@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.bumptech.glide.Glide;
 import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.datamodel.PairStatus;
@@ -38,8 +40,10 @@ public class Splashscreen extends Activity {
     public String paired;
 
     Animation animMove,mv1,fade;
-    ImageView img,img1,img2;
+    ImageView img,img1,img2,iv5,iv9;
     TextView ttex1,ttex2,ttex3,ttex4,ttex5;
+    ImageView imageView;
+    private GifImageView gifImageView;
 
     public String invitetest;
     // Splash screen timer
@@ -52,6 +56,11 @@ public class Splashscreen extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         setContentView(R.layout.activity_splash);
+        //ivGif = (ImageView) findViewById(R.id.ivGif);
+        // Display the GIF (from raw resource) into the ImageView
+        //Glide.with(this).load(R.raw.android).asGif().into(imageView);
+        /*gifImageView = (GifImageView) findViewById(R.id.GifImageView);
+        gifImageView.setGifImageResource(R.drawable.android);*/
 /*
         WebView web = (WebView)findViewById(R.id.web);
 
@@ -63,6 +72,7 @@ public class Splashscreen extends Activity {
         img=(ImageView) findViewById(R.id.img1) ;
         img1=(ImageView) findViewById(R.id.img2) ;
         img2=(ImageView)findViewById(R.id.imageView4);
+        iv9=(ImageView)findViewById(R.id.imageView9);
 
 
 
@@ -75,6 +85,10 @@ public class Splashscreen extends Activity {
         invited = Prefs.getString("to_mobile", "");
         mobile = Prefs.getString("mobile", "");
         paired = Prefs.getString("paired", "false");
+
+       // iv5  = (ImageView) findViewById(R.id.ivGif);
+        // Display the GIF (from raw resource) into the ImageView
+
 
         animMove = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.rotate);

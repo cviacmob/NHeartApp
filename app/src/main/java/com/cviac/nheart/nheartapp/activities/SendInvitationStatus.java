@@ -3,6 +3,7 @@ package com.cviac.nheart.nheartapp.activities;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,8 @@ import android.text.Spannable;
 import android.text.style.BackgroundColorSpan;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,8 +39,8 @@ public class SendInvitationStatus extends AppCompatActivity {
 
     ProgressDialog progressDialog = null;
 
-
-
+    Animation animMove;
+ImageView iv1;
     TextView im,tm,tm2,tm3,tm4,tm5;
     Button ok;
     int id=0;
@@ -53,6 +56,19 @@ public class SendInvitationStatus extends AppCompatActivity {
          tm3=(TextView)findViewById(R.id.text3);
          tm4=(TextView)findViewById(R.id.textnum);
          tm5=(TextView)findViewById(R.id.textView3);
+        iv1=(ImageView) findViewById(R.id.imageView10);
+
+
+        animMove = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.rotate1);
+        // Move
+
+
+        iv1.startAnimation(animMove);
+
+
+
+
 
         String sent_mobile=Prefs.getString("display_mob_number","");
         tm4.setText(sent_mobile);
@@ -64,6 +80,13 @@ public class SendInvitationStatus extends AppCompatActivity {
         tm5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                animMove = AnimationUtils.loadAnimation(getApplicationContext(),
+                        R.anim.fade_out);
+                // Move
+
+
+                tm5.startAnimation(animMove);
+
               int invitation_id=  Prefs.getInt("inviteId",-1);
               resendInvitation(invitation_id);
             }

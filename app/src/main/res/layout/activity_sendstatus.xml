@@ -20,7 +20,8 @@
         android:dividerHeight="0.1dp"
         android:elevation="4dp"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="20dp"
+        android:id="@+id/relativeLayout4">
 
         <!--
             <TextView
@@ -125,4 +126,16 @@
             android:layout_alignEnd="@+id/text1" />
 
     </RelativeLayout>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:src="@drawable/clockrr"
+        android:layout_marginTop="11dp"
+        android:id="@+id/imageView10"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
 </RelativeLayout>

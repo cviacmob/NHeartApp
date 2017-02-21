@@ -27,7 +27,7 @@ import retrofit.Retrofit;
 
 public class SendToInvite extends AppCompatActivity {
     Animation anim;
-    ImageView img4,img5;
+    ImageView img4,img5,image6;
     ProgressDialog progressDialog = null;
     String display_mobile;
     Button b;
@@ -47,6 +47,7 @@ public class SendToInvite extends AppCompatActivity {
         b = (Button) findViewById(R.id.getin);
         img4=(ImageView)findViewById(R.id.imageView5);
         img5=(ImageView)findViewById(R.id.imageView7);
+        image6=(ImageView)findViewById(R.id.imageView6);
 
         //tomobile=ed.getText().toString();
 
@@ -67,12 +68,6 @@ public class SendToInvite extends AppCompatActivity {
                 }
                 else{
 
-                    anim = AnimationUtils.loadAnimation(getApplicationContext(),
-                            R.anim.move);
-                    // Move
-
-
-                    img4.startAnimation(anim);
 
 
 
@@ -111,6 +106,20 @@ public class SendToInvite extends AppCompatActivity {
 
                     //String resh=Prefs.getString("unpaired","");
 
+                    anim = AnimationUtils.loadAnimation(getApplicationContext(),
+                            R.anim.bottom_up);
+                    // Move
+
+
+                    image6.startAnimation(anim);
+
+
+                    anim = AnimationUtils.loadAnimation(getApplicationContext(),
+                            R.anim.move);
+                    // Move
+
+
+                    img4.startAnimation(anim);
 
                     Prefs.putString("to_mobile",to_mobile);
                     Prefs.putInt("inviteId", rsp.getId());
