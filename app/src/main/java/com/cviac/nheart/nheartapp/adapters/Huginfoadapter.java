@@ -34,9 +34,6 @@ public class Huginfoadapter  extends BaseAdapter {
         this.list = list;
     }
 
-
-
-
     public static class ViewHolder {
         TextView title22;
         ImageView img;
@@ -85,7 +82,7 @@ public class Huginfoadapter  extends BaseAdapter {
 
         holder.description.setText(ct.getDescription());
         holder.title22.setText(ct.getTitle());
-        holder.date.setText(ct.getDate());
+        holder.date.setText(ct.getformatteddate());
        int uri=ct.getImgUrl();
         Picasso.with(vw.getContext()).load(uri).resize(50, 50).transform(new CircleTransform())
                 .centerCrop().memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(holder.img);

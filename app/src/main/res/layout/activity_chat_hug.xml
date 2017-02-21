@@ -4,16 +4,15 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:ignore="MergeRootFrame"
-    android:background="#DBE1F4" >
+    android:background="@drawable/chatbg" >
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <ListView
-            android:id="@+id/listViewHug"
+            android:id="@+id/listViewChat"
             android:layout_width="match_parent"
             android:layout_height="470dp"
             android:transcriptMode="alwaysScroll"
@@ -21,7 +20,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_above="@+id/editTextsend1">
+            android:layout_above="@+id/editTextsend">
         </ListView>
         <ImageButton
             android:layout_width="50dp"
@@ -30,7 +29,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:id="@+id/sendbutton1"
+            android:id="@+id/sendbutton"
             android:text="send"
             android:stackFromBottom="true"
             >
@@ -38,7 +37,7 @@
         </ImageButton>
 
         <EditText
-            android:id="@+id/editTextsend1"
+            android:id="@+id/editTextsend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bubble2"
@@ -53,8 +52,8 @@
             android:isScrollContainer="true"
             android:scrollbars="vertical"
             android:scrollbarStyle="insideInset"
-            android:layout_toStartOf="@+id/sendbutton1"
-            android:layout_toLeftOf="@+id/sendbutton1">
+            android:layout_toStartOf="@+id/sendbutton"
+            android:layout_toLeftOf="@+id/sendbutton">
 
             <requestFocus />
         </EditText>
@@ -62,7 +61,6 @@
 
 
     </RelativeLayout>
-
 
 
 </FrameLayout>
