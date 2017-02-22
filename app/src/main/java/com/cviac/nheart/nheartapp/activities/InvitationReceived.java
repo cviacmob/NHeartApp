@@ -34,7 +34,7 @@ public class InvitationReceived extends AppCompatActivity {
     ProgressDialog progressDialog = null;
 
     Animation anim;
-    ImageView img5,img6;
+    ImageView img5,img6,img12,img13;
     Button accept, reject;
     TextView name, email, mobile,textvv;
     String mob;
@@ -47,6 +47,9 @@ public class InvitationReceived extends AppCompatActivity {
         accept = (Button) findViewById(R.id.accept);
         name = (TextView) findViewById(R.id.name1);
         img5=(ImageView)findViewById(R.id.imageView8);
+
+        img12=(ImageView)findViewById(R.id.imageView12);
+        img13=(ImageView)findViewById(R.id.imageView13);
         img6=(ImageView)findViewById(R.id.imgmm);
         //email = (TextView) findViewById(R.id.email1);
         mobile = (TextView) findViewById(R.id.mob2);
@@ -79,6 +82,24 @@ public class InvitationReceived extends AppCompatActivity {
             @Override
 
             public void onClick(View v) {
+
+
+
+
+                anim = AnimationUtils.loadAnimation(getApplicationContext(),
+                        R.anim.move);
+                // Move
+
+
+                img13.startAnimation(anim);
+
+
+                anim = AnimationUtils.loadAnimation(getApplicationContext(),
+                        R.anim.move1);
+                // Move
+
+
+                img12.startAnimation(anim);
 
 
 
@@ -172,7 +193,7 @@ public class InvitationReceived extends AppCompatActivity {
                 else{
                     progressDialog.dismiss();
                     Toast.makeText(InvitationReceived.this,
-                            "Already Paired With Someone " + rsp.getCode(), Toast.LENGTH_LONG).show();
+                            "Already Paired With Someone ", Toast.LENGTH_LONG).show();
 
                 }
             }

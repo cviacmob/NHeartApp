@@ -18,12 +18,14 @@
     <RelativeLayout
 
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/login_title"
-        android:layout_marginBottom="160dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginTop="160dp"
+
         android:background="@drawable/rounded_corner"
         android:divider="?attr/colorPrimary"
         android:dividerHeight="0.1dp"
@@ -54,7 +56,8 @@
             android:id="@+id/number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView6">
+            android:layout_below="@+id/imageView6"
+            android:layout_marginTop="10dp">
 
             <EditText
                 android:id="@+id/num"
@@ -80,9 +83,9 @@
             android:id="@+id/getin"
             android:background="@drawable/roundbutton"
             android:textColor="#ffffff"
-
+            android:layout_below="@+id/number"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="14dp"
-            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
 
 
@@ -91,7 +94,7 @@
     <ImageView
         android:layout_width="70dp"
         android:layout_height="70dp"
-        app:srcCompat="@drawable/heart8"
+        app:srcCompat="@drawable/heartrec"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/relativeLayout3"
         android:layout_alignStart="@+id/relativeLayout3"
@@ -101,11 +104,9 @@
     <ImageView
         android:layout_width="70dp"
         android:layout_height="70dp"
-        app:srcCompat="@drawable/heart8"
+        app:srcCompat="@drawable/heartrec"
         android:id="@+id/imageView7"
         android:layout_alignTop="@+id/imageView5"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="15dp"
-        android:layout_marginEnd="15dp" />
+        android:layout_alignRight="@+id/relativeLayout3"
+        android:layout_alignEnd="@+id/relativeLayout3" />
 </RelativeLayout>

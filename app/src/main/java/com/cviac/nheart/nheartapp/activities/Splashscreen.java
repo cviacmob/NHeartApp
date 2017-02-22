@@ -61,12 +61,14 @@ public class Splashscreen extends Activity {
         //Glide.with(this).load(R.raw.android).asGif().into(imageView);
         /*gifImageView = (GifImageView) findViewById(R.id.GifImageView);
         gifImageView.setGifImageResource(R.drawable.android);*/
-/*
-        WebView web = (WebView)findViewById(R.id.web);
 
-        web.loadUrl("file:///android_asset/love.gif");
+
+    /*    WebView web = (WebView)findViewById(R.id.web1);
+
+        web.loadUrl("file:///android_asset/accepted.gif");
         web.getSettings().setLoadWithOverviewMode(true);
-        web.getSettings().setUseWideViewPort(true);*/
+        web.getSettings().setUseWideViewPort(true);
+      ;*/
 
 
         img=(ImageView) findViewById(R.id.img1) ;

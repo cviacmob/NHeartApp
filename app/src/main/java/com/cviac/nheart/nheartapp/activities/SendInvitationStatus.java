@@ -40,7 +40,7 @@ public class SendInvitationStatus extends AppCompatActivity {
     ProgressDialog progressDialog = null;
 
     Animation animMove;
-ImageView iv1;
+ImageView iv1,iv2;
     TextView im,tm,tm2,tm3,tm4,tm5;
     Button ok;
     int id=0;
@@ -57,6 +57,7 @@ ImageView iv1;
          tm4=(TextView)findViewById(R.id.textnum);
          tm5=(TextView)findViewById(R.id.textView3);
         iv1=(ImageView) findViewById(R.id.imageView10);
+        iv2=(ImageView) findViewById(R.id.imageView11);
 
 
         animMove = AnimationUtils.loadAnimation(getApplicationContext(),
@@ -66,6 +67,12 @@ ImageView iv1;
 
         iv1.startAnimation(animMove);
 
+        animMove = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.blink);
+        // Move
+
+
+        iv2.startAnimation(animMove);
 
 
 
@@ -133,7 +140,7 @@ ImageView iv1;
                 }
                 else
                     Toast.makeText(SendInvitationStatus.this,
-                            "Your invitation is Pending  " + rsp.getCode(), Toast.LENGTH_LONG).show();
+                            "Your invitation is Pending  ", Toast.LENGTH_LONG).show();
             }
 
             @Override

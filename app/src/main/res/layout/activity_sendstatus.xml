@@ -9,18 +9,18 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/login_title"
-        android:layout_marginBottom="110dp"
+       android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="110dp"
         android:background="@drawable/rounded_corner"
         android:divider="?attr/colorPrimary"
         android:dividerHeight="0.1dp"
         android:elevation="4dp"
         android:orientation="vertical"
-        android:padding="20dp"
+        android:padding="10dp"
         android:id="@+id/relativeLayout4">
 
         <!--
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:id="@+id/text1"
-            android:layout_above="@+id/text2"
+            android:layout_below="@+id/imgmm"
              />
 
         <TextView
@@ -72,8 +72,6 @@
             app:srcCompat="@drawable/msg_love"
 
             android:id="@+id/imgmm"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
 
@@ -85,7 +83,7 @@
             android:padding="5dp"
             android:textColor="#bf2a2a"
             android:id="@+id/text3"
-            android:layout_above="@+id/ok"
+            android:layout_below="@+id/textnum"
             android:layout_centerHorizontal="true"/>
 
         <TextView
@@ -96,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/text2"
-            android:layout_above="@+id/text3"
+            android:layout_below="@+id/text1"
             android:layout_alignParentRight="true" />
 
         <Button
@@ -107,9 +105,9 @@
             android:background="@drawable/roundbutton"
             android:textColor="#FFFFFF"
             android:id="@+id/ok"
+            android:layout_below="@+id/text3"
             style="@android:style/Widget.Button"
-            android:layout_alignBaseline="@+id/textView3"
-            android:layout_alignBottom="@+id/textView3"
+
             android:layout_alignLeft="@+id/imgmm"
             android:layout_alignStart="@+id/imgmm" />
 
@@ -117,12 +115,15 @@
             android:text="@string/resend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+           android:paddingTop="15dp"
+            android:paddingStart="30dp"
             android:id="@+id/textView3"
             android:textColor="#172bde"
-            android:layout_marginBottom="31dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/text1"
-            android:layout_alignEnd="@+id/text1" />
+            android:layout_toRightOf="@+id/ok"
+            android:paddingLeft="20dp"
+
+
+            android:layout_below="@+id/text3" />
 
     </RelativeLayout>
 
@@ -135,6 +136,15 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/heartrec"
+        android:id="@+id/imageView11"
+        android:layout_alignTop="@+id/imageView10"
+        android:layout_toLeftOf="@+id/imageView10"
+        android:layout_toStartOf="@+id/imageView10" />
 
 
 </RelativeLayout>

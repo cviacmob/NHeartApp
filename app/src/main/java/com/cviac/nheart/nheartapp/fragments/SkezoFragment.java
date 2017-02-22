@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.cviac.nheart.nheartapp.R;
 
@@ -56,6 +57,13 @@ public class SkezoFragment extends Fragment {
                     Intent i = new Intent(getActivity().getApplicationContext(), Skezo_Main.class);
                     startActivity(i);
                 }
+
+                if (pos1 == 1)
+                {
+                    Toast.makeText(getContext(), "I'm Under Renovation", Toast.LENGTH_LONG).show();
+
+                }
+
 
 
 

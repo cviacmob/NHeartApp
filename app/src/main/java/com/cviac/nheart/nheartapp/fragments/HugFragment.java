@@ -15,11 +15,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.cviac.nheart.nheartapp.R;
 
 import com.cviac.nheart.nheartapp.activities.Chat_Skezo;
 import com.cviac.nheart.nheartapp.activities.Chat_hug;
+import com.cviac.nheart.nheartapp.activities.Skezo_Main;
 import com.cviac.nheart.nheartapp.adapters.Huginfoadapter;
 import com.cviac.nheart.nheartapp.adapters.SkezoInfoAdapter;
 import com.cviac.nheart.nheartapp.datamodel.HugInfo;
@@ -57,20 +59,28 @@ public class HugFragment extends Fragment {
         Huginfoadapter adapter = new Huginfoadapter(getActivity(), huglist);
         lv2.setAdapter(adapter);
 
-
         lv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int pos1, long pos2) {
-              emp = huglist.get(pos1);
-                //String ss=emp.getMob().toString();
-                Intent i = new Intent(getActivity().getApplicationContext(), Chat_hug.class);
-                i.putExtra("mob", emp);
+                HugInfo emp = huglist.get(pos1);
 
-                startActivity(i);
+                if (pos1 == 0)
+                {
+                    Toast.makeText(getContext(), "I'm Under Renovation", Toast.LENGTH_LONG).show();
+                }
+
+                if (pos1 == 1)
+                {
+                    Toast.makeText(getContext(), "I'm Under Renovation", Toast.LENGTH_LONG).show();
+
+                }
+
+
+
+
             }
         });
-
 
         return view;
 

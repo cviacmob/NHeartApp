@@ -84,6 +84,15 @@ public class ProductdetailsActivity extends AppCompatActivity {
 
         Button buybutton = (Button) findViewById(R.id.buy);
 
+        buybutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addToCart(prdetail.getProduct_id(), "1");
+                Intent h = new Intent(ProductdetailsActivity.this, ContinueActivity.class);
+                startActivity(h);
+            }
+        });
+
 
 
         text2.setPaintFlags(text2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);

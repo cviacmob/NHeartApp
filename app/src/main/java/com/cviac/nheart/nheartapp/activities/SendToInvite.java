@@ -27,7 +27,7 @@ import retrofit.Retrofit;
 
 public class SendToInvite extends AppCompatActivity {
     Animation anim;
-    ImageView img4,img5,image6;
+    ImageView img4,img5;
     ProgressDialog progressDialog = null;
     String display_mobile;
     Button b;
@@ -47,7 +47,6 @@ public class SendToInvite extends AppCompatActivity {
         b = (Button) findViewById(R.id.getin);
         img4=(ImageView)findViewById(R.id.imageView5);
         img5=(ImageView)findViewById(R.id.imageView7);
-        image6=(ImageView)findViewById(R.id.imageView6);
 
         //tomobile=ed.getText().toString();
 
@@ -70,8 +69,13 @@ public class SendToInvite extends AppCompatActivity {
 
 
 
-
                     invitation(fromname,fromemail,frommobile,tomobile);
+                    anim = AnimationUtils.loadAnimation(getApplicationContext(),
+                            R.anim.move2);
+                    // Move
+
+
+                    img4.startAnimation(anim);
                 }
                 // finish();
 
@@ -106,23 +110,21 @@ public class SendToInvite extends AppCompatActivity {
 
                     //String resh=Prefs.getString("unpaired","");
 
-                    anim = AnimationUtils.loadAnimation(getApplicationContext(),
-                            R.anim.bottom_up);
-                    // Move
-
-
-                    image6.startAnimation(anim);
-
-
-                    anim = AnimationUtils.loadAnimation(getApplicationContext(),
-                            R.anim.move);
-                    // Move
-
-
-                    img4.startAnimation(anim);
 
                     Prefs.putString("to_mobile",to_mobile);
                     Prefs.putInt("inviteId", rsp.getId());
+
+                    try {
+
+                        Thread.sleep(3000);
+
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+
+
+                    }
+
                     //Prefs.putString("Customer_ID",rsp.getCustomer().getCustomer_id());
                     Intent logn = new Intent(SendToInvite.this, SendInvitationStatus.class);
 
@@ -156,6 +158,7 @@ public class SendToInvite extends AppCompatActivity {
                     Toast.makeText(SendToInvite.this,
                             "SendInvitation Failed: " + rsp.getCode(), Toast.LENGTH_LONG).show();
                 }
+
             }
             @Override
             public void onFailure(Throwable t) {

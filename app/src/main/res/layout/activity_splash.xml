@@ -5,18 +5,18 @@
     android:layout_height="match_parent">
 
 
-   <!--     <WebView
-            android:id="@+id/web"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />-->
+        <!--     <WebView
+                 android:id="@+id/web"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:layout_alignParentTop="true"
+                 android:layout_centerHorizontal="true" />-->
 
 
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/heart8"
+            android:src="@drawable/heartrec"
             android:id="@+id/img2"
             android:layout_marginRight="1dp"
             android:layout_marginEnd="1dp"
@@ -27,57 +27,57 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/heart8"
+            android:src="@drawable/heartrec"
             android:id="@+id/img1"
             android:layout_marginTop="20dp"
             android:layout_alignParentTop="true"/>
 
 
-    <ImageView
-        android:layout_width="70dp"
-        android:layout_height="80dp"
-        android:src="@drawable/loading"
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="80dp"
+            android:src="@drawable/loading"
 
-        android:id="@+id/imageView4"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
-
+            android:id="@+id/imageView4"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
 
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/splashtwo"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/imageView9" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ttex6"
-        android:text="Powered by"
-        android:textColor="#000"
-        android:textStyle="italic"
-        android:layout_above="@+id/imageView4"
-        android:layout_toRightOf="@+id/img1"
-        android:layout_toEndOf="@+id/img1"
-        android:layout_marginLeft="21dp"
-        android:layout_marginStart="21dp" />
 
-    <TextView
-        android:text="CVIAC"
-        android:textColor="#ca2c2c"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView7"
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="250dp"
+            android:src="@drawable/splashtwo"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/imageView9" />
 
-        android:layout_marginLeft="14dp"
-        android:layout_marginStart="14dp"
-        android:layout_above="@+id/imageView4"
-        android:layout_toRightOf="@+id/ttex6"
-        android:layout_toEndOf="@+id/ttex6" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ttex6"
+            android:text="Powered by"
+            android:textColor="#000"
+            android:textStyle="italic"
+            android:layout_above="@+id/imageView4"
+            android:layout_toRightOf="@+id/img1"
+            android:layout_toEndOf="@+id/img1"
+            android:layout_marginLeft="21dp"
+            android:layout_marginStart="21dp" />
+
+        <TextView
+            android:text="CVIAC"
+            android:textColor="#ca2c2c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView7"
+
+            android:layout_marginLeft="14dp"
+            android:layout_marginStart="14dp"
+            android:layout_above="@+id/imageView4"
+            android:layout_toRightOf="@+id/ttex6"
+            android:layout_toEndOf="@+id/ttex6" />
 
 
 </RelativeLayout>

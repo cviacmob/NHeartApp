@@ -133,7 +133,7 @@ public class Otpverification extends AppCompatActivity {
                 } else if (rsp.getCode() == 1005) {
                     progressDialog.dismiss();
                     Toast.makeText(Otpverification.this,
-                            "Mobile number / OTP  is wrong" + rsp.getCode(), Toast.LENGTH_LONG).show();
+                            "Mobile number / OTP  is wrong" , Toast.LENGTH_LONG).show();
                 }
             }
 

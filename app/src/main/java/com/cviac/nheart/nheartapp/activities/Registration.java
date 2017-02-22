@@ -22,8 +22,10 @@ import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.datamodel.ReginfoResponse;
 import com.cviac.nheart.nheartapp.restapi.Invitation;
 import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
+import com.squareup.okhttp.OkHttpClient;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -146,10 +148,14 @@ public class Registration extends AppCompatActivity {
         progressDialog.setMessage("Registering");
         progressDialog.setCancelable(false);
         progressDialog.show();
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://nheart.cviac.com")
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
                 .build();
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);
         Call<ReginfoResponse> call = api.register(firstname, lastname, email1, mob, pswd, cpswd);
@@ -177,13 +183,13 @@ public class Registration extends AppCompatActivity {
 
                     progressDialog.dismiss();
                     Toast.makeText(Registration.this,
-                            "Mobile number Not Valid" + rsp.getCode(), Toast.LENGTH_LONG).show();
+                            "Mobile number Not Valid", Toast.LENGTH_LONG).show();
                 }
 
                 else if(rsp.getCode() == 1002){
                     progressDialog.dismiss();
                     Toast.makeText(Registration.this,
-                            "E~Mail Not Valid" + rsp.getCode(), Toast.LENGTH_LONG).show();
+                            "E~Mail Not Valid", Toast.LENGTH_LONG).show();
                 }
             }
             @Override
