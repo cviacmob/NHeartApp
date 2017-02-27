@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
+import com.cviac.nheart.nheartapp.utilities.GPSTracker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -35,7 +36,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     String toname;
 
     private boolean showLevelPicker = true;
-
+    double latitude ,longitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //           toname= Prefs.getString("to_mobile", "");
 //        }
         //setTitle(toname);
+        GPSTracker gps = new GPSTracker(MapsActivity.this);
+
+        // check if GPS enabled
+        if(gps.canGetLocation()){
+
+            latitude = gps.getLatitude();
+             longitude = gps.getLongitude();
+            Prefs.putDouble("latitude",latitude);
+            Prefs.putDouble("longitude",longitude);
+            // \n is for new line
+            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
+                    + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+        }else{
+            // can't get location
+            // GPS or Network is not enabled
+            // Ask user to enable GPS/network in settings
+            gps.showSettingsAlert();
+        }
+
+
 
     }
 
@@ -70,17 +91,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng india = new LatLng(12.9830269,80.2594001);
+        LatLng india = new LatLng(latitude,longitude);
         mMap.addMarker(new MarkerOptions().position(india).title("Marker in chennai"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(12.9830269, 80.2594001), 18));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 18));
     }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        onBackPressed();
-        return true;
-    }
     public void actionmethod() {
         actionBar =  getSupportActionBar();
         if (actionBar != null) {
@@ -101,6 +117,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         }
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
+        return true;
 
     }
 

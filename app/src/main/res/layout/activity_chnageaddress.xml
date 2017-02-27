@@ -5,113 +5,75 @@
     android:id="@+id/activity_chnageaddress"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
 
     tools:context="com.cviac.nheart.nheartapp.activities.ChangeAddressActivity">
 
-    <TextView
-        android:text="ConfirmYour Shipping Address"
-        android:layout_width="wrap_content"
-        android:textSize="15dp"
-        android:textStyle="bold"
+    <RelativeLayout
+        android:id="@+id/accdet"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/confirmaddress" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/profimg"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/profl" />
+
+        <TextView
+            android:id="@+id/uname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/profimg"
+            android:paddingLeft="10dp"
+            android:text="Textview" />
+
+        <TextView
+            android:id="@+id/umail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/uname"
+            android:layout_toRightOf="@+id/profimg"
+            android:paddingLeft="10dp"
+            android:text="Textview" />
+
+        <TextView
+            android:id="@+id/uphone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/umail"
+            android:layout_toRightOf="@+id/profimg"
+            android:paddingLeft="10dp"
+            android:text="Textview" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/addtit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/accdet"
+        android:text="@string/txt_savdaddr"
+        android:textStyle="bold" />
 
     <ListView
+        android:id="@+id/addlst"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/addnew"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/listaddress"
-        android:layout_above="@+id/canc"
-        android:layout_alignRight="@+id/proceed"
-        android:layout_alignEnd="@+id/proceed" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addtit" />
 
-    <Button
-        android:text="Cancel"
-        android:layout_width="130dp"
-        android:layout_height="35dp"
-        android:background="#ffffff"
-        android:id="@+id/canc"
-        android:textStyle="bold"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/proceed"
-        android:layout_toStartOf="@+id/proceed"
-        android:layout_marginRight="28dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="28dp" />
-
-    <Button
-        android:text="Proceed to pay"
-        android:layout_width="180dp"
-        android:layout_height="35dp"
-        android:id="@+id/proceed"
-        android:background="#DC4187"
-        android:textStyle="bold"
-        android:layout_marginBottom="10dp"
-        android:textColor="#FDFEFE"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/addnew"
-        android:layout_alignEnd="@+id/addnew" />
-.
-
-    <ImageView
-        android:layout_width="70dp"
-        android:layout_height="60dp"
-       android:background="@drawable/giftsicon"
-        android:id="@+id/profilepic"
-        android:layout_below="@+id/addnew"
-        android:layout_alignLeft="@+id/confirmaddress"
-        android:layout_alignStart="@+id/confirmaddress" />
-
-    <TextView
-        android:text="Mobile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/emailid"
-        android:layout_alignLeft="@+id/emailid"
-        android:layout_alignStart="@+id/emailid"
-        android:id="@+id/rmobile"
-        android:textStyle="bold"
-        android:paddingLeft="10dp"/>
-
-    <TextView
-        android:text="Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rname"
-        android:textStyle="bold"
-        android:layout_alignTop="@+id/profilepic"
-        android:layout_toRightOf="@+id/profilepic"
-        android:layout_toEndOf="@+id/profilepic"
-        android:paddingLeft="10dp"/>
-
-    <TextView
-        android:text="Emai Id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/emailid"
-        android:paddingLeft="10dp"
-        android:textStyle="bold"
-        android:layout_below="@+id/rname"
-        android:layout_toRightOf="@+id/profilepic"
-        android:layout_toEndOf="@+id/profilepic" />
-
-    <Button
-        android:text="+ ADD NEW"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:paddingTop="2dp"
-        android:layout_marginRight="13dp"
-        android:layout_marginEnd="13dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/addnew"
-        android:textStyle="bold"
-      android:textColor="#ffffff"
-        android:background="#DC4187"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="@drawable/plustoaddd"/>
+
 </RelativeLayout>
