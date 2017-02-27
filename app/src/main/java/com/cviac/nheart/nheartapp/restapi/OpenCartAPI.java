@@ -74,7 +74,9 @@ public interface OpenCartAPI {
     Call<PairStatus> sendInvitation(@Field("name") String name,
                                          @Field("email")String email,
                                          @Field("mobile") String mobile,
-                                         @Field("to_mobile") String to_mobile);
+                                         @Field("to_mobile") String to_mobile,
+                                         @Field("pushid") String pushid
+                                    );
 
     @FormUrlEncoded
     @POST("/N-Heart/invite.php/resendinvite")

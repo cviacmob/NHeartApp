@@ -107,7 +107,7 @@
             android:name=".xmpp.XMPPService"
             android:enabled="true" />
 
-        <service android:name="com.cviac.nheart.nheartapp.services.MyFirebaseMessagingService">
+        <service android:name=".services.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

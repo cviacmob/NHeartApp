@@ -2,6 +2,7 @@ package com.cviac.nheart.nheartapp.services;
 
 import android.content.SharedPreferences;
 
+import com.cviac.nheart.nheartapp.Prefs;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
@@ -19,12 +20,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         //Log.d(TAG, "Refreshed token: " + refreshedToken);
         if (refreshedToken != null) {
-            final String MyPREFERENCES = "MyPrefs";
-            SharedPreferences prefs = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putString("pushId", refreshedToken);
-            editor.putString("pushIdsynced", "false");
-            editor.commit();
+            Prefs.putString("pushId", refreshedToken);
         }
     }
 }

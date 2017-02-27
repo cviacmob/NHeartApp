@@ -97,7 +97,8 @@ public class SendToInvite extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);
-        Call<PairStatus> call = api.sendInvitation(name, email, mobile,  to_mobile);
+        String pushid = Prefs.getString("pushId","");
+        Call<PairStatus> call = api.sendInvitation(name, email, mobile,  to_mobile,pushid);
         call.enqueue(new Callback<PairStatus>() {
             @Override
             public void onResponse(Response<PairStatus> response, Retrofit retrofit) {
