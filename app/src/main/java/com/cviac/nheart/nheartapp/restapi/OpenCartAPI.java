@@ -2,13 +2,17 @@ package com.cviac.nheart.nheartapp.restapi;
 
 import com.cviac.nheart.nheartapp.activities.InvitationReceived;
 import com.cviac.nheart.nheartapp.datamodel.AddToCartResponse;
+import com.cviac.nheart.nheartapp.datamodel.Addressinfo;
 import com.cviac.nheart.nheartapp.datamodel.CategoriesResponse;
 import com.cviac.nheart.nheartapp.datamodel.CategoryProductsResponse;
+import com.cviac.nheart.nheartapp.datamodel.CountryInfo;
+import com.cviac.nheart.nheartapp.datamodel.GeneralResponse;
 import com.cviac.nheart.nheartapp.datamodel.GetCartItemsResponse;
 import com.cviac.nheart.nheartapp.datamodel.LoginResponse;
 import com.cviac.nheart.nheartapp.datamodel.PairStatus;
 import com.cviac.nheart.nheartapp.datamodel.Productdetailresponse;
 import com.cviac.nheart.nheartapp.datamodel.ReginfoResponse;
+import com.cviac.nheart.nheartapp.datamodel.ZoneInfo;
 
 import java.util.List;
 
@@ -93,6 +97,47 @@ public interface OpenCartAPI {
 
     @POST("/N-Heart/invite.php/updateInvite")
     Call<PairStatus> updateInvite(@Body UpdateInvitation update);
+
+
+    @FormUrlEncoded
+    @POST("/index.php?route=api/address/add")
+    Call<GeneralResponse> addAddress(@Field("customer_id") String customer_id,
+                                     @Field("firstname") String firstname,
+                                     @Field("lastname") String lastname,
+                                     @Field("company") String company,
+                                     @Field("address_1") String address_1,
+                                     @Field("address_2") String address_2,
+                                     @Field("postcode") String postcode,
+                                     @Field("city") String city,
+                                     @Field("zone_id") String zonecode,
+                                     @Field("country_id") String country_id);
+
+    @FormUrlEncoded
+    @POST("/index.php?route=api/address/edit")
+    Call<GeneralResponse> editAddress(@Field("address_id") String address_id,
+                                      @Field("customer_id") String customer_id,
+                                      @Field("firstname") String firstname,
+                                      @Field("lastname") String lastname,
+                                      @Field("company") String company,
+                                      @Field("address_1") String address_1,
+                                      @Field("address_2") String address_2,
+                                      @Field("postcode") String postcode,
+                                      @Field("city") String city,
+                                      @Field("zone_id") String zone_id,
+                                      @Field("country_id") String country_id);
+
+    @GET("/index.php?route=api/address/getList")
+    Call<List<Addressinfo>> getAdresses(@Query("customer_id") String customer_id);
+
+    @GET("/index.php?route=api/address/delete")
+    Call<GeneralResponse> deleteAddress(@Query("address_id") String address_id,
+                                        @Query("customer_id") String customer_id);
+
+    @GET("/index.php?route=api/address/getCountries")
+    Call<List<CountryInfo>> getCountries();
+
+    @GET("/index.php?route=api/address/getZones")
+    Call<List<ZoneInfo>> getZones(@Query("country_id") String country_id);
 
 
 }

@@ -195,7 +195,7 @@ public class Skezo_Main extends AppCompatActivity implements View.OnClickListene
             actionBar.setDisplayShowHomeEnabled(false);
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setDisplayShowCustomEnabled(true);
-            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#D7017E")));
+            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#B24496")));
 
             View customView = getLayoutInflater().inflate(R.layout.actionbar_hug, null);
             customimage = (ImageView) customView.findViewById(R.id.imageViewcustom1);

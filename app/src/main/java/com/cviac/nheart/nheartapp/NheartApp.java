@@ -35,6 +35,7 @@ public class NheartApp extends MultiDexApplication {
     @Override
     public void onCreate(){
         super.onCreate();
+
         Configuration.Builder configurationBuilder = new Configuration.Builder(this);
         configurationBuilder.addModelClasses(ConvMessage.class);
         configurationBuilder.addModelClasses(HugInfo.class);

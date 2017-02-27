@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/new1"
         android:paddingLeft="10dp"
-        android:textColor="#D30875"
+        android:textColor="#9D0909"
         android:textSize="15sp"
         android:textStyle="bold"
         android:textIsSelectable="false"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/old"
         android:paddingLeft="10dp"
-        android:textColor="#D30875"
+        android:textColor="#9D0909"
         android:textSize="12sp"
 
         android:textStyle="normal"
