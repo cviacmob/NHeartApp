@@ -21,6 +21,7 @@ import retrofit.http.Body;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
+import retrofit.http.Header;
 import retrofit.http.POST;
 import retrofit.http.Path;
 import retrofit.http.Query;
@@ -140,4 +141,6 @@ public interface OpenCartAPI {
     Call<List<ZoneInfo>> getZones(@Query("country_id") String country_id);
 
 
+    @POST("/fcm/send")
+    Call<FCMSendMessageResponse> sendPushMessage(@Header("Authorization") String key, @Body PushMessageInfo info);
 }

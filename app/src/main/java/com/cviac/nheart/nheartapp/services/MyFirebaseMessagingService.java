@@ -44,7 +44,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             String notofi=remoteMessage.getNotification().getBody();
-                        //annoncement(notofi);
+            //annoncement(notofi);
             Log.d(TAG, "Message Annoncements Body: " + remoteMessage.getNotification().getBody());
 
         }
@@ -68,10 +68,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         // mId allows you to update the notification later on.
-
         mNotificationManager.notify(0, mBuilder.build());
-
-
     }
 
 

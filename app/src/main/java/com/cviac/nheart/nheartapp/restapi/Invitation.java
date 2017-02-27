@@ -7,18 +7,12 @@ import java.io.Serializable;
  */
 
 public class Invitation  implements Serializable{
-
-
     private String name;
     private String mobile;
-
-
     private String to_mobile;
     private String email_id;
     private String status;
-
-
-
+    private String pushid;
 
     public Invitation() {
     }
@@ -66,7 +60,12 @@ public class Invitation  implements Serializable{
         this.status = status;
     }
 
+    public String getPushid() {
+        return pushid;
+    }
 
-
+    public void setPushid(String pushid) {
+        this.pushid = pushid;
+    }
 }
 

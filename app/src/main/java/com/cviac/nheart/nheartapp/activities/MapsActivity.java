@@ -62,9 +62,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
              longitude = gps.getLongitude();
             Prefs.putDouble("latitude",latitude);
             Prefs.putDouble("longitude",longitude);
-            // \n is for new line
-            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
-                    + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+//            // \n is for new line
+//            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
+//                    + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
         }else{
             // can't get location
             // GPS or Network is not enabled

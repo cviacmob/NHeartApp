@@ -14,13 +14,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cviac.nheart.nheartapp.NheartApp;
 import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.datamodel.PairStatus;
 import com.cviac.nheart.nheartapp.datamodel.ReginfoResponse;
+import com.cviac.nheart.nheartapp.restapi.FCMSendMessageResponse;
 import com.cviac.nheart.nheartapp.restapi.Invitation;
 import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
+import com.cviac.nheart.nheartapp.restapi.PushMessageInfo;
 import com.cviac.nheart.nheartapp.restapi.UpdateInvitation;
+import com.squareup.okhttp.OkHttpClient;
+
+import java.util.concurrent.TimeUnit;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -39,6 +45,7 @@ public class InvitationReceived extends AppCompatActivity {
     TextView name, email, mobile,textvv;
     String mob;
     ImageButton callbtn;
+    Invitation invite;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +63,7 @@ public class InvitationReceived extends AppCompatActivity {
         textvv = (TextView) findViewById(R.id.text11);
         callbtn=(ImageButton)findViewById(R.id.call_button);
         Intent i = getIntent();
-        Invitation invite = (Invitation) i.getSerializableExtra("invite");
+        invite = (Invitation) i.getSerializableExtra("invite");
         // email.setText(invite.getEmail_id());
         //final String em=email.getText().toString();
         mobile.setText(invite.getMobile());
@@ -169,7 +176,7 @@ public class InvitationReceived extends AppCompatActivity {
                 }
 
                 if(rsp.getCode()==0){
-
+                    SendPushNotification(status);
                     if(status=="accepted"){
                         Prefs.putString("to_mobile",mob);
                         Prefs.putString("paired","true");
@@ -206,6 +213,49 @@ public class InvitationReceived extends AppCompatActivity {
                         "Pair Request failed" , Toast.LENGTH_LONG).show();
 
 
+            }
+        });
+    }
+
+    private void SendPushNotification(String status) {
+
+        if (invite == null) {
+            return;
+        }
+
+        String pushid = invite.getPushid();
+        if (pushid.isEmpty()) {
+            return;
+        }
+
+        String msg = "Your invitation to " + invite.getTo_mobile() + " is " + status;
+
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://fcm.googleapis.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build();
+        OpenCartAPI api = retrofit.create(OpenCartAPI.class);
+        String key = "key=AAAAtsX2lv4:APA91bHXo-G0dPI5UC6a7AUZmDRaEItUp_RPhNw7x3xOSpkjrN9wzDdf6Ui33zNjrc5D6rY7WYnH30qxd3WzHPdVUnF_n5xSBRJ9XhTIhB608Cc0GCp5rs9JDSYeWiNRVIUWwI5E9XM_";
+        PushMessageInfo pinfo = new PushMessageInfo();
+        pinfo.setTo(pushid);
+        PushMessageInfo.DataInfo dinfo = new PushMessageInfo.DataInfo();
+        dinfo.setMsg(msg);
+        dinfo.setSendername(invite.getTo_mobile());
+        dinfo.setSenderid(invite.getTo_mobile());
+        dinfo.setMsgId(invite.getTo_mobile());
+        pinfo.setData(dinfo);
+        final Call<FCMSendMessageResponse> call = api.sendPushMessage(key, pinfo);
+        call.enqueue(new Callback<FCMSendMessageResponse>() {
+            @Override
+            public void onResponse(Response<FCMSendMessageResponse> response, Retrofit retrofit) {
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
             }
         });
     }
