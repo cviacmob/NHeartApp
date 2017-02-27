@@ -8,8 +8,8 @@
         android:id="@+id/list_skezo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="?attr/colorPrimary"
-        android:dividerHeight="0.1dp"
+
+
         android:footerDividersEnabled="true"
         android:paddingTop="5dp"
         android:paddingLeft="10dp"

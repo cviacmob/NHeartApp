@@ -65,16 +65,16 @@ public class HugFragment extends Fragment {
             public void onItemClick(AdapterView<?> arg0, View arg1, int pos1, long pos2) {
                 HugInfo emp = huglist.get(pos1);
 
-                if (pos1 == 0)
-                {
-                    Toast.makeText(getContext(), "I'm Under Renovation", Toast.LENGTH_LONG).show();
-                }
 
-                if (pos1 == 1)
-                {
-                    Toast.makeText(getContext(), "I'm Under Renovation", Toast.LENGTH_LONG).show();
 
-                }
+
+                    Intent i = new Intent(getActivity().getApplicationContext(), Chat_hug.class);
+
+                    i.putExtra("mob",emp);
+
+                    startActivity(i);
+
+
 
 
 
@@ -92,14 +92,14 @@ public class HugFragment extends Fragment {
 
         huglist = new ArrayList<>();
 
-        HugInfo hi2 = new HugInfo(R.mipmap.docter, "7893939008", "thank you",new Date(), "Doctor");
+        HugInfo hi2 = new HugInfo(R.mipmap.docter, "9894250016", "thank you",new Date(), "Doctor");
         huglist.add(hi2);
 
         HugInfo hi = new HugInfo(R.mipmap.doctor22, "9791234809", "hello", new Date(), "Advisor");
         huglist.add(hi);
 
 
-        HugInfo hi1 = new HugInfo(R.mipmap.coun, "744", "how are you",new Date(), "Counsellor");
+        HugInfo hi1 = new HugInfo(R.mipmap.coun, "7871816364", "how are you",new Date(), "Counsellor");
         huglist.add(hi1);
 
 

@@ -10,26 +10,35 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created by user on 1/3/2017.
- */
-@Table(name = "huginfo")
+
 public class HugInfo extends Model implements Serializable {
-    @Column(name = "imgUrl")
-    private int imgUrl;
-    @Column(name = "mob")
-    String mob;
-    @Column(name = "description")
-    private String description;
-    @Column(name = "date")
-    private Date date;
-    @Column(name = "title")
-    private String title;
 
 
     public HugInfo(int imgUrl, String mob, String description, Date date, String title) {
         this.imgUrl = imgUrl;
         this.mob = mob;
+        this.description = description;
+
+        this.title = title;
+    }
+
+    private int imgUrl;
+
+
+
+   private  String mob;
+
+    private String description;
+
+    private String date;
+
+    private String title;
+
+
+
+    public HugInfo(int imgUrl,String mob, String description, String date, String title) {
+        this.imgUrl = imgUrl;
+        this.mob=mob;
         this.description = description;
         this.date = date;
         this.title = title;
@@ -43,7 +52,6 @@ public class HugInfo extends Model implements Serializable {
     public void setMob(String mob) {
         this.mob = mob;
     }
-
     public String getTitle() {
         return title;
     }
@@ -68,19 +76,20 @@ public class HugInfo extends Model implements Serializable {
         this.description = description;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
-    public String getformatteddate() {
+
+  /*  public String getformatteddate() {
         if (date == null) {
             return "";
         }
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
+        //calendar.setTime(date);
         Calendar today = Calendar.getInstance();
         Calendar yesterday = Calendar.getInstance();
         yesterday.add(Calendar.DATE, -1);
@@ -94,7 +103,7 @@ public class HugInfo extends Model implements Serializable {
             DateFormat dateform = new SimpleDateFormat("dd/MM/yy");
             return dateform.format(date);
         }
-
+*/
     }
 
-}
+

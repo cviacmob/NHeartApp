@@ -92,7 +92,7 @@ public class Chat_Skezo extends AppCompatActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_hug);
+        setContentView(R.layout.activity_chat);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         sendbutton =(ImageButton)findViewById(R.id.sendbutton);
@@ -150,7 +150,7 @@ public class Chat_Skezo extends AppCompatActivity implements View.OnClickListene
             actionBar.setDisplayShowHomeEnabled(false);
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setDisplayShowCustomEnabled(true);
-            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#D7017E")));
+            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#9D0909")));
 
             View customView = getLayoutInflater().inflate(R.layout.actionbar_hug, null);
             customimage = (ImageView) customView.findViewById(R.id.imageViewcustom1);

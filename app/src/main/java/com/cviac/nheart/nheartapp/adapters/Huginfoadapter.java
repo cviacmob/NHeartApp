@@ -19,10 +19,6 @@ import com.squareup.picasso.Picasso;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by user on 1/3/2017.
- */
-
 public class Huginfoadapter  extends BaseAdapter {
 
     Context ctx;
@@ -41,7 +37,6 @@ public class Huginfoadapter  extends BaseAdapter {
         TextView date;
 
     }
-
 
     @Override
     public int getCount() {
@@ -82,7 +77,7 @@ public class Huginfoadapter  extends BaseAdapter {
 
         holder.description.setText(ct.getDescription());
         holder.title22.setText(ct.getTitle());
-        holder.date.setText(ct.getformatteddate());
+        //holder.date.setText(ct.getformatteddate());
        int uri=ct.getImgUrl();
         Picasso.with(vw.getContext()).load(uri).resize(50, 50).transform(new CircleTransform())
                 .centerCrop().memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(holder.img);
