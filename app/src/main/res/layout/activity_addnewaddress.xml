@@ -1,216 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_addnewaddress"
+    android:id="@+id/activity_editaddress"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   android:background="#ffffff"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:padding="5dp"
     tools:context="com.cviac.nheart.nheartapp.activities.AddNewAddressActivity">
 
     <ScrollView
+        android:id="@+id/address_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollview"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_height="wrap_content">
+
         <RelativeLayout
+            android:id="@+id/scroll_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-    <TextView
-        android:text="Add a new address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="5dp"
-
-        android:textSize="15dp"
-        android:textStyle="bold"
-        android:id="@+id/newaddress"
-        android:layout_alignParentTop="true" />
+            android:layout_height="wrap_content">
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/city"
+                android:id="@+id/fname_l"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-
-                android:layout_below="@+id/pincode"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
+                android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/citybox"
+
+                    android:id="@+id/fname_ed"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:hint="City"
-                    android:background="@drawable/edittext_bg"
-                    android:inputType="text" />
+                    android:layout_height="wrap_content"
+                    android:hint="@string/edit_fname" />
+
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/name"
+                android:id="@+id/lname_l"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:layout_below="@+id/state"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
+                android:layout_below="@+id/fname_l">
 
                 <EditText
-                    android:id="@+id/fulnamebox"
+                    android:id="@+id/lname_ed"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:hint="fullname"
-                    android:background="@drawable/edittext_bg"
-                    android:inputType="text" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/mobile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:layout_below="@+id/name"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
+                    android:layout_height="wrap_content"
+                    android:hint="@string/edit_lname" />
 
-                <EditText
-                    android:id="@+id/mobilebox"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:maxLength="10"
-                    android:hint="Same as registered mobile number"
-                    android:background="@drawable/edittext_bg" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/state"
+                android:id="@+id/cmpny_l"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:layout_below="@+id/city"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
+                android:layout_below="@+id/lname_l">
 
                 <EditText
-                    android:id="@+id/statebox"
+                    android:id="@+id/cmpny_ed"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:hint="State"
-                    android:background="@drawable/edittext_bg"
-                    android:inputType="text" />
+                    android:layout_height="wrap_content"
+                    android:hint="@string/edit_cmpny" />
+
             </android.support.design.widget.TextInputLayout>
+
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/alternatemobile"
+                android:id="@+id/addr1_l"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:layout_below="@+id/mobile"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
+                android:layout_below="@+id/cmpny_l">
 
                 <EditText
-                    android:id="@+id/alternatemobilebox"
+                    android:id="@+id/addr1_ed"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:maxLength="10"
-                    android:hint="Alternate Mobile Number"
-                    android:background="@drawable/edittext_bg"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/edit_adrs1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/addr2_l"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addr1_l">
+
+                <EditText
+                    android:id="@+id/addr2_ed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/edt_adrs2" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/city_l"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addr2_l">
+
+                <EditText
+                    android:id="@+id/city_ed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/edit_cty" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/pin_l"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/city_l">
+
+                <EditText
+                    android:id="@+id/pin_ed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/edit_pin"
                     android:inputType="number" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/shipping"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:layout_below="@+id/alternatemobile"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
 
-                <EditText
-                    android:id="@+id/shippingbox"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:hint="Shipping Address"
-                    android:background="@drawable/edittext_bg"
-                    android:inputType="text" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/landmark"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:layout_below="@+id/shipping"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
-
-                <EditText
-                    android:id="@+id/landmarkbox"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:hint="Landmark"
-                    android:background="@drawable/edittext_bg"
-                    android:inputType="text" />
             </android.support.design.widget.TextInputLayout>
 
-            <Button
-                android:text="cancel"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_below="@+id/defaultaddress"
-                android:id="@+id/addcancel"
-                android:background="#ffffff"
-                android:textStyle="bold"
-                android:layout_marginBottom="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/pincode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:layout_below="@+id/newaddress"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
-
-                <EditText
-                    android:id="@+id/pinbox"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:hint="Picode"
-                    android:maxLength="6"
-                    android:background="@drawable/edittext_bg"
-                    android:inputType="number" />
-            </android.support.design.widget.TextInputLayout>
-
-            <CheckBox
-                android:text="Make this My default address"
+            <Spinner
+                android:id="@+id/country"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/defaultaddress"
-                android:layout_below="@+id/landmark"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:duplicateParentState="false"
-                android:cursorVisible="true" />
+                android:layout_below="@+id/pin_l"
+                android:layout_centerHorizontal="true" />
+
+            <Spinner
+                android:id="@+id/state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/country"
+                android:layout_centerHorizontal="true" />
 
             <Button
-                android:text="Save and conitnue"
-                android:layout_width="170dp"
-                android:layout_height="40dp"
-                android:id="@+id/savecontinue"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:background="#D30875"
-                android:layout_marginBottom="30dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_below="@+id/defaultaddress"
+                android:id="@+id/sub_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/state"
+                android:background="@drawable/roundcolorbtn"
+                android:text="@string/btn_sub"
+                android:textColor="#c90276" />
+
+            <Button
+                android:id="@+id/cncl_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_below="@+id/state"
+                android:background="@drawable/roundcolorbtn"
+                android:text="@string/btn_cncl"
+                android:textColor="#c90276" />
+
         </RelativeLayout>
+
     </ScrollView>
 
 </RelativeLayout>

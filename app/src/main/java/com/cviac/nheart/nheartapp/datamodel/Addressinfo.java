@@ -7,12 +7,85 @@ import java.io.Serializable;
  */
 
 public class Addressinfo implements Serializable {
-    public String getPincode() {
-        return pincode;
+
+    private String firstname;
+    private String lastname;
+    private String company;
+    private String address_id;
+    private String address_1;
+    private String address_2;
+    private String postcode;
+    private String city;
+    private String zone;
+    private String country;
+    private String zone_id;
+    private String country_id;
+
+    public Addressinfo() {
     }
 
-    public void setPincode(String pincode) {
-        this.pincode = pincode;
+    public String getZone_id() {
+        return zone_id;
+    }
+
+    public void setZone_id(String zone_id) {
+        this.zone_id = zone_id;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getAddress_id() {
+        return address_id;
+    }
+
+    public void setAddress_id(String address_id) {
+        this.address_id = address_id;
+    }
+
+    public String getAddress_1() {
+        return address_1;
+    }
+
+    public void setAddress_1(String address_1) {
+        this.address_1 = address_1;
+    }
+
+    public String getAddress_2() {
+        return address_2;
+    }
+
+    public void setAddress_2(String address_2) {
+        this.address_2 = address_2;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
     }
 
     public String getCity() {
@@ -23,83 +96,27 @@ public class Addressinfo implements Serializable {
         this.city = city;
     }
 
-    public String getState() {
-        return state;
+    public String getZone() {
+        return zone;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setZone(String zone) {
+        this.zone = zone;
     }
 
-    public String getFulname() {
-        return fulname;
+    public String getCountry() {
+        return country;
     }
 
-    public void setFulname(String fulname) {
-        this.fulname = fulname;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getCountry_id() {
+        return country_id;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setCountry_id(String country_id) {
+        this.country_id = country_id;
     }
-
-    public String getAlternatemobile() {
-        return alternatemobile;
-    }
-
-    public void setAlternatemobile(String alternatemobile) {
-        this.alternatemobile = alternatemobile;
-    }
-
-    public String getLandmark() {
-        return landmark;
-    }
-
-    public void setLandmark(String landmark) {
-        this.landmark = landmark;
-    }
-
-    public String getShipping() {
-        return shipping;
-    }
-
-    public void setShipping(String shipping) {
-        this.shipping = shipping;
-    }
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
-    }
-
-
-    public String pincode;
-
-    public Addressinfo(String fulname, String shipping, String city, String district, String state, String pincode, String mobile, String alternatemobile, String landmark) {
-        this.fulname = fulname;
-        this.shipping = shipping;
-        this.city = city;
-        this.district = district;
-        this.state = state;
-        this.pincode = pincode;
-        this.mobile = mobile;
-        this.alternatemobile = alternatemobile;
-        this.landmark = landmark;
-    }
-
-    public String district;
-    public String city;
-    public String state;
-    public String fulname;
-    public String mobile;
-    public String alternatemobile;
-    public String landmark;
-    public String shipping;
-
 }

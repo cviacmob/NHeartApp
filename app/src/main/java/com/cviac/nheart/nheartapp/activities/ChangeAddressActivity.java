@@ -1,6 +1,7 @@
 package com.cviac.nheart.nheartapp.activities;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,122 +14,109 @@ import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.adapters.AddressAdapter;
 import com.cviac.nheart.nheartapp.datamodel.Addressinfo;
-import com.cviac.nheart.nheartapp.datamodel.Product;
-import com.cviac.nheart.nheartapp.datamodel.ServiceInfo;
+import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
+import com.squareup.okhttp.OkHttpClient;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.GsonConverterFactory;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 public class ChangeAddressActivity extends AppCompatActivity {
 
-    Button addnew,decline;
+    TextView tv1, tv2, tv3;
+    List<Addressinfo> addhis;
     ListView lv;
-    TextView tv1,tv2,tv3;
-    List<Addressinfo> addresslist;
-    AddressAdapter adapt;
-    String name,emailid,mobile;
-
-
+    FloatingActionButton fab;
+    AddressAdapter adapter1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chnageaddress);
-        loadServices();
+
+
+        loadAddresses();
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Bundle b = getIntent().getExtras();
 
-       lv=(ListView)findViewById(R.id.listaddress);
-        adapt=new AddressAdapter(this,addresslist);
-       lv.setAdapter(adapt);
-        tv1=(TextView)findViewById(R.id.rname);
-        tv2=(TextView)findViewById(R.id.emailid);
-        tv3=(TextView)findViewById(R.id.rmobile);
+        String aname = Prefs.getString("Regname", "User_Name");
+        String amail = Prefs.getString("Regmail", "User_Email");
+        String aphone = Prefs.getString("Regphone", "User_Phone");
 
-        name= Prefs.getString("Name","");
-        emailid= Prefs.getString("Email","");
-        mobile= Prefs.getString("Phone","");
-        tv1.setText(name);
-        tv2.setText(emailid);
-        tv3.setText(mobile);
-//        Intent i = getIntent();
-//        Addressinfo addresslist = (Addressinfo) i.getSerializableExtra("address");
-        decline=(Button) findViewById(R.id.canc);
+        tv1 = (TextView) findViewById(R.id.uname);
+        tv2 = (TextView) findViewById(R.id.umail);
+        tv3 = (TextView) findViewById(R.id.uphone);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        addnew=(Button)findViewById(R.id.addnew);
-        decline.setOnClickListener(new View.OnClickListener() {
+        tv1.setText(aname);
+        tv2.setText(amail);
+        tv3.setText(aphone);
+
+        lv = (ListView) findViewById(R.id.addlst);
+        addhis = new ArrayList<>();
+        adapter1 = new AddressAdapter(ChangeAddressActivity.this, addhis);
+        lv.setAdapter(adapter1);
+
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent addaddr = new Intent(ChangeAddressActivity.this, AddNewAddressActivity.class);
+                startActivityForResult(addaddr, 140);
             }
         });
-        addnew.setOnClickListener(new View.OnClickListener() {
+    }
+
+    public void loadAddresses() {
+
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://nheart.cviac.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build();
+
+        OpenCartAPI api = retrofit.create(OpenCartAPI.class);
+
+        int c_id = Prefs.getInt("customer_id", -1);
+        Call<List<Addressinfo>> call = api.getAdresses(c_id + "");
+        call.enqueue(new Callback<List<Addressinfo>>() {
+
+            public void onResponse(Response<List<Addressinfo>> response, Retrofit retrofit) {
+                List<Addressinfo> rsp = response.body();
+                addhis.clear();
+                addhis.addAll(rsp);
+                adapter1.notifyDataSetInvalidated();
+            }
 
             @Override
-            public void onClick(View arg0) {
-
-                Intent mainIntent = new Intent(ChangeAddressActivity.this,AddNewAddressActivity.class);
-                startActivity(mainIntent);
+            public void onFailure(Throwable t) {
+                t.printStackTrace();
             }
         });
+    }
 
-            }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 140) {
+            loadAddresses();
+        } else if (requestCode == 141) {
+            loadAddresses();
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         onBackPressed();
         return true;
-    }
-
-    private void loadServices() {
-        addresslist = new ArrayList<Addressinfo>();
-        Addressinfo ad =  new Addressinfo("String", "String", "String", "String", "String","String","String","String","String");
-
-        Addressinfo ch1 = new Addressinfo("vinodkumar", "no-9,alagiri salai,periyar nagar", "chennai", "chennai", "tamilknadu",
-                "600097","9550986884","9566056773","near to ilangu nagar");
-        addresslist.add(ch1);
-        Addressinfo ch2 = new Addressinfo("manju", "no-9,perumal kovila street,indira nagar", "chennai", "chennai", "tamilknadu",
-                "600097","9550986884","9566056773","near to virugambakkam");
-        addresslist.add(ch2);
-        Addressinfo ch3 = new Addressinfo("kathiravan", "no-9,gandhi street,alawarthiru nagar", "chennai", "chennai", "tamilknadu",
-                "600097","8682011392","9566056773","near to shaligramam");
-        addresslist.add(ch3);
-
-
-//        ServiceInfo ch2 = new ServiceInfo(R.mipmap.fthree, "LILLY", "ByCviac", "₹ 35", "₹ 55");
-//        root.add(ch2);
-//
-//
-//        ServiceInfo ch3 = new ServiceInfo(R.mipmap.ffour, "JASMINE", "ByCviac", "₹ 65", "₹ 75");
-//        root.add(ch3);
-//
-//
-//        ServiceInfo ch4 = new ServiceInfo(R.mipmap.ffive, "LOTUS", "ByCviac", "₹ 35", "₹ 45");
-//        root.add(ch4);
-//
-//
-//        ServiceInfo ch5 = new ServiceInfo(R.mipmap.fsix, "ROSE", "ByCviac", "₹ 100", "₹ 115");
-//        root.add(ch5);
-//
-//        ServiceInfo ch6 = new ServiceInfo(R.mipmap.fseven, "LILLY", "ByCviac", "₹ 115", "₹ 150");
-//        root.add(ch6);
-//
-//        ServiceInfo ch7 = new ServiceInfo(R.mipmap.ffour, "JASMINE", "ByCviac", "₹ 150", "₹ 175");
-//        root.add(ch7);
-//
-//        ServiceInfo ch8 = new ServiceInfo(R.mipmap.ffive, "ROSE", "ByCviac", "₹ 35", "₹ 75");
-//        root.add(ch8);
-//
-//        ServiceInfo ch9 = new ServiceInfo(R.mipmap.fthree, "JASMINE", "ByCviac", "₹ 35", "₹ 45");
-//        root.add(ch9);
-//
-//        ServiceInfo ch10 = new ServiceInfo(R.mipmap.ffour, "LILLY", "ByCviac", "₹ 85", "₹ 95");
-//        root.add(ch10);
-//
-//        ServiceInfo ch11 = new ServiceInfo(R.mipmap.feight, "ROSE", "ByCviac", "₹ 25", "₹ 35");
-//        root.add(ch11);
-//
-//        ServiceInfo ch12 = new ServiceInfo(R.mipmap.fsix, "LOTUS", "ByCviac", "₹ 15", "₹ 25");
-//        root.add(ch12);
-
-
     }
 }
