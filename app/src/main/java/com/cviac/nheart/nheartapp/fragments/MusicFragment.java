@@ -12,6 +12,7 @@ import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 
 
+import com.cviac.nheart.nheartapp.activities.MainActivity;
 import com.cviac.nheart.nheartapp.activities.ProductdetailsActivity;
 import com.cviac.nheart.nheartapp.adapters.MusicInfoAdapter;
 import com.cviac.nheart.nheartapp.datamodel.MusicInfo;
@@ -19,9 +20,11 @@ import com.cviac.nheart.nheartapp.datamodel.Product;
 import com.cviac.nheart.nheartapp.datamodel.Songs;
 import com.squareup.picasso.Picasso;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,8 +37,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -257,8 +262,16 @@ public class MusicFragment extends Fragment {
         String sortOrder = MediaStore.Audio.AudioColumns.TITLE
                 + " COLLATE LOCALIZED ASC";
 
-        Cursor c = context.getContentResolver().query(uri, null, selection, null, sortOrder);
         ArrayList<MusicInfo> listOfSongs = new ArrayList<MusicInfo>();
+        if (ContextCompat.checkSelfPermission(getActivity(), (Manifest.permission.READ_EXTERNAL_STORAGE))
+                != PackageManager.PERMISSION_GRANTED)  {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE}, MainActivity.MY_PERMISSION_MEDIA);
+            return listOfSongs;
+        }
+
+        Cursor c = context.getContentResolver().query(uri, null, selection, null, sortOrder);
+
         try {
             c.moveToFirst();
             while (c.moveToNext()) {

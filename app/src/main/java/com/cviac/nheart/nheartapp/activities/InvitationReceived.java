@@ -246,7 +246,8 @@ public class InvitationReceived extends AppCompatActivity {
         dinfo.setMsg(msg);
         dinfo.setSendername(invite.getTo_mobile());
         dinfo.setSenderid(invite.getTo_mobile());
-        dinfo.setMsgId(invite.getTo_mobile());
+        String mypushid = Prefs.getString("pushId","");
+        dinfo.setMsgId(mypushid);
         pinfo.setData(dinfo);
         final Call<FCMSendMessageResponse> call = api.sendPushMessage(key, pinfo);
         call.enqueue(new Callback<FCMSendMessageResponse>() {

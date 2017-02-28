@@ -1,42 +1,33 @@
 package com.cviac.nheart.nheartapp.activities;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
-import com.cviac.nheart.nheartapp.utilities.GPSTracker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.IndoorBuilding;
-import com.google.android.gms.maps.model.IndoorLevel;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     android.support.v7.app.ActionBar actionBar;
-    TextView title,lastloca;
+    TextView title, lastloca;
     String toname;
 
     private boolean showLevelPicker = true;
-    double latitude ,longitude;
+    double latitude, longitude;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,31 +39,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-//        toname=Prefs.getString("to_name","");
-//        if(toname.isEmpty()) {
-//           toname= Prefs.getString("to_mobile", "");
-//        }
-        //setTitle(toname);
-        GPSTracker gps = new GPSTracker(MapsActivity.this);
-
-        // check if GPS enabled
-        if(gps.canGetLocation()){
-
-            latitude = gps.getLatitude();
-             longitude = gps.getLongitude();
-            Prefs.putDouble("latitude",latitude);
-            Prefs.putDouble("longitude",longitude);
-//            // \n is for new line
-//            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
-//                    + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
-        }else{
-            // can't get location
-            // GPS or Network is not enabled
-            // Ask user to enable GPS/network in settings
-            gps.showSettingsAlert();
-        }
-
-
 
     }
 
@@ -90,34 +56,43 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        latitude = Prefs.getDouble("latitude", -1);
+        longitude = Prefs.getDouble("longitude", -1);
         // Add a marker in Sydney and move the camera
-        LatLng india = new LatLng(latitude,longitude);
+        LatLng india = new LatLng(latitude, longitude);
         mMap.addMarker(new MarkerOptions().position(india).title("Marker in chennai"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 18));
     }
 
 
     public void actionmethod() {
-        actionBar =  getSupportActionBar();
+        actionBar = getSupportActionBar();
         if (actionBar != null) {
-// Disable the default and enable the custom
+            // Disable the default and enable the custom
             actionBar.setDisplayShowHomeEnabled(false);
             actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setDisplayShowCustomEnabled(true);
-            //actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3B5CD1")));
             View customView = getLayoutInflater().inflate(R.layout.actionbar_title, null);
-            title=(TextView) customView.findViewById(R.id.title);
-            toname=Prefs.getString("to_name","");
-            if(toname.isEmpty()) {
-                toname= Prefs.getString("to_mobile", "");
+            SwitchCompat cmpt = (SwitchCompat) customView.findViewById(R.id.switch1);
+            title = (TextView) customView.findViewById(R.id.title);
+            toname = Prefs.getString("to_name", "");
+            if (toname.isEmpty()) {
+                toname = Prefs.getString("to_mobile", "");
             }
             title.setText(toname);
-            lastloca=(TextView)customView.findViewById(R.id.lastlocation);
+            lastloca = (TextView) customView.findViewById(R.id.lastlocation);
             actionBar.setCustomView(customView);
-
-
+            cmpt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
+                        Toast.makeText(getApplicationContext(), "Track On", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Track Off", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
         }
-
     }
 
     @Override
