@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,7 +33,8 @@ public class ChangeAddressActivity extends AppCompatActivity {
     TextView tv1, tv2, tv3;
     List<Addressinfo> addhis;
     ListView lv;
-    FloatingActionButton fab;
+    ImageButton
+            fab;
     AddressAdapter adapter1;
 
     @Override
@@ -52,7 +54,7 @@ public class ChangeAddressActivity extends AppCompatActivity {
         tv1 = (TextView) findViewById(R.id.uname);
         tv2 = (TextView) findViewById(R.id.umail);
         tv3 = (TextView) findViewById(R.id.uphone);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (ImageButton) findViewById(R.id.fab);
 
         tv1.setText(aname);
         tv2.setText(amail);

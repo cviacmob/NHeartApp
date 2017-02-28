@@ -1,6 +1,7 @@
 package com.cviac.nheart.nheartapp.datamodel;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by admin1 on 11/24/2016.
@@ -15,6 +16,7 @@ public class Product implements Serializable{
     private String href;
     private String price;
     private String special;
+    List<Product> sublist;
 
 
     public String getSpecial() {
@@ -70,6 +72,10 @@ public class Product implements Serializable{
 
     public void setPrice(String price) {
         this.price = price;
+    }
+    public List<Product> getSublist()
+    {
+        return sublist;
     }
 
 }

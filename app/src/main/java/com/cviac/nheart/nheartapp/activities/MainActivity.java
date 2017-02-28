@@ -271,6 +271,7 @@ public class MainActivity extends AppCompatActivity {
 
                 {
                     GiftFragment gfrag = (GiftFragment) getSupportFragmentManager().getFragments().get(1);
+
                     gfrag.refresh(catId);
 
 
