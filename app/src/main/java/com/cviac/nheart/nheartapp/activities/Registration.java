@@ -143,7 +143,7 @@ public class Registration extends AppCompatActivity {
 
 
         progressDialog = new ProgressDialog(Registration.this,
-                R.style.AppTheme_Dark_Dialog);
+                R.style.AppCompatAlertDialogStyle);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Registering");
         progressDialog.setCancelable(false);

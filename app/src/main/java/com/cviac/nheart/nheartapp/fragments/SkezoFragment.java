@@ -1,5 +1,6 @@
 package com.cviac.nheart.nheartapp.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,11 +12,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.cviac.nheart.nheartapp.R;
 
 import com.cviac.nheart.nheartapp.activities.Chat_Skezo;
+import com.cviac.nheart.nheartapp.activities.Registration;
 import com.cviac.nheart.nheartapp.activities.Skezo_Main;
 import com.cviac.nheart.nheartapp.adapters.SkezoInfoAdapter;
 import com.cviac.nheart.nheartapp.datamodel.MusicInfo;
@@ -26,25 +29,26 @@ import java.util.List;
 
 
 public class SkezoFragment extends Fragment {
+    ProgressBar progress;
     private List<SkezoInfo> skezolist;
     public ListView lv2;
     ImageButton fab;
-
+    ProgressDialog progressDialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_skezo, container, false);
 
         lv2 = (ListView) view.findViewById(R.id.list_skezo);
-        //fab=(ImageButton)view.findViewById(R.id.fab);
+       /*  progress = (ProgressBar)getActivity().findViewById(R.id.progressBarFetch);
+        progress.setVisibility(View.VISIBLE);
+        progress.setIndeterminate(true);*/
+
         values();
-
-
+      /*  progress.setVisibility(View.GONE);*/
 
         SkezoInfoAdapter adapter = new SkezoInfoAdapter(getActivity(), skezolist);
+
         lv2.setAdapter(adapter);
-
-
-
 
         lv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -63,47 +67,20 @@ public class SkezoFragment extends Fragment {
                     Toast.makeText(getContext(), "I'm Under Renovation", Toast.LENGTH_LONG).show();
 
                 }
-
-
-
-
             }
         });
-
-
-
-
-
-
-
         return view;
-
-
-
-
-
-
     }
-
-
-
 
     private void values(){
 
         skezolist=new ArrayList<>();
-
-
-
-
 
         SkezoInfo si1=new SkezoInfo(R.mipmap.girlone," ","a moment ago","Libo");
         skezolist.add(si1);
 
         SkezoInfo si2=new SkezoInfo(R.mipmap.girltwo," ","a moment ago","Tibo");
         skezolist.add(si2);
-
-
-
 
     }
 
@@ -122,9 +99,4 @@ public class SkezoFragment extends Fragment {
 
         super.onPrepareOptionsMenu(menu);
     }
-
-
-
-
-
 }

@@ -10,6 +10,12 @@
     android:paddingTop="1dp"
     android:windowSoftInputMode="stateHidden">
 
+    <ProgressBar
+        android:id="@+id/progressBarGift"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true" />
 
     <GridView
         android:id="@+id/gridView1"

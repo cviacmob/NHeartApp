@@ -51,6 +51,7 @@ public class InvitationReceived extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite);
 
+
         accept = (Button) findViewById(R.id.accept);
         name = (TextView) findViewById(R.id.name1);
         img5=(ImageView)findViewById(R.id.imageView8);
@@ -146,7 +147,7 @@ public class InvitationReceived extends AppCompatActivity {
 
 
         progressDialog = new ProgressDialog(InvitationReceived.this,
-                R.style.AppTheme_Dark_Dialog);
+                R.style.AppCompatAlertDialogStyle);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Please Wait");
         progressDialog.setCancelable(false);
@@ -200,7 +201,7 @@ public class InvitationReceived extends AppCompatActivity {
                 else{
                     progressDialog.dismiss();
                     Toast.makeText(InvitationReceived.this,
-                            "Already Paired With Someone ", Toast.LENGTH_LONG).show();
+                            "Update Failed", Toast.LENGTH_LONG).show();
 
                 }
             }

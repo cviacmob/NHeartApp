@@ -85,7 +85,11 @@ public class Productsadapter extends BaseAdapter {
 
        // url = url.replace("localhost","192.168.1.133");
         try {
-            Picasso.with(vw.getContext()).load(url).resize(500,500).into( holder.imgView);
+
+            Picasso.with(vw.getContext()).load(url).placeholder(R.drawable.icon_gift).resize(500,500).into( holder.imgView);
+
+            //Picasso.with(vw.getContext()).load(url)
+
 //            holder.imgView.setImageURI(Uri.parse(url));
         } catch (Exception e) {
             e.printStackTrace();

@@ -162,7 +162,7 @@ ImageView iv1,iv2;
     public void resendInvitation(final int id) {
 
         progressDialog = new ProgressDialog(SendInvitationStatus.this,
-                R.style.AppTheme_Dark_Dialog);
+                R.style.AppCompatAlertDialogStyle);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Please Wait");
         progressDialog.setCancelable(false);
