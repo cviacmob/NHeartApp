@@ -8,7 +8,6 @@
     <string name="title_activity_maps">Map</string>
     <string name="server">ec2-35-162-147-104.us-west-2.compute.amazonaws.com</string>
     <string name="resend"><b><u>resend</u></b></string>
-
     <string name="edit_email">E-Mail ID</string>
     <string name="edit_pwd">Password</string>
     <string name="edit_cnfpwd">Confirm Password</string>
@@ -31,6 +30,7 @@
 
     <string name="btn_sub">Submit</string>
     <string name="btn_cncl">Cancel</string>
+    <string name="otpcontent">Please enter the 6-digit confirmation code that has send to your registered mobile number.If you do not received your OTP click resend</string>
 
 
 </resources>

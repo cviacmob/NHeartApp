@@ -1,9 +1,11 @@
 package com.cviac.nheart.nheartapp.fragments;
 
         import android.app.Activity;
+        import android.app.ProgressDialog;
         import android.content.Context;
 
         import android.content.Intent;
+        import android.os.AsyncTask;
         import android.os.Bundle;
         import android.os.IBinder;
         import android.support.annotation.Nullable;
@@ -48,14 +50,17 @@ public class GiftFragment extends Fragment{
     Context thiscontext;
     List<Product> prodlist;
     Productsadapter adapter;
-
-
-
+    ProgressBar progressBar;
+    ProgressBar pb;
+    ProgressDialog progressDialog = null;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View cv=inflater.inflate(R.layout.grid_layout,container,false);
+        pb = (ProgressBar) cv.findViewById(R.id.progressBarGift);
+        pb.setVisibility(ProgressBar.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
         thiscontext = container.getContext();
         getActivity().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -73,8 +78,10 @@ public class GiftFragment extends Fragment{
         prodlist = new ArrayList<Product>();
         //gv=(ListView) cv.findViewById(R.id.listview);
         gv=(GridView) cv.findViewById(R.id.gridView1);
+
             adapter = new Productsadapter(getActivity(), prodlist);
             gv.setAdapter(adapter);
+
        // ImageButton b=(ImageButton)cv.findViewById((R.id.catogry));
 
 
@@ -112,7 +119,12 @@ public class GiftFragment extends Fragment{
 
     }
 
-    public void refresh(String catId) {
+
+
+
+
+
+        public void refresh(String catId) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://nheart.cviac.com")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -125,6 +137,7 @@ public class GiftFragment extends Fragment{
             @Override
             public void onResponse(Response<CategoryProductsResponse> response, Retrofit retrofit) {
                 CategoryProductsResponse rsp = response.body();
+                pb.setVisibility(ProgressBar.INVISIBLE);
                 prodlist.clear();
                 prodlist.addAll(rsp.getProducts());
                 // adapter.notifyDataSetChanged();
@@ -139,6 +152,7 @@ public class GiftFragment extends Fragment{
 
             @Override
             public void onFailure(Throwable t) {
+                pb.setVisibility(ProgressBar.INVISIBLE);
                 prodlist = null;
             }
         });

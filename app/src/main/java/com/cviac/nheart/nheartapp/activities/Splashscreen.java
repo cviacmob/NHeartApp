@@ -37,7 +37,7 @@ public class Splashscreen extends Activity {
     public String paired;
 
     Animation animMove,mv1,fade;
-    ImageView img,img1,img2,iv5,iv9;
+    ImageView img,img2,img3,iv5,iv9;
     TextView ttex1,ttex2,ttex3,ttex4,ttex5;
     ImageView imageView;
     private GifImageView gifImageView;
@@ -49,7 +49,7 @@ public class Splashscreen extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      /*  requestWindowFeature(Window.FEATURE_NO_TITLE);
+    /*    requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         setContentView(R.layout.activity_splash);
@@ -69,8 +69,8 @@ public class Splashscreen extends Activity {
 
 
         img=(ImageView) findViewById(R.id.img1) ;
-        img1=(ImageView) findViewById(R.id.img2) ;
-        img2=(ImageView)findViewById(R.id.imageView4);
+        img2=(ImageView) findViewById(R.id.img2) ;
+        img3=(ImageView)findViewById(R.id.imageView4);
         iv9=(ImageView)findViewById(R.id.imageView9);
 
 
@@ -94,7 +94,7 @@ public class Splashscreen extends Activity {
         // Move
 
 
-        img2.startAnimation(animMove);
+        img3.startAnimation(animMove);
 
         animMove = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.move);
@@ -106,7 +106,7 @@ public class Splashscreen extends Activity {
         mv1 = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.move1);
 
-        img1.startAnimation(mv1);
+        img2.startAnimation(mv1);
 
 
 

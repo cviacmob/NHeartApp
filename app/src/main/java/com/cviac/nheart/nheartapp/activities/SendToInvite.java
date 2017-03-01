@@ -86,7 +86,7 @@ public class SendToInvite extends AppCompatActivity {
     public void invitation(String name, String email, String mobile, final String to_mobile) {
 
         progressDialog = new ProgressDialog(SendToInvite.this,
-                R.style.AppTheme_Dark_Dialog);
+                R.style.AppCompatAlertDialogStyle);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Please Wait");
         progressDialog.setCancelable(false);

@@ -3,8 +3,14 @@ package com.cviac.nheart.nheartapp.activities;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,9 +35,9 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class Otpverification extends AppCompatActivity {
-
+    String a;
     ProgressDialog progressDialog = null;
-
+    int keyDel;
     int counter=0;
     Button b, resend;
     EditText pin;
@@ -43,10 +49,13 @@ public class Otpverification extends AppCompatActivity {
         setContentView(R.layout.activity_otp);
 
 
-
         b = (Button) findViewById(R.id.verifybutton);
         resend = (Button) findViewById(R.id.resend);
         pin = (EditText) findViewById(R.id.editText1);
+
+        pin.setRawInputType(Configuration.KEYBOARD_12KEY);
+
+
         b.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -56,7 +65,7 @@ public class Otpverification extends AppCompatActivity {
                 String aaa = pin.getText().toString();
                 boolean error = false;
                 if (aaa.length() == 0) {
-                    pin.setError("enter the pin");
+                    pin.setError("Enter the pin");
                     pin.requestFocus();
                     error = true;
                 }
@@ -76,10 +85,12 @@ public class Otpverification extends AppCompatActivity {
                 String mobile = Prefs.getString("mobile", "");
 
                 if (counter < 3) {
+                    resend.setVisibility(View.VISIBLE);
                     resendotp(mobile);
                 }
 
                 else{
+                    resend.setVisibility(View.INVISIBLE);
                     Toast.makeText(Otpverification.this, "you exceeded max attempts", Toast.LENGTH_LONG).show();
                 }
 
@@ -90,7 +101,7 @@ public class Otpverification extends AppCompatActivity {
     public void otpVerify(final String mob, String pin) {
 
         progressDialog = new ProgressDialog(Otpverification.this,
-                R.style.AppTheme_Dark_Dialog);
+                R.style.AppCompatAlertDialogStyle);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Verifying");
         progressDialog.setCancelable(false);

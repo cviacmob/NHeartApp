@@ -30,7 +30,6 @@ import org.alicebot.ab.MagicStrings;
 import org.alicebot.ab.PCAIMLProcessorExtension;
 
 
-
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.adapters.ChatMessageAdapter;
 import com.cviac.nheart.nheartapp.adapters.CircleTransform;
@@ -46,55 +45,43 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Chat_hug extends AppCompatActivity implements View.OnClickListener  {
-
+public class Chat_hug extends AppCompatActivity implements View.OnClickListener {
 
     android.support.v7.app.ActionBar actionBar;
 
     private ListView mListView;
     private ImageButton mButtonSend;
     private EditText mEditTextMessage;
-    TextView presenceText;
-    private ImageView mImageView, customimage;
+    private ImageView customimage;
     private static final int MY_PERMISSION_CALL_PHONE = 10;
     public static Chat chat;
     private ChatMessageAdapter mAdapter;
-    List<HugInfo> huglist;
-    HugInfo hug,hug1;
-    String ss1,ss;
+    HugInfo hug;
+    String ss1, mob;
 
-    String callnum = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_virtual);
 
-
-
-
         mListView = (ListView) findViewById(R.id.listViewChat);
         mButtonSend = (ImageButton) findViewById(R.id.sendbutton);
         mEditTextMessage = (EditText) findViewById(R.id.editTextsend);
-        //mImageView = (ImageView) findViewById(R.id.iv_image);
         mAdapter = new ChatMessageAdapter(this, new ArrayList<ChatMessage>());
         mListView.setAdapter(mAdapter);
 
         final String MyPREFERENCES = "MyPrefs";
         SharedPreferences prefs = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
 
-
         Intent i = getIntent();
-        hug=(HugInfo)i.getSerializableExtra("mob");
+        hug = (HugInfo) i.getSerializableExtra("mob");
 
-        //callnum=hug.getMob();
-        ss=hug.getMob();
-        ss1=hug.getTitle();
+        mob = hug.getMob();
+        ss1 = hug.getTitle();
         setTitle(ss1);
 
         actionmethod();
-
-
 
         mButtonSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,8 +98,6 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
                 mListView.setSelection(mAdapter.getCount() - 1);
             }
         });
-        //checking SD card availablility
-
     }
 
     private void sendMessage(String message) {
@@ -153,10 +138,6 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
-
-
-
-
     public void actionmethod() {
 
         actionBar = getSupportActionBar();
@@ -170,39 +151,16 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
             View customView = getLayoutInflater().inflate(R.layout.actionbar_hug, null);
             customimage = (ImageView) customView.findViewById(R.id.imageViewcustom1);
 
-
-            // presenceText = (TextView) customView.findViewById(R.id.textView51);
-
-           /* Picasso.with(this).load(R.drawable.ic_call).resize(120, 100).transform(new CircleTransform())
-                    .into(cuscall);*/
-
-
             Picasso.with(this).load(R.mipmap.docter).resize(100, 100).transform(new CircleTransform())
-
 
                     .centerCrop().memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(customimage);
 
             TextView customTitle = (TextView) customView.findViewById(R.id.actionbarTitle1);
 
-         customTitle.setText(ss1);
+            customTitle.setText(ss1);
             actionBar.setCustomView(customView);
         }
-
-
     }
-/*
-
-    public void calling(){
-
-        hug = new ArrayList<>();
-
-        HugInfo h1=new HugInfo("12345");
-        hug.add(h1);
-    }
-*/
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -216,33 +174,18 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
         onBackPressed();
         switch (item.getItemId()) {
             case R.id.progress1:
-               ImageView cuscall = (ImageView) findViewById(R.id.ivcall);
+                ImageView cuscall = (ImageView) findViewById(R.id.ivcall);
                 onClick(cuscall);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-
-/*
-    @Override
-    public void onClick(View v) {
-
-        Intent callintent = new Intent(Intent.ACTION_CALL);
-        callintent.setData(Uri.parse("tel:" + hug.getMob()));
-        if (ActivityCompat.checkSelfPermission(Chat_hug.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(Chat_hug.this, new String[]{Manifest.permission.CALL_PHONE}, MY_PERMISSION_CALL_PHONE);
-            return;
-        }
-        startActivity(callintent);
-    }
-*/
-
     @Override
     public void onClick(View v) {
 
         Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:" + hug.getMob()));
+        callIntent.setData(Uri.parse("tel:" + mob));
         if (ContextCompat.checkSelfPermission(this, (android.Manifest.permission.CALL_PHONE))
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(Chat_hug.this, new String[]{android.Manifest.permission.CALL_PHONE}, MY_PERMISSION_CALL_PHONE);
@@ -258,7 +201,7 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
             case MY_PERMISSION_CALL_PHONE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Intent callintent = new Intent(Intent.ACTION_CALL);
-                    callintent.setData(Uri.parse("tel:" + hug.getMob()));
+                    callintent.setData(Uri.parse("tel:" + mob));
                     if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                         return;
                     }
@@ -267,10 +210,4 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
             }
         }
     }
-
-
-
 }
-
-
-

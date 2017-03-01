@@ -7,6 +7,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ProgressBar
+        android:id="@+id/progressBarMusic"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true" />
 
     <ListView
         android:id="@+id/list1"
@@ -17,6 +23,8 @@
         android:layout_centerHorizontal="true"
         android:background="?android:activatedBackgroundIndicator"
         android:divider="?attr/colorPrimary"
+        android:persistentDrawingCache="scrolling"
+        android:smoothScrollbar="false"
         android:dividerHeight="0.1dp"
         android:footerDividersEnabled="true"
         android:paddingLeft="10dp"
@@ -119,10 +127,5 @@
             android:textColor="#fa4b4848"
             android:textStyle="italic" />
     </RelativeLayout>
-    <ProgressBar
-        android:id="@+id/ProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:layout_centerHorizontal="true"/>
+   
 </RelativeLayout>
