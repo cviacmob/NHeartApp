@@ -100,6 +100,12 @@
             android:name=".activities.MapsActivity"
             android:label=""></activity>
 
+        <activity
+            android:name=".activities.EmptyCartListActivity"
+            android:label=""></activity>
+
+
+
 
         <service
             android:name=".xmpp.XMPPService"

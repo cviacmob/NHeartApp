@@ -60,7 +60,7 @@ import static com.cviac.nheart.nheartapp.R.id.media_actions;
 
 public class MusicFragment extends Fragment {
     private ImageButton btnPlay;
-    static public MediaPlayer mp;
+
     private TextView title, artist, bduration;
     private ListView lv;
     private List<MusicInfo> songlist;
@@ -68,6 +68,10 @@ public class MusicFragment extends Fragment {
     private int musicCounter = 0;
     private Thread updateseekbar;
     private SeekBar sb;
+
+    public MediaPlayer mp;
+
+    private MusicInfoAdapter adapter;
 
     private ProgressDialog progressDialog=null;
 
@@ -79,17 +83,8 @@ public class MusicFragment extends Fragment {
 
 
         lv = (ListView) view.findViewById(list1);
-        progressDialog=new ProgressDialog(getContext(),R.style.AppTheme_AppBarOverlay);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Loading");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
 
-        if (progressDialog!=null){
-            progressDialog.dismiss();
-        }
 
-        mp = new MediaPlayer();
         btnPlay = (ImageButton) view.findViewById(R.id.btnimg);
 
 
@@ -99,11 +94,16 @@ public class MusicFragment extends Fragment {
         bduration = (TextView) view.findViewById(R.id.texdura);
         songimg = (ImageView) view.findViewById(R.id.musicimg);
 
-        songlist = listOfSongs(getActivity());
+        songlist = ((MainActivity) getActivity()).getSonglist();
+        if (songlist.size() == 0 ) {
+            new LoadMediaTask().execute();
+        }
+        else {
+            adapter = new MusicInfoAdapter(getActivity(), songlist);
+            lv.setAdapter(adapter);
+        }
 
-
-        final MusicInfoAdapter adapter = new MusicInfoAdapter(getActivity(), songlist);
-        lv.setAdapter(adapter);
+        mp = ((MainActivity) getActivity()).getMediaPlayer();
 
         sb = (SeekBar) view.findViewById(R.id.seekBar3);
         updateseekbar = new Thread() {
@@ -218,6 +218,7 @@ public class MusicFragment extends Fragment {
                     adapter.notifyDataSetChanged();
 
                 } else {
+
                     mp.start();
                 }
                 if (mp.isPlaying()) {
@@ -240,13 +241,60 @@ public class MusicFragment extends Fragment {
             artist.setText("");
             bduration.setText("");
         }
-
-
-
-
-
         return view;
+    }
 
+
+    private class LoadMediaTask extends AsyncTask<String, Integer, Long> {
+
+        ArrayList<MusicInfo> list;
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+//            progressDialog=new ProgressDialog(getContext(),R.style.AppTheme_AppBarOverlay);
+//            progressDialog.setIndeterminate(true);
+//            progressDialog.setMessage("Loading");
+//            progressDialog.setCancelable(false);
+//            progressDialog.show();
+        }
+
+        @Override
+        protected Long doInBackground(String... params) {
+            list = listOfSongs(getActivity());
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Long aLong) {
+            super.onPostExecute(aLong);
+//            if (progressDialog!=null){
+//                progressDialog.dismiss();
+//            }
+            ((MainActivity) getActivity()).setSonglist(list);
+            songlist = list;
+            if (songlist.size() > 0) {
+                MusicInfo info = songlist.get(0);
+                title.setText(info.getTitle());
+                artist.setText(info.getSingers());
+                bduration.setText(info.getDuration());
+                Picasso.with(getContext()).load(Uri.parse("file://" + info.getImgUrl())).resize(50, 50).into(songimg);
+                try {
+                    mp.setDataSource(info.getPath());
+                    mp.prepare();
+                    sb.setMax(mp.getDuration());
+                }
+                catch (Exception ex) {
+                }
+            } else {
+                title.setText("");
+                artist.setText("");
+                bduration.setText("");
+            }
+            adapter = new MusicInfoAdapter(getActivity(), songlist);
+            lv.setAdapter(adapter);
+        }
     }
 
 

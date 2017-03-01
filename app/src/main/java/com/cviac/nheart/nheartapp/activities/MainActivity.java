@@ -43,6 +43,7 @@ import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.datamodel.GetCartItemsResponse;
 import com.cviac.nheart.nheartapp.datamodel.LoginResponse;
+import com.cviac.nheart.nheartapp.datamodel.MusicInfo;
 import com.cviac.nheart.nheartapp.fragments.ChatFragment;
 
 
@@ -107,6 +108,20 @@ public class MainActivity extends AppCompatActivity {
     private ChatFragment chatFrag;
     GPSTracker gpstracker;
 
+    private MediaPlayer mp = new MediaPlayer();
+
+    private List<MusicInfo> songlist;
+
+    public List<MusicInfo> getSonglist() {
+        if (songlist == null) {
+            songlist = new ArrayList<MusicInfo>();
+        }
+        return songlist;
+    }
+
+    public void setSonglist(List<MusicInfo> songlist) {
+        this.songlist = songlist;
+    }
 
     private final ServiceConnection mConnection = new ServiceConnection() {
 
@@ -152,6 +167,10 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "onLocationServiceDisconnected");
         }
     };
+
+    public MediaPlayer getMediaPlayer() {
+        return mp;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -546,7 +565,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        MediaPlayer mp = MusicFragment.mp;
         if (mp != null) {
             mp.release();
         }
