@@ -2,22 +2,20 @@ package com.cviac.nheart.nheartapp.activities;
 
 import android.Manifest;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.IBinder;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -37,9 +35,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
-import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +43,7 @@ import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.datamodel.GetCartItemsResponse;
 import com.cviac.nheart.nheartapp.datamodel.LoginResponse;
+import com.cviac.nheart.nheartapp.datamodel.MusicInfo;
 import com.cviac.nheart.nheartapp.fragments.ChatFragment;
 
 
@@ -56,22 +53,19 @@ import com.cviac.nheart.nheartapp.fragments.MusicFragment;
 import com.cviac.nheart.nheartapp.fragments.SkezoFragment;
 import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
 import com.cviac.nheart.nheartapp.utilities.BadgeDrawable;
+import com.cviac.nheart.nheartapp.services.GPSTracker;
 import com.cviac.nheart.nheartapp.xmpp.LocalBinder;
 import com.cviac.nheart.nheartapp.xmpp.XMPPService;
-import com.squareup.okhttp.OkHttpClient;
 
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
-
-import static com.cviac.nheart.nheartapp.activities.Registration.context;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -85,14 +79,20 @@ public class MainActivity extends AppCompatActivity {
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    private static final int MY_PERMISSION_CALL_PHONE = 10;
-    String mob= Prefs.getString("to_mobile","");
+    public static final int MY_PERMISSION_MEDIA = 1;
+
+    public static final int MY_PERMISSION_CALL_PHONE = 10;
+
+    public static final int MY_PERMISSION_LOCATION = 100;
+
+    String mob = Prefs.getString("to_mobile", "");
 
 
     static TabLayout tabLayout;
     private LayerDrawable mcartMenuIcon;
     private int mCartCount = 0;
     private XMPPService mService;
+    private GPSTracker mlocService;
     CoordinatorLayout coordinatorLayout;
     private BroadcastReceiver xmppConnReciver;
 
@@ -106,7 +106,22 @@ public class MainActivity extends AppCompatActivity {
     String status;
     private GiftFragment giftFragment;
     private ChatFragment chatFrag;
-    int ITEMS_COUNT;
+    GPSTracker gpstracker;
+
+    private MediaPlayer mp = new MediaPlayer();
+
+    private List<MusicInfo> songlist;
+
+    public List<MusicInfo> getSonglist() {
+        if (songlist == null) {
+            songlist = new ArrayList<MusicInfo>();
+        }
+        return songlist;
+    }
+
+    public void setSonglist(List<MusicInfo> songlist) {
+        this.songlist = songlist;
+    }
 
     private final ServiceConnection mConnection = new ServiceConnection() {
 
@@ -127,12 +142,42 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private final ServiceConnection mLocationConnection = new ServiceConnection() {
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public void onServiceConnected(final ComponentName name,
+                                       final IBinder service) {
+            mlocService = ((LocalBinder<GPSTracker>) service).getService();
+            if (ContextCompat.checkSelfPermission(MainActivity.this, (android.Manifest.permission.ACCESS_FINE_LOCATION))
+                    != PackageManager.PERMISSION_GRANTED)  {
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{
+                        android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSION_LOCATION);
+                return;
+            }
+            else {
+                mlocService.getLocation();
+            }
+            Log.d(TAG, "onLocationServiceConnected");
+        }
+
+        @Override
+        public void onServiceDisconnected(final ComponentName name) {
+            mlocService = null;
+            Log.d(TAG, "onLocationServiceDisconnected");
+        }
+    };
+
+    public MediaPlayer getMediaPlayer() {
+        return mp;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        checkPermissions();
+        //checkPermissions();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -150,10 +195,7 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-
         mViewPager.setOffscreenPageLimit(5);
-
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
@@ -274,6 +316,7 @@ public class MainActivity extends AppCompatActivity {
 
                 {
                     GiftFragment gfrag = (GiftFragment) getSupportFragmentManager().getFragments().get(1);
+
                     gfrag.refresh(catId);
 
 
@@ -300,7 +343,6 @@ public class MainActivity extends AppCompatActivity {
 
                 ImageView cuscall = (ImageView) findViewById(R.id.ivcall);
                 onClick(cuscall);
-
 
 
                 break;
@@ -343,6 +385,7 @@ public class MainActivity extends AppCompatActivity {
         //if (id == R.id.action_settings) {
         //return true;
     }
+
     public void onClick(View view) {
 
         Intent callIntent = new Intent(Intent.ACTION_CALL);
@@ -522,9 +565,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        MediaPlayer mp = MusicFragment.mp;
         if (mp != null) {
-            mp.stop();
             mp.release();
         }
         doUnbindService();
@@ -533,8 +574,6 @@ public class MainActivity extends AppCompatActivity {
     String[] permissions = new String[]{
             Manifest.permission.WRITE_SETTINGS,
             Manifest.permission.READ_EXTERNAL_STORAGE
-//            Manifest.permission.WRITE_EXTERNAL_STORAGE
-
     };
 
     public boolean checkPermissions() {
@@ -547,7 +586,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         if (!listPermissionsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(MainActivity.this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), 100);
+            ActivityCompat.requestPermissions(MainActivity.this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), 1000);
             return false;
         }
         return true;
@@ -556,36 +595,23 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-       /* if (requestCode == 100) {
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // do something
-
-                Toast.makeText(MainActivity.this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(MainActivity.this, "The app was not allowed to write to your storage. Hence, it cannot function properly. Please consider granting it this permission", Toast.LENGTH_LONG).show();
-            }
-            return;
-        }*/
-
-
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode)
-            {
-                case 1: {
-                    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    {
-                        //Intent i=new Intent(this,Timetable.class);
-                        //startActivity(i);
-                        //reload my activity with permission granted or use the features what required the permission
-                    } else
-                    {
-                        Toast.makeText(MainActivity.this, "The app was not allowed to write to your storage. Hence, it cannot function properly. Please consider granting it this permission", Toast.LENGTH_LONG).show();
-                    }
+        switch (requestCode) {
+
+            case MY_PERMISSION_MEDIA:
+                if (grantResults.length > 0) {
+
                 }
-
-
-
+                break;
+            case MY_PERMISSION_LOCATION: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (mlocService != null) {
+                        mlocService.getLocation();
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, "Location track disabled", Toast.LENGTH_LONG).show();
+                }
+            }
 
             case MY_PERMISSION_CALL_PHONE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -598,40 +624,39 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-
-
-
-
     }
 
     private void doBindService() {
-        xmppConnReciver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if(status !=null) {
-                    status = intent.getStringExtra("status");
-
-                }
-                if (status != null) {
-                    chatFrag.statuscheck(status);
-                }
-              /*  if (status != null) {
-                    Snackbar snackbar = Snackbar
-                            .make(coordinatorLayout, "Chat Server:  " + status, Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                }*/
-
-            }
-        };
+//        xmppConnReciver = new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                if (status != null) {
+//                    status = intent.getStringExtra("status");
+//
+//                }
+//                if (status != null) {
+//                    chatFrag.statuscheck(status);
+//                }
+//            }
+//        };
 
         bindService(new Intent(this, XMPPService.class), mConnection, Context.BIND_AUTO_CREATE);
-        registerReceiver(xmppConnReciver, new IntentFilter("XMPPConnection"));
+        //registerReceiver(xmppConnReciver, new IntentFilter("XMPPConnection"));
+        bindService(new Intent(this, GPSTracker.class), mLocationConnection, Context.BIND_AUTO_CREATE);
+
     }
 
+
     void doUnbindService() {
-        if (mConnection != null) {
+        if (mService != null) {
             unbindService(mConnection);
-            unregisterReceiver(xmppConnReciver);
+//            if (xmppConnReciver != null) {
+//                unregisterReceiver(xmppConnReciver);
+//            }
+        }
+
+        if (mlocService != null) {
+            unbindService(mLocationConnection);
         }
 
     }
@@ -640,5 +665,7 @@ public class MainActivity extends AppCompatActivity {
         return mService;
     }
 
-
+    public GPSTracker getLocationService() {
+        return mlocService;
+    }
 }

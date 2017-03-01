@@ -57,9 +57,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:counterEnabled="false"
-            app:counterOverflowTextAppearance="@style/counterText1"
+
             app:counterMaxLength="10"
-            app:counterTextAppearance="@style/counterText"
+
             android:layout_below="@+id/imageView6"
             android:layout_marginTop="10dp">
 

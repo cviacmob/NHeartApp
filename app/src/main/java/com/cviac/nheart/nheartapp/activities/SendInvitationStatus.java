@@ -56,16 +56,16 @@ ImageView iv1,iv2;
          tm3=(TextView)findViewById(R.id.text3);
          tm4=(TextView)findViewById(R.id.textnum);
          tm5=(TextView)findViewById(R.id.textView3);
-        iv1=(ImageView) findViewById(R.id.imageView10);
+//        iv1=(ImageView) findViewById(R.id.imageView10);
         iv2=(ImageView) findViewById(R.id.imageView11);
 
 
-        animMove = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.rotate1);
-        // Move
-
-
-        iv1.startAnimation(animMove);
+//        animMove = AnimationUtils.loadAnimation(getApplicationContext(),
+//                R.anim.rotate1);
+//        // Move
+//
+//
+//        iv1.startAnimation(animMove);
 
         animMove = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.blink);

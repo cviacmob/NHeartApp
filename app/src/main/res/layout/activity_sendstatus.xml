@@ -129,22 +129,12 @@
 
     <ImageView
         android:layout_width="100dp"
-        android:layout_height="80dp"
-        android:src="@drawable/clockrr"
-        android:layout_marginTop="11dp"
-        android:id="@+id/imageView10"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <ImageView
-        android:layout_width="100dp"
         android:layout_height="100dp"
         app:srcCompat="@drawable/heartrec"
         android:id="@+id/imageView11"
-        android:layout_alignTop="@+id/imageView10"
-        android:layout_toLeftOf="@+id/imageView10"
-        android:layout_toStartOf="@+id/imageView10" />
+        android:layout_above="@+id/relativeLayout4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp" />
 
 
 </RelativeLayout>

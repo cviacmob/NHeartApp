@@ -54,7 +54,7 @@ public class InvitationReceived extends AppCompatActivity {
 
         accept = (Button) findViewById(R.id.accept);
         name = (TextView) findViewById(R.id.name1);
-        img5=(ImageView)findViewById(R.id.imageView8);
+        //img5=(ImageView)findViewById(R.id.imageView8);
 
         img12=(ImageView)findViewById(R.id.imageView12);
         img13=(ImageView)findViewById(R.id.imageView13);
@@ -74,13 +74,13 @@ public class InvitationReceived extends AppCompatActivity {
         Prefs.putString("mobile1",mob);
         final String my_mobile= Prefs.getString("mobile","");
 
-        anim = AnimationUtils.loadAnimation(getApplicationContext(),
+     /*   anim = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.blink);
         // Move
 
 
         img5.startAnimation(anim);
-
+*/
 
 
 

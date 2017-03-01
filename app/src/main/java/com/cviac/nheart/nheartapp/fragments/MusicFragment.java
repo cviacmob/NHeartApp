@@ -12,17 +12,19 @@ import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 
 
+import com.cviac.nheart.nheartapp.activities.MainActivity;
 import com.cviac.nheart.nheartapp.activities.ProductdetailsActivity;
-import com.cviac.nheart.nheartapp.activities.SendToInvite;
 import com.cviac.nheart.nheartapp.adapters.MusicInfoAdapter;
 import com.cviac.nheart.nheartapp.datamodel.MusicInfo;
 import com.cviac.nheart.nheartapp.datamodel.Product;
 import com.cviac.nheart.nheartapp.datamodel.Songs;
 import com.squareup.picasso.Picasso;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -35,9 +37,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -47,7 +50,6 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,7 +60,7 @@ import static com.cviac.nheart.nheartapp.R.id.media_actions;
 
 public class MusicFragment extends Fragment {
     private ImageButton btnPlay;
-    static public MediaPlayer mp;
+
     private TextView title, artist, bduration;
     private ListView lv;
     private List<MusicInfo> songlist;
@@ -67,10 +69,11 @@ public class MusicFragment extends Fragment {
     private Thread updateseekbar;
     private SeekBar sb;
 
-   ProgressDialog progressDialog;
+    public MediaPlayer mp;
 
-     ProgressBar progressbar;
+    private MusicInfoAdapter adapter;
 
+    private ProgressDialog progressDialog=null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,27 +81,29 @@ public class MusicFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_music, container, false);
         //btnPlay = (ImageButton) view.findViewById(R.id.btnimg);
 
-       progressbar = (ProgressBar) view.findViewById(R.id.progressBarMusic);
-       //new ProgressTask().execute();
-        progressbar.setVisibility(View.VISIBLE);
+
         lv = (ListView) view.findViewById(list1);
 
 
-        mp = new MediaPlayer();
-
         btnPlay = (ImageButton) view.findViewById(R.id.btnimg);
-        songlist = listOfSongs(getActivity());
-        progressbar.setVisibility(View.INVISIBLE);
+
+
         title = (TextView) view.findViewById(R.id.playtitle);
         title.setSelected(true);
         artist = (TextView) view.findViewById(R.id.artist);
         bduration = (TextView) view.findViewById(R.id.texdura);
         songimg = (ImageView) view.findViewById(R.id.musicimg);
 
+        songlist = ((MainActivity) getActivity()).getSonglist();
+        if (songlist.size() == 0 ) {
+            new LoadMediaTask().execute();
+        }
+        else {
+            adapter = new MusicInfoAdapter(getActivity(), songlist);
+            lv.setAdapter(adapter);
+        }
 
-
-        final MusicInfoAdapter adapter = new MusicInfoAdapter(getActivity(), songlist);
-        lv.setAdapter(adapter);
+        mp = ((MainActivity) getActivity()).getMediaPlayer();
 
         sb = (SeekBar) view.findViewById(R.id.seekBar3);
         updateseekbar = new Thread() {
@@ -145,9 +150,12 @@ public class MusicFragment extends Fragment {
                     adapter.notifyDataSetChanged();
                     sb.setMax(mp.getDuration());
                     btnPlay.setBackgroundResource(R.drawable.pause);
-                    try {
+                    try
+                    {
                         updateseekbar.start();
-                    } catch (Exception e) {
+                    }
+                    catch(Exception e)
+                    {
                         return;
                     }
                     sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -210,6 +218,7 @@ public class MusicFragment extends Fragment {
                     adapter.notifyDataSetChanged();
 
                 } else {
+
                     mp.start();
                 }
                 if (mp.isPlaying()) {
@@ -223,8 +232,6 @@ public class MusicFragment extends Fragment {
 
 
         if (songlist.size() > 0) {
-
-
             title.setText(songlist.get(0).getTitle());
             artist.setText(songlist.get(0).getSingers());
             bduration.setText(songlist.get(0).getDuration());
@@ -234,46 +241,65 @@ public class MusicFragment extends Fragment {
             artist.setText("");
             bduration.setText("");
         }
-
-
-
         return view;
-
     }
-   /* private class ProgressTask extends AsyncTask <Void,Void,Void>{
+
+
+    private class LoadMediaTask extends AsyncTask<String, Integer, Long> {
+
+        ArrayList<MusicInfo> list;
+        ProgressDialog progressDialog;
+
         @Override
-        protected void onPreExecute(){
-            progressbar.setVisibility(View.VISIBLE);
+        protected void onPreExecute() {
+            super.onPreExecute();
+//            progressDialog=new ProgressDialog(getContext(),R.style.AppTheme_AppBarOverlay);
+//            progressDialog.setIndeterminate(true);
+//            progressDialog.setMessage("Loading");
+//            progressDialog.setCancelable(false);
+//            progressDialog.show();
         }
 
         @Override
-        protected Void doInBackground(Void... arg0) {
-            //my stuff is here
+        protected Long doInBackground(String... params) {
+            list = listOfSongs(getActivity());
             return null;
         }
 
         @Override
-        protected void onPostExecute(Void result) {
-            progressbar.setVisibility(View.GONE);
+        protected void onPostExecute(Long aLong) {
+            super.onPostExecute(aLong);
+//            if (progressDialog!=null){
+//                progressDialog.dismiss();
+//            }
+            ((MainActivity) getActivity()).setSonglist(list);
+            songlist = list;
+            if (songlist.size() > 0) {
+                MusicInfo info = songlist.get(0);
+                title.setText(info.getTitle());
+                artist.setText(info.getSingers());
+                bduration.setText(info.getDuration());
+                Picasso.with(getContext()).load(Uri.parse("file://" + info.getImgUrl())).resize(50, 50).into(songimg);
+                try {
+                    mp.setDataSource(info.getPath());
+                    mp.prepare();
+                    sb.setMax(mp.getDuration());
+                }
+                catch (Exception ex) {
+                }
+            } else {
+                title.setText("");
+                artist.setText("");
+                bduration.setText("");
+            }
+            adapter = new MusicInfoAdapter(getActivity(), songlist);
+            lv.setAdapter(adapter);
         }
-    }*/
-
-
-
-
-
-
+    }
 
 
 
     public ArrayList<MusicInfo> listOfSongs(Context context) {
-       /* progressDialog = new ProgressDialog(getContext(),
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Please Wait");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-*/
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         // Filter only mp3s, only those marked by the MediaStore to be music and longer than 1 minute
         final String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
@@ -284,8 +310,16 @@ public class MusicFragment extends Fragment {
         String sortOrder = MediaStore.Audio.AudioColumns.TITLE
                 + " COLLATE LOCALIZED ASC";
 
-        Cursor c = context.getContentResolver().query(uri, null, selection, null, sortOrder);
         ArrayList<MusicInfo> listOfSongs = new ArrayList<MusicInfo>();
+        if (ContextCompat.checkSelfPermission(getActivity(), (Manifest.permission.READ_EXTERNAL_STORAGE))
+                != PackageManager.PERMISSION_GRANTED)  {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE}, MainActivity.MY_PERMISSION_MEDIA);
+            return listOfSongs;
+        }
+
+        Cursor c = context.getContentResolver().query(uri, null, selection, null, sortOrder);
+
         try {
             c.moveToFirst();
             while (c.moveToNext()) {
@@ -341,15 +375,10 @@ public class MusicFragment extends Fragment {
                 songData.setComposer(composer);
                 songData.setPath(path);
                 listOfSongs.add(songData);
-              /*  if (progressDialog != null) {
-                    progressDialog.dismiss();
-                }*/
             }
             c.close();
-            /*progressDialog.dismiss();*/
-           // spinner.setVisibility(View.GONE);
+
         } catch (Exception e) {
-          //  progressDialog.dismiss();
             e.printStackTrace();
         }
         return listOfSongs;
@@ -368,13 +397,6 @@ public class MusicFragment extends Fragment {
             // do whatever you need to do
         }
         return path;
-
-
-
-
-
-
-
     }
 
 
@@ -392,9 +414,4 @@ public class MusicFragment extends Fragment {
         menu.findItem(R.id.loc).setVisible(false);
         super.onPrepareOptionsMenu(menu);
     }
-
-
-
-
-
 }

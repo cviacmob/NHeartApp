@@ -29,4 +29,11 @@
         <item name="colorControlActivated">#ffffff</item>
     </style>
 
+    <style name="AppCompatAlertDialogStyle"  parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">#fff</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:background">#fc94af</item>
+
+    </style>
+
 </resources>
