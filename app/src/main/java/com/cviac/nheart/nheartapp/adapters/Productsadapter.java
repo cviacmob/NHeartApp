@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.cviac.nheart.nheartapp.R;
 
 import com.cviac.nheart.nheartapp.datamodel.Product;
-import com.cviac.nheart.nheartapp.utilities.ImageLoader;
+
 import com.squareup.picasso.Picasso;
 
 
@@ -81,10 +81,7 @@ public class Productsadapter extends BaseAdapter {
         holder.tv.setText(ct.getName());
         holder.price.setText(ct.getPrice());
         holder.price1.setText(ct.getSpecial());
-        int loader = R.drawable.heart;
         String url = ct.getThumb();
-        ImageLoader imgLoader = new ImageLoader( this.ctx );
-        imgLoader.DisplayImage(url, loader,holder.imgView);
 
        // url = url.replace("localhost","192.168.1.133");
         try {

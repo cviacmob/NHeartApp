@@ -33,22 +33,22 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class ContinueActivity extends AppCompatActivity {
-    TextView tv1,tv2,tv3,total;
+    TextView tv1,tv2,tv3,total,pay;
     ListView lv;
     GridView gv;
-    Button b,b1;
+    Button b1;
     RadioGroup rg;
     RadioButton rb,rb1,rb2,rb3;
     List<ProductCartInfo> cartProducts;
     List<CartTotalInfo> cartTotals;
     CartItemAdapter adapter;
     ContinueGridAdapter adpt;
-   String address,add1,add2;
+    String address,add1,add2;
 
     @InjectView(R.id.paylist)
     NonScrollableListview nonScrollListView;
 
-//    String[] web = {
+    //    String[] web = {
 //            "Credit Card",
 //            "Debit Card",
 //            "Net Banking",
@@ -67,27 +67,27 @@ public class ContinueActivity extends AppCompatActivity {
         cartProducts = new ArrayList<>();
         adapter = new CartItemAdapter(this, R.layout.activity_catogry, cartProducts);
         nonScrollListView = (NonScrollableListview) findViewById(R.id.paylist);
-      // adpt = new ContinueGridAdapter(ContinueActivity.this, web);
-       // gv=(GridView)findViewById(R.id.grid);
-       // gv.setAdapter(adpt);
+        // adpt = new ContinueGridAdapter(ContinueActivity.this, web);
+        // gv=(GridView)findViewById(R.id.grid);
+        // gv.setAdapter(adpt);
         nonScrollListView.setAdapter(adapter);
 
-        rb=(RadioButton)findViewById(R.id.credit);
-        rb1=(RadioButton)findViewById(R.id.paytm);
-        rb2=(RadioButton)findViewById(R.id.debit);
+        rb=(RadioButton)findViewById(R.id.Credit);
+        rb1=(RadioButton)findViewById(R.id.Paytm);
+        rb2=(RadioButton)findViewById(R.id.Debit);
         rb3=(RadioButton)findViewById(R.id.cash);
         total=(TextView)findViewById(R.id.amount);
-        b=(Button)findViewById(R.id.pay);
+        pay=(TextView)findViewById(R.id.pay);
         b1=(Button) findViewById(R.id.change);
         b1.setOnClickListener(new View.OnClickListener() {
 
-                                 @Override
+            @Override
 
-                                 public void onClick(View v) {
-                                     Intent mainIntent = new Intent(ContinueActivity.this,ChangeAddressActivity.class);
-                                     startActivity(mainIntent);
-                                 }
-                             });
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(ContinueActivity.this,ChangeAddressActivity.class);
+                startActivity(mainIntent);
+            }
+        });
 //        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
 //            @Override
 //           public void  onCheckedChanged(RadioGroup rg, int i){
@@ -134,8 +134,8 @@ public class ContinueActivity extends AppCompatActivity {
             public void onResponse(Response<GetCartItemsResponse> response, Retrofit retrofit) {
                 GetCartItemsResponse rsp = response.body();
                 cartProducts.addAll(rsp.getProds());
-               // s= String.valueOf(rsp.getProds().size());
-              //  tv.setText(s);
+                // s= String.valueOf(rsp.getProds().size());
+                //  tv.setText(s);
                 adapter.notifyDataSetInvalidated();
                 cartTotals = rsp.getTotals();
 

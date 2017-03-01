@@ -139,7 +139,7 @@
                 android:layout_below="@+id/state"
                 android:background="@drawable/roundcolorbtn"
                 android:text="@string/btn_sub"
-                android:textColor="#c90276" />
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/cncl_btn"
@@ -150,7 +150,7 @@
                 android:layout_below="@+id/state"
                 android:background="@drawable/roundcolorbtn"
                 android:text="@string/btn_cncl"
-                android:textColor="#c90276" />
+                android:textColor="#FFFFFF" />
 
         </RelativeLayout>
 

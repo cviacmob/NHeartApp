@@ -1,6 +1,7 @@
 package com.cviac.nheart.nheartapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,17 +11,33 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
+import com.cviac.nheart.nheartapp.activities.CartItemListActivity;
+import com.cviac.nheart.nheartapp.activities.ContinueActivity;
+import com.cviac.nheart.nheartapp.activities.ProductdetailsActivity;
+import com.cviac.nheart.nheartapp.datamodel.AddToCartResponse;
 import com.cviac.nheart.nheartapp.datamodel.CartItemInfo;
 import com.cviac.nheart.nheartapp.datamodel.ProductCartInfo;
+import com.cviac.nheart.nheartapp.datamodel.removefromCartResponse;
+import com.cviac.nheart.nheartapp.datamodel.updatecartresponse;
+import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.GsonConverterFactory;
+import retrofit.Response;
+import retrofit.Retrofit;
+
 public class CartItemAdapter extends BaseAdapter {
     int count;
+    String token = Prefs.getString("token", null);
     private static int counter = 0;
     private String stringVal;
     private Context mContext;
@@ -59,7 +76,7 @@ public class CartItemAdapter extends BaseAdapter {
 
         View ins = convertView;
         ViewHolder holder;
-        ProductCartInfo sinfo = list.get(position);
+        final ProductCartInfo sinfo = list.get(position);
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -78,6 +95,7 @@ public class CartItemAdapter extends BaseAdapter {
                     counter++;
                     stringVal = Integer.toString(counter);
                     tv2.setText(stringVal);
+                    update(sinfo.getProduct_id(), "1");
                 }
             });
             ImageButton txtminus = (ImageButton) ins.findViewById(R.id.remove);
@@ -92,10 +110,16 @@ public class CartItemAdapter extends BaseAdapter {
                     {
                         tv2.setText("0");
                     }
+                    update(sinfo.getProduct_id(), "1");
                 }
             });
             ImageButton dele=(ImageButton)ins.findViewById(R.id.delete);
-
+            dele.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Remove(token,sinfo.getProduct_id());
+                }
+            });
             ins.setTag(holder);
         } else {
             holder = (ViewHolder) ins.getTag();
@@ -103,7 +127,6 @@ public class CartItemAdapter extends BaseAdapter {
         holder.price.setText(sinfo.getTotal());
         holder.tv.setText(sinfo.getName());
         holder.tv2.setText(sinfo.getQuantity());
-       // holder.iv.setImageResource(sinfo.g);
         String url = sinfo.getImage();
         url = url.replace("localhost","192.168.1.133");
         try {
@@ -112,6 +135,62 @@ public class CartItemAdapter extends BaseAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        // holder.iv.setImageResource(sinfo.g);
+
         return ins;
     }
+    private void Remove( String token ,String prodId) {
+
+        if (token != null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://192.168.1.133")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            OpenCartAPI api = retrofit.create(OpenCartAPI.class);
+
+            final Call<removefromCartResponse> call = api.remove(token,prodId);
+            call.enqueue(new Callback<removefromCartResponse>() {
+                @Override
+                public void onResponse(Response<removefromCartResponse> response, Retrofit retrofit) {
+                    removefromCartResponse rsp = response.body();
+                    // getAndSetCartCount();
+                    Toast.makeText(mContext, "Removed Item from Cart", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    t.printStackTrace();
+                    Toast.makeText(mContext, "Server Error", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+    }
+    private void update(String prodId, String quantity) {
+        String token = Prefs.getString("token", null);
+        if (token != null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://192.168.1.133")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            OpenCartAPI api = retrofit.create(OpenCartAPI.class);
+
+            final Call<updatecartresponse> call = api.update(token, prodId, quantity);
+            call.enqueue(new Callback<updatecartresponse>() {
+                @Override
+                public void onResponse(Response<updatecartresponse> response, Retrofit retrofit) {
+                    updatecartresponse rsp = response.body();
+                    Toast.makeText(mContext, "modified cart successfully", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    t.printStackTrace();
+                    Toast.makeText(mContext, "Server Error", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+    }
+
 }

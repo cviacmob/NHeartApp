@@ -13,6 +13,8 @@ import com.cviac.nheart.nheartapp.datamodel.PairStatus;
 import com.cviac.nheart.nheartapp.datamodel.Productdetailresponse;
 import com.cviac.nheart.nheartapp.datamodel.ReginfoResponse;
 import com.cviac.nheart.nheartapp.datamodel.ZoneInfo;
+import com.cviac.nheart.nheartapp.datamodel.removefromCartResponse;
+import com.cviac.nheart.nheartapp.datamodel.updatecartresponse;
 
 import java.util.List;
 
@@ -58,7 +60,7 @@ public interface OpenCartAPI {
 
     @GET("/index.php?route=api/category/getproductdetails")
     Call<Productdetailresponse>
-     getProductdetails(@Query("productid") String categoryid);
+    getProductdetails(@Query("productid") String categoryid);
 
     @FormUrlEncoded
     @POST("/index.php?route=api/login")
@@ -69,19 +71,41 @@ public interface OpenCartAPI {
     Call<AddToCartResponse> addToCart(@Query("token") String token,
                                       @Field("product_id") String prodid,
                                       @Field("quantity") String quantity
-                                  );
+    );
 
     @GET("/index.php?route=api/cart/products")
     Call<GetCartItemsResponse> getCartItems(@Query("token") String token);
 
+
+
+
+
+    @FormUrlEncoded
+    @POST("/opencart/index.php?route=api/cart/remove")
+    Call<removefromCartResponse> remove(@Query("token") String token,
+                                        @Field("key") String prodid
+                                        // @Field("quantity") String quantity
+    );
+
+
+
+    @FormUrlEncoded
+    @POST("http://localhost/opencart/index.php?route=api/cart/edit")
+    Call<updatecartresponse> update(@Query("token") String token,
+                                    @Field("key") String prodid,
+                                    @Field("quantity") String quantity
+    );
+
+
+
     @FormUrlEncoded
     @POST("/N-Heart/invite.php/sendInvite")
     Call<PairStatus> sendInvitation(@Field("name") String name,
-                                         @Field("email")String email,
-                                         @Field("mobile") String mobile,
-                                         @Field("to_mobile") String to_mobile,
-                                         @Field("pushid") String pushid
-                                    );
+                                    @Field("email")String email,
+                                    @Field("mobile") String mobile,
+                                    @Field("to_mobile") String to_mobile,
+                                    @Field("pushid") String pushid
+    );
 
     @FormUrlEncoded
     @POST("/N-Heart/invite.php/resendinvite")

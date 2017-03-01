@@ -36,7 +36,7 @@ public class Splashscreen extends Activity {
     public String mobile;
     public String paired;
 
-    Animation animMove,mv1,fade;
+    Animation animMove,mv1,fade,animZoomIn;
     ImageView img,img1,img2,iv5,iv9;
     TextView ttex1,ttex2,ttex3,ttex4,ttex5;
     ImageView imageView;
@@ -71,7 +71,7 @@ public class Splashscreen extends Activity {
         img=(ImageView) findViewById(R.id.img1) ;
         img1=(ImageView) findViewById(R.id.img2) ;
         img2=(ImageView)findViewById(R.id.imageView4);
-        iv9=(ImageView)findViewById(R.id.imageView9);
+        iv9=(ImageView)findViewById(R.id.zoomin);
 
 
 
@@ -85,7 +85,7 @@ public class Splashscreen extends Activity {
         mobile = Prefs.getString("mobile", "");
         paired = Prefs.getString("paired", "false");
 
-       // iv5  = (ImageView) findViewById(R.id.ivGif);
+        // iv5  = (ImageView) findViewById(R.id.ivGif);
         // Display the GIF (from raw resource) into the ImageView
 
 
@@ -108,7 +108,10 @@ public class Splashscreen extends Activity {
 
         img1.startAnimation(mv1);
 
-
+        animZoomIn = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.zoom_in);
+        iv9.setVisibility(View.VISIBLE);
+        iv9.startAnimation(animZoomIn);
 
 
 
@@ -177,7 +180,7 @@ public class Splashscreen extends Activity {
                                          String ss = invt.getTo_mobile();
                                          Prefs.putString("to_mobile", ss);
 
-                                         
+
 
 
                                      } else {
