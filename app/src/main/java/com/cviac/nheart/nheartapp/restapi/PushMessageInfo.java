@@ -28,6 +28,7 @@ public class PushMessageInfo {
     }
 
     public static class DataInfo {
+        private String type; //chat,invite,location
         private String msg;
         private String senderid;
         private String sendername;
@@ -66,6 +67,14 @@ public class PushMessageInfo {
 
         public void setMsgId(String msgId) {
             this.msgId = msgId;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
         }
     }
 

@@ -22,8 +22,23 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.cviac.nheart.nheartapp.Prefs;
+import com.cviac.nheart.nheartapp.restapi.FCMSendMessageResponse;
+import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
+import com.cviac.nheart.nheartapp.restapi.PushMessageInfo;
 import com.cviac.nheart.nheartapp.xmpp.LocalBinder;
 import com.cviac.nheart.nheartapp.xmpp.XMPPService;
+import com.squareup.okhttp.OkHttpClient;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.GsonConverterFactory;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 import static android.location.LocationManager.*;
 import static com.cviac.nheart.nheartapp.BuildConfig.DEBUG;
@@ -144,6 +159,7 @@ public class GPSTracker extends Service implements LocationListener {
         if (location != null) {
             Prefs.putDouble("latitude", location.getLatitude());
             Prefs.putDouble("longitude", location.getLongitude());
+            sendLocationToPeer(location);
         }
         return location;
     }
@@ -235,15 +251,15 @@ public class GPSTracker extends Service implements LocationListener {
         Prefs.putDouble("longitude", getLogitude);
         Log.d("latitude", getLattitude + "");
         Log.d("longitude", getLogitude + "");
-
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-
-            @Override
-            public void run() {
-                Toast.makeText(GPSTracker.this, "Lat: " + getLattitude + "Long: " + getLogitude, Toast.LENGTH_SHORT).show();
-
-            }
-        });
+        sendLocationToPeer(location);
+//
+//        new Handler(Looper.getMainLooper()).post(new Runnable() {
+//            @Override
+//            public void run() {
+//                Toast.makeText(GPSTracker.this, "Lat: " + getLattitude + "Long: " + getLogitude, Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
     }
 
     @Override
@@ -257,5 +273,51 @@ public class GPSTracker extends Service implements LocationListener {
     @Override
     public void onStatusChanged(String s, int i, Bundle bundle) {
 
+    }
+
+    private void sendLocationToPeer(Location location) {
+
+        SimpleDateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat timeFormatter = new SimpleDateFormat("HH:mm");
+        Date nw = new Date();
+        String dt =  dateformat.format(nw);
+        String tm = timeFormatter.format(nw);
+        Prefs.putString("locationdate",dt);
+        Prefs.putString("locationtime",tm);
+       String toPushId =  Prefs.getString("to_pushid","");
+        if (!toPushId.isEmpty()) {
+            sendLocationViaPushNotify(toPushId,location);
+        }
+    }
+
+    private void sendLocationViaPushNotify(String pushId, Location location) {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://fcm.googleapis.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build();
+        OpenCartAPI api = retrofit.create(OpenCartAPI.class);
+        String key = "key=AAAAtsX2lv4:APA91bHXo-G0dPI5UC6a7AUZmDRaEItUp_RPhNw7x3xOSpkjrN9wzDdf6Ui33zNjrc5D6rY7WYnH30qxd3WzHPdVUnF_n5xSBRJ9XhTIhB608Cc0GCp5rs9JDSYeWiNRVIUWwI5E9XM_";
+        PushMessageInfo pinfo = new PushMessageInfo();
+        pinfo.setTo(pushId);
+        PushMessageInfo.DataInfo dinfo = new PushMessageInfo.DataInfo();
+        dinfo.setType("location");
+        dinfo.setMsg(location.getLatitude()+","+location.getLongitude());
+        String mypushid = Prefs.getString("pushId","");
+        dinfo.setMsgId(mypushid);
+        pinfo.setData(dinfo);
+        final Call<FCMSendMessageResponse> call = api.sendPushMessage(key, pinfo);
+        call.enqueue(new Callback<FCMSendMessageResponse>() {
+            @Override
+            public void onResponse(Response<FCMSendMessageResponse> response, Retrofit retrofit) {
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+            }
+        });
     }
 }

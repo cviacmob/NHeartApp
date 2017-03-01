@@ -228,6 +228,7 @@ public class InvitationReceived extends AppCompatActivity {
         if (pushid.isEmpty()) {
             return;
         }
+        Prefs.putString("to_pushid", pushid);
 
         String msg = "Your invitation to " + invite.getTo_mobile() + " is " + status;
 
@@ -244,6 +245,7 @@ public class InvitationReceived extends AppCompatActivity {
         PushMessageInfo pinfo = new PushMessageInfo();
         pinfo.setTo(pushid);
         PushMessageInfo.DataInfo dinfo = new PushMessageInfo.DataInfo();
+        dinfo.setType("inviteresponse");
         dinfo.setMsg(msg);
         dinfo.setSendername(invite.getTo_mobile());
         dinfo.setSenderid(invite.getTo_mobile());

@@ -7,10 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -37,7 +41,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Map<String, String> data = remoteMessage.getData();
-            showChatNotification(data);
+            String type =  data.get("type");
+            if (type.equalsIgnoreCase("inviteresponse")) {
+                showInviteRespohnseNotification(data);
+            }
+            else if (type.equalsIgnoreCase("location")) {
+                updatePeerLocation(data);
+            }
+            else {
+                showChatNotification(data);
+            }
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
             return;
         }
@@ -58,6 +71,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }*/
 
     Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
     private void showChatNotification(Map<String, String> data) {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
@@ -72,5 +86,51 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         mNotificationManager.notify(0, mBuilder.build());
     }
 
+    private void showInviteRespohnseNotification(Map<String, String> data) {
 
+        String to_pushid = data.get("msgId");
+        if (to_pushid != null && !to_pushid.isEmpty()) {
+            Prefs.putString("to_pushid", to_pushid);
+        }
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.icon)
+                        .setContentTitle(data.get("sendername"))
+                        .setAutoCancel(true)
+                        .setSound(soundUri)
+                        .setContentText(data.get("msg"));
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        // mId allows you to update the notification later on.
+        mNotificationManager.notify(0, mBuilder.build());
+    }
+
+
+    private void updatePeerLocation(Map<String, String> data) {
+        final String location = data.get("msg");
+        String locpair[] = location.split(",");
+        if (locpair.length == 2) {
+            Double lat = Double.parseDouble(locpair[0]);
+            Double lng = Double.parseDouble(locpair[1]);
+            Prefs.putDouble("to_latitude", lat);
+            Prefs.putDouble("to_longitude", lng);
+        }
+        else {
+            return;
+        }
+
+        Intent intent = new Intent();
+        intent.setAction("NHeartLocation");
+        intent.putExtra("location", location);
+        sendBroadcast(intent);
+
+//        new Handler(Looper.getMainLooper()).post(new Runnable() {
+//            @Override
+//            public void run() {
+//                Toast.makeText(MyFirebaseMessagingService.this, "NotifyLatLong: " + location, Toast.LENGTH_SHORT).show();
+//            }
+//        });
+    }
 }
+
