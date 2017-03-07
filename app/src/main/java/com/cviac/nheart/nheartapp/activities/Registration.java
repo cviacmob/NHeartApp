@@ -153,7 +153,7 @@ public class Registration extends AppCompatActivity {
         okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://nheart.cviac.com")
+                .baseUrl(getString(R.string.domainname))
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build();

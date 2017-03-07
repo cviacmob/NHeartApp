@@ -143,7 +143,7 @@ public class CartItemAdapter extends BaseAdapter {
 
         if (token != null) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.1.133")
+                    .baseUrl(mContext.getString(R.string.domainname))
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
@@ -170,7 +170,7 @@ public class CartItemAdapter extends BaseAdapter {
         String token = Prefs.getString("token", null);
         if (token != null) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.1.133")
+                    .baseUrl(mContext.getString(R.string.domainname))
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 

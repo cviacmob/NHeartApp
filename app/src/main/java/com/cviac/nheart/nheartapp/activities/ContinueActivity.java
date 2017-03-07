@@ -121,14 +121,14 @@ public class ContinueActivity extends AppCompatActivity {
     private void loadCartItems() {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://nheart.cviac.com")
+                .baseUrl(getString(R.string.domainname))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);
 
         String token = Prefs.getString("token",null);
-        Call<GetCartItemsResponse> call = api.getCartItems(token);
+        Call<GetCartItemsResponse> call = api.getCartItems();
         call.enqueue(new Callback<GetCartItemsResponse>() {
 
             public void onResponse(Response<GetCartItemsResponse> response, Retrofit retrofit) {

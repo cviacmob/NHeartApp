@@ -20,10 +20,14 @@ import com.cviac.nheart.nheartapp.datamodel.GetCartItemsResponse;
 import com.cviac.nheart.nheartapp.datamodel.ProductCartInfo;
 import com.cviac.nheart.nheartapp.datamodel.ProductDetail;
 import com.cviac.nheart.nheartapp.datamodel.Productdetailresponse;
+import com.cviac.nheart.nheartapp.restapi.AddCookiesInterceptor;
 import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
+import com.cviac.nheart.nheartapp.restapi.ReceivedCookiesInterceptor;
+import com.squareup.okhttp.OkHttpClient;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -78,9 +82,15 @@ public class CartItemListActivity extends AppCompatActivity{
 
     private void getProduct(String productId) {
 
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.interceptors().add(new AddCookiesInterceptor());
+        okHttpClient.interceptors().add(new ReceivedCookiesInterceptor());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://nheart.cviac.com")
+                .baseUrl(getString(R.string.domainname))
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
                 .build();
 
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);
@@ -106,15 +116,21 @@ public class CartItemListActivity extends AppCompatActivity{
 
     private void loadCartItems() {
 
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.interceptors().add(new AddCookiesInterceptor());
+        okHttpClient.interceptors().add(new ReceivedCookiesInterceptor());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://nheart.cviac.com")
+                .baseUrl(getString(R.string.domainname))
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
                 .build();
 
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);
 
         String token = Prefs.getString("token",null);
-        Call<GetCartItemsResponse> call = api.getCartItems(token);
+        Call<GetCartItemsResponse> call = api.getCartItems();
         call.enqueue(new Callback<GetCartItemsResponse>() {
 
             public void onResponse(Response<GetCartItemsResponse> response, Retrofit retrofit) {

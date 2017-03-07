@@ -108,7 +108,7 @@ public class Otpverification extends AppCompatActivity {
         progressDialog.show();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://nheart.cviac.com")
+                .baseUrl(getString(R.string.domainname))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);
@@ -160,7 +160,7 @@ public class Otpverification extends AppCompatActivity {
 
     private void getInvitation(String mobile) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://nheart.cviac.com")
+                .baseUrl(getString(R.string.domainname))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);
@@ -198,7 +198,7 @@ public class Otpverification extends AppCompatActivity {
 
     private void checkInvitation(int invtId) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://nheart.cviac.com")
+                .baseUrl(getString(R.string.domainname))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);
@@ -237,7 +237,7 @@ public class Otpverification extends AppCompatActivity {
     public void resendotp(final String mob) {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://nheart.cviac.com")
+                .baseUrl(getString(R.string.domainname))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);

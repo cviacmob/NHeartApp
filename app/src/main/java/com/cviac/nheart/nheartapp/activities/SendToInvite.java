@@ -93,7 +93,7 @@ public class SendToInvite extends AppCompatActivity {
         progressDialog.show();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://nheart.cviac.com")
+                .baseUrl(getString(R.string.domainname))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);

@@ -117,7 +117,7 @@ public class AddressAdapter extends BaseAdapter {
     private void deleteAddress(String address_id, String customer_id) {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://nheart.cviac.com")
+                .baseUrl(mContext.getString(R.string.domainname))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

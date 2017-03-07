@@ -5,6 +5,7 @@ package com.cviac.nheart.nheartapp.datamodel;
  */
 public class LoginResponse {
 
+
     private String success;
     private String token;
 
