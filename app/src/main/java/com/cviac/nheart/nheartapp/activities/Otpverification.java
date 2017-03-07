@@ -1,26 +1,18 @@
 package com.cviac.nheart.nheartapp.activities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
 import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.datamodel.PairStatus;
-import com.cviac.nheart.nheartapp.datamodel.ReginfoResponse;
 import com.cviac.nheart.nheartapp.restapi.Invitation;
 import com.cviac.nheart.nheartapp.restapi.OTPInfo;
 import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
@@ -108,7 +100,7 @@ public class Otpverification extends AppCompatActivity {
         progressDialog.show();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getString(R.string.domainname))
+                .baseUrl("http://nheart.cviac.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);
@@ -160,7 +152,7 @@ public class Otpverification extends AppCompatActivity {
 
     private void getInvitation(String mobile) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getString(R.string.domainname))
+                .baseUrl("http://nheart.cviac.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);
@@ -198,7 +190,7 @@ public class Otpverification extends AppCompatActivity {
 
     private void checkInvitation(int invtId) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getString(R.string.domainname))
+                .baseUrl("http://nheart.cviac.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);
@@ -243,7 +235,7 @@ public class Otpverification extends AppCompatActivity {
         progressDialog.show();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getString(R.string.domainname))
+                .baseUrl("http://nheart.cviac.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);

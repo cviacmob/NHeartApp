@@ -7,19 +7,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
+import com.cviac.nheart.nheartapp.activities.AcceptAnimationAcitvity;
+import com.cviac.nheart.nheartapp.activities.RejectAnimationActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -88,10 +86,27 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private void showInviteRespohnseNotification(Map<String, String> data) {
 
+        String status = data.get("msg");
+        String notifyMsg = "Your invitation to " + data.get("sendername") + " is " + status;
+
+        Prefs.putString("to_name",data.get("sendername"));
+
         String to_pushid = data.get("msgId");
         if (to_pushid != null && !to_pushid.isEmpty()) {
             Prefs.putString("to_pushid", to_pushid);
         }
+
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        Intent resultIntent;
+        if (status.equalsIgnoreCase("accepted")) {
+            resultIntent = new Intent(this,AcceptAnimationAcitvity.class);
+        }
+        else {
+            resultIntent = new Intent(this,RejectAnimationActivity.class);
+        }
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
@@ -99,7 +114,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         .setContentTitle(data.get("sendername"))
                         .setAutoCancel(true)
                         .setSound(soundUri)
-                        .setContentText(data.get("msg"));
+                        .setContentText(notifyMsg);
+        mBuilder.setContentIntent(resultPendingIntent);
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         // mId allows you to update the notification later on.

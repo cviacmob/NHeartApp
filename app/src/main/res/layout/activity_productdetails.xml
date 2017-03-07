@@ -14,13 +14,14 @@
 
     <Button
         android:text="BUY"
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buy"
         android:background="@color/colorPrimary"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:paddingRight="5dp"
+        android:paddingRight="25dp"
+        android:paddingLeft="20dp"
         android:contextClickable="true"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
@@ -48,8 +49,8 @@
                 android:layout_centerHorizontal="true" />
 
             <RatingBar
-                android:layout_width="170dp"
-                android:layout_height="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:numStars="5"
 
                 android:isIndicator="true"
@@ -71,6 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/descr"
+                android:textStyle="italic"
                 android:layout_marginBottom="10dp"
                 android:layout_below="@+id/ratingBar2"
                 android:layout_alignParentBottom="true"
@@ -127,13 +129,14 @@
 
     <Button
         android:text="ADD to Cart"
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/addtocart"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
         android:background="@color/colorPrimary"
-        android:paddingLeft="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
 
         android:visibility="visible"
         android:layout_alignParentBottom="true"

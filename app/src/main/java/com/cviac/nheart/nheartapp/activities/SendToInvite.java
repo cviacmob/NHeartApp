@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.datamodel.PairStatus;
-import com.cviac.nheart.nheartapp.datamodel.ReginfoResponse;
 import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
 
 import retrofit.Call;
@@ -41,9 +40,9 @@ public class SendToInvite extends AppCompatActivity {
 
 
         //str= Prefs.getString("Phone","");
-        fromname=Prefs.getString("name","");
+        fromname= Prefs.getString("name","");
         fromemail=  Prefs.getString("email","");
-        frommobile =Prefs.getString("mobile","");
+        frommobile = Prefs.getString("mobile","");
         b = (Button) findViewById(R.id.getin);
         img4=(ImageView)findViewById(R.id.imageView5);
         img5=(ImageView)findViewById(R.id.imageView7);
@@ -93,7 +92,7 @@ public class SendToInvite extends AppCompatActivity {
         progressDialog.show();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getString(R.string.domainname))
+                .baseUrl("http://nheart.cviac.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);

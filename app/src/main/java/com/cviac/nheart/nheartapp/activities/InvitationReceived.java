@@ -1,6 +1,5 @@
 package com.cviac.nheart.nheartapp.activities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,11 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cviac.nheart.nheartapp.NheartApp;
 import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.datamodel.PairStatus;
-import com.cviac.nheart.nheartapp.datamodel.ReginfoResponse;
 import com.cviac.nheart.nheartapp.restapi.FCMSendMessageResponse;
 import com.cviac.nheart.nheartapp.restapi.Invitation;
 import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
@@ -74,49 +71,17 @@ public class InvitationReceived extends AppCompatActivity {
         Prefs.putString("mobile1",mob);
         final String my_mobile= Prefs.getString("mobile","");
 
-     /*   anim = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.blink);
-        // Move
-
-
-        img5.startAnimation(anim);
-*/
-
-
-
-
         accept.setOnClickListener(new View.OnClickListener() {
 
             @Override
 
             public void onClick(View v) {
-
-
-
-
-                anim = AnimationUtils.loadAnimation(getApplicationContext(),
-                        R.anim.move);
-                // Move
-
-
-                img13.startAnimation(anim);
-
-
+            anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
+              img13.startAnimation(anim);
                 anim = AnimationUtils.loadAnimation(getApplicationContext(),
                         R.anim.move1);
-                // Move
-
-
                 img12.startAnimation(anim);
-
-
-
-
                 updateInvite(mob,my_mobile,"accepted");
-
-
-
-
 
 
 
@@ -154,7 +119,7 @@ public class InvitationReceived extends AppCompatActivity {
         progressDialog.show();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getString(R.string.domainname))
+                .baseUrl("http://nheart.cviac.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);
@@ -230,7 +195,7 @@ public class InvitationReceived extends AppCompatActivity {
         }
         Prefs.putString("to_pushid", pushid);
 
-        String msg = "Your invitation to " + invite.getTo_mobile() + " is " + status;
+        String msg = status;
 
         OkHttpClient okHttpClient = new OkHttpClient();
         okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
@@ -247,7 +212,7 @@ public class InvitationReceived extends AppCompatActivity {
         PushMessageInfo.DataInfo dinfo = new PushMessageInfo.DataInfo();
         dinfo.setType("inviteresponse");
         dinfo.setMsg(msg);
-        dinfo.setSendername(invite.getTo_mobile());
+        dinfo.setSendername(Prefs.getString("to_name",invite.getTo_mobile() ));
         dinfo.setSenderid(invite.getTo_mobile());
         String mypushid = Prefs.getString("pushId","");
         dinfo.setMsgId(mypushid);

@@ -1,14 +1,9 @@
 package com.cviac.nheart.nheartapp.activities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Spannable;
-import android.text.style.BackgroundColorSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -21,7 +16,6 @@ import android.widget.Toast;
 import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.datamodel.PairStatus;
-import com.cviac.nheart.nheartapp.datamodel.ReginfoResponse;
 import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
 
 import retrofit.Call;
@@ -77,7 +71,7 @@ ImageView iv1,iv2;
 
 
 
-        String sent_mobile=Prefs.getString("display_mob_number","");
+        String sent_mobile= Prefs.getString("display_mob_number","");
         tm4.setText(sent_mobile);
        /* String  text = "Test";
         Spannable spanText = Spannable.Factory.getInstance().newSpannable(text);
@@ -123,7 +117,7 @@ ImageView iv1,iv2;
         progressDialog.setCancelable(false);
         progressDialog.show();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getString(R.string.domainname))
+                .baseUrl("http://nheart.cviac.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);
@@ -182,7 +176,7 @@ ImageView iv1,iv2;
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getString(R.string.domainname))
+                .baseUrl("http://nheart.cviac.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);

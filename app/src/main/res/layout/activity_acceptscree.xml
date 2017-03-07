@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+
+    <WebView
+        android:id="@+id/web3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Sairam"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+
+        android:layout_above="@+id/web3"
+        android:paddingLeft="5dp"
+        android:id="@+id/textView3"
+        android:textColor="#e62a94"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal|bold"
+        android:textAllCaps="true"
+        />
+
+    <TextView
+        android:text="Prakash"
+        android:paddingTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="#cc86bd"
+        android:layout_below="@+id/web3"
+        android:id="@+id/textView4"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal|bold"
+        android:textAllCaps="true"
+        android:paddingRight="5dp"
+        android:layout_alignParentRight="true" />
+
+
+</RelativeLayout>

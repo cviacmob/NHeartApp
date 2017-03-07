@@ -57,19 +57,24 @@
 
         </activity>
 
-
+        <activity android:name=".activities.AcceptAnimationAcitvity"
+            android:label="Accept"
+            />
+        <activity android:name=".activities.RejectAnimationActivity"
+            android:label="Reject"
+            />
 
         <activity android:name=".activities.Registration"
             android:label="Registration"
-           >
+            >
 
         </activity>
         <activity android:name=".activities.Otpverification"
-        android:label="Mobile Verification"/>
+            android:label="Mobile Verification"/>
         <activity android:name=".activities.SendToInvite"
-        android:label="Invitation" />
+            android:label="Invitation" />
         <activity android:name=".activities.InvitationReceived"
-        android:label="Invitation " />
+            android:label="Invitation " />
         <activity
             android:name=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -77,11 +82,12 @@
 
         </activity>
         <activity android:name=".activities.Chat_hug"
-           />
+            />
         <activity android:name=".activities.Chat_Skezo" />
         <activity
             android:name=".activities.ContinueActivity"
             android:label="" />
+
         <activity
             android:name=".activities.ChangeAddressActivity"
             android:label="" />
