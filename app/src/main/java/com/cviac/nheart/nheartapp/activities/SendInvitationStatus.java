@@ -123,7 +123,7 @@ ImageView iv1,iv2;
         progressDialog.setCancelable(false);
         progressDialog.show();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://nheart.cviac.com")
+                .baseUrl(getString(R.string.domainname))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);
@@ -182,7 +182,7 @@ ImageView iv1,iv2;
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://nheart.cviac.com")
+                .baseUrl(getString(R.string.domainname))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);

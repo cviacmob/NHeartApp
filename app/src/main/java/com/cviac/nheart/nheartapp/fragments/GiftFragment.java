@@ -31,10 +31,14 @@ package com.cviac.nheart.nheartapp.fragments;
         import com.cviac.nheart.nheartapp.adapters.Productsadapter;
         import com.cviac.nheart.nheartapp.datamodel.CategoryProductsResponse;
         import com.cviac.nheart.nheartapp.datamodel.Product;
+        import com.cviac.nheart.nheartapp.restapi.AddCookiesInterceptor;
         import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
+        import com.cviac.nheart.nheartapp.restapi.ReceivedCookiesInterceptor;
+        import com.squareup.okhttp.OkHttpClient;
 
         import java.util.ArrayList;
         import java.util.List;
+        import java.util.concurrent.TimeUnit;
 
         import retrofit.Call;
         import retrofit.Callback;
@@ -125,9 +129,15 @@ public class GiftFragment extends Fragment{
 
 
         public void refresh(String catId) {
+            OkHttpClient okHttpClient = new OkHttpClient();
+            okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
+            okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
+            okHttpClient.interceptors().add(new AddCookiesInterceptor());
+            okHttpClient.interceptors().add(new ReceivedCookiesInterceptor());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://nheart.cviac.com")
+                .baseUrl(getString(R.string.domainname))
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
                 .build();
 
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);

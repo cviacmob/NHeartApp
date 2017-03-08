@@ -31,6 +31,8 @@
     <string name="btn_sub">Submit</string>
     <string name="btn_cncl">Cancel</string>
     <string name="otpcontent">Please enter the 6-digit confirmation code that has send to your registered mobile number.If you do not received your OTP click resend</string>
+    <string name="domainname">http://nheart.cviac.com</string>
+    <string name="domainnamelocal">http://192.168.1.67/opencart</string>
 
 
 </resources>

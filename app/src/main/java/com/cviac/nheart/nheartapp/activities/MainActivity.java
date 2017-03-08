@@ -52,15 +52,19 @@ import com.cviac.nheart.nheartapp.fragments.GiftFragment;
 import com.cviac.nheart.nheartapp.fragments.HugFragment;
 import com.cviac.nheart.nheartapp.fragments.MusicFragment;
 import com.cviac.nheart.nheartapp.fragments.SkezoFragment;
+import com.cviac.nheart.nheartapp.restapi.AddCookiesInterceptor;
 import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
+import com.cviac.nheart.nheartapp.restapi.ReceivedCookiesInterceptor;
 import com.cviac.nheart.nheartapp.utilities.BadgeDrawable;
 import com.cviac.nheart.nheartapp.services.GPSTracker;
 import com.cviac.nheart.nheartapp.xmpp.LocalBinder;
 import com.cviac.nheart.nheartapp.xmpp.XMPPService;
+import com.squareup.okhttp.OkHttpClient;
 
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -515,17 +519,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getSetToken() {
-        String token = Prefs.getString("token", null);
+        String token = null; //Prefs.getString("token", null);
         if (token == null) {
+            OkHttpClient okHttpClient = new OkHttpClient();
+            okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
+            okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
+            okHttpClient.interceptors().add(new AddCookiesInterceptor());
+            okHttpClient.interceptors().add(new ReceivedCookiesInterceptor());
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://nheart.cviac.com/index.php?route=api/login")
+                    .baseUrl(getString(R.string.domainname))
                     .addConverterFactory(GsonConverterFactory.create())
+                    .client(okHttpClient)
                     .build();
 
             OpenCartAPI api = retrofit.create(OpenCartAPI.class);
 
             String apiKey = "um5xn7zaF0RfeAzhN5vG3xsqeeFjupkgOjvtqSubhcR68yw1yg5l1nu4z0EIaYx2HLqRwlvkLGCnFL8EIG0T61L3AtD1v5HNCTPYKdksMXZrCGWGdFX1p5z8KKGQz7lBQzczWxopiQcsUXKr6B7vNasiWEpZ5pNWTjhZgMMOUILMKmnj335u67xLaO334LRmgDiEA6IDyR4Hmilqp3xjce2SvPJeRDwPuINSmSFLFxJO8qUSiF6xObvNhqZZAkey";
-            final Call<LoginResponse> call = api.login(apiKey);
+           // final Call<LoginResponse> call = api.login(apiKey);
+            String email = Prefs.getString("email","");
+            String pass = "12345";
+            final Call<LoginResponse> call = api.login(email,pass);
+
             call.enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Response<LoginResponse> response, Retrofit retrofit) {
@@ -543,15 +557,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getAndSetCartCount() {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.interceptors().add(new AddCookiesInterceptor());
+        okHttpClient.interceptors().add(new ReceivedCookiesInterceptor());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://nheart.cviac.com")
+                .baseUrl(getString(R.string.domainname))
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
                 .build();
 
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);
 
         String token = Prefs.getString("token", null);
-        Call<GetCartItemsResponse> call = api.getCartItems(token);
+        Call<GetCartItemsResponse> call = api.getCartItems();
         call.enqueue(new Callback<GetCartItemsResponse>() {
 
             public void onResponse(Response<GetCartItemsResponse> response, Retrofit retrofit) {
