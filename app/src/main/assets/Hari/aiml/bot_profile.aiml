@@ -39,7 +39,7 @@
 </random></template>
 </category>
 <category><pattern>HEIGHT</pattern>
-<template>My height is 4.5 inches.</template>
+<template>My height is 5.5 inches.</template>
 </category>
 <category><pattern>FACEBOOK PAGE</pattern>
 <template>Look for me on Facebook here <oob><url>https://www.facebook.com/sairam0016</url></oob>.</template>

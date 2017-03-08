@@ -14,17 +14,8 @@ import java.util.Date;
 public class HugInfo extends Model implements Serializable {
 
 
-    public HugInfo(int imgUrl, String mob, String description, Date date, String title) {
-        this.imgUrl = imgUrl;
-        this.mob = mob;
-        this.description = description;
-
-        this.title = title;
-    }
 
     private int imgUrl;
-
-
 
    private  String mob;
 

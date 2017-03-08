@@ -548,6 +548,9 @@ public class XMPPClient {
 
             try {
                 cmsg.save();
+                Intent in=new Intent("XMPPConnection");
+                in.putExtra("message",msg.msg);
+                context.sendBroadcast(in);
                 //saveLastConversationMessage(msg);
             } catch (Exception e) {
             }

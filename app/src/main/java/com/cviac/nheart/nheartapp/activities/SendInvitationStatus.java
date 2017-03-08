@@ -116,6 +116,12 @@ ImageView iv1,iv2;
 
 
     public void invitation(final int id,final String status) {
+        progressDialog = new ProgressDialog(SendInvitationStatus.this,
+                R.style.AppCompatAlertDialogStyle);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Verifying");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://nheart.cviac.com")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -126,25 +132,31 @@ ImageView iv1,iv2;
             @Override
             public void onResponse(Response<PairStatus> response, Retrofit retrofit) {
                 PairStatus rsp = response.body();
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
                 if (rsp.getStatus() == "paired") {
-
+                    progressDialog.dismiss();
                     Prefs.putString("status","Paired");
                     //Prefs.putString("Customer_ID",rsp.getCustomer().getCustomer_id());
                     Intent logn = new Intent(SendInvitationStatus.this, MainActivity.class);
                     startActivity(logn);
                     finish();
                 } else if(rsp.getStatus() == "rejected") {
+                    progressDialog.dismiss();
                     Intent logn = new Intent(SendInvitationStatus.this, SendToInvite.class);
                     startActivity(logn);
                     finish();
                 }
                 else
+                    progressDialog.dismiss();
                     Toast.makeText(SendInvitationStatus.this,
                             "Your invitation is Pending  ", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(Throwable t) {
+                progressDialog.dismiss();
                 Toast.makeText(SendInvitationStatus.this,
                         "Failed: " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }

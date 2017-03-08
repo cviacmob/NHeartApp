@@ -1,5 +1,7 @@
 package com.cviac.nheart.nheartapp.fragments;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.inputmethodservice.Keyboard;
@@ -13,8 +15,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cviac.nheart.nheartapp.R;
@@ -22,8 +27,10 @@ import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.activities.Chat_Skezo;
 import com.cviac.nheart.nheartapp.activities.Chat_hug;
 import com.cviac.nheart.nheartapp.activities.Skezo_Main;
+import com.cviac.nheart.nheartapp.adapters.ConvMessageAdapter;
 import com.cviac.nheart.nheartapp.adapters.Huginfoadapter;
 import com.cviac.nheart.nheartapp.adapters.SkezoInfoAdapter;
+import com.cviac.nheart.nheartapp.datamodel.ConvMessage;
 import com.cviac.nheart.nheartapp.datamodel.HugInfo;
 import com.cviac.nheart.nheartapp.datamodel.MusicInfo;
 
@@ -34,10 +41,21 @@ import java.util.Date;
 import java.util.List;
 
 
-public class HugFragment extends Fragment {
+public class HugFragment extends ChatFragment {
     private List<HugInfo> huglist;
     public ListView lv2;
     HugInfo emp;
+    private ListView lv;
+    private ImageButton img;
+    private EditText edittxt;
+    private String geteditmgs;
+    String converseId, msgid;
+    private TextView customTitle, customduration;
+    private ImageView customimage, customimageback;
+    private List<ConvMessage> chats;
+    private ConvMessageAdapter chatAdapter;
+    String mynum, tonum, myname;
+
 /*
     private void setProgressDialog() {
         progressDialog = new ProgressDialog(FireChatActivity.this, R.style.AppTheme_Dark_Dialog);
@@ -78,7 +96,6 @@ public class HugFragment extends Fragment {
 
 
 
-
             }
         });
 
@@ -92,18 +109,21 @@ public class HugFragment extends Fragment {
 
         huglist = new ArrayList<>();
 
-        HugInfo hi2 = new HugInfo(R.mipmap.docter, "9894250016", "thank you",new Date(), "Doctor");
+        HugInfo hi2 = new HugInfo(R.mipmap.docter, "9894250016", "thank you","101", "Doctor");
         huglist.add(hi2);
 
-        HugInfo hi = new HugInfo(R.mipmap.doctor22, "9791234809", "hello", new Date(), "Advisor");
+        HugInfo hi = new HugInfo(R.mipmap.doctor22, "9791234809", "hello", "102", "Advisor");
         huglist.add(hi);
 
 
-        HugInfo hi1 = new HugInfo(R.mipmap.coun, "7871816364", "how are you",new Date(), "Counsellor");
+        HugInfo hi1 = new HugInfo(R.mipmap.coun, "7871816364", "how are you","103", "Counsellor");
         huglist.add(hi1);
 
 
     }
+
+
+
 
 
     @Override

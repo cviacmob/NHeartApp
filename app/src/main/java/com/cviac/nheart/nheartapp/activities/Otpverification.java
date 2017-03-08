@@ -235,6 +235,12 @@ public class Otpverification extends AppCompatActivity {
 
 
     public void resendotp(final String mob) {
+        progressDialog = new ProgressDialog(Otpverification.this,
+                R.style.AppCompatAlertDialogStyle);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Verifying");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://nheart.cviac.com")
@@ -249,10 +255,13 @@ public class Otpverification extends AppCompatActivity {
                          @Override
                          public void onResponse(Response<VerifyOTPResponse> response, Retrofit retrofit) {
                              VerifyOTPResponse rsp = response.body();
+                             if (progressDialog != null) {
+                                 progressDialog.dismiss();
+                             }
                              if (rsp.getCode() == 0) {
 
                                  otpVerify(mobile,pass);
-
+                                 progressDialog.dismiss();
 
 
                              }
@@ -260,6 +269,7 @@ public class Otpverification extends AppCompatActivity {
 
                          @Override
                          public void onFailure(Throwable t) {
+                             progressDialog.dismiss();
                              Toast.makeText(Otpverification.this,
                                      "Invalid OTP " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                          }

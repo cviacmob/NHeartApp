@@ -99,7 +99,7 @@ public class Skezo_Main extends AppCompatActivity implements View.OnClickListene
                     for (String file : assets.list("Hari/" + dir)) {
                         File f = new File(jayDir.getPath() + "/" + dir + "/" + file);
                         if (f.exists()) {
-                            continue;
+                            f.delete();
                         }
                         InputStream in = null;
                         OutputStream out = null;

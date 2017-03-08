@@ -1,6 +1,9 @@
 package com.cviac.nheart.nheartapp.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -30,10 +33,16 @@ import org.alicebot.ab.MagicStrings;
 import org.alicebot.ab.PCAIMLProcessorExtension;
 
 
+import com.cviac.nheart.nheartapp.NheartApp;
+import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.adapters.ChatMessageAdapter;
 import com.cviac.nheart.nheartapp.adapters.CircleTransform;
+import com.cviac.nheart.nheartapp.adapters.ConvMessageAdapter;
+import com.cviac.nheart.nheartapp.datamodel.ChatMsg;
+import com.cviac.nheart.nheartapp.datamodel.ConvMessage;
 import com.cviac.nheart.nheartapp.datamodel.HugInfo;
+import com.cviac.nheart.nheartapp.xmpp.XMPPService;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
@@ -43,21 +52,34 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Chat_hug extends AppCompatActivity implements View.OnClickListener {
 
     android.support.v7.app.ActionBar actionBar;
 
+
+    private BroadcastReceiver messageReceiver;
     private ListView mListView;
     private ImageButton mButtonSend;
     private EditText mEditTextMessage;
-    private ImageView customimage;
+
     private static final int MY_PERMISSION_CALL_PHONE = 10;
     public static Chat chat;
     private ChatMessageAdapter mAdapter;
     HugInfo hug;
     String ss1, mob;
+    private ListView lv;
+    private ImageButton img;
+    private EditText edittxt;
+    private String geteditmgs;
+    String converseId, msgid;
+    private TextView customTitle, customduration;
+    private ImageView customimage, customimageback;
+    private List<ConvMessage> chats;
+    private ConvMessageAdapter chatAdapter;
+    String mynum, tonum, myname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,17 +87,25 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_virtual);
 
-        mListView = (ListView) findViewById(R.id.listViewChat);
-        mButtonSend = (ImageButton) findViewById(R.id.sendbutton);
-        mEditTextMessage = (EditText) findViewById(R.id.editTextsend);
-        mAdapter = new ChatMessageAdapter(this, new ArrayList<ChatMessage>());
-        mListView.setAdapter(mAdapter);
+        lv = (ListView) findViewById(R.id.listViewChat);
+        lv.setDivider(null);
+        img = (ImageButton) findViewById(R.id.sendbutton);
+        edittxt = (EditText) findViewById(R.id.editTextsend);
+
+        Intent i = getIntent();
+        hug = (HugInfo) i.getSerializableExtra("mob");
+
+        mynum = Prefs.getString("mobile", "");
+        myname = Prefs.getString("name", "");
+        tonum = hug.getMob();
+       /* mAdapter = new ChatMessageAdapter(this, new ArrayList<ChatMessage>());
+        mListView.setAdapter(mAdapter);*/
 
         final String MyPREFERENCES = "MyPrefs";
         SharedPreferences prefs = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
 
-        Intent i = getIntent();
-        hug = (HugInfo) i.getSerializableExtra("mob");
+
+
 
         mob = hug.getMob();
         ss1 = hug.getTitle();
@@ -83,60 +113,111 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
 
         actionmethod();
 
-        mButtonSend.setOnClickListener(new View.OnClickListener() {
+        loadConvMessages();
+        img.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                String message = mEditTextMessage.getText().toString();
-                //bot
-                String response = chat.multisentenceRespond(mEditTextMessage.getText().toString());
-                if (TextUtils.isEmpty(message)) {
-                    return;
+            public void onClick(View view) {
+                geteditmgs = edittxt.getText().toString();
+                if (!geteditmgs.equals("")) {
+                    String converseId = getNormalizedConverseId(mynum, tonum);
+                    msgid = getMsgID();
+                    com.cviac.nheart.nheartapp.xmpp.ChatMessage chat = new com.cviac.nheart.nheartapp.xmpp.ChatMessage(converseId, mynum, tonum, geteditmgs, msgid, true);
+                    chat.setSenderName(myname);
+                    XMPPService.sendMessage(chat);
+                    saveChatMessage(chat);
+                    edittxt.getText().clear();
+
+                    ChatMsg msg = new ChatMsg();
+                    msg.setSenderid(mynum);
+                    msg.setSendername(myname);
+                    msg.setMsg(geteditmgs);
+                    msg.setMsgid(msgid);
+                    msg.setReceiverid(tonum);
+                    // checkAndSendPushNotfication(conv.getEmpid(), msg);
                 }
-                sendMessage(message);
-                mimicOtherMessage(response);
-                mEditTextMessage.setText("");
-                mListView.setSelection(mAdapter.getCount() - 1);
+
+
             }
+
+
         });
+        NheartApp app = (NheartApp)getApplication();
+        //app.setChatFrag(this);
+
+
+        messageReceiver =new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                loadConvMessages();
+
+
+            }
+        };
+        registerReceiver(messageReceiver,new IntentFilter("XMPPConnection"));
     }
 
-    private void sendMessage(String message) {
-        ChatMessage chatMessage = new ChatMessage(message, true, false);
-        mAdapter.add(chatMessage);
+    private String getMsgID() {
 
-        //mimicOtherMessage(message);
+        return System.currentTimeMillis() + "";
+
     }
 
-    private void mimicOtherMessage(String message) {
-        ChatMessage chatMessage = new ChatMessage(message, false, false);
-        mAdapter.add(chatMessage);
+    private void loadConvMessages() {
+        converseId = getNormalizedConverseId(mynum, tonum);
+        chats = ConvMessage.getAll(converseId);
+        chatAdapter = new ConvMessageAdapter(chats,getApplicationContext());
+        lv.setAdapter(chatAdapter);
     }
 
-    private void sendMessage() {
-        ChatMessage chatMessage = new ChatMessage(null, true, true);
-        mAdapter.add(chatMessage);
-
-        mimicOtherMessage();
+    public String getConverseId() {
+        return converseId;
     }
 
-    private void mimicOtherMessage() {
-        ChatMessage chatMessage = new ChatMessage(null, false, true);
-        mAdapter.add(chatMessage);
-    }
-
-    //check SD card availability
-    public static boolean isSDCARDAvailable() {
-        return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED) ? true : false;
-    }
-
-    //copying the file
-    private void copyFile(InputStream in, OutputStream out) throws IOException {
-        byte[] buffer = new byte[1024];
-        int read;
-        while ((read = in.read(buffer)) != -1) {
-            out.write(buffer, 0, read);
+    private String getNormalizedConverseId(String myid, String receverid) {
+        if (myid.compareTo(receverid) > 0) {
+            return myid + "_" + receverid;
         }
+        return receverid + "_" + myid;
     }
+
+    public void addInMessage(ConvMessage msg) {
+        // chats.add(msg);
+        loadConvMessages();
+        chatAdapter.notifyDataSetChanged();
+    }
+
+    public void reload() {
+        loadConvMessages();
+        chatAdapter.notifyDataSetChanged();
+    }
+
+    public void saveChatMessage(com.cviac.nheart.nheartapp.xmpp.ChatMessage msg) {
+        ConvMessage cmsg = new ConvMessage();
+        cmsg.setMsg(msg.msg);
+        cmsg.setCtime(new Date());
+        cmsg.setConverseid(msg.converseid);
+        cmsg.setSenderName(msg.senderName);
+        cmsg.setReceiver(msg.receiver);
+        cmsg.setSender(msg.sender);
+        cmsg.setMsgid(msg.msgid);
+        cmsg.setMine(msg.isMine);
+        cmsg.setMine(true);
+        cmsg.setStatus(1);
+        cmsg.save();
+        chats.add(cmsg);
+        chatAdapter.notifyDataSetChanged();
+    }
+
+
+    public void onDestroy() {
+        super.onDestroy();
+        NheartApp app = (NheartApp)getApplication();
+        unregisterReceiver(messageReceiver);
+        app.setChatFrag(null);
+
+    }
+
 
     public void actionmethod() {
 
@@ -185,7 +266,7 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
 
         Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:" + mob));
+        callIntent.setData(Uri.parse("tel:" + tonum));
         if (ContextCompat.checkSelfPermission(this, (android.Manifest.permission.CALL_PHONE))
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(Chat_hug.this, new String[]{android.Manifest.permission.CALL_PHONE}, MY_PERMISSION_CALL_PHONE);
@@ -201,8 +282,8 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
             case MY_PERMISSION_CALL_PHONE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Intent callintent = new Intent(Intent.ACTION_CALL);
-                    callintent.setData(Uri.parse("tel:" + mob));
-                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    callintent.setData(Uri.parse("tel:" + tonum));
+                    if (ActivityCompat.checkSelfPermission(Chat_hug.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                         return;
                     }
                     startActivity(callintent);

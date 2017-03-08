@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -184,6 +185,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
         /*final AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         appBarLayout.setExpanded(false, true);
 */
@@ -244,6 +247,10 @@ public class MainActivity extends AppCompatActivity {
         doBindService();
 
     }
+
+
+
+
 
     private void setTabIcon(TabLayout.Tab tab, boolean isSelected) {
         String tabTitle = tab.getTag().toString();
