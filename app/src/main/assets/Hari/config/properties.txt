@@ -1,8 +1,8 @@
-url:http://djustice-android.tumblr.com
-name:Sai
-email:rsaimeet@gmail.com
+url:http://www.cviac.com
+name:Libo
+email:info@cviac.com
 gender:male
-botmaster:sairam prakash
-organization:cviac
-version:0.0.1
+botmaster:Dr. Richard S. Wallace
+organization:ALICE AI Foundation
+version:0.0.4
 

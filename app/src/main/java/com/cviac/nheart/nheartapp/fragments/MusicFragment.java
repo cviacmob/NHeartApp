@@ -149,7 +149,7 @@ public class MusicFragment extends Fragment {
                     info.setPlaying(true);
                     adapter.notifyDataSetChanged();
                     sb.setMax(mp.getDuration());
-                    btnPlay.setBackgroundResource(R.drawable.pause);
+                    btnPlay.setBackgroundResource(R.drawable.pau);
                     try
                     {
                         updateseekbar.start();
@@ -211,7 +211,7 @@ public class MusicFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mp.isPlaying()) {
-                    v.setBackgroundResource(R.drawable.play);
+                    v.setBackgroundResource(R.drawable.play143);
                     mp.pause();
                     sb.setMax(mp.getDuration());
                     songlist.get(musicCounter).setPlaying(false);
@@ -223,7 +223,7 @@ public class MusicFragment extends Fragment {
                 }
                 if (mp.isPlaying()) {
                     sb.setMax(mp.getDuration());
-                    v.setBackgroundResource(R.drawable.pause);
+                    v.setBackgroundResource(R.drawable.pau);
                     songlist.get(musicCounter).setPlaying(true);
                     adapter.notifyDataSetChanged();
                 }

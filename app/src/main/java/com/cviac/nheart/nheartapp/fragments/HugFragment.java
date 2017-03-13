@@ -40,8 +40,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
-public class HugFragment extends ChatFragment {
+public class HugFragment extends Fragment {
     private List<HugInfo> huglist;
     public ListView lv2;
     HugInfo emp;
@@ -55,16 +54,6 @@ public class HugFragment extends ChatFragment {
     private List<ConvMessage> chats;
     private ConvMessageAdapter chatAdapter;
     String mynum, tonum, myname;
-
-/*
-    private void setProgressDialog() {
-        progressDialog = new ProgressDialog(FireChatActivity.this, R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Loading...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-    }*/
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -82,28 +71,15 @@ public class HugFragment extends ChatFragment {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int pos1, long pos2) {
                 HugInfo emp = huglist.get(pos1);
-
-
-
-
                     Intent i = new Intent(getActivity().getApplicationContext(), Chat_hug.class);
 
                     i.putExtra("mob",emp);
 
                     startActivity(i);
-
-
-
-
-
             }
         });
-
         return view;
-
-
     }
-
 
     private void values() {
 
@@ -115,16 +91,10 @@ public class HugFragment extends ChatFragment {
         HugInfo hi = new HugInfo(R.mipmap.doctor22, "9791234809", "hello", "102", "Advisor");
         huglist.add(hi);
 
-
         HugInfo hi1 = new HugInfo(R.mipmap.coun, "7871816364", "how are you","103", "Counsellor");
         huglist.add(hi1);
 
-
     }
-
-
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -140,6 +110,4 @@ public class HugFragment extends ChatFragment {
         menu.findItem(R.id.loc).setVisible(false);
         super.onPrepareOptionsMenu(menu);
     }
-
-
 }

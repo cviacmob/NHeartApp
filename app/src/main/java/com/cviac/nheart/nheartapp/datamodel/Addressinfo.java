@@ -2,10 +2,6 @@ package com.cviac.nheart.nheartapp.datamodel;
 
 import java.io.Serializable;
 
-/**
- * Created by admin1 on 1/4/2017.
- */
-
 public class Addressinfo implements Serializable {
 
     private String firstname;
@@ -118,5 +114,10 @@ public class Addressinfo implements Serializable {
 
     public void setCountry_id(String country_id) {
         this.country_id = country_id;
+    }
+
+    @Override
+    public String toString() {
+        return firstname + " " + city + " " + postcode;
     }
 }

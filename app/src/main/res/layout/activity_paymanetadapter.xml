@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/payprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/payname"
+                android:paddingRight="10dp"
+                android:text="pric"
+                android:layout_alignParentEnd="true"
+                android:textColor="#080200"
+                android:textStyle="bold"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/payname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/payimage"
+                android:layout_toRightOf="@+id/payimage"
+                android:layout_toLeftOf="@+id/delete"
+                android:background="#ffffff"
+                android:maxLines="2"
+                android:text="TextView"
+                android:textColor="#080200"
+                android:textStyle="bold" />
+
+            <ImageView
+
+                android:id="@+id/payimage"
+                android:layout_width="110dp"
+                android:layout_height="80dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:paddingTop="2dp"
+                app:srcCompat="@mipmap/feight" />
+            <TextView
+                android:id="@+id/quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/payname"
+                android:layout_alignLeft="@+id/payname"
+                android:layout_below="@+id/payname"
+                android:text="Quantity" />
+            <TextView
+                android:id="@+id/quantitynum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/payname"
+             android:layout_toRightOf="@+id/quantity"
+                android:text="TextView" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+
+
+</RelativeLayout>

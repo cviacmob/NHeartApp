@@ -36,15 +36,15 @@
 
         <ImageButton
             android:id="@+id/btnimg"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="11dp"
+            android:layout_marginRight="11dp"
+            android:background="@drawable/play143"
+            android:clickable="true"
+            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_marginEnd="13dp"
-            android:layout_marginRight="13dp"
-            android:background="@drawable/play"
-            android:clickable="true" />
+            android:layout_alignParentEnd="true" />
 
         <TextView
             android:id="@+id/texdura"
@@ -83,11 +83,11 @@
         <ImageView
             android:id="@+id/musicimg"
             android:layout_width="60dp"
-            android:layout_height="45dp"
+            android:layout_height="52dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            app:srcCompat="@mipmap/musicimg" />
+            app:srcCompat="@mipmap/musicicon" />
 
         <TextView
             android:id="@+id/playtitle"

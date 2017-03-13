@@ -114,7 +114,7 @@ public class CartItemListActivity extends AppCompatActivity{
 
     }
 
-    private void loadCartItems() {
+    public void loadCartItems() {
 
         OkHttpClient okHttpClient = new OkHttpClient();
         okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
@@ -135,6 +135,7 @@ public class CartItemListActivity extends AppCompatActivity{
 
             public void onResponse(Response<GetCartItemsResponse> response, Retrofit retrofit) {
                 GetCartItemsResponse rsp = response.body();
+                cartProducts.clear();
                 cartProducts.addAll(rsp.getProds());
                 s= String.valueOf(rsp.getProds().size());
                 tv.setText(s);
@@ -150,49 +151,6 @@ public class CartItemListActivity extends AppCompatActivity{
                 t.printStackTrace();
             }
         });
-
-
-//        root = new CartItemInfo(0, "root", "String", "String");
-//
-//        CartItemInfo ch1 = new CartItemInfo(R.mipmap.two, "ROSE", "ByCviac", "₹ 25");
-//        root.add(ch1);
-//
-//
-//        CartItemInfo ch2 = new CartItemInfo(R.mipmap.fthree, "LILLY", "ByCviac", "₹ 35");
-//        root.add(ch2);
-//
-//
-//        CartItemInfo ch3 = new CartItemInfo(R.mipmap.ffour, "JASMINE", "ByCviac", "₹ 65");
-//        root.add(ch3);
-//
-//
-//        CartItemInfo ch4 = new CartItemInfo(R.mipmap.ffive, "LOTUS", "ByCviac", "₹ 35");
-//        root.add(ch4);
-//
-//
-//        CartItemInfo ch5 = new CartItemInfo(R.mipmap.fsix, "ROSE", "ByCviac", "₹ 100");
-//        root.add(ch5);
-
-//        ServiceInfo ch6 = new ServiceInfo(R.mipmap.fseven, "LILLY", "ByCviac", "₹ 115", "₹ 150");
-//        root.add(ch6);
-//
-//        ServiceInfo ch7 = new ServiceInfo(R.mipmap.ffour, "JASMINE", "ByCviac", "₹ 150", "₹ 175");
-//        root.add(ch7);
-//
-//        ServiceInfo ch8 = new ServiceInfo(R.mipmap.ffive, "ROSE", "ByCviac", "₹ 35", "₹ 75");
-//        root.add(ch8);
-//
-//        ServiceInfo ch9 = new ServiceInfo(R.mipmap.fthree, "JASMINE", "ByCviac", "₹ 35", "₹ 45");
-//        root.add(ch9);
-//
-//        ServiceInfo ch10 = new ServiceInfo(R.mipmap.ffour, "LILLY", "ByCviac", "₹ 85", "₹ 95");
-//        root.add(ch10);
-//
-//        ServiceInfo ch11 = new ServiceInfo(R.mipmap.feight, "ROSE", "ByCviac", "₹ 25", "₹ 35");
-//        root.add(ch11);
-//
-//        ServiceInfo ch12 = new ServiceInfo(R.mipmap.fsix, "LOTUS", "ByCviac", "₹ 15", "₹ 25");
-//        root.add(ch12);
 
     }
 

@@ -23,7 +23,7 @@ public class RejectAnimationActivity  extends AppCompatActivity {
     WebView web;
     TextView tv,tv2;
     TranslateAnimation animMove,mv2;
-    private static int SPLASH_TIME_OUT = 4000;
+    private static int SPLASH_TIME_OUT = 6000;
     Button b1;
     String name,toname;
     @Override

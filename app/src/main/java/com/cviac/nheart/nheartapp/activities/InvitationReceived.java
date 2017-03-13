@@ -36,11 +36,11 @@ public class InvitationReceived extends AppCompatActivity {
 
     ProgressDialog progressDialog = null;
 
-    Animation anim;
+    Animation anim,animate;
     ImageView img5,img6,img12,img13;
     Button accept, reject;
     TextView name, email, mobile,textvv;
-    String mob;
+    String mob,toname,to_name;
     ImageButton callbtn;
     Invitation invite;
 
@@ -66,9 +66,12 @@ public class InvitationReceived extends AppCompatActivity {
         //final String em=email.getText().toString();
         mobile.setText(invite.getMobile());
         mob=mobile.getText().toString();
+
         name.setText(invite.getName());
+        to_name=name.getText().toString();
         final String nm=name.getText().toString();
         Prefs.putString("mobile1",mob);
+        to_name= Prefs.getString("to_name","");
         final String my_mobile= Prefs.getString("mobile","");
 
         accept.setOnClickListener(new View.OnClickListener() {
@@ -94,10 +97,13 @@ public class InvitationReceived extends AppCompatActivity {
             @Override
 
             public void onClick(View v) {
+
+                animate = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move6);
+                img13.startAnimation(animate);
+                animate = AnimationUtils.loadAnimation(getApplicationContext(),
+                        R.anim.move7);
+                img12.startAnimation(animate);
                 updateInvite(mob,my_mobile,"rejected");
-
-
-
 
             }
         });
@@ -114,7 +120,7 @@ public class InvitationReceived extends AppCompatActivity {
         progressDialog = new ProgressDialog(InvitationReceived.this,
                 R.style.AppCompatAlertDialogStyle);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Please Wait");
+        progressDialog.setMessage("Please Wait....");
         progressDialog.setCancelable(false);
         progressDialog.show();
 

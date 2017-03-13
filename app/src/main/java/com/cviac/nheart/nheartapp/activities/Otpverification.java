@@ -95,7 +95,7 @@ public class Otpverification extends AppCompatActivity {
         progressDialog = new ProgressDialog(Otpverification.this,
                 R.style.AppCompatAlertDialogStyle);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Verifying");
+        progressDialog.setMessage("Verifying....");
         progressDialog.setCancelable(false);
         progressDialog.show();
 

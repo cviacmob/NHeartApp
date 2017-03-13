@@ -369,10 +369,10 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(h);
                 }
                 break;
-            case R.id.location:
 
-                Intent v = new Intent(MainActivity.this, MapsActivity.class);
-                startActivity(v);
+            case R.id.Address:
+                Intent e = new Intent(MainActivity.this, ChangeAddressActivity.class);
+                startActivityForResult(e, 1000);
                 break;
             case R.id.loc:
 

@@ -10,11 +10,14 @@ import com.cviac.nheart.nheartapp.datamodel.GeneralResponse;
 import com.cviac.nheart.nheartapp.datamodel.GetCartItemsResponse;
 import com.cviac.nheart.nheartapp.datamodel.LoginResponse;
 import com.cviac.nheart.nheartapp.datamodel.PairStatus;
+import com.cviac.nheart.nheartapp.datamodel.PaymentMethodsResponse;
 import com.cviac.nheart.nheartapp.datamodel.Productdetailresponse;
 import com.cviac.nheart.nheartapp.datamodel.ReginfoResponse;
+import com.cviac.nheart.nheartapp.datamodel.ShippingMethodsResponse;
 import com.cviac.nheart.nheartapp.datamodel.ZoneInfo;
 import com.cviac.nheart.nheartapp.datamodel.removefromCartResponse;
 import com.cviac.nheart.nheartapp.datamodel.updatecartresponse;
+import com.squareup.okhttp.ResponseBody;
 
 import java.util.List;
 
@@ -86,19 +89,18 @@ public interface OpenCartAPI {
 
     @FormUrlEncoded
     @POST("/index.php?route=api/cart/remove")
-    Call<removefromCartResponse> remove(@Query("token") String token,
-                                        @Field("key") String prodid
+    Call<removefromCartResponse> remove(@Field("key") String cartid);
+
                                         // @Field("quantity") String quantity
-    );
 
 
-
-    @FormUrlEncoded
-    @POST("/index.php?route=api/cart/edit")
-    Call<updatecartresponse> update(@Query("token") String token,
-                                    @Field("key") String prodid,
-                                    @Field("quantity") String quantity
-    );
+//
+//    @FormUrlEncoded
+//    @POST("/index.php?route=api/cart/edit")
+//    Call<updatecartresponse> update(@Query("token") String token,
+//                                    @Field("key") String prodid,
+//                                    @Field("quantity") String quantity
+//    );
 
 
 
@@ -171,4 +173,64 @@ public interface OpenCartAPI {
 
     @POST("/fcm/send")
     Call<FCMSendMessageResponse> sendPushMessage(@Header("Authorization") String key, @Body PushMessageInfo info);
+
+
+    @GET("/index.php?route=api/payment/methods")
+    Call<PaymentMethodsResponse> getPaymentMethods();
+
+    @GET("/index.php?route=api/shipping/methods")
+    Call<ShippingMethodsResponse> getShippingMethods();
+
+    // Order Placement APIs
+    @FormUrlEncoded
+    @POST("/index.php?route=api/customer")
+    Call<GeneralResponse> setCustomerSession(@Field("customer_id") String customer_id,
+                                             @Field("customer_group_id") String customer_group_id,
+                                             @Field("firstname") String firstname,
+                                             @Field("lastname") String lastname,
+                                             @Field("email") String email,
+                                             @Field("telephone") String telephone,
+                                             @Field("fax") String fax);
+
+    @FormUrlEncoded
+    @POST("/index.php?route=api/payment/address")
+    Call<GeneralResponse> setPaymentAddress(@Field("firstname") String firstname,
+                                            @Field("lastname") String lastname,
+                                            @Field("company") String company,
+                                            @Field("address_1") String address_1,
+                                            @Field("address_2") String address_2,
+                                            @Field("postcode") String postcode,
+                                            @Field("city") String city,
+                                            @Field("zone_id") String zone_id,
+                                            @Field("country_id") String country_id);
+
+
+    @FormUrlEncoded
+    @POST("/index.php?route=api/payment/method")
+    Call<GeneralResponse> setPaymentMethod(@Field("payment_method") String payment_method);
+
+    @FormUrlEncoded
+    @POST("/index.php?route=api/shipping/address")
+    Call<GeneralResponse> setShippingAddress(@Field("firstname") String firstname,
+                                             @Field("lastname") String lastname,
+                                             @Field("company") String company,
+                                             @Field("address_1") String address_1,
+                                             @Field("address_2") String address_2,
+                                             @Field("postcode") String postcode,
+                                             @Field("city") String city,
+                                             @Field("zone_id") String zone_id,
+                                             @Field("country_id") String country_id);
+
+    @FormUrlEncoded
+    @POST("/index.php?route=api/shipping/method")
+    Call<GeneralResponse> setShippingMethod(@Field("shipping_method") String shipping_method);
+
+    @FormUrlEncoded
+    @POST("/index.php?route=api/order/add")
+    Call<ResponseBody> placeOrder(@Field("payment_method") String payment_method,
+                                  @Field("shipping_method") String shipping_method,
+                                  @Field("comment") String comment,
+                                  @Field("affiliate_id") String affiliate_id,
+                                  @Field("order_status_id") String order_status_id);
+
 }

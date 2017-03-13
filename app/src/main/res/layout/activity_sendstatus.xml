@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/wallll"
     >
 
     <RelativeLayout
@@ -56,14 +55,14 @@
         <TextView
             android:text=" text mob"
             android:textStyle="bold"
-            android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textnum"
             android:padding="5dp"
             android:textColor="#bf2a2a"
             android:layout_below="@+id/text1"
-            android:layout_alignParentLeft="true" />
+            android:layout_alignLeft="@+id/text1"
+            android:layout_alignStart="@+id/text1" />
 
 
         <ImageView
@@ -87,15 +86,15 @@
             android:layout_centerHorizontal="true"/>
 
         <TextView
-            android:text=" You will be notified Once"
+            android:text="You will be notified once"
             android:textStyle="bold"
             android:padding="5dp"
-            android:layout_alignParentEnd="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/text2"
             android:layout_below="@+id/text1"
-            android:layout_alignParentRight="true" />
+            android:layout_toRightOf="@+id/textnum"
+            android:layout_toEndOf="@+id/textnum" />
 
         <Button
             android:text="OK"

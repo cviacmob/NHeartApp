@@ -12,7 +12,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/item_count"
-
         android:textStyle="bold"
         android:layout_alignParentLeft="true"
         android:paddingLeft="10dp"

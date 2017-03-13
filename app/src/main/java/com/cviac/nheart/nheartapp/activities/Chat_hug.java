@@ -227,7 +227,7 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
             actionBar.setDisplayShowHomeEnabled(false);
             actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setDisplayShowCustomEnabled(true);
-            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#B24496")));
+            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#811617")));
 
             View customView = getLayoutInflater().inflate(R.layout.actionbar_hug, null);
             customimage = (ImageView) customView.findViewById(R.id.imageViewcustom1);

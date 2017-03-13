@@ -5,12 +5,12 @@
     android:layout_height="match_parent">
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView2"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -18,122 +18,154 @@
 
 
             <TextView
-                android:text="Your Delivery Address"
+                android:id="@+id/Address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                android:layout_marginLeft="10dp"
                 android:layout_alignParentTop="true"
-                android:id="@+id/Address" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Your Delivery Address"
+                android:textSize="15dp"
+                android:textStyle="bold" />
 
             <RelativeLayout
+                android:id="@+id/relative1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/relative1"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/Address"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/Address"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:id="@+id/afirstname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
+
+                    android:text="Fisrtname" />
+
+                <TextView
+                    android:id="@+id/aaddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/afirstname"
+                    android:layout_alignStart="@+id/afirstname"
+                    android:layout_below="@+id/afirstname"
+                    android:text="address1" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/aadreess1"
+                    android:paddingLeft="3dp"
+                    android:layout_toRightOf="@+id/aaddress"
+                    android:layout_toEndOf="@+id/aaddress"
+                    android:layout_alignBaseline="@+id/aaddress"
+                    android:text="address2" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Acity"
+                    android:layout_alignLeft="@+id/afirstname"
+                    android:layout_alignStart="@+id/afirstname"
+                    android:layout_below="@+id/aaddress"
+                    android:text="City"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/APincode"
+                    android:text="Pincode"
+                    android:paddingLeft="3dp"
+                    android:layout_toRightOf="@+id/Acity"
+                    android:layout_toEndOf="@+id/Acity"
+                    android:layout_alignBaseline="@+id/Acity"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Astate"
+                    android:layout_alignLeft="@+id/afirstname"
+                    android:layout_alignStart="@+id/afirstname"
+                    android:layout_below="@+id/Acity"
+                    android:text="State"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ACountry"
+                    android:text="Country"
+                    android:paddingLeft="3dp"
+                    android:layout_toRightOf="@+id/Astate"
+                    android:layout_toEndOf="@+id/Astate"
+                    android:layout_alignBaseline="@+id/Astate"/>
 
                 <Button
-                    android:text="Change"
+                    android:id="@+id/change"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
+                    android:layout_marginEnd="13dp"
                     android:layout_marginRight="13dp"
                     android:background="@color/colorPrimary"
+                    android:text="Change"
                     android:textColor="#ffffff"
-                    android:textStyle="bold"
-                    android:layout_marginEnd="13dp"
-                    android:id="@+id/change" />
-
-                <TextView
-                    android:text="TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/addres1"
-
-                    />
-                <TextView
-                    android:text="TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginStart="60dp"
-                    android:paddingTop="10dp"
-                    android:layout_below="@+id/addres1"
-                    android:id="@+id/addres2"
-
-                    />
-                <TextView
-                    android:text="TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginStart="60dp"
-                    android:paddingTop="10dp"
-                    android:layout_below="@+id/addres2"
-                    android:id="@+id/addres3"
-
-                    />
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
             <TextView
-                android:text="Review Your Order"
+                android:id="@+id/Revieworder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                android:id="@+id/Revieworder"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/relative1"
                 android:layout_alignLeft="@+id/Address"
-                android:layout_alignStart="@+id/Address" />
+                android:layout_alignStart="@+id/Address"
+                android:layout_below="@+id/relative1"
+                android:layout_marginTop="10dp"
+                android:text="Review Your Order"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
             <com.cviac.nheart.nheartapp.utilities.NonScrollableListview
+                android:id="@+id/paylist"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:id="@+id/paylist"
-                android:orientation="vertical"
                 android:layout_below="@+id/Revieworder"
-                android:layout_marginTop="10dp" />
-            <TextView
-                android:text="PAY RS"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/paylist"
-                android:textStyle="bold"
-                android:background="@color/colorPrimary"
-                android:textColor="#FDFEFE"
-                android:layout_marginTop="1dp"
-                android:paddingTop="10dp"
-                android:paddingLeft="10dp"
-                android:paddingBottom="10dp"
-                android:id="@+id/pay"
-                android:textSize="15dp"
-                android:paddingRight="35dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_marginTop="10dp"
+                android:orientation="vertical" />
 
             <TextView
-                android:text="Choose Your Payment Option"
+                android:id="@+id/pay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/paylist"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/colorPrimary"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="35dp"
+                android:paddingTop="10dp"
+                android:text="PAY RS"
+                android:textColor="#FDFEFE"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/choosepayment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/pay"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Choose Your Payment Option"
                 android:textSize="15dp"
-                android:textStyle="bold"
-                android:id="@+id/choosepayment" />
+                android:textStyle="bold" />
 
             <com.cviac.nheart.nheartapp.utilities.RadioGridGroup
                 android:layout_width="wrap_content"
@@ -146,15 +178,15 @@
                         android:id="@+id/cash"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cash On Delivery"
-                        android:layout_marginLeft="10dp"/>
+                        android:layout_marginLeft="10dp"
+                        android:text="Cash On Delivery" />
 
                     <RadioButton
                         android:id="@+id/Paytm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Paytm"
-                        android:layout_marginLeft="50dp"/>
+                        android:layout_marginLeft="50dp"
+                        android:text="Paytm" />
                 </TableRow>
 
                 <TableRow>
@@ -163,32 +195,32 @@
                         android:id="@+id/Credit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Credit"
-                        android:layout_marginLeft="10dp"/>
+                        android:layout_marginLeft="10dp"
+                        android:text="Credit" />
 
                     <RadioButton
                         android:id="@+id/Debit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Debit"
-                        android:layout_marginLeft="50dp"/>
+                        android:layout_marginLeft="50dp"
+                        android:text="Debit" />
                 </TableRow>
 
             </com.cviac.nheart.nheartapp.utilities.RadioGridGroup>
 
             <TextView
-                android:text="TextView"
+                android:id="@+id/amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="15dp"
-                android:textColor="#ffffff"
-                android:id="@+id/amount"
                 android:layout_alignBaseline="@+id/pay"
                 android:layout_alignBottom="@+id/pay"
-                android:layout_alignRight="@+id/pay"
                 android:layout_alignEnd="@+id/pay"
-                android:paddingRight="10dp"/>
+                android:layout_alignRight="@+id/pay"
+                android:paddingRight="10dp"
+                android:text="TextView"
+                android:textColor="#ffffff"
+                android:textSize="15dp"
+                android:textStyle="bold" />
             <!--<GridView-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="150dp"-->
@@ -203,8 +235,8 @@
         </RelativeLayout>
 
 
-
     </ScrollView>
+
 
 
 </RelativeLayout>

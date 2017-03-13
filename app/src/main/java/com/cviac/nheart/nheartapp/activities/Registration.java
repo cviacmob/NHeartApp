@@ -145,9 +145,10 @@ public class Registration extends AppCompatActivity {
         progressDialog = new ProgressDialog(Registration.this,
                 R.style.AppCompatAlertDialogStyle);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Registering");
+        progressDialog.setMessage("Registering....");
         progressDialog.setCancelable(false);
         progressDialog.show();
+
         OkHttpClient okHttpClient = new OkHttpClient();
         okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
         okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
@@ -168,6 +169,7 @@ public class Registration extends AppCompatActivity {
                 }
                 ReginfoResponse rsp = response.body();
                 if (rsp.getCode() == 0) {
+
                     Prefs.putString("mobile",mob);
                     Prefs.putString("email",email1);
                     Prefs.putString("name",firstname);
@@ -190,6 +192,11 @@ public class Registration extends AppCompatActivity {
                     progressDialog.dismiss();
                     Toast.makeText(Registration.this,
                             "E~Mail Not Valid", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    progressDialog.dismiss();
+                    Toast.makeText(Registration.this,
+                            "E~Mail Already Registered", Toast.LENGTH_LONG).show();
                 }
             }
             @Override

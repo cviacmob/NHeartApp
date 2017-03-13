@@ -17,13 +17,14 @@ import com.cviac.nheart.nheartapp.R;
  * Created by admin1 on 3/6/2017.
  */
 
-public class AcceptAnimationAcitvity  extends AppCompatActivity {
+public class
+AcceptAnimationAcitvity  extends AppCompatActivity {
     WebView web;
     //Button b1;
     TextView tv,tv2;
     String name,to_name;
     TranslateAnimation animation,animation2;
-    private static int SPLASH_TIME_OUT = 4000;
+    private static int SPLASH_TIME_OUT = 6000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,3 +99,4 @@ public class AcceptAnimationAcitvity  extends AppCompatActivity {
         }, SPLASH_TIME_OUT);
     }
 }
+

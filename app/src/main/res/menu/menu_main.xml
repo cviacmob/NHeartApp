@@ -9,19 +9,17 @@
 
         android:icon="@drawable/ic_search_black_24dp"
         app:showAsAction="never" />
-
     <item
-        android:id="@+id/location"
+        android:id="@+id/Address"
         android:orderInCategory="100"
-        android:title="Shadow Me"
-
-        android:icon="@drawable/ic_location_on_white_24dp"
+        android:title="My Profile"
         app:showAsAction="never" />
+
 
     <item
         android:id="@+id/action_refresh"
         android:orderInCategory="100"
-        android:title="Refresh"
+        android:title="Settings"
         android:icon="@drawable/ic_search_black_24dp"
         app:showAsAction="never" />
     <item

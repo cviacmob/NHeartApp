@@ -123,13 +123,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/pin_l"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
 
             <Spinner
                 android:id="@+id/state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/country"
+                android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true" />
 
             <Button
