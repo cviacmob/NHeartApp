@@ -106,6 +106,7 @@ public class ChatFragment extends Fragment {
     }
 
     public String getConverseId() {
+
         return converseId;
     }
 

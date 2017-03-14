@@ -44,9 +44,9 @@ public class ConvMessageAdapter extends ArrayAdapter<ConvMessage> {
     }
 
     public static class ViewHolder {
-        public TextView msgview,txt;
-        public ImageView statusview;
-        public  RelativeLayout rLayout;
+        public TextView textView;
+        public TextView textViewother, textviewduration, textviewdurationmine;
+        public  ImageView imagetick;
 
     }
     @Override
@@ -64,36 +64,51 @@ public class ConvMessageAdapter extends ArrayAdapter<ConvMessage> {
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        View vw=convertView;
         int viewType = getItemViewType(position);
+        ViewHolder holder;
         ConvMessage chat=getItem(position);
-        if (viewType == MY_MESSAGE) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.chat_mine, parent, false);
-            TextView textView = (TextView) convertView.findViewById(R.id.text);
-            TextView timetext = (TextView) convertView.findViewById(R.id.durationtext);
-             ImageView img=(ImageView)convertView.findViewById(R.id.imageView2);
-            textView.setText(getItem(position).getMsg());
+        if (convertView == null) {
+            holder = new ViewHolder();
+            if (viewType == MY_MESSAGE) {
 
-            timetext.setText(getformatteddate(chat.getCtime()));
-            if (chat.getStatus() == 0) {
-                img.setBackgroundResource(R.drawable.schedule);
-            }
-            if (chat.getStatus() == 1) {
-                img.setBackgroundResource(R.drawable.done);
-            } else if (chat.getStatus() == 2) {
-               img.setBackgroundResource(R.drawable.done_all);
-            } else if (chat.getStatus() == 3) {
-                img.setBackgroundResource(R.drawable.done_all_colo);
-            }
+                vw = LayoutInflater.from(getContext()).inflate(R.layout.chat_mine, parent, false);
+                holder.textView = (TextView) vw.findViewById(R.id.text);
+                holder.textviewdurationmine = (TextView) vw.findViewById(R.id.durationtext);
+                holder.imagetick = (ImageView) vw.findViewById(R.id.imageView2);
 
-        } else if (viewType == OTHER_MESSAGE) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.chat_other, parent, false);
-            TextView textView = (TextView) convertView.findViewById(R.id.text);
-            textView.setText(getItem(position).getMsg());
-            TextView textView1 = (TextView) convertView.findViewById(R.id.text1);
-            textView1.setText(getformatteddate(chat.getCtime()));
+
+            } else if(viewType == OTHER_MESSAGE)
+            {
+                vw = LayoutInflater.from(getContext()).inflate(R.layout.chat_other, parent, false);
+                holder.textViewother = (TextView) vw.findViewById(R.id.text);
+                holder.textviewduration = (TextView) vw.findViewById(R.id.text1);
+
+            }
+            vw.setTag(holder);
+        }else {
+            holder = (ViewHolder) vw.getTag();
         }
 
-        return convertView;
+        if(chat.isMine()){
+            holder.textView.setText(chat.getMsg());
+            holder.textviewdurationmine.setText(getformatteddate(chat.getCtime()));
+            if (chat.getStatus() == 0) {
+                holder.imagetick.setBackgroundResource(R.drawable.schedule);
+            }
+            if (chat.getStatus() == 1) {
+                holder.imagetick.setBackgroundResource(R.drawable.done);
+            } else if (chat.getStatus() == 2) {
+                holder.imagetick.setBackgroundResource(R.drawable.done_all);
+            } else if (chat.getStatus() == 3) {
+                holder.imagetick.setBackgroundResource(R.drawable.done_all_colo);
+            }
+        }else{
+            holder.textViewother.setText(chat.getMsg());
+            holder.textviewduration.setText(getformatteddate(chat.getCtime()));
+        }
+
+        return vw;
     }
 
     private String getformatteddate(Date dateTime) {

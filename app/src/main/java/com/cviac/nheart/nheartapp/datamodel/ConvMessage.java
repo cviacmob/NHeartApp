@@ -6,6 +6,9 @@ import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 import com.activeandroid.query.Update;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -149,6 +152,48 @@ public class ConvMessage extends Model {
 //	public static void deleteMessages(int teamId) {
 //		new Delete().from(ConvMessage.class).where("teamId=?", teamId).execute();
 //	}
+public static List<ConvMessage> deletelastconvmsg() {
+    String dates = lastconvmsgdelete(new Date());
+    List<ConvMessage> result = new ArrayList<>();
+    List<ConvMessage> conlist = new Select()
+            .from(ConvMessage.class)
+            .execute();
 
+    for (ConvMessage con : conlist) {
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        String dt = format.format(con.ctime);
+        if (dt.equals(dates)) {
+
+            con.delete();
+        }
+    }
+
+    return result;
+}
+
+    public static String lastconvmsgdelete(Date datetime) {
+
+        if (datetime == null) {
+            return "";
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(datetime);
+        Calendar yesterday = Calendar.getInstance();
+        yesterday.add(Calendar.DATE, -1);
+
+        String beforedate = null;
+        int date = yesterday.get(Calendar.DAY_OF_MONTH);
+        int month = yesterday.get(Calendar.MONTH) + 1;
+        int year = yesterday.get(Calendar.YEAR);
+        if (month < 10 && date <10) {
+            beforedate = String.valueOf("0"+date + "-" + "0" + month + "-" + year);
+        } else {
+            beforedate = String.valueOf(date + "-" + month + "-" + year);
+        }
+
+
+        return beforedate;
+
+    }
 
 }

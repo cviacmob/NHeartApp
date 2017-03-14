@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
 
 
@@ -103,7 +104,13 @@
             android:label="Invitation " ></activity>
         <activity android:name=".activities.Skezo_Main"></activity>
 
+        <receiver android:name="com.cviac.nheart.nheartapp.receivers.AlarmReceiver">
+            <intent-filter>
+                <action android:name="android.media.action.DISPLAY_NOTIFICATION" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCIAnxOUUAOXG80YnmHgF5BS0-4ht6KIIA" />

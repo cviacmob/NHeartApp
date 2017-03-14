@@ -3,13 +3,14 @@ package com.cviac.nheart.nheartapp.activities;
 import android.Manifest;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -52,6 +53,7 @@ import com.cviac.nheart.nheartapp.fragments.GiftFragment;
 import com.cviac.nheart.nheartapp.fragments.HugFragment;
 import com.cviac.nheart.nheartapp.fragments.MusicFragment;
 import com.cviac.nheart.nheartapp.fragments.SkezoFragment;
+import com.cviac.nheart.nheartapp.receivers.AlarmReceiver;
 import com.cviac.nheart.nheartapp.restapi.AddCookiesInterceptor;
 import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
 import com.cviac.nheart.nheartapp.restapi.ReceivedCookiesInterceptor;
@@ -63,6 +65,7 @@ import com.squareup.okhttp.OkHttpClient;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -93,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
     String mob = Prefs.getString("to_mobile", "");
 
 
+    private AlarmManager alarmMgr;
+    private PendingIntent alarmIntent;
     static TabLayout tabLayout;
     private LayerDrawable mcartMenuIcon;
     private int mCartCount = 0;
@@ -185,9 +190,7 @@ public class MainActivity extends AppCompatActivity {
         //checkPermissions();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-
+        setAlaram();
 
 
 
@@ -252,9 +255,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void setAlaram() {
+        //List<Employee> emplist = Employee.eventsbydate();
+        alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 2);
+        calendar.set(Calendar.MINUTE, 0);
+        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, alarmIntent);
 
-
+    }
 
     private void setTabIcon(TabLayout.Tab tab, boolean isSelected) {
         String tabTitle = tab.getTag().toString();
@@ -369,10 +383,10 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(h);
                 }
                 break;
+            case R.id.location:
 
-            case R.id.Address:
-                Intent e = new Intent(MainActivity.this, ChangeAddressActivity.class);
-                startActivityForResult(e, 1000);
+                Intent v = new Intent(MainActivity.this, MapsActivity.class);
+                startActivity(v);
                 break;
             case R.id.loc:
 
