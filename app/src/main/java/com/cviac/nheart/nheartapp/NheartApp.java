@@ -3,6 +3,7 @@ package com.cviac.nheart.nheartapp;
 import android.app.Application;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
@@ -55,5 +56,11 @@ public class NheartApp extends MultiDexApplication {
 
     public void setChatFrag(ChatFragment chatFrag) {
         this.chatFrag = chatFrag;
+    }
+
+    public void notifyCartChange(String action) {
+        Intent i = new Intent("notifyCartChange");
+        i.putExtra("action", action);
+        sendBroadcast(i);
     }
 }

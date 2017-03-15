@@ -77,7 +77,7 @@ public class ProductdetailsActivity extends AppCompatActivity {
         iv1 = (ImageView) findViewById(R.id.image);
         tv2 = (TextView) findViewById(R.id.descr);
         text1=(TextView) findViewById(R.id.new1);
-         text2=(TextView) findViewById(R.id.discount);
+        text2=(TextView) findViewById(R.id.discount);
         Button addtocartbutton = (Button) findViewById(R.id.addtocart);
         addtocartbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +103,7 @@ public class ProductdetailsActivity extends AppCompatActivity {
 
 
         text2.setPaintFlags(text2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-       // text2.setText("₹ 45");
+        // text2.setText("₹ 45");
 
 //        text1.setText("₹ 25");
 //
@@ -134,7 +134,7 @@ public class ProductdetailsActivity extends AppCompatActivity {
                 tv2.setText(Html.fromHtml(Html.fromHtml(detail).toString()));
 //                CharSequence squence = Html.fromHtml(detail);
 //                SpannableStringBuilder strbuilder = new SpannableStringBuilder(squence);
-              //  tv2.setText(detail);
+                //  tv2.setText(detail);
                 tv.setText(prdetail.getName());
                 text1.setText(prdetail.getPrice());
                 text2.setText(prdetail.getSpecial());
@@ -189,7 +189,7 @@ public class ProductdetailsActivity extends AppCompatActivity {
         okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
         okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
         okHttpClient.interceptors().add(new AddCookiesInterceptor());
-         okHttpClient.interceptors().add(new ReceivedCookiesInterceptor());
+        okHttpClient.interceptors().add(new ReceivedCookiesInterceptor());
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.domainname))
                 .addConverterFactory(GsonConverterFactory.create())
@@ -242,14 +242,14 @@ public class ProductdetailsActivity extends AppCompatActivity {
 
     private void addToCart(String prodId, String quantity) {
         String token = Prefs.getString("token", null);
-       // if (token != null)
+        // if (token != null)
         {
             OkHttpClient okHttpClient = new OkHttpClient();
             okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
             okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
             okHttpClient.interceptors().add(new AddCookiesInterceptor());
             okHttpClient.interceptors().add(new ReceivedCookiesInterceptor());
-             Retrofit retrofit = new Retrofit.Builder()
+            Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(getString(R.string.domainname))
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(okHttpClient)

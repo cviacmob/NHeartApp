@@ -3,20 +3,25 @@ package com.cviac.nheart.nheartapp.activities;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cviac.nheart.nheartapp.NheartApp;
 import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.adapters.CartItemAdapter;
@@ -26,6 +31,7 @@ import com.cviac.nheart.nheartapp.datamodel.Addressinfo;
 import com.cviac.nheart.nheartapp.datamodel.CartTotalInfo;
 import com.cviac.nheart.nheartapp.datamodel.GeneralResponse;
 import com.cviac.nheart.nheartapp.datamodel.GetCartItemsResponse;
+import com.cviac.nheart.nheartapp.datamodel.PaymentMethodsInfo;
 import com.cviac.nheart.nheartapp.datamodel.PaymentMethodsResponse;
 import com.cviac.nheart.nheartapp.datamodel.ProductCartInfo;
 import com.cviac.nheart.nheartapp.datamodel.ShippingMethodsResponse;
@@ -51,7 +57,7 @@ public class ContinueActivity extends AppCompatActivity {
     TextView tv1, tv2, tv3,tv4,tv5,tv6,tv7, total, pay;
     ListView lv;
     GridView gv;
-    Button b1;
+    ImageButton b1;
     RadioGroup rg;
     RadioButton rb, rb1, rb2, rb3;
     List<ProductCartInfo> cartProducts;
@@ -59,14 +65,14 @@ public class ContinueActivity extends AppCompatActivity {
     List<Addressinfo> addrlist;
     PaymentItemAdapter adapter;
     ContinueGridAdapter adpt;
-    String paymethod = "cod";
+    String paymethod = "";
     String shipmethod = "flat";
     Addressinfo pay_addr;
     Addressinfo ship_addr;
     String address, add1, add2;
     ProgressDialog progressDialog = null;
     AlertDialog levelDialog = null;
-
+List<PaymentMethodsInfo> pay_mthd;
     @InjectView(R.id.paylist)
     NonScrollableListview nonScrollListView;
 
@@ -93,10 +99,10 @@ public class ContinueActivity extends AppCompatActivity {
         nonScrollListView = (NonScrollableListview) findViewById(R.id.paylist);
         nonScrollListView.setAdapter(adapter);
 
-        rb = (RadioButton) findViewById(R.id.Credit);
-        rb1 = (RadioButton) findViewById(R.id.Paytm);
-        rb2 = (RadioButton) findViewById(R.id.Debit);
-        rb3 = (RadioButton) findViewById(R.id.cash);
+//        rb = (RadioButton) findViewById(R.id.Credit);
+//        rb1 = (RadioButton) findViewById(R.id.Paytm);
+//        rb2 = (RadioButton) findViewById(R.id.Debit);
+//        rb3 = (RadioButton) findViewById(R.id.cash);
         total = (TextView) findViewById(R.id.amount);
         pay = (TextView) findViewById(R.id.pay);
         pay.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +111,7 @@ public class ContinueActivity extends AppCompatActivity {
                 checkOut();
             }
         });
-        b1 = (Button) findViewById(R.id.change);
+        b1 = (ImageButton) findViewById(R.id.change);
         b1.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -183,8 +189,111 @@ public class ContinueActivity extends AppCompatActivity {
 
     }
 
+    private void loadPaymentMethods() {
+
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.interceptors().add(new AddCookiesInterceptor());
+        okHttpClient.interceptors().add(new ReceivedCookiesInterceptor());
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getString(R.string.domainname))
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build();
+
+        OpenCartAPI api = retrofit.create(OpenCartAPI.class);
+
+        int c_id = Prefs.getInt("customer_id", -1);
+        Call<PaymentMethodsResponse> call = api.getPaymentMethods();
+        call.enqueue(new Callback<PaymentMethodsResponse>() {
+
+            public void onResponse(Response<PaymentMethodsResponse> response, Retrofit retrofit) {
+                PaymentMethodsResponse rsp = response.body();
+                pay_mthd = rsp.getPayment_methods();
+                if (pay_mthd != null && pay_mthd.size() > 0) {
+                    addRadioButtons(pay_mthd);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void addRadioButtons(final List<PaymentMethodsInfo> methods) {
+
+        for (int row = 0; row < 1; row++) {
+            RadioGroup group = new RadioGroup(this);
+            group.setOrientation(LinearLayout.HORIZONTAL);
+
+            for (int i = 0; i < methods.size(); i++) {
+                PaymentMethodsInfo info = methods.get(i);
+                RadioButton rdbtn = new RadioButton(this);
+                rdbtn.setId(i);
+                rdbtn.setTag(info);
+                rdbtn.setText(info.getTitle());
+                group.addView(rdbtn);
+            }
+            ((ViewGroup) findViewById(R.id.radio)).addView(group);
+            group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                    PaymentMethodsInfo info = methods.get(checkedId);
+                    paymethod = info.getCode();
+                }
+            });
+        }
+    }
+
+    private boolean validateAddress(Addressinfo info) {
+        if (info.getFirstname().isEmpty()) {
+            return false;
+        }
+        if (info.getAddress_1().isEmpty()) {
+            return false;
+        }
+        if (info.getAddress_2().isEmpty()) {
+            return false;
+        }
+        if (info.getCity().isEmpty()) {
+            return false;
+        }
+        if (info.getPostcode().isEmpty()) {
+            return false;
+        }
+        if (info.getZone_id().isEmpty()) {
+            return false;
+        }
+        if (info.getCountry_id().isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateCheckout() {
+        if (paymethod.isEmpty()) {
+            Toast.makeText(ContinueActivity.this, "Select a Payment Method", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (validateAddress(pay_addr) == false) {
+            Toast.makeText(ContinueActivity.this, "Fill Payment Address", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (validateAddress(ship_addr) == false) {
+            Toast.makeText(ContinueActivity.this, "Fill Shipping Address", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
     private void checkOut() {
-        setCustmoerSession();
+        if (validateCheckout() == true) {
+            setCustmoerSession();
+        }
     }
 
     private void setCustmoerSession() {
@@ -481,6 +590,10 @@ public class ContinueActivity extends AppCompatActivity {
             public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
                 progressDialog.dismiss();
                 ResponseBody rsp = response.body();
+
+                NheartApp app = (NheartApp)  getApplication();
+                app.notifyCartChange("order");
+
                 Toast.makeText(ContinueActivity.this, "Placed Order Successfully", Toast.LENGTH_LONG).show();
                 finish();
             }

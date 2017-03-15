@@ -47,9 +47,9 @@ public class ChangeAddressActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        String aname = Prefs.getString("Regname", "User_Name");
-        String amail = Prefs.getString("Regmail", "User_Email");
-        String aphone = Prefs.getString("Regphone", "User_Phone");
+        String aname = Prefs.getString("name", "");
+        String amail = Prefs.getString("email", "");
+        String aphone = Prefs.getString("mobile", "");
 
         tv1 = (TextView) findViewById(R.id.uname);
         tv2 = (TextView) findViewById(R.id.umail);

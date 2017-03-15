@@ -1,10 +1,12 @@
 package com.cviac.nheart.nheartapp.datamodel;
 
+import java.io.Serializable;
+
 /**
- * Created by admin1 on 3/13/2017.
+ * Created by admin1 on 3/14/2017.
  */
 
-class PaymentMethodsInfo {
+public class PaymentMethodsInfo implements Serializable {
     private String code;
     private String title;
     private String terms;

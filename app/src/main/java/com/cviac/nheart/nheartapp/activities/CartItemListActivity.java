@@ -36,7 +36,6 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class CartItemListActivity extends AppCompatActivity{
-
     ListView lv;
     List<ProductCartInfo> cartProducts;
     CartItemAdapter adapter;
@@ -45,7 +44,7 @@ public class CartItemListActivity extends AppCompatActivity{
     String s;
 
     android.support.v7.app.ActionBar actionBar;
-     Button cartcontinue;
+    Button cartcontinue;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

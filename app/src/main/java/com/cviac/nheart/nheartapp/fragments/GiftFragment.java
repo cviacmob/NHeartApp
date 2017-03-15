@@ -2,9 +2,13 @@ package com.cviac.nheart.nheartapp.fragments;
 
         import android.app.Activity;
         import android.app.ProgressDialog;
+        import android.content.BroadcastReceiver;
         import android.content.Context;
 
         import android.content.Intent;
+        import android.content.IntentFilter;
+        import android.graphics.drawable.Drawable;
+        import android.graphics.drawable.LayerDrawable;
         import android.os.AsyncTask;
         import android.os.Bundle;
         import android.os.IBinder;
@@ -22,6 +26,7 @@ package com.cviac.nheart.nheartapp.fragments;
 
 
        // import com.cviac.nheart.nheartapp.activities.GridViewone;
+        import com.cviac.nheart.nheartapp.Prefs;
         import com.cviac.nheart.nheartapp.R;
         //import com.squareup.picasso.Picasso;
         import android.widget.AdapterView;
@@ -30,10 +35,12 @@ package com.cviac.nheart.nheartapp.fragments;
 
         import com.cviac.nheart.nheartapp.adapters.Productsadapter;
         import com.cviac.nheart.nheartapp.datamodel.CategoryProductsResponse;
+        import com.cviac.nheart.nheartapp.datamodel.GetCartItemsResponse;
         import com.cviac.nheart.nheartapp.datamodel.Product;
         import com.cviac.nheart.nheartapp.restapi.AddCookiesInterceptor;
         import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
         import com.cviac.nheart.nheartapp.restapi.ReceivedCookiesInterceptor;
+        import com.cviac.nheart.nheartapp.utilities.BadgeDrawable;
         import com.squareup.okhttp.OkHttpClient;
 
         import java.util.ArrayList;
@@ -55,7 +62,10 @@ public class GiftFragment extends Fragment{
     List<Product> prodlist;
     Productsadapter adapter;
     ProgressBar progressBar;
+    private int mCartCount = 0;
+    private LayerDrawable mcartMenuIcon;
     ProgressBar pb;
+    private BroadcastReceiver listenCartChange;
     ProgressDialog progressDialog = null;
 
     @Nullable
@@ -117,14 +127,78 @@ public class GiftFragment extends Fragment{
 //                            prodlist = null;
 //                    }
 //            });
+        listenCartChange = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                getAndSetCartCount();
+            }
+        };
+        getActivity().registerReceiver(listenCartChange, new IntentFilter("notifyCartChange"));
 
         refresh("61");
         return cv;
 
+
+    }
+    @Override
+    public void onDestroy() {
+
+        super.onDestroy();
+
+        getActivity().unregisterReceiver(listenCartChange);
+    }
+
+    public static void setBadgeCount(Context context, LayerDrawable icon, String count) {
+
+        BadgeDrawable badge;
+
+        // Reuse drawable if possible
+        Drawable reuse = icon.findDrawableByLayerId(R.id.ic_cart_badge);
+        if (reuse != null && reuse instanceof BadgeDrawable) {
+            badge = (BadgeDrawable) reuse;
+        } else {
+            badge = new BadgeDrawable(context);
+        }
+
+        badge.setCount(count);
+        icon.mutate();
+        icon.setDrawableByLayerId(R.id.ic_cart_badge, badge);
     }
 
 
 
+    private void getAndSetCartCount() {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.interceptors().add(new AddCookiesInterceptor());
+        okHttpClient.interceptors().add(new ReceivedCookiesInterceptor());
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getString(R.string.domainname))
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build();
+
+        OpenCartAPI api = retrofit.create(OpenCartAPI.class);
+
+        String token = Prefs.getString("token", null);
+        Call<GetCartItemsResponse> call = api.getCartItems();
+        call.enqueue(new Callback<GetCartItemsResponse>() {
+
+            public void onResponse(Response<GetCartItemsResponse> response, Retrofit retrofit) {
+                GetCartItemsResponse rsp = response.body();
+                if (rsp != null) {
+                    mCartCount = rsp.getProds().size();
+//                   setBadgeCount(getActivity().getApplication(), mcartMenuIcon, mCartCount + "");
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
 
 
 

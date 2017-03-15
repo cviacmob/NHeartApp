@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cviac.nheart.nheartapp.NheartApp;
 import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.activities.CartItemListActivity;
@@ -212,6 +213,10 @@ public class CartItemAdapter extends BaseAdapter {
                 AddToCartResponse rsp = response.body();
                 CartItemListActivity actv = (CartItemListActivity) mContext;
                 actv.loadCartItems();
+
+
+                NheartApp app = (NheartApp) ((CartItemListActivity) mContext).getApplication();
+                app.notifyCartChange("remove");
             }
 
             @Override

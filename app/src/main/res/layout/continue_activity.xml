@@ -36,6 +36,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/Address"
                 android:layout_marginTop="10dp">
+
                 <TextView
                     android:id="@+id/afirstname"
                     android:layout_width="wrap_content"
@@ -56,61 +57,64 @@
                     android:layout_alignStart="@+id/afirstname"
                     android:layout_below="@+id/afirstname"
                     android:text="address1" />
+
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/aadreess1"
-                    android:paddingLeft="3dp"
-                    android:layout_toRightOf="@+id/aaddress"
-                    android:layout_toEndOf="@+id/aaddress"
-                    android:layout_alignBaseline="@+id/aaddress"
-                    android:text="address2" />
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/aaddress"
+                    android:layout_toEndOf="@+id/aaddress"
+                    android:layout_toRightOf="@+id/aaddress"
+                    android:paddingLeft="3dp"
+                    android:text="address2" />
+
+                <TextView
                     android:id="@+id/Acity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/afirstname"
                     android:layout_alignStart="@+id/afirstname"
                     android:layout_below="@+id/aaddress"
-                    android:text="City"/>
+                    android:text="City" />
+
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/APincode"
-                    android:text="Pincode"
-                    android:paddingLeft="3dp"
-                    android:layout_toRightOf="@+id/Acity"
-                    android:layout_toEndOf="@+id/Acity"
-                    android:layout_alignBaseline="@+id/Acity"/>
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/Acity"
+                    android:layout_toEndOf="@+id/Acity"
+                    android:layout_toRightOf="@+id/Acity"
+                    android:paddingLeft="3dp"
+                    android:text="Pincode" />
+
+                <TextView
                     android:id="@+id/Astate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/afirstname"
                     android:layout_alignStart="@+id/afirstname"
                     android:layout_below="@+id/Acity"
-                    android:text="State"/>
+                    android:text="State" />
+
                 <TextView
+                    android:id="@+id/ACountry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/ACountry"
-                    android:text="Country"
-                    android:paddingLeft="3dp"
-                    android:layout_toRightOf="@+id/Astate"
+                    android:layout_alignBaseline="@+id/Astate"
                     android:layout_toEndOf="@+id/Astate"
-                    android:layout_alignBaseline="@+id/Astate"/>
+                    android:layout_toRightOf="@+id/Astate"
+                    android:paddingLeft="3dp"
+                    android:text="Country" />
 
-                <Button
+                <ImageButton
                     android:id="@+id/change"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginEnd="13dp"
-                    android:layout_marginRight="13dp"
-                    android:background="@color/colorPrimary"
-                    android:text="Change"
-                    android:textColor="#ffffff"
-                    android:textStyle="bold" />
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/pencil"
+               />
 
             </RelativeLayout>
 
@@ -163,50 +167,18 @@
                 android:layout_below="@+id/pay"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
+                android:paddingBottom="5dp"
                 android:text="Choose Your Payment Option"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
-            <com.cviac.nheart.nheartapp.utilities.RadioGridGroup
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:id="@+id/radio"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/choosepayment">
 
-                <TableRow>
-
-                    <RadioButton
-                        android:id="@+id/cash"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="Cash On Delivery" />
-
-                    <RadioButton
-                        android:id="@+id/Paytm"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="50dp"
-                        android:text="Paytm" />
-                </TableRow>
-
-                <TableRow>
-
-                    <RadioButton
-                        android:id="@+id/Credit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="Credit" />
-
-                    <RadioButton
-                        android:id="@+id/Debit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="50dp"
-                        android:text="Debit" />
-                </TableRow>
-
-            </com.cviac.nheart.nheartapp.utilities.RadioGridGroup>
+            </RadioGroup>
 
             <TextView
                 android:id="@+id/amount"
@@ -236,7 +208,6 @@
 
 
     </ScrollView>
-
 
 
 </RelativeLayout>

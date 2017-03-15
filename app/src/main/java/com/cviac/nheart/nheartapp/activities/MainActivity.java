@@ -373,7 +373,10 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
 
-
+            case R.id.MyAddress:
+                Intent vi = new Intent(MainActivity.this, ChangeAddressActivity.class);
+                startActivityForResult(vi, 1000);
+                break;
             case R.id.action_cart:
                 if (mCartCount == 0) {
                     Intent h = new Intent(MainActivity.this, EmptyCartListActivity.class);

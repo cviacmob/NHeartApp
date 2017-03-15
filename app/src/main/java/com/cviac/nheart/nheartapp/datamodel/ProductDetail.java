@@ -7,7 +7,45 @@ import java.io.Serializable;
  */
 
 public class ProductDetail extends Product implements Serializable{
-   // private String price;
+//    private String price;
+//
+//   public String getDescription() {
+//      return description;
+//   }
+//
+//   public void setDescription(String description) {
+//      this.description = description;
+//   }
+//
+//   public String getName() {
+//      return name;
+//   }
+//
+//   public void setName(String name) {
+//      this.name = name;
+//   }
+//
+//   public String getThumb() {
+//      return thumb;
+//   }
+//
+//   public void setThumb(String thumb) {
+//      this.thumb = thumb;
+//   }
+//
+//   private String description;
+//   private String name;
+//   private String thumb;
+//
+//   public String getProduct_id() {
+//      return product_id;
+//   }
+//
+//   public void setProduct_id(String product_id) {
+//      this.product_id = product_id;
+//   }
+//
+//   private String product_id;
 //    private String special;
 //    private String images;
 //    private String seo_h1;
@@ -19,7 +57,7 @@ public class ProductDetail extends Product implements Serializable{
 //    private String reward;
 //    private String points;
 //    private String attribute_groups;
-
+//
 //   public String getPrice(){
 //        return price;
 //    }
@@ -27,7 +65,7 @@ public class ProductDetail extends Product implements Serializable{
 //    {
 //        this.price=price;
 //    }
- //   public String getSpecial(){
+//    public String getSpecial(){
 //        return special;
 //    }
 //   public void setSpecial(String special)
@@ -104,5 +142,5 @@ public class ProductDetail extends Product implements Serializable{
 //    public void setAttribute_groups(String attribute_groups)
 //    {
 //        this.attribute_groups=attribute_groups;
+//   }
    }
-
