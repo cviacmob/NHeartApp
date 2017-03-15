@@ -43,6 +43,7 @@ import android.widget.Toast;
 
 import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
+import com.cviac.nheart.nheartapp.datamodel.ConvMessage;
 import com.cviac.nheart.nheartapp.datamodel.GetCartItemsResponse;
 import com.cviac.nheart.nheartapp.datamodel.LoginResponse;
 import com.cviac.nheart.nheartapp.datamodel.MusicInfo;
@@ -382,11 +383,6 @@ public class MainActivity extends AppCompatActivity {
                     Intent h = new Intent(MainActivity.this, CartItemListActivity.class);
                     startActivity(h);
                 }
-                break;
-            case R.id.location:
-
-                Intent v = new Intent(MainActivity.this, MapsActivity.class);
-                startActivity(v);
                 break;
             case R.id.loc:
 

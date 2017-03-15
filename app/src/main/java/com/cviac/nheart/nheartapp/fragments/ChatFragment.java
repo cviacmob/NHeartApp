@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cviac.nheart.nheartapp.NheartApp;
 import com.cviac.nheart.nheartapp.Prefs;
@@ -64,22 +65,27 @@ public class ChatFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 geteditmgs = edittxt.getText().toString();
-                if (!geteditmgs.equals("")) {
-                    String converseId = getNormalizedConverseId(mynum, tonum);
-                    msgid = getMsgID();
-                    ChatMessage chat = new ChatMessage(converseId, mynum, tonum, geteditmgs, msgid, true);
-                    chat.setSenderName(myname);
-                    XMPPService.sendMessage(chat);
-                    saveChatMessage(chat);
-                    edittxt.getText().clear();
+                if (XMPPService.isNetworkConnected() && XMPPService.xmpp.isConnected()) {
+                    if (!geteditmgs.equals("")) {
+                        String converseId = getNormalizedConverseId(mynum, tonum);
+                        msgid = getMsgID();
+                        ChatMessage chat = new ChatMessage(converseId, mynum, tonum, geteditmgs, msgid, true);
+                        chat.setSenderName(myname);
+                        XMPPService.sendMessage(chat);
+                        saveChatMessage(chat);
+                        edittxt.getText().clear();
 
-                    ChatMsg msg = new ChatMsg();
-                    msg.setSenderid(mynum);
-                    msg.setSendername(myname);
-                    msg.setMsg(geteditmgs);
-                    msg.setMsgid(msgid);
-                    msg.setReceiverid(tonum);
-                    // checkAndSendPushNotfication(conv.getEmpid(), msg);
+                        ChatMsg msg = new ChatMsg();
+                        msg.setSenderid(mynum);
+                        msg.setSendername(myname);
+                        msg.setMsg(geteditmgs);
+                        msg.setMsgid(msgid);
+                        msg.setReceiverid(tonum);
+                        // checkAndSendPushNotfication(conv.getEmpid(), msg);
+                    }
+                }else{
+                    Toast.makeText(getActivity(),
+                            "Check your internet connection", Toast.LENGTH_LONG).show();
                 }
 
 

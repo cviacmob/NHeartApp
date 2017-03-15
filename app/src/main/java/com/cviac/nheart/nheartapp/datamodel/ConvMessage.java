@@ -185,9 +185,12 @@ public static List<ConvMessage> deletelastconvmsg() {
         int date = yesterday.get(Calendar.DAY_OF_MONTH);
         int month = yesterday.get(Calendar.MONTH) + 1;
         int year = yesterday.get(Calendar.YEAR);
-        if (month < 10 && date <10) {
-            beforedate = String.valueOf("0"+date + "-" + "0" + month + "-" + year);
-        } else {
+        if (month < 10 ) {
+            beforedate = String.valueOf(date + "-" + "0" + month + "-" + year);
+        } else if(date <10){
+            beforedate = String.valueOf("0"+date + "-" +month + "-" + year);
+        }
+        else{
             beforedate = String.valueOf(date + "-" + month + "-" + year);
         }
 
