@@ -32,6 +32,7 @@ public class SendToInvite extends AppCompatActivity {
     Button b;
     EditText ed;
     String str,fromname,frommobile,tomobile,fromemail;
+    int cus_id;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,7 @@ public class SendToInvite extends AppCompatActivity {
         fromname= Prefs.getString("name","");
         fromemail=  Prefs.getString("email","");
         frommobile = Prefs.getString("mobile","");
+
         b = (Button) findViewById(R.id.getin);
         img4=(ImageView)findViewById(R.id.imageView5);
         img5=(ImageView)findViewById(R.id.imageView7);
@@ -110,9 +112,10 @@ public class SendToInvite extends AppCompatActivity {
 
                     //String resh=Prefs.getString("unpaired","");
 
-
+//                    cus_id=Prefs.getInt("customer_id",-1);
                     Prefs.putString("to_mobile",to_mobile);
                     Prefs.putInt("inviteId", rsp.getId());
+
 
                     try {
 

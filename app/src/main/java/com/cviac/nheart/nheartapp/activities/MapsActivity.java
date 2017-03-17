@@ -104,11 +104,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                     if (isChecked) {
                         Prefs.putBoolean("trackstatus",true);
-                        //Toast.makeText(getApplicationContext(), "Track On", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Track On", Toast.LENGTH_LONG).show();
                         regLocationChange();
                     } else {
                         Prefs.putBoolean("trackstatus",false);
-                        //Toast.makeText(getApplicationContext(), "Track Off", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Track Off", Toast.LENGTH_LONG).show();
                         unRegLocationChange();
                     }
                 }

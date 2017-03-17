@@ -54,10 +54,10 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class ContinueActivity extends AppCompatActivity {
-    TextView tv1, tv2, tv3,tv4,tv5,tv6,tv7, total, pay;
+    TextView tv1, tv2, tv3,tv4,tv5,tv6,tv7, total, pay,shname,shiaddress,shiaddress1,shicity,shipincode,shistate,shicountry;
     ListView lv;
     GridView gv;
-    ImageButton b1;
+    ImageButton b1,shipimage;
     RadioGroup rg;
     RadioButton rb, rb1, rb2, rb3;
     List<ProductCartInfo> cartProducts;
@@ -128,6 +128,32 @@ List<PaymentMethodsInfo> pay_mthd;
                             ship_addr = addrlist.get(item);
 
                             setAddress(addrlist.get(item));
+
+                        }
+                    }
+                });
+                levelDialog = builder.create();
+                levelDialog.show();
+            }
+        });
+        shipimage=(ImageButton)findViewById(R.id.shipimage) ;
+        shipimage.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ContinueActivity.this);
+                builder.setTitle("Select Address");
+                ArrayAdapter adapter1 = new ArrayAdapter(ContinueActivity.this, android.R.layout.select_dialog_singlechoice, addrlist);
+                builder.setSingleChoiceItems(adapter1, -1, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        levelDialog.dismiss();
+                        if (addrlist != null && addrlist.size() > 0) {
+                            pay_addr = addrlist.get(item);
+                            ship_addr = addrlist.get(item);
+
+                            set_Shipping_Addr(addrlist.get(item));
+
                         }
                     }
                 });
@@ -143,6 +169,14 @@ List<PaymentMethodsInfo> pay_mthd;
         tv5 = (TextView) findViewById(R.id.APincode);
         tv6 = (TextView) findViewById(R.id.Astate);
         tv7 = (TextView) findViewById(R.id.ACountry);
+        shname = (TextView) findViewById(R.id.shipname);
+        shiaddress = (TextView) findViewById(R.id.shipaddress);
+        shiaddress1 = (TextView) findViewById(R.id.shipaddress1);
+        shicity = (TextView) findViewById(R.id.shipcity);
+        shipincode = (TextView) findViewById(R.id.shippincode);
+        shistate = (TextView) findViewById(R.id.shipstate);
+        shicountry = (TextView) findViewById(R.id.Shipcountry);
+
         address = Prefs.getString("Name", "");
         add1 = Prefs.getString("Email", "");
         add2 = Prefs.getString("Phone", "");
@@ -631,6 +665,7 @@ List<PaymentMethodsInfo> pay_mthd;
                 if (addrlist != null && addrlist.size() > 0) {
                     Addressinfo info = addrlist.get(0);
                     setAddress(info);
+                    set_Shipping_Addr(info);
                     pay_addr = info;
                     ship_addr = info;
                 }
@@ -654,6 +689,18 @@ List<PaymentMethodsInfo> pay_mthd;
         tv7.setText(info.getCountry());
 
     }
+    private void set_Shipping_Addr(Addressinfo info) {
+
+       shname.setText(info.getFirstname());
+        shiaddress.setText(info.getAddress_1());
+        shiaddress1.setText(info.getAddress_2());
+        shicity.setText(info.getCity());
+        shipincode.setText(info.getPostcode());
+        shistate.setText(info.getZone());
+        shicountry.setText(info.getCountry());
+
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

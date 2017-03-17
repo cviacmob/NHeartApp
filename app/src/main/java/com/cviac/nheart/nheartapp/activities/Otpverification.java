@@ -115,15 +115,13 @@ public class Otpverification extends AppCompatActivity {
                 if (progressDialog != null) {
                     progressDialog.dismiss();
                 }
-
                 if (rsp.getCode() == 0) {
                     Prefs.putString("isregistered", "true");
                     int inviteId = Prefs.getInt("inviteId", -1);
                     String invited = Prefs.getString("to_mobile", "");
                     String mobile = Prefs.getString("mobile", "");
+
                     if (invited.isEmpty()) {
-
-
                         //not invited
                         getInvitation(mobile);
                     } else {
@@ -131,8 +129,6 @@ public class Otpverification extends AppCompatActivity {
                         //already invited
                         checkInvitation(inviteId);
                     }
-
-
                 } else if (rsp.getCode() == 1005) {
                     progressDialog.dismiss();
                     Toast.makeText(Otpverification.this,
@@ -158,7 +154,6 @@ public class Otpverification extends AppCompatActivity {
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);
 
         Call<List<Invitation>> call = api.getInvitation(mobile);
-
         call.enqueue(new Callback<List<Invitation>>() {
                          @Override
                          public void onResponse(Response<List<Invitation>> response, Retrofit retrofit) {
@@ -170,14 +165,11 @@ public class Otpverification extends AppCompatActivity {
                                  startActivity(logn);
                                  finish();
                              } else {
-
                                  Intent logn = new Intent(Otpverification.this, SendToInvite.class);
                                  startActivity(logn);
                                  finish();
                              }
-
                          }
-
                          @Override
                          public void onFailure(Throwable t) {
                              Toast.makeText(Otpverification.this,
@@ -186,8 +178,6 @@ public class Otpverification extends AppCompatActivity {
                      }
         );
     }
-
-
     private void checkInvitation(int invtId) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://nheart.cviac.com")

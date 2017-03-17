@@ -24,7 +24,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Your Delivery Address"
+                android:text="Billing Address"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
@@ -35,7 +35,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/Address"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:id="@+id/afirstname"
@@ -105,6 +105,92 @@
                     android:layout_toRightOf="@+id/Astate"
                     android:paddingLeft="3dp"
                     android:text="Country" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Shippingadress"
+                    android:layout_below="@+id/ACountry"
+                    android:text="Shipping Address"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"
+                    android:layout_alignLeft="@+id/afirstname"
+                    android:layout_alignStart="@+id/afirstname"/>
+                <TextView
+                    android:id="@+id/shipname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_below="@+id/Shippingadress"
+                    android:text="Fisrtname" />
+
+                <TextView
+                    android:id="@+id/shipaddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/shipname"
+                    android:layout_alignStart="@+id/shipname"
+                    android:layout_below="@+id/shipname"
+                    android:text="address1" />
+
+                <TextView
+                    android:id="@+id/shipaddress1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/shipaddress"
+                    android:layout_toEndOf="@+id/shipaddress"
+                    android:layout_toRightOf="@+id/shipaddress"
+                    android:paddingLeft="3dp"
+                    android:text="address2" />
+
+                <TextView
+                    android:id="@+id/shipcity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/shipaddress"
+                    android:layout_alignStart="@+id/shipaddress"
+                    android:layout_below="@+id/shipaddress"
+                    android:text="City" />
+
+                <TextView
+                    android:id="@+id/shippincode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/shipcity"
+                    android:layout_toEndOf="@+id/shipcity"
+                    android:layout_toRightOf="@+id/shipcity"
+                    android:paddingLeft="3dp"
+                    android:text="Pincode" />
+
+                <TextView
+                    android:id="@+id/shipstate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/afirstname"
+                    android:layout_alignStart="@+id/afirstname"
+                    android:layout_below="@+id/shipcity"
+                    android:text="State" />
+
+                <TextView
+                    android:id="@+id/Shipcountry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/shipstate"
+                    android:layout_toEndOf="@+id/shipstate"
+                    android:layout_toRightOf="@+id/shipstate"
+                    android:paddingLeft="3dp"
+                    android:text="Country" />
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/shipimage"
+                    android:layout_below="@+id/ACountry"
+                    android:background="@drawable/pencil"/>
+
 
                 <ImageButton
                     android:id="@+id/change"
@@ -193,6 +279,8 @@
                 android:textColor="#ffffff"
                 android:textSize="15dp"
                 android:textStyle="bold" />
+
+
             <!--<GridView-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="150dp"-->
