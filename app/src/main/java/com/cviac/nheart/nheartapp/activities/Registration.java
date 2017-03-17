@@ -173,7 +173,7 @@ public class Registration extends AppCompatActivity {
                     Prefs.putString("mobile",mob);
                     Prefs.putString("email",email1);
                     Prefs.putString("name",firstname);
-                    Prefs.putInt("customerid",rsp.getCustomer_id());
+                    Prefs.putInt("customer_id",rsp.getCustomer_id());
 
                     Intent logn = new Intent(Registration.this, Otpverification.class);
                     startActivity(logn);
