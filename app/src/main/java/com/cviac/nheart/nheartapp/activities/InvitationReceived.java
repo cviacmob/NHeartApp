@@ -218,8 +218,8 @@ public class InvitationReceived extends AppCompatActivity {
         PushMessageInfo.DataInfo dinfo = new PushMessageInfo.DataInfo();
         dinfo.setType("inviteresponse");
         dinfo.setMsg(msg);
-        dinfo.setSendername(Prefs.getString("to_name",invite.getTo_mobile() ));
-        dinfo.setSenderid(invite.getTo_mobile());
+        dinfo.setSendername(Prefs.getString("name",invite.getMobile() ));
+        dinfo.setSenderid(invite.getMobile());
         String mypushid = Prefs.getString("pushId","");
         dinfo.setMsgId(mypushid);
         pinfo.setData(dinfo);

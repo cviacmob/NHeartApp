@@ -52,8 +52,8 @@ public class Splashscreen extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         setContentView(R.layout.activity_splash);
 
-        addShortcut();
-        removeShortcut();
+//        addShortcut();
+//        removeShortcut();
         //ivGif = (ImageView) findViewById(R.id.ivGif);
         // Display the GIF (from raw resource) into the ImageView
         //Glide.with(this).load(R.raw.android).asGif().into(imageView);

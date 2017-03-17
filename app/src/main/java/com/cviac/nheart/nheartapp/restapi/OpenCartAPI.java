@@ -31,14 +31,13 @@ import retrofit.http.POST;
 import retrofit.http.Path;
 import retrofit.http.Query;
 
-
 public interface OpenCartAPI {
 
     @FormUrlEncoded
     @POST("/index.php?route=api/account/register")
     Call<ReginfoResponse> register(@Field("firstname") String firstname,
                                    @Field("lastname") String lastname,
-                                   @Field("email")String email,
+                                   @Field("email") String email,
                                    @Field("telephone") String telephone,
                                    @Field("password") String password,
                                    @Field("confirm") String confirm);
@@ -49,17 +48,11 @@ public interface OpenCartAPI {
     @POST("/N-Heart/invite.php/insertotp")
     Call<VerifyOTPResponse> resendOTP(@Body OTPInfo mob);
 
-
-
-
     @GET("/index.php?route=api/category")
     Call<CategoriesResponse> getCategories();
 
-
-
     @GET("/index.php?route=api/category/getproducts")
     Call<CategoryProductsResponse> getProducts(@Query("categoryid") String categoryid);
-
 
     @GET("/index.php?route=api/category/getproductdetails")
     Call<Productdetailresponse> getProductdetails(@Query("productid") String productid);
@@ -82,52 +75,39 @@ public interface OpenCartAPI {
     @GET("/index.php?route=api/cart/products")
     Call<GetCartItemsResponse> getCartItems();
 
-
-
-
-
     @FormUrlEncoded
     @POST("/index.php?route=api/cart/remove")
     Call<removefromCartResponse> remove(@Field("key") String cartid);
+    // @Field("quantity") String quantity
 
-                                        // @Field("quantity") String quantity
 
-
-//
+    //
 //    @FormUrlEncoded
 //    @POST("/index.php?route=api/cart/edit")
 //    Call<updatecartresponse> update(@Query("token") String token,
 //                                    @Field("key") String prodid,
 //                                    @Field("quantity") String quantity
 //    );
-
-
-
     @FormUrlEncoded
     @POST("/N-Heart/invite.php/sendInvite")
     Call<PairStatus> sendInvitation(@Field("name") String name,
-                                    @Field("email")String email,
+                                    @Field("email") String email,
                                     @Field("mobile") String mobile,
                                     @Field("to_mobile") String to_mobile,
-                                    @Field("pushid") String pushid
-    );
+                                    @Field("pushid") String pushid);
 
     @FormUrlEncoded
     @POST("/N-Heart/invite.php/resendinvite")
-    Call<PairStatus> verifyInvitation(@Field("id")int  id);
-
-
+    Call<PairStatus> verifyInvitation(@Field("id") int id);
 
     @GET("/N-Heart/invite.php/checkInvite/{id}")
-    Call<PairStatus> checkInvitation (@Path("id")int id);
-
+    Call<PairStatus> checkInvitation(@Path("id") int id);
 
     @GET("/N-Heart/invite.php/getInvite/{mobile}")
-    Call<List<Invitation>> getInvitation (@Path("mobile")String mobile);
+    Call<List<Invitation>> getInvitation(@Path("mobile") String mobile);
 
     @POST("/N-Heart/invite.php/updateInvite")
     Call<PairStatus> updateInvite(@Body UpdateInvitation update);
-
 
     @FormUrlEncoded
     @POST("/index.php?route=api/address/add")
@@ -203,7 +183,6 @@ public interface OpenCartAPI {
                                             @Field("zone_id") String zone_id,
                                             @Field("country_id") String country_id);
 
-
     @FormUrlEncoded
     @POST("/index.php?route=api/payment/method")
     Call<GeneralResponse> setPaymentMethod(@Field("payment_method") String payment_method);
@@ -231,5 +210,4 @@ public interface OpenCartAPI {
                                   @Field("comment") String comment,
                                   @Field("affiliate_id") String affiliate_id,
                                   @Field("order_status_id") String order_status_id);
-
 }

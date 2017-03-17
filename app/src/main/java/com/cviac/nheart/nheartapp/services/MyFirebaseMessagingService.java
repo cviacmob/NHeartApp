@@ -82,7 +82,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void showInviteRespohnseNotification(Map<String, String> data) {
 
         String status = data.get("msg");
-        String notifyMsg = "Your invitation to " + data.get("sendername") + " is " + status;
+        String notifyMsg = "Your invitation to " + Prefs.getString("to_mobile","") + " is " + status;
 
         Prefs.putString("to_name",data.get("sendername"));
 

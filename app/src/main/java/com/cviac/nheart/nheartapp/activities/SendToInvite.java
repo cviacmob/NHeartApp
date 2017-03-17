@@ -33,6 +33,8 @@ public class SendToInvite extends AppCompatActivity {
     EditText ed;
     String str,fromname,frommobile,tomobile,fromemail;
     int cus_id;
+    int my_id=Prefs.getInt("customer_id",-1);
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
