@@ -21,6 +21,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cviac.nheart.nheartapp.NheartApp;
 import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.datamodel.AddToCartResponse;
@@ -76,8 +77,8 @@ public class ProductdetailsActivity extends AppCompatActivity {
         tv = (TextView) findViewById(R.id.name);
         iv1 = (ImageView) findViewById(R.id.image);
         tv2 = (TextView) findViewById(R.id.descr);
-        text1=(TextView) findViewById(R.id.new1);
-        text2=(TextView) findViewById(R.id.discount);
+        text1 = (TextView) findViewById(R.id.new1);
+        text2 = (TextView) findViewById(R.id.discount);
         Button addtocartbutton = (Button) findViewById(R.id.addtocart);
         addtocartbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +100,6 @@ public class ProductdetailsActivity extends AppCompatActivity {
                 startActivity(h);
             }
         });
-
 
 
         text2.setPaintFlags(text2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -164,7 +164,6 @@ public class ProductdetailsActivity extends AppCompatActivity {
         getAndSetCartCount();
         return true;
     }
-
 
 
     public static void setBadgeCount(Context context, LayerDrawable icon, String count) {
@@ -257,13 +256,16 @@ public class ProductdetailsActivity extends AppCompatActivity {
 
             OpenCartAPI api = retrofit.create(OpenCartAPI.class);
 
-            final Call<AddToCartResponse> call = api.addToCart( prodId, quantity);
+            final Call<AddToCartResponse> call = api.addToCart(prodId, quantity);
             call.enqueue(new Callback<AddToCartResponse>() {
                 @Override
                 public void onResponse(Response<AddToCartResponse> response, Retrofit retrofit) {
                     AddToCartResponse rsp = response.body();
                     getAndSetCartCount();
                     Toast.makeText(ProductdetailsActivity.this, "Added to Cart", Toast.LENGTH_LONG).show();
+
+                    NheartApp app = (NheartApp) getApplication();
+                    app.notifyCartChange("add");
                 }
 
                 @Override

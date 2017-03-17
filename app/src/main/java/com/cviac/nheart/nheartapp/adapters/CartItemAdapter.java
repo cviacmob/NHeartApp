@@ -165,13 +165,12 @@ public class CartItemAdapter extends BaseAdapter {
             public void onResponse(Response<removefromCartResponse> response, Retrofit retrofit) {
                 progressDialog.dismiss();
                 removefromCartResponse rsp = response.body();
-                if (mContext instanceof CartItemListActivity) {
-                    CartItemListActivity actv1 = (CartItemListActivity) mContext;
-                    actv1.loadCartItems();
-                } else {
-                    ContinueActivity actv2 = (ContinueActivity) mContext;
-                    actv2.loadCartItems();
-                }
+
+                NheartApp app = (NheartApp) ((CartItemListActivity) mContext).getApplication();
+                app.notifyCartChange("remove");
+
+                CartItemListActivity actv1 = (CartItemListActivity) mContext;
+                actv1.loadCartItems();
             }
 
             @Override
@@ -214,9 +213,6 @@ public class CartItemAdapter extends BaseAdapter {
                 CartItemListActivity actv = (CartItemListActivity) mContext;
                 actv.loadCartItems();
 
-
-                NheartApp app = (NheartApp) ((CartItemListActivity) mContext).getApplication();
-                app.notifyCartChange("remove");
             }
 
             @Override

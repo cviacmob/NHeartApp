@@ -1,6 +1,5 @@
 package com.cviac.nheart.nheartapp.fragments;
 
-
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -33,8 +32,8 @@ import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
-
 public class ChatFragment extends Fragment {
+
     private ListView lv;
     private ImageButton img;
     private EditText edittxt;
@@ -168,6 +167,7 @@ public class ChatFragment extends Fragment {
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
+
         menu.findItem(R.id.action_category).setVisible(false);
         menu.findItem(R.id.action_cart).setVisible(false);
         menu.findItem(R.id.action_call).setVisible(true);

@@ -1,8 +1,10 @@
 package com.cviac.nheart.nheartapp.activities;
 
 
-
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -35,16 +37,17 @@ import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class CartItemListActivity extends AppCompatActivity{
+public class CartItemListActivity extends AppCompatActivity {
     ListView lv;
     List<ProductCartInfo> cartProducts;
     CartItemAdapter adapter;
     List<CartTotalInfo> cartTotals;
-    TextView total,tv;
+    TextView total, tv;
     String s;
 
     android.support.v7.app.ActionBar actionBar;
     Button cartcontinue;
+    private BroadcastReceiver listenCartChange;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,17 +59,17 @@ public class CartItemListActivity extends AppCompatActivity{
         loadCartItems();
         actionmethod();
 
-        total = (TextView)  findViewById(R.id.totalamout);
-        adapter = new CartItemAdapter(this, R.layout.activity_catogry,cartProducts);
+        total = (TextView) findViewById(R.id.totalamout);
+        adapter = new CartItemAdapter(this, R.layout.activity_catogry, cartProducts);
         lv = (ListView) findViewById(R.id.cartlist);
         lv.setAdapter(adapter);
-        cartcontinue=(Button)findViewById(R.id.Continue);
+        cartcontinue = (Button) findViewById(R.id.Continue);
         cartcontinue.setOnClickListener(new android.view.View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                Intent mainIntent = new Intent(CartItemListActivity.this,ContinueActivity.class);
+                Intent mainIntent = new Intent(CartItemListActivity.this, ContinueActivity.class);
                 startActivity(mainIntent);
             }
         });
@@ -77,6 +80,25 @@ public class CartItemListActivity extends AppCompatActivity{
                 getProduct(pinfo.getProduct_id());
             }
         });
+
+        listenCartChange = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getStringExtra("action");
+                if (action.equalsIgnoreCase("order")) {
+                    finish();
+                } else {
+                    loadCartItems();
+                }
+            }
+        };
+        registerReceiver(listenCartChange, new IntentFilter("notifyCartChange"));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(listenCartChange);
     }
 
     private void getProduct(String productId) {
@@ -100,8 +122,8 @@ public class CartItemListActivity extends AppCompatActivity{
             public void onResponse(Response<Productdetailresponse> response, Retrofit retrofit) {
                 Productdetailresponse rsp = response.body();
                 ProductDetail prdet = rsp.getProduct().get(0);
-                Intent i=new Intent(CartItemListActivity.this, ProductdetailsActivity.class);
-                i.putExtra("productobj",  prdet);
+                Intent i = new Intent(CartItemListActivity.this, ProductdetailsActivity.class);
+                i.putExtra("productobj", prdet);
                 startActivity(i);
             }
 
@@ -128,7 +150,7 @@ public class CartItemListActivity extends AppCompatActivity{
 
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);
 
-        String token = Prefs.getString("token",null);
+        String token = Prefs.getString("token", null);
         Call<GetCartItemsResponse> call = api.getCartItems();
         call.enqueue(new Callback<GetCartItemsResponse>() {
 
@@ -136,12 +158,12 @@ public class CartItemListActivity extends AppCompatActivity{
                 GetCartItemsResponse rsp = response.body();
                 cartProducts.clear();
                 cartProducts.addAll(rsp.getProds());
-                s= String.valueOf(rsp.getProds().size());
+                s = String.valueOf(rsp.getProds().size());
                 tv.setText(s);
                 adapter.notifyDataSetInvalidated();
                 cartTotals = rsp.getTotals();
 
-                total.setText(cartTotals.get(cartTotals.size()-1).getText());
+                total.setText(cartTotals.get(cartTotals.size() - 1).getText());
 
             }
 
@@ -159,7 +181,7 @@ public class CartItemListActivity extends AppCompatActivity{
     }
 
     public void actionmethod() {
-        actionBar =  getSupportActionBar();
+        actionBar = getSupportActionBar();
         if (actionBar != null) {
 // Disable the default and enable the custom
             actionBar.setDisplayShowHomeEnabled(false);
@@ -167,7 +189,7 @@ public class CartItemListActivity extends AppCompatActivity{
             actionBar.setDisplayShowCustomEnabled(true);
             //actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3B5CD1")));
             View customView = getLayoutInflater().inflate(R.layout.activity_fr, null);
-            tv=(TextView) customView.findViewById(R.id.count);
+            tv = (TextView) customView.findViewById(R.id.count);
             tv.setText(s);
             actionBar.setCustomView(customView);
 

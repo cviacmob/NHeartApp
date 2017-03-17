@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
     private GPSTracker mlocService;
     CoordinatorLayout coordinatorLayout;
     private BroadcastReceiver xmppConnReciver;
+    private BroadcastReceiver listenCartChange;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -187,23 +188,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //checkPermissions();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setAlaram();
-
-
-
-        /*final AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
-        appBarLayout.setExpanded(false, true);
-*/
-
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(5);
@@ -227,7 +215,6 @@ public class MainActivity extends AppCompatActivity {
         tab.setIcon(R.mipmap.robo_black);
         tab = tabLayout.getTabAt(4);
         tab.setTag("Hug");
-
 
         tab.setIcon(R.mipmap.ic_people_black_24dp);
         setTitle("Mirror");
@@ -254,10 +241,17 @@ public class MainActivity extends AppCompatActivity {
         getSetToken();
         doBindService();
 
+        listenCartChange = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                getAndSetCartCount();
+            }
+        };
+
+        registerReceiver(listenCartChange, new IntentFilter("notifyCartChange"));
     }
 
     private void setAlaram() {
-        //List<Employee> emplist = Employee.eventsbydate();
         alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(this, AlarmReceiver.class);
@@ -570,11 +564,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getAndSetCartCount() {
+
         OkHttpClient okHttpClient = new OkHttpClient();
         okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
         okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
         okHttpClient.interceptors().add(new AddCookiesInterceptor());
         okHttpClient.interceptors().add(new ReceivedCookiesInterceptor());
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.domainname))
                 .addConverterFactory(GsonConverterFactory.create())
@@ -583,7 +579,6 @@ public class MainActivity extends AppCompatActivity {
 
         OpenCartAPI api = retrofit.create(OpenCartAPI.class);
 
-        String token = Prefs.getString("token", null);
         Call<GetCartItemsResponse> call = api.getCartItems();
         call.enqueue(new Callback<GetCartItemsResponse>() {
 
@@ -594,7 +589,6 @@ public class MainActivity extends AppCompatActivity {
                     setBadgeCount(MainActivity.this, mcartMenuIcon, mCartCount + "");
                 }
             }
-
             @Override
             public void onFailure(Throwable t) {
                 t.printStackTrace();
@@ -609,6 +603,7 @@ public class MainActivity extends AppCompatActivity {
             mp.release();
         }
         doUnbindService();
+        unregisterReceiver(listenCartChange);
     }
 
     String[] permissions = new String[]{
@@ -690,15 +685,10 @@ public class MainActivity extends AppCompatActivity {
     void doUnbindService() {
         if (mService != null) {
             unbindService(mConnection);
-//            if (xmppConnReciver != null) {
-//                unregisterReceiver(xmppConnReciver);
-//            }
         }
-
         if (mlocService != null) {
             unbindService(mLocationConnection);
         }
-
     }
 
     public XMPPService getmService() {

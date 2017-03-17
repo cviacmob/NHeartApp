@@ -198,12 +198,8 @@ ImageView iv1,iv2;
                     startActivity(logn);
                     finish();*/
             }
-                else
 
-                    progressDialog.dismiss();
-                    Toast.makeText(SendInvitationStatus.this,
-                            "Your invitation could not sent ", Toast.LENGTH_LONG).show();
-            }
+        }
 
             @Override
             public void onFailure(Throwable t) {

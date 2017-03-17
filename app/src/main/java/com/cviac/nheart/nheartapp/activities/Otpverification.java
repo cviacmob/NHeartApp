@@ -74,6 +74,7 @@ public class Otpverification extends AppCompatActivity {
         resend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String mobile = Prefs.getString("mobile", "");
 
                 if (counter < 3) {
@@ -178,6 +179,7 @@ public class Otpverification extends AppCompatActivity {
                      }
         );
     }
+
     private void checkInvitation(int invtId) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://nheart.cviac.com")
@@ -220,7 +222,7 @@ public class Otpverification extends AppCompatActivity {
         progressDialog = new ProgressDialog(Otpverification.this,
                 R.style.AppCompatAlertDialogStyle);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Verifying");
+        progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
         progressDialog.show();
 
@@ -241,7 +243,8 @@ public class Otpverification extends AppCompatActivity {
                                  progressDialog.dismiss();
                              }
                              if (rsp.getCode() == 0) {
-
+                                 Toast.makeText(Otpverification.this,
+                                         "Sent", Toast.LENGTH_LONG).show();
                                  otpVerify(mobile,pass);
                                  progressDialog.dismiss();
 

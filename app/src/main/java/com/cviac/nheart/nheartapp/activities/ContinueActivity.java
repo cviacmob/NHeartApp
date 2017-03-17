@@ -54,10 +54,11 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class ContinueActivity extends AppCompatActivity {
-    TextView tv1, tv2, tv3,tv4,tv5,tv6,tv7, total, pay,shname,shiaddress,shiaddress1,shicity,shipincode,shistate,shicountry;
+
+    TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, total, pay, shname, shiaddress, shiaddress1, shicity, shipincode, shistate, shicountry;
     ListView lv;
     GridView gv;
-    ImageButton b1,shipimage;
+    ImageButton b1, shipimage;
     RadioGroup rg;
     RadioButton rb, rb1, rb2, rb3;
     List<ProductCartInfo> cartProducts;
@@ -65,25 +66,17 @@ public class ContinueActivity extends AppCompatActivity {
     List<Addressinfo> addrlist;
     PaymentItemAdapter adapter;
     ContinueGridAdapter adpt;
-    String paymethod = "";
+    String paymethod = "cod";
     String shipmethod = "flat";
     Addressinfo pay_addr;
     Addressinfo ship_addr;
     String address, add1, add2;
     ProgressDialog progressDialog = null;
     AlertDialog levelDialog = null;
-List<PaymentMethodsInfo> pay_mthd;
+    List<PaymentMethodsInfo> pay_mthd;
     @InjectView(R.id.paylist)
     NonScrollableListview nonScrollListView;
 
-    //    String[] web = {
-//            "Credit Card",
-//            "Debit Card",
-//            "Net Banking",
-//            "Emi",
-//            "Gift Voucher",
-//            "Cash on Delivery",
-//    } ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,10 +92,6 @@ List<PaymentMethodsInfo> pay_mthd;
         nonScrollListView = (NonScrollableListview) findViewById(R.id.paylist);
         nonScrollListView.setAdapter(adapter);
 
-//        rb = (RadioButton) findViewById(R.id.Credit);
-//        rb1 = (RadioButton) findViewById(R.id.Paytm);
-//        rb2 = (RadioButton) findViewById(R.id.Debit);
-//        rb3 = (RadioButton) findViewById(R.id.cash);
         total = (TextView) findViewById(R.id.amount);
         pay = (TextView) findViewById(R.id.pay);
         pay.setOnClickListener(new View.OnClickListener() {
@@ -126,9 +115,7 @@ List<PaymentMethodsInfo> pay_mthd;
                         if (addrlist != null && addrlist.size() > 0) {
                             pay_addr = addrlist.get(item);
                             ship_addr = addrlist.get(item);
-
                             setAddress(addrlist.get(item));
-
                         }
                     }
                 });
@@ -136,7 +123,7 @@ List<PaymentMethodsInfo> pay_mthd;
                 levelDialog.show();
             }
         });
-        shipimage=(ImageButton)findViewById(R.id.shipimage) ;
+        shipimage = (ImageButton) findViewById(R.id.shipimage);
         shipimage.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -332,7 +319,7 @@ List<PaymentMethodsInfo> pay_mthd;
 
     private void setCustmoerSession() {
 
-        String cus_id = Prefs.getInt("customerid", -1) + "";
+        String cus_id = Prefs.getInt("customer_id", -1) + "";
         String firstname = Prefs.getString("name", "");
         String email = Prefs.getString("email", "");
         String telephone = Prefs.getString("mobile", "");
@@ -625,7 +612,7 @@ List<PaymentMethodsInfo> pay_mthd;
                 progressDialog.dismiss();
                 ResponseBody rsp = response.body();
 
-                NheartApp app = (NheartApp)  getApplication();
+                NheartApp app = (NheartApp) getApplication();
                 app.notifyCartChange("order");
 
                 Toast.makeText(ContinueActivity.this, "Placed Order Successfully", Toast.LENGTH_LONG).show();
@@ -689,9 +676,10 @@ List<PaymentMethodsInfo> pay_mthd;
         tv7.setText(info.getCountry());
 
     }
+
     private void set_Shipping_Addr(Addressinfo info) {
 
-       shname.setText(info.getFirstname());
+        shname.setText(info.getFirstname());
         shiaddress.setText(info.getAddress_1());
         shiaddress1.setText(info.getAddress_2());
         shicity.setText(info.getCity());
