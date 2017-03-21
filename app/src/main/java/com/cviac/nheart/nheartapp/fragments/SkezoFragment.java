@@ -17,12 +17,14 @@ import android.widget.Toast;
 
 import com.cviac.nheart.nheartapp.R;
 
-import com.cviac.nheart.nheartapp.activities.Chat_Skezo;
+
+import com.cviac.nheart.nheartapp.activities.Chat_hug;
 import com.cviac.nheart.nheartapp.activities.Registration;
-import com.cviac.nheart.nheartapp.activities.Skezo_Main;
+
+import com.cviac.nheart.nheartapp.adapters.Huginfoadapter;
 import com.cviac.nheart.nheartapp.adapters.SkezoInfoAdapter;
-import com.cviac.nheart.nheartapp.datamodel.MusicInfo;
-import com.cviac.nheart.nheartapp.datamodel.SkezoInfo;
+import com.cviac.nheart.nheartapp.datamodel.HugInfo;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +32,7 @@ import java.util.List;
 
 public class SkezoFragment extends Fragment {
     ProgressBar progress;
-    private List<SkezoInfo> skezolist;
+    private List<HugInfo> huglist;
     public ListView lv2;
     ImageButton fab;
     ProgressDialog progressDialog;
@@ -46,7 +48,7 @@ public class SkezoFragment extends Fragment {
         values();
       /*  progress.setVisibility(View.GONE);*/
 
-        SkezoInfoAdapter adapter = new SkezoInfoAdapter(getActivity(), skezolist);
+        Huginfoadapter adapter = new Huginfoadapter(getActivity(), huglist);
 
         lv2.setAdapter(adapter);
 
@@ -54,19 +56,10 @@ public class SkezoFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int pos1, long pos2) {
-                SkezoInfo emp = skezolist.get(pos1);
-
-                if (pos1 == 0)
-                {
-                    Intent i = new Intent(getActivity().getApplicationContext(), Skezo_Main.class);
-                    startActivity(i);
-                }
-
-                if (pos1 == 1)
-                {
-                    Toast.makeText(getContext(), "I'm Under Renovation", Toast.LENGTH_LONG).show();
-
-                }
+                HugInfo emp = huglist.get(pos1);
+                Intent i = new Intent(getActivity().getApplicationContext(), Chat_hug.class);
+                i.putExtra("mob",emp);
+                startActivity(i);
             }
         });
         return view;
@@ -74,13 +67,16 @@ public class SkezoFragment extends Fragment {
 
     private void values(){
 
-        skezolist=new ArrayList<>();
+        huglist=new ArrayList<>();
 
-        SkezoInfo si1=new SkezoInfo(R.mipmap.girlone," ","a moment ago","Libo");
-        skezolist.add(si1);
+        HugInfo hi2 = new HugInfo(R.mipmap.girlone, "1002", "Libo");
+        huglist.add(hi2);
 
-        SkezoInfo si2=new SkezoInfo(R.mipmap.girltwo," ","a moment ago","Tibo");
-        skezolist.add(si2);
+        HugInfo hi = new HugInfo(R.mipmap.girltwo, "1001","Tibo");
+        huglist.add(hi);
+
+
+
 
     }
 

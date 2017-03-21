@@ -24,9 +24,9 @@ import android.widget.Toast;
 
 import com.cviac.nheart.nheartapp.R;
 
-import com.cviac.nheart.nheartapp.activities.Chat_Skezo;
+
 import com.cviac.nheart.nheartapp.activities.Chat_hug;
-import com.cviac.nheart.nheartapp.activities.Skezo_Main;
+
 import com.cviac.nheart.nheartapp.adapters.ConvMessageAdapter;
 import com.cviac.nheart.nheartapp.adapters.Huginfoadapter;
 import com.cviac.nheart.nheartapp.adapters.SkezoInfoAdapter;
@@ -85,13 +85,13 @@ public class HugFragment extends Fragment {
 
         huglist = new ArrayList<>();
 
-        HugInfo hi2 = new HugInfo(R.mipmap.docter, "9894250016", "thank you","101", "Doctor");
+        HugInfo hi2 = new HugInfo(R.mipmap.docter, "9894250016", "Doctor");
         huglist.add(hi2);
 
-        HugInfo hi = new HugInfo(R.mipmap.doctor22, "9791234809", "hello", "102", "Advisor");
+        HugInfo hi = new HugInfo(R.mipmap.doctor22, "9791234809", "Advisor");
         huglist.add(hi);
 
-        HugInfo hi1 = new HugInfo(R.mipmap.coun, "7871816364", "how are you","103", "Counsellor");
+        HugInfo hi1 = new HugInfo(R.mipmap.coun, "7871816364","Counsellor");
         huglist.add(hi1);
 
     }

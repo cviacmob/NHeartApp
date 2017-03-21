@@ -33,8 +33,6 @@ AcceptAnimationAcitvity  extends AppCompatActivity {
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_acceptscree);
 
-
-
         web = (WebView)findViewById(R.id.web3);
         tv=(TextView) findViewById(R.id.textView3) ;
         tv2=(TextView) findViewById(R.id.textView4) ;

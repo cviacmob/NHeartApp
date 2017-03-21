@@ -27,10 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.Manifest;
 
-import org.alicebot.ab.AIMLProcessor;
-import org.alicebot.ab.Chat;
-import org.alicebot.ab.MagicStrings;
-import org.alicebot.ab.PCAIMLProcessorExtension;
+
 
 
 import com.cviac.nheart.nheartapp.NheartApp;
@@ -66,7 +63,7 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
     private EditText mEditTextMessage;
 
     private static final int MY_PERMISSION_CALL_PHONE = 10;
-    public static Chat chat;
+
     private ChatMessageAdapter mAdapter;
     HugInfo hug;
     String ss1, mob;
@@ -85,7 +82,7 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_virtual);
+        setContentView(R.layout.activity_chat);
 
         lv = (ListView) findViewById(R.id.listViewChat);
         lv.setDivider(null);
@@ -103,9 +100,6 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
 
         final String MyPREFERENCES = "MyPrefs";
         SharedPreferences prefs = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
-
-
-
 
         mob = hug.getMob();
         ss1 = hug.getTitle();
@@ -143,7 +137,6 @@ public class Chat_hug extends AppCompatActivity implements View.OnClickListener 
         });
         NheartApp app = (NheartApp)getApplication();
         //app.setChatFrag(this);
-
 
         messageReceiver =new BroadcastReceiver() {
             @Override

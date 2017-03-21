@@ -21,6 +21,7 @@
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
+            android:textColor="#000"
             android:layout_height="wrap_content"
             android:text="Helloworld"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
@@ -29,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Helloworld"
+            android:textColor="#000"
             android:textSize="10dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:layout_below="@+id/text" />

@@ -495,7 +495,12 @@ public class XMPPClient {
                     updateMessageStatusInUI(msgId, 2);
                 } else {
                     processMessage(chatMessage);
-                    sendAckMessage(chatMessage);
+                    if (chatMessage.msgid.startsWith("BotMsgID")) {
+                        // No Ack
+                    }
+                    else {
+                        sendAckMessage(chatMessage);
+                    }
                 }
             }
         }

@@ -27,7 +27,9 @@ public class HugInfo extends Model implements Serializable {
 
 
 
-    public HugInfo(int imgUrl,String mob, String description, String date, String title) {
+
+
+    public HugInfo(int imgUrl,String mob, String title) {
         this.imgUrl = imgUrl;
         this.mob=mob;
         this.description = description;

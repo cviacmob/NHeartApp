@@ -62,7 +62,6 @@ dependencies {
 
     //chatbot
     compile 'me.himanshusoni.chatmessageview:chat-message-view:1.0.3'
-    compile files('libs/Ab.jar')
 
     testCompile 'junit:junit:4.12'
 }

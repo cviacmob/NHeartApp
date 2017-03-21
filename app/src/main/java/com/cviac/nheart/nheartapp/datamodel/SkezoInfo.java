@@ -19,11 +19,18 @@ public class SkezoInfo implements Serializable{
 
 
 
-    public SkezoInfo(int imgUrl, String description, String date, String title) {
+    private String userId;
+
+
+
+
+
+    public SkezoInfo(int imgUrl, String description, String date, String title,String userId) {
         this.imgUrl = imgUrl;
         this.description = description;
         this.date = date;
         this.title = title;
+        this.userId=userId;
     }
 
 
@@ -61,5 +68,12 @@ public class SkezoInfo implements Serializable{
     }
 
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
 }
