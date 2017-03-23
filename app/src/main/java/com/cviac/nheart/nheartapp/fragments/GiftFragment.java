@@ -206,8 +206,8 @@ public class GiftFragment extends Fragment{
             OkHttpClient okHttpClient = new OkHttpClient();
             okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
             okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
-            okHttpClient.interceptors().add(new AddCookiesInterceptor());
-            okHttpClient.interceptors().add(new ReceivedCookiesInterceptor());
+           // okHttpClient.interceptors().add(new AddCookiesInterceptor())
+            // okHttpClient.interceptors().add(new ReceivedCookiesInterceptor());
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.domainname))
                 .addConverterFactory(GsonConverterFactory.create())

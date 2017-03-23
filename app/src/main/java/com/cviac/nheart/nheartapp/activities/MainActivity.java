@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
     private GiftFragment giftFragment;
     private ChatFragment chatFrag;
     GPSTracker gpstracker;
+    private MusicFragment musicFragment;
 
     private MediaPlayer mp = new MediaPlayer();
 
@@ -479,6 +480,7 @@ public class MainActivity extends AppCompatActivity {
 
             switch (position + 1) {
                 case 1:
+
                     chatFrag = new ChatFragment();
 
                     return chatFrag;
@@ -488,7 +490,7 @@ public class MainActivity extends AppCompatActivity {
                     return giftFragment;
                 case 3:
                     //Fragment frag1 = new MusicFragment();
-                    return new MusicFragment();
+                   return  new MusicFragment();
                 case 4:
                     //Fragment frag2 = new SkezoFragment();
                     return new SkezoFragment();
@@ -526,8 +528,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getSetToken() {
-        String token = null; //Prefs.getString("token", null);
-        if (token == null) {
+       // String token = Prefs.getString("token", null);
+       // if (token == null)
+        {
             OkHttpClient okHttpClient = new OkHttpClient();
             okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
             okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
@@ -538,6 +541,8 @@ public class MainActivity extends AppCompatActivity {
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(okHttpClient)
                     .build();
+
+            //Prefs.remove("oc_cookies");
 
             OpenCartAPI api = retrofit.create(OpenCartAPI.class);
 
@@ -552,7 +557,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(Response<LoginResponse> response, Retrofit retrofit) {
                     int code = response.code();
                     LoginResponse rsp = response.body();
-                    Prefs.putString("token", rsp.getToken());
+
                 }
 
                 @Override
@@ -634,8 +639,10 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
 
             case MY_PERMISSION_MEDIA:
-                if (grantResults.length > 0) {
-
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    if (musicFragment != null) {
+//                        musicFragment.loadMedias();
+//                    }
                 }
                 break;
             case MY_PERMISSION_LOCATION: {

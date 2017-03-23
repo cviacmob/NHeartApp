@@ -350,6 +350,7 @@ public class XMPPClient {
                     }
                 });
             Log.d("xmpp", "ConnectionCLosed!");
+
             connected = false;
             chat_created = false;
             loggedin = false;

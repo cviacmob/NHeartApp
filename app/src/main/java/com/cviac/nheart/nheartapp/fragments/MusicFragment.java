@@ -50,6 +50,7 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,12 +74,19 @@ public class MusicFragment extends Fragment {
 
     private MusicInfoAdapter adapter;
 
-    private ProgressDialog progressDialog=null;
+
+    private ProgressBar pb;
+
+    private View rv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.activity_music, container, false);
+        pb = (ProgressBar) view.findViewById(R.id.progressbarmusic);
+
+        rv = view.findViewById(R.id.rdid);
+
         //btnPlay = (ImageButton) view.findViewById(R.id.btnimg);
 
 
@@ -237,6 +245,7 @@ public class MusicFragment extends Fragment {
             bduration.setText(songlist.get(0).getDuration());
             Picasso.with(getContext()).load(Uri.parse("file://" + songlist.get(0).getImgUrl())).resize(50, 50).into(songimg);
         } else {
+
             title.setText("");
             artist.setText("");
             bduration.setText("");
@@ -244,6 +253,9 @@ public class MusicFragment extends Fragment {
         return view;
     }
 
+    public void loadMedias() {
+        new LoadMediaTask().execute();
+    }
 
     private class LoadMediaTask extends AsyncTask<String, Integer, Long> {
 
@@ -253,15 +265,19 @@ public class MusicFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-//            progressDialog=new ProgressDialog(getContext(),R.style.AppTheme_AppBarOverlay);
-//            progressDialog.setIndeterminate(true);
-//            progressDialog.setMessage("Loading");
-//            progressDialog.setCancelable(false);
-//            progressDialog.show();
+            pb.setVisibility(ProgressBar.VISIBLE);
+            lv.setVisibility(View.INVISIBLE);
+            rv.setVisibility(View.INVISIBLE);
+
         }
 
         @Override
         protected Long doInBackground(String... params) {
+            try {
+                Thread.sleep(1000*3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             list = listOfSongs(getActivity());
             return null;
         }
@@ -269,12 +285,17 @@ public class MusicFragment extends Fragment {
         @Override
         protected void onPostExecute(Long aLong) {
             super.onPostExecute(aLong);
-//            if (progressDialog!=null){
-//                progressDialog.dismiss();
-//            }
+            pb.setVisibility(ProgressBar.INVISIBLE);
+
             ((MainActivity) getActivity()).setSonglist(list);
             songlist = list;
             if (songlist.size() > 0) {
+                lv.setVisibility(View.VISIBLE);
+                rv.setVisibility(View.VISIBLE);
+                adapter = new MusicInfoAdapter(getActivity(), songlist);
+                lv.setAdapter(adapter);
+
+
                 MusicInfo info = songlist.get(0);
                 title.setText(info.getTitle());
                 artist.setText(info.getSingers());
@@ -292,8 +313,7 @@ public class MusicFragment extends Fragment {
                 artist.setText("");
                 bduration.setText("");
             }
-            adapter = new MusicInfoAdapter(getActivity(), songlist);
-            lv.setAdapter(adapter);
+
         }
     }
 

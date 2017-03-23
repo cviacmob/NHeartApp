@@ -161,10 +161,32 @@ public class Otpverification extends AppCompatActivity {
                              List<Invitation> invits = response.body();
 
                              if (invits != null && invits.size() > 0) {
-                                 Intent logn = new Intent(Otpverification.this, InvitationReceived.class);
-                                 logn.putExtra("invite", invits.get(0));
-                                 startActivity(logn);
-                                 finish();
+                                 Invitation invt = invits.get(0);
+                                 if (invt.getStatus().equalsIgnoreCase("paired")) {
+
+                                     Prefs.putString("paired", "true");
+                                     Prefs.putInt("inviteId", -1);
+
+                                     String mobile = Prefs.getString("mobile", "");
+                                     if (invt.getMobile().equalsIgnoreCase(mobile)) {
+                                         String ss = invt.getTo_mobile();
+                                         Prefs.putString("to_mobile", ss);
+
+                                     } else {
+                                         String mob = invt.getMobile();
+                                         Prefs.putString("to_mobile", mob);
+                                     }
+
+                                     Intent logn1 = new Intent(Otpverification.this, MainActivity.class);
+                                     startActivity(logn1);
+                                     finish();
+
+                                 } else {
+                                     Intent logn = new Intent(Otpverification.this, InvitationReceived.class);
+                                     logn.putExtra("invite", invits.get(0));
+                                     startActivity(logn);
+                                     finish();
+                                 }
                              } else {
                                  Intent logn = new Intent(Otpverification.this, SendToInvite.class);
                                  startActivity(logn);
@@ -194,6 +216,7 @@ public class Otpverification extends AppCompatActivity {
                          public void onResponse(Response<PairStatus> response, Retrofit retrofit) {
                              PairStatus pairstatus = response.body();
                              if (pairstatus.getStatus().equalsIgnoreCase("paired")) {
+                                 Prefs.putString("paired", "true");
                                  Intent logn = new Intent(Otpverification.this, MainActivity.class);
                                  startActivity(logn);
                                  finish();
@@ -245,7 +268,7 @@ public class Otpverification extends AppCompatActivity {
                              if (rsp.getCode() == 0) {
                                  Toast.makeText(Otpverification.this,
                                          "Sent", Toast.LENGTH_LONG).show();
-                                 otpVerify(mobile,pass);
+
                                  progressDialog.dismiss();
 
 

@@ -5,36 +5,61 @@ package com.cviac.nheart.nheartapp.datamodel;
  */
 public class LoginResponse {
 
-
-    private String success;
-    private String token;
-
-    private ErrorInfo error;
+    int code;
+    String desc;
+    String email;
+    int customer_id;
+    String firstname;
+    String telephone;
 
     public LoginResponse() {
     }
 
-    public String getSuccess() {
-        return success;
+    public String getEmail() {
+        return email;
     }
 
-    public void setSuccess(String success) {
-        this.success = success;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getToken() {
-        return token;
+    public int getCustomer_id() {
+        return customer_id;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setCustomer_id(int customer_id) {
+        this.customer_id = customer_id;
     }
 
-    public ErrorInfo getError() {
-        return error;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setError(ErrorInfo error) {
-        this.error = error;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 }

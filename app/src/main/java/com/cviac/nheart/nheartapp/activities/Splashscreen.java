@@ -179,10 +179,6 @@ public class Splashscreen extends Activity {
                                      if (invt.getMobile().equalsIgnoreCase(mobile)) {
                                          String ss = invt.getTo_mobile();
                                          Prefs.putString("to_mobile", ss);
-
-
-
-
                                      } else {
                                          String mob = invt.getMobile();
                                          Prefs.putString("to_mobile", mob);
@@ -234,6 +230,7 @@ public class Splashscreen extends Activity {
 
                              if (pairstatus.getCode() == 0) {
                                  if (pairstatus != null && pairstatus.getStatus().equalsIgnoreCase("paired")) {
+                                     Prefs.putString("paired", "true");
                                      Intent logn = new Intent(Splashscreen.this, MainActivity.class);
                                      startActivity(logn);
                                      finish();

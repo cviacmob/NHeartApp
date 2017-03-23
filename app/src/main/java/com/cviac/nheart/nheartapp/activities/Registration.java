@@ -21,7 +21,9 @@ import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.datamodel.ReginfoResponse;
 import com.cviac.nheart.nheartapp.restapi.Invitation;
+import com.cviac.nheart.nheartapp.restapi.OTPInfo;
 import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
+import com.cviac.nheart.nheartapp.restapi.VerifyOTPResponse;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.util.List;
@@ -195,8 +197,18 @@ public class Registration extends AppCompatActivity {
                 }
                 else{
                     progressDialog.dismiss();
-                    Toast.makeText(Registration.this,
-                            "E~Mail Already Registered", Toast.LENGTH_LONG).show();
+                    Prefs.putString("mobile",mob);
+                    Prefs.putString("email",email1);
+                    Prefs.putString("name",firstname);
+                    Prefs.putInt("customer_id",rsp.getCustomer_id());
+                    Intent logn = new Intent(Registration.this, Otpverification.class);
+                    startActivity(logn);
+                    sendOTP(mob);
+                    finish();
+
+
+//                    Toast.makeText(Registration.this,
+//                            "E~Mail Already Registered", Toast.LENGTH_LONG).show();
                 }
             }
             @Override
@@ -209,6 +221,33 @@ public class Registration extends AppCompatActivity {
         });
     }
 
+    public void sendOTP(final String mob) {
+        progressDialog = new ProgressDialog(Registration.this,
+                R.style.AppCompatAlertDialogStyle);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://nheart.cviac.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        OpenCartAPI api = retrofit.create(OpenCartAPI.class);
+        OTPInfo info = new OTPInfo();
+        info.setMobile(mob);
+        // info.setOtp(pin);
+        Call<VerifyOTPResponse> call = api.resendOTP(info);
+        call.enqueue(new Callback<VerifyOTPResponse>() {
+                         @Override
+                         public void onResponse(Response<VerifyOTPResponse> response, Retrofit retrofit) {
+                             VerifyOTPResponse rsp = response.body();
+
+                         }
+
+                         @Override
+                         public void onFailure(Throwable t) {
+
+                         }
+                     }
+        );
+    }
 
 
 }
