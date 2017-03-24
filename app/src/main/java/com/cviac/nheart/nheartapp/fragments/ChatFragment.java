@@ -201,6 +201,8 @@ public class ChatFragment extends Fragment {
         menu.findItem(R.id.action_search).setVisible(false);
         menu.findItem(R.id.action_call).setVisible(true);
         menu.findItem(R.id.loc).setVisible(true);
+        menu.findItem(R.id.action_search).setVisible(false);
+
 
         super.onPrepareOptionsMenu(menu);
     }

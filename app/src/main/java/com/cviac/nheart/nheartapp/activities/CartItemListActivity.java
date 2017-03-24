@@ -75,6 +75,7 @@ public class CartItemListActivity extends AppCompatActivity {
         });
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
+
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ProductCartInfo pinfo = cartProducts.get(i);
                 getProduct(pinfo.getProduct_id());
