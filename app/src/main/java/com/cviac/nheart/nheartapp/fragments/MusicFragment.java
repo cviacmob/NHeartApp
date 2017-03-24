@@ -273,11 +273,11 @@ public class MusicFragment extends Fragment {
 
         @Override
         protected Long doInBackground(String... params) {
-            try {
-                Thread.sleep(1000*3);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                Thread.sleep(1000*3);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
             list = listOfSongs(getActivity());
             return null;
         }
@@ -333,8 +333,8 @@ public class MusicFragment extends Fragment {
         ArrayList<MusicInfo> listOfSongs = new ArrayList<MusicInfo>();
         if (ContextCompat.checkSelfPermission(getActivity(), (Manifest.permission.READ_EXTERNAL_STORAGE))
                 != PackageManager.PERMISSION_GRANTED)  {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE}, MainActivity.MY_PERMISSION_MEDIA);
+           // ActivityCompat.requestPermissions(getActivity(), new String[]{
+           //         android.Manifest.permission.READ_EXTERNAL_STORAGE}, MainActivity.MY_PERMISSION_MEDIA);
             return listOfSongs;
         }
 
@@ -433,7 +433,6 @@ public class MusicFragment extends Fragment {
         menu.findItem(R.id.action_call).setVisible(false);
         menu.findItem(R.id.action_search).setVisible(false);
         menu.findItem(R.id.loc).setVisible(false);
-        menu.findItem(R.id.action_search).setVisible(false);
         super.onPrepareOptionsMenu(menu);
     }
 }

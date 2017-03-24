@@ -97,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int MY_PERMISSION_LOCATION = 100;
 
+    public static final int MY_PERMISSION_ALL = 1000;
+
     String mob = Prefs.getString("to_mobile", "");
 
 
@@ -165,13 +167,8 @@ public class MainActivity extends AppCompatActivity {
         public void onServiceConnected(final ComponentName name,
                                        final IBinder service) {
             mlocService = ((LocalBinder<GPSTracker>) service).getService();
-            if (ContextCompat.checkSelfPermission(MainActivity.this, (android.Manifest.permission.ACCESS_FINE_LOCATION))
-                    != PackageManager.PERMISSION_GRANTED)  {
-                ActivityCompat.requestPermissions(MainActivity.this, new String[]{
-                        android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSION_LOCATION);
-                return;
-            }
-            else {
+            if (ContextCompat.checkSelfPermission(MainActivity.this,
+                    (android.Manifest.permission.ACCESS_FINE_LOCATION))!= PackageManager.PERMISSION_GRANTED) {
                 mlocService.getLocation();
             }
             Log.d(TAG, "onLocationServiceConnected");
@@ -195,6 +192,10 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setAlaram();
+        checkPermissions();
+    }
+
+    private void setup() {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -286,6 +287,11 @@ public class MainActivity extends AppCompatActivity {
             case "Co Listen":
                 int ic2 = (isSelected) ? R.mipmap.ic_music_circle_white_24dp : R.mipmap.ic_music_circle_black_24dp;
                 tab.setIcon(ic2);
+                if (ContextCompat.checkSelfPermission(this, (Manifest.permission.READ_EXTERNAL_STORAGE))
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, new String[]{
+                            android.Manifest.permission.READ_EXTERNAL_STORAGE}, MainActivity.MY_PERMISSION_MEDIA);
+                }
                 break;
 
             case "Skezo":
@@ -497,8 +503,8 @@ public class MainActivity extends AppCompatActivity {
                     // Fragment frag = new GiftFragment();
                     return giftFragment;
                 case 3:
-                    //Fragment frag1 = new MusicFragment();
-                   return  new MusicFragment();
+                    musicFragment = new MusicFragment();
+                    return  musicFragment;
                 case 4:
                     //Fragment frag2 = new SkezoFragment();
                     return new SkezoFragment();
@@ -620,11 +626,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     String[] permissions = new String[]{
-            Manifest.permission.WRITE_SETTINGS,
-            Manifest.permission.READ_EXTERNAL_STORAGE
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CALL_PHONE,
+            Manifest.permission.ACCESS_FINE_LOCATION
     };
 
-    public boolean checkPermissions() {
+    public void checkPermissions() {
         int result = 1;
         List<String> listPermissionsNeeded = new ArrayList<>();
         for (String p : permissions) {
@@ -635,9 +642,9 @@ public class MainActivity extends AppCompatActivity {
         }
         if (!listPermissionsNeeded.isEmpty()) {
             ActivityCompat.requestPermissions(MainActivity.this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), 1000);
-            return false;
+            return;
         }
-        return true;
+        setup();
     }
 
 
@@ -646,11 +653,15 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
 
+            case MY_PERMISSION_ALL:
+                setup();
+                break;
+
             case MY_PERMISSION_MEDIA:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    if (musicFragment != null) {
-//                        musicFragment.loadMedias();
-//                    }
+                    if (musicFragment != null) {
+                        musicFragment.loadMedias();
+                    }
                 }
                 break;
             case MY_PERMISSION_LOCATION: {
@@ -662,7 +673,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Location track disabled", Toast.LENGTH_LONG).show();
                 }
             }
-
+            break;
             case MY_PERMISSION_CALL_PHONE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Intent callintent = new Intent(Intent.ACTION_CALL);
