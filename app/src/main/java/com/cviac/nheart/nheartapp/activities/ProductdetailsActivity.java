@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.v7.app.ActionBar;
@@ -34,10 +35,16 @@ import com.cviac.nheart.nheartapp.restapi.AddCookiesInterceptor;
 import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
 import com.cviac.nheart.nheartapp.restapi.ReceivedCookiesInterceptor;
 import com.cviac.nheart.nheartapp.utilities.BadgeDrawable;
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.StreamHandler;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -50,12 +57,12 @@ public class ProductdetailsActivity extends AppCompatActivity {
 
     private TextView tv, tv2, text1, text2, tv3, tv4;
     private Button b, b2, Buttoncart, cart;
-    private ImageView iv1;
+    private ImageView iv1,additionimage;
     private RatingBar rating;
     ActionBar actionBar;
     static int count = 0;
-
-    ProductDetail prdetail = null;
+    private SliderLayout imageSlider;
+    ProductDetail prdetail=null ;
 
     private LayerDrawable mcartMenuIcon;
     private int mCartCount = 0;
@@ -69,7 +76,7 @@ public class ProductdetailsActivity extends AppCompatActivity {
 
 
         Intent i = getIntent();
-        Product probj = (Product) i.getSerializableExtra("productobj");
+        final Product probj = (Product) i.getSerializableExtra("productobj");
 
         setTitle(" ");
 
@@ -79,6 +86,7 @@ public class ProductdetailsActivity extends AppCompatActivity {
         tv2 = (TextView) findViewById(R.id.descr);
         text1 = (TextView) findViewById(R.id.new1);
         text2 = (TextView) findViewById(R.id.discount);
+//        additionimage=(ImageView) findViewById(R.id.additionimage) ;
         Button addtocartbutton = (Button) findViewById(R.id.addtocart);
         addtocartbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +117,7 @@ public class ProductdetailsActivity extends AppCompatActivity {
 //
 //        text2.setPaintFlags(text2.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
 //        text2.setText("₹ 45");
-        //  rating=(RatingBar) findViewById(R.id.ratingBar2);
+          rating=(RatingBar) findViewById(R.id.ratingBar2);
 
         OkHttpClient okHttpClient = new OkHttpClient();
         okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
@@ -129,19 +137,15 @@ public class ProductdetailsActivity extends AppCompatActivity {
 
             public void onResponse(Response<Productdetailresponse> response, Retrofit retrofit) {
                 Productdetailresponse rsp = response.body();
-                prdetail = rsp.getProduct().get(0);
-                String detail = prdetail.getDescription();
-                tv2.setText(Html.fromHtml(Html.fromHtml(detail).toString()));
-//                CharSequence squence = Html.fromHtml(detail);
-//                SpannableStringBuilder strbuilder = new SpannableStringBuilder(squence);
-                //  tv2.setText(detail);
-                tv.setText(prdetail.getName());
-                text1.setText(prdetail.getPrice());
-                text2.setText(prdetail.getSpecial());
+                    prdetail = rsp.getProduct().get(0);
+                    String detail = prdetail.getDescription();
+                    tv2.setText(Html.fromHtml(Html.fromHtml(detail).toString()));
+                    tv.setText(prdetail.getName());
+                    text1.setText(prdetail.getPrice());
+                    text2.setText(prdetail.getSpecial());
+                    String url = prdetail.getThumb();
+                    Picasso.with(ProductdetailsActivity.this).load(url).resize(500, 500).into(iv1);
 
-
-                String url = prdetail.getThumb();
-                Picasso.with(ProductdetailsActivity.this).load(url).resize(500, 500).into(iv1);
             }
 
             @Override

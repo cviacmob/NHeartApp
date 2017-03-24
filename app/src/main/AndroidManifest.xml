@@ -59,7 +59,7 @@
             android:label="Reject" />
         <activity
             android:name=".activities.Registration"
-            android:label="Registration"></activity>
+            android:label="Registration" />
         <activity
             android:name=".activities.Otpverification"
             android:label="Mobile Verification" />
@@ -71,12 +71,17 @@
             android:label="Invitation " />
         <activity
             android:name=".activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".activities.SearchQueryActivity" />
+        </activity>
         <activity android:name=".activities.Chat_hug" />
-        <activity android:name=".activities.Chat_Skezo" />
+        <!-- <activity android:name=".activities.Chat_Skezo" /> -->
         <activity
             android:name=".activities.ContinueActivity"
             android:label="" />
+
         <activity
             android:name=".activities.ChangeAddressActivity"
             android:label="" />
@@ -91,7 +96,7 @@
         <activity
             android:name=".activities.SendInvitationStatus"
             android:label="Invitation " />
-        <activity android:name=".activities.Skezo_Main" />
+        <!-- <activity android:name=".activities.Skezo_Main" /> -->
 
         <receiver android:name=".receivers.AlarmReceiver">
             <intent-filter>
@@ -136,7 +141,24 @@
             android:name="AA_DB_VERSION"
             android:value="1" />
 
-        <activity android:name=".activities.Chat_RemoteSkezo"></activity>
+        <activity
+            android:name=".activities.SearchQueryActivity"
+            android:parentActivityName=".activities.MainActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cviac.nheart.nheartapp.activities.MainActivity" />
+            <!-- meta tag and intent filter go into results activity -->
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.SearchResultActivity"></activity>
     </application>
 
 </manifest>

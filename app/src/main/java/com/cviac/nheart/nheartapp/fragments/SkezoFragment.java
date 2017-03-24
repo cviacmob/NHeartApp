@@ -92,6 +92,7 @@ public class SkezoFragment extends Fragment {
         menu.findItem(R.id.action_cart).setVisible(false);
         menu.findItem(R.id.action_call).setVisible(false);
         menu.findItem(R.id.loc).setVisible(false);
+        menu.findItem(R.id.action_search).setVisible(false);
         super.onPrepareOptionsMenu(menu);
     }
 }

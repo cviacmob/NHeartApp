@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -22,7 +23,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 
 
@@ -305,6 +308,12 @@ public class MainActivity extends AppCompatActivity {
         mcartMenuIcon = (LayerDrawable) menu.findItem(R.id.action_cart).getIcon();
         setBadgeCount(this, mcartMenuIcon, "");
         getAndSetCartCount();
+
+        SearchView search = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        search.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this, SearchQueryActivity.class)));
+        search.setQueryHint(getResources().getString(R.string.search_hint));
+        String query = search.getQuery().toString();
         return true;
     }
 

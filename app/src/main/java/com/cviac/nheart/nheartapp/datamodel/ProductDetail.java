@@ -1,6 +1,7 @@
 package com.cviac.nheart.nheartapp.datamodel;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by admin1 on 12/2/2016.
@@ -47,7 +48,16 @@ public class ProductDetail extends Product implements Serializable{
 //
 //   private String product_id;
 //    private String special;
-//    private String images;
+////
+   public List<String> getImages() {
+       return images;
+    }
+
+    public void setImages(List<String> images) {
+       this.images = images;
+    }
+//
+   private List<String> images;
 //    private String seo_h1;
 //    private  String options;
 //    private String minimum;
@@ -72,13 +82,7 @@ public class ProductDetail extends Product implements Serializable{
 //   {
 //       this.special=special;
 //   }
-//    public String getImages(){
-//        return images;
-//    }
-//    public void setImages(String images)
-//    {
-//        this.images=images;
-//    }
+//
 //    public String getSeo_h1(){
 //        return seo_h1;
 //    }
