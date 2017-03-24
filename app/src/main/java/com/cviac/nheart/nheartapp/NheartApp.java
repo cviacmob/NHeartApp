@@ -15,7 +15,7 @@ import com.cviac.nheart.nheartapp.fragments.ChatFragment;
 
 public class NheartApp extends MultiDexApplication {
 
-    private boolean networkstatus=true;
+
 
     public boolean isNetworkstatus() {
         return networkstatus;
@@ -26,6 +26,9 @@ public class NheartApp extends MultiDexApplication {
     }
 
     private ChatFragment chatFrag;
+
+    private boolean networkstatus=true;
+
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -62,5 +65,9 @@ public class NheartApp extends MultiDexApplication {
         Intent i = new Intent("notifyCartChange");
         i.putExtra("action", action);
         sendBroadcast(i);
+    }
+
+    public void setNetworkStatus(boolean networkstatus){
+        this.networkstatus=networkstatus;
     }
 }

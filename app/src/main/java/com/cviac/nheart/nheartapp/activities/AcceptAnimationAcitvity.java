@@ -1,9 +1,12 @@
 package com.cviac.nheart.nheartapp.activities;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
@@ -22,6 +25,7 @@ AcceptAnimationAcitvity  extends AppCompatActivity {
     WebView web;
     //Button b1;
     TextView tv,tv2;
+
     String name,to_name;
     TranslateAnimation animation,animation2;
     private static int SPLASH_TIME_OUT = 6000;
@@ -36,6 +40,7 @@ AcceptAnimationAcitvity  extends AppCompatActivity {
         web = (WebView)findViewById(R.id.web3);
         tv=(TextView) findViewById(R.id.textView3) ;
         tv2=(TextView) findViewById(R.id.textView4) ;
+    final MediaPlayer mp2 = MediaPlayer.create(this, R.raw.songone);
 // web2 = (WebView)findViewById(R.id.web2);
         web.loadUrl("file:///android_asset/accpt.gif");
         web.getSettings().setLoadWithOverviewMode(true);
@@ -47,6 +52,38 @@ AcceptAnimationAcitvity  extends AppCompatActivity {
 
         name = Prefs.getString("name", "");
         to_name= Prefs.getString("to_name","");
+
+
+        int startFrom = 0000;
+        int endAt = SPLASH_TIME_OUT;
+
+
+
+        Runnable stopPlayerTask = new Runnable(){
+            @Override
+            public void run() {
+                mp2.pause();
+            }};
+
+
+
+          // final MediaPlayer mp2 = MediaPlayer.create(this, R.raw.songone);
+            mp2.seekTo(startFrom);
+            mp2.start();
+
+            Handler handler = new Handler();
+            handler.postDelayed(stopPlayerTask, endAt);
+
+
+
+
+//        if(mp2.isPlaying() == false) {
+//            mp2.start();
+//
+//        }
+//      if(mp2.isPlaying() == true)
+//            mp2.stop();
+
 
         Intent i = getIntent();
 //-----to get name from another class-------//
@@ -79,6 +116,9 @@ AcceptAnimationAcitvity  extends AppCompatActivity {
         tv2 .startAnimation(animation2);//your_view for mine is imageView
 
 
+
+
+
         new Handler().postDelayed(new Runnable() {
 
             /*
@@ -93,8 +133,11 @@ AcceptAnimationAcitvity  extends AppCompatActivity {
                 startActivity(i);
 
                 finish();
+
             }
         }, SPLASH_TIME_OUT);
     }
+
+
 }
 

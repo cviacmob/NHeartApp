@@ -233,6 +233,7 @@ public class ProductdetailsActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.action_category).setVisible(false);
+        menu.findItem(R.id.action_search).setVisible(false);
 
         super.onPrepareOptionsMenu(menu);
 

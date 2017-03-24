@@ -90,7 +90,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             SwitchCompat cmpt = (SwitchCompat) customView.findViewById(R.id.switch1);
             title = (TextView) customView.findViewById(R.id.title);
-            toname = Prefs.getString("to_name", "");
+            toname = Prefs.getString("name", "");
             if (toname.isEmpty()) {
                 toname = Prefs.getString("to_mobile", "");
             }

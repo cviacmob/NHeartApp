@@ -528,13 +528,13 @@ public class XMPPClient {
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-//                    CVIACApplication app = (CVIACApplication) context.getApplication();
-//                    if (app != null) {
-//                        XMPPChatActivity actv = app.getChatActivty();
-//                        if (actv != null) {
-//                            actv.updateMessageStatus(msgId, status);
-//                        }
-//                    }
+                  NheartApp app = (NheartApp) context.getApplication();
+                  if (app != null) {
+                       ChatFragment actv = app.getChatFrag();
+                       if (actv != null) {
+                           actv.reload();
+                        }
+                    }
                 }
             });
         }

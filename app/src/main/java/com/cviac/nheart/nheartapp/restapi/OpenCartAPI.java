@@ -51,6 +51,9 @@ public interface OpenCartAPI {
     @GET("/index.php?route=api/category")
     Call<CategoriesResponse> getCategories();
 
+    @GET("/index.php?route=api/search")
+    Call<CategoryProductsResponse> search(@Query("search") String search);
+
     @GET("/index.php?route=api/category/getproducts")
     Call<CategoryProductsResponse> getProducts(@Query("categoryid") String categoryid);
 

@@ -16,6 +16,9 @@ import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.datamodel.PairStatus;
 import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
+import com.squareup.okhttp.OkHttpClient;
+
+import java.util.concurrent.TimeUnit;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -94,6 +97,11 @@ public class SendToInvite extends AppCompatActivity {
         progressDialog.setMessage("Please Wait....");
         progressDialog.setCancelable(false);
         progressDialog.show();
+
+
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://nheart.cviac.com")

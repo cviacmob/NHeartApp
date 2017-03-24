@@ -17,8 +17,10 @@ import com.cviac.nheart.nheartapp.restapi.Invitation;
 import com.cviac.nheart.nheartapp.restapi.OTPInfo;
 import com.cviac.nheart.nheartapp.restapi.OpenCartAPI;
 import com.cviac.nheart.nheartapp.restapi.VerifyOTPResponse;
+import com.squareup.okhttp.OkHttpClient;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -99,6 +101,10 @@ public class Otpverification extends AppCompatActivity {
         progressDialog.setMessage("Verifying....");
         progressDialog.setCancelable(false);
         progressDialog.show();
+
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://nheart.cviac.com")
@@ -248,6 +254,11 @@ public class Otpverification extends AppCompatActivity {
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
         progressDialog.show();
+
+
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://nheart.cviac.com")

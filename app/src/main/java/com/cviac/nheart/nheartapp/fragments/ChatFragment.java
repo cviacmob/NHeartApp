@@ -1,7 +1,11 @@
 package com.cviac.nheart.nheartapp.fragments;
 
+
 import android.app.ActionBar;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,8 +36,8 @@ import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class ChatFragment extends Fragment {
 
+public class ChatFragment extends Fragment {
     private ListView lv;
     private ImageButton img;
     private EditText edittxt;
@@ -43,8 +47,9 @@ public class ChatFragment extends Fragment {
     private ImageView customimage, customimageback;
     private List<ConvMessage> chats;
     private ConvMessageAdapter chatAdapter;
+    String status;
     String mynum, tonum, myname;
-
+    private BroadcastReceiver xmppConnReciver;
 
     @Nullable
     @Override
@@ -60,6 +65,9 @@ public class ChatFragment extends Fragment {
         tonum = Prefs.getString("to_mobile", "");
 
         loadConvMessages();
+
+
+
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,7 +90,7 @@ public class ChatFragment extends Fragment {
                         msg.setReceiverid(tonum);
                         // checkAndSendPushNotfication(conv.getEmpid(), msg);
                     }
-                }else{
+                } else {
                     Toast.makeText(getActivity(),
                             "Check your internet connection", Toast.LENGTH_LONG).show();
                 }
@@ -96,6 +104,7 @@ public class ChatFragment extends Fragment {
         app.setChatFrag(this);
         return chatsfrgs;
     }
+
 
     private String getMsgID() {
 
@@ -155,21 +164,41 @@ public class ChatFragment extends Fragment {
         super.onDestroyView();
         NheartApp app = (NheartApp) getActivity().getApplication();
         app.setChatFrag(null);
+        getActivity().unregisterReceiver(xmppConnReciver);
 
     }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        xmppConnReciver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                status = intent.getStringExtra("status");
+                if (status != null && status.equalsIgnoreCase("connected"))
+
+                {
+                    img.setBackgroundResource(R.drawable.send);
+                } else if (status != null && status.equalsIgnoreCase("Disconnected"))
+
+                {
+                    img.setBackgroundResource(R.drawable.send_red);
+                }
+            }
+
+
+        };
+        getActivity().registerReceiver(xmppConnReciver, new IntentFilter("XMPPConnection"));
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
     }
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-
         menu.findItem(R.id.action_category).setVisible(false);
         menu.findItem(R.id.action_cart).setVisible(false);
+        menu.findItem(R.id.action_search).setVisible(false);
         menu.findItem(R.id.action_call).setVisible(true);
         menu.findItem(R.id.loc).setVisible(true);
 
@@ -177,13 +206,6 @@ public class ChatFragment extends Fragment {
     }
 
 
-    public void statuscheck(String status) {
 
-        if(status !=null && status.equalsIgnoreCase("connected")){
-            img.setBackgroundResource(R.drawable.send);
-        }else if(status !=null && status.equalsIgnoreCase("Disconnected")){
-            img.setBackgroundResource(R.drawable.send_red);
-        }
-    }
 }
 

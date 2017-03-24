@@ -124,6 +124,10 @@ public class InvitationReceived extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://nheart.cviac.com")
                 .addConverterFactory(GsonConverterFactory.create())

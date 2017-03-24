@@ -20,7 +20,7 @@
         android:id="@+id/imageView3" />
 
     <TextView
-        android:text="Your Cart Lsit Is Empty"
+        android:text="Your Cart Listt Is Empty"
         android:layout_width="wrap_content"
         android:textStyle="bold"
         android:textSize="20dp"

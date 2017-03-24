@@ -1,6 +1,7 @@
 package com.cviac.nheart.nheartapp.activities;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -35,12 +36,35 @@ public class RejectAnimationActivity  extends AppCompatActivity {
         setContentView(R.layout.activity_rejectscreen);
 
 
-
+        final MediaPlayer mp2 = MediaPlayer.create(this, R.raw.songone);
         web = (WebView)findViewById(R.id.web1);
         tv=(TextView) findViewById(R.id.textView) ;
         tv2=(TextView) findViewById(R.id.textView2) ;
         name= Prefs.getString("name","");
         toname= Prefs.getString("to_name","");
+
+
+        int startFrom = 0000;
+        int endAt = SPLASH_TIME_OUT;
+
+
+
+        Runnable stopPlayerTask = new Runnable(){
+            @Override
+            public void run() {
+                mp2.pause();
+            }};
+
+
+
+        // final MediaPlayer mp2 = MediaPlayer.create(this, R.raw.songone);
+        mp2.seekTo(startFrom);
+        mp2.start();
+
+        Handler handler = new Handler();
+        handler.postDelayed(stopPlayerTask, endAt);
+
+
 
         animMove=new TranslateAnimation(0.0f, -150.0f, 850.0f, 0.0f);
         animMove.setDuration(1500);
