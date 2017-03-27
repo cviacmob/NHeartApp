@@ -27,6 +27,7 @@ import com.cviac.nheart.nheartapp.R;
 import com.cviac.nheart.nheartapp.adapters.ConvMessageAdapter;
 import com.cviac.nheart.nheartapp.datamodel.ChatMsg;
 import com.cviac.nheart.nheartapp.datamodel.ConvMessage;
+import com.cviac.nheart.nheartapp.receivers.AlarmReceiver;
 import com.cviac.nheart.nheartapp.restapi.GetStatus;
 import com.cviac.nheart.nheartapp.xmpp.ChatMessage;
 import com.cviac.nheart.nheartapp.xmpp.XMPPService;
@@ -115,14 +116,14 @@ public class ChatFragment extends Fragment {
     private void loadConvMessages() {
         converseId = getNormalizedConverseId(mynum, tonum);
         chats = ConvMessage.getAll(converseId);
+        Prefs.putString("converseId",converseId);
         chatAdapter = new ConvMessageAdapter(chats, getActivity());
         lv.setAdapter(chatAdapter);
+
+
     }
 
-    public String getConverseId() {
 
-        return converseId;
-    }
 
     private String getNormalizedConverseId(String myid, String receverid) {
         if (myid.compareTo(receverid) > 0) {

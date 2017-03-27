@@ -152,11 +152,12 @@ public class ConvMessage extends Model {
 //	public static void deleteMessages(int teamId) {
 //		new Delete().from(ConvMessage.class).where("teamId=?", teamId).execute();
 //	}
-public static List<ConvMessage> deletelastconvmsg() {
+public static List<ConvMessage> deletelastconvmsg(String converseid) {
     String dates = lastconvmsgdelete(new Date());
     List<ConvMessage> result = new ArrayList<>();
     List<ConvMessage> conlist = new Select()
             .from(ConvMessage.class)
+            .where("converseid = ?", converseid)
             .execute();
 
     for (ConvMessage con : conlist) {

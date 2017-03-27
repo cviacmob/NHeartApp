@@ -12,6 +12,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
 
+import com.cviac.nheart.nheartapp.Prefs;
 import com.cviac.nheart.nheartapp.datamodel.ConvMessage;
 import com.cviac.nheart.nheartapp.fragments.ChatFragment;
 
@@ -31,13 +32,15 @@ public class AlarmReceiver extends BroadcastReceiver {
     public static String NOTIFICATION_ID = "notification-id";
     public static String NOTIFICATION = "notification";
     private int msgcounter = 0;
-
+    String converseid;
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        converseid=Prefs.getString("converseId", "");
+        ConvMessage.deletelastconvmsg(converseid);
 
-
-        ConvMessage.deletelastconvmsg();
 
     }
+
+
 }
